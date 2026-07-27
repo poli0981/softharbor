@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "softharbor",
+  "compatibility_date": "2026-07-15",
+  // No "main" — pure static assets, requests are unbilled. Adding one flips
+  // billing and the error model: decision-log entry required (docs/02 §7).
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page", // serves dist/404.html with HTTP 404
+    // Explicit, and must agree with astro's trailingSlash: 'never'.
+    // Spike S1 could not finish verifying this — it needs a real deploy
+    // (blocked on H2/H3). Until then treat the value as unconfirmed and run
+    // the two curl checks in docs/16 §10 immediately after the first deploy.
+    "html_handling": "auto-trailing-slash",
+  },
+  "routes": [{ "pattern": "softharbor.net", "custom_domain": true }],
+  "workers_dev": false, // canonical origin is the custom domain only
+  "preview_urls": true, // explicit: defaults to workers_dev's value
+}

@@ -39,8 +39,10 @@ softharbor/
 ├── README.md                      # bilingual EN/VI (written in P6)
 ├── astro.config.ts
 ├── wrangler.jsonc
-├── package.json / pnpm-lock.yaml / .nvmrc / .npmrc   # ignore-scripts (docs/09 §7)
-├── eslint.config.js / prettier.config.js / knip.json / lefthook.yml
+├── package.json / pnpm-lock.yaml / .nvmrc / .npmrc
+├── pnpm-workspace.yaml            # allowBuilds gate (docs/09 §7)
+├── eslint.config.js / prettier.config.mjs / .prettierignore
+├── knip.json / lefthook.yml
 ├── renovate.json                  # dependency policy (docs/12 §6)
 ├── .gitignore
 ├── .github/
@@ -149,11 +151,31 @@ export default defineConfig({
     }),
     AstroPWA(/* docs/08 §D */),
   ],
+  // Astro emits a per-page <meta http-equiv="content-security-policy"> whose
+  // script-src/style-src carry hashes for the inline snippets IT generates
+  // (island hydration bootstraps — unavoidable, see docs/09 §4 / D20).
+  // _headers therefore carries ONLY frame-ancestors: both policies are
+  // enforced, so declaring script-src there too would intersect and break
+  // every island.
+  security: {
+    csp: {
+      algorithm: 'SHA-256',
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' data:",
+        "font-src 'self'",
+        "connect-src 'self'",
+        "manifest-src 'self'",
+        "base-uri 'none'",
+        "form-action 'none'",
+        "object-src 'none'",
+      ],
+    },
+  },
+
   vite: {
     plugins: [tailwindcss(), Icons({ compiler: 'astro' })],
   },
-  // No CSP config: nothing inline ships, so `script-src 'self'` in
-  // public/_headers is the whole story — docs/09 §4.
 });
 ```
 

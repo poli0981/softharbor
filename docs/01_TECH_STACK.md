@@ -16,7 +16,7 @@
 | Layer | Package | Line (2026-07-15) | Notes |
 |---|---|---|---|
 | Runtime | Node.js | **24 LTS "Krypton"** (24.x) | Active LTS; maintenance until 2028-04. Node 26 is Current only — do not use until it reaches LTS (2026-10). Pin via `.nvmrc` = `24` and `"engines": { "node": ">=24 <25" }`. |
-| Package manager | pnpm | **10.x** | `packageManager` field pinned; `pnpm config set ignore-scripts true` (docs/09 §7). |
+| Package manager | pnpm | **11.x** (`11.15.1` verified in P1) | `packageManager` field pinned. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). |
 | Deploy CLI | Wrangler | **4.x** (latest) | Only `deploy` / `versions upload` are used; no local Worker runtime needed (pure assets). |
 
 ## 2. Framework & UI
@@ -26,8 +26,8 @@
 | Framework | `astro` | **7.0.x** (≥ 7.0.9) | Static output. Ships Vite 8 + Rolldown (Rust bundler). Content Layer + Zod validation is the backbone of the data pipeline. |
 | Islands | `svelte` + `@astrojs/svelte` | Svelte **5.x** | Runes mode. Only 6 islands exist (docs/02 §5). |
 | Styling | `tailwindcss` + `@tailwindcss/vite` | **4.3.x** (≥ 4.3.2) | CSS-first config via `@theme`; tokens in docs/06 §2. |
-| Language | `typescript` | **6.x** (`~6.0.3` in the sibling) | `strict` + `noUncheckedIndexedAccess` (docs/10 §1). |
-| State | `nanostores` + `@nanostores/svelte` | latest | Cross-island filter/search state (~1 KB). |
+| Language | `typescript` | **6.x — pinned, do not take 7** | `strict` + `noUncheckedIndexedAccess` (docs/10 §1). **TypeScript 7's native compiler does not expose the programmatic API `astro check` needs**, so `pnpm check` fails outright on it (reproduced in P1, 2026-07-27; upstream tracking: withastro/roadmap discussion 1321). Renovate must not bump this major until Astro says so — see §5.4. |
+| State | `nanostores` **only** | 1.x | Cross-island filter/search state (~1 KB). **There is no `@nanostores/svelte` package** — it returns 404 on the registry (verified in P1, 2026-07-27). None is needed: a nanostores atom already satisfies Svelte's store contract (`.subscribe(cb)` fires immediately and returns an unsubscribe), so `$atom` auto-subscription works directly. Bindings exist for React/Vue/Solid/Preact/Lit/Angular precisely because those frameworks lack that contract. |
 | Search | `minisearch` | **7.x** | Client-side index; options in docs/05 §A2. |
 | Icons | `unplugin-icons` + `@iconify-json/simple-icons` + `@iconify-json/lucide` | latest | Simple Icons = app logos (SVG, CC0 set — trademark caveat in docs/14 §3d); Lucide = UI icons. Build-time inlined; nothing fetched at runtime. |
 | Fonts | `@fontsource-variable/bricolage-grotesque`, `@fontsource/be-vietnam-pro`, `@fontsource/ibm-plex-mono` | latest | Import `latin` + `vietnamese` subsets only. |
@@ -79,7 +79,9 @@ Assets needs no adapter, no Worker script, and no runtime billing.
 3. `osv-scanner` + `pnpm audit --prod` run on every PR; a *critical* finding
    with no patched version blocks merge and opens a tracking issue.
 4. Node upgrades follow LTS promotions only (next window: Node 26 → LTS
-   2026-10; adopt after CI passes on it).
+   2026-10; adopt after CI passes on it). **TypeScript is exempt from rule 1
+   until Astro supports TS 7** (§2) — hold at 6.x and keep the major on
+   Renovate's dashboard-approval list.
 5. Every dependency bump that touches Astro/Vite/Tailwind majors must re-run
    spike S1 (docs/11 §3) before merge.
 

@@ -35,7 +35,7 @@ threat-model update in this file first.
 
 ```
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: frame-ancestors 'none'
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
@@ -60,25 +60,37 @@ threat-model update in this file first.
 
 Notes:
 
-- **No inline scripts — `script-src 'self'`, no hashes (decision D18).**
-  SoftHarbor has no Worker script (hard rule 1), so it cannot set CSP from
-  middleware the way `poli0981.dev` does; `_headers` is the only channel, and
-  a static file cannot learn a per-build hash without a fragile extra step.
-  So the constraint is inverted: **nothing inline ships at all.** The theme
-  no-flash snippet becomes `public/theme.js`, loaded as a *blocking*
-  `<script src="/theme.js">` in `<head>` (docs/05 §A8) — it still executes
-  before first paint, so there is no flash; the only cost is one cached
-  same-origin request. There is deliberately **no** `scripts/emit-csp.mjs`
-  and no hash placeholder: an unreplaced `sha256-<…>` token would silently
-  invalidate the whole `script-src` list, which is precisely the failure this
-  design removes.
-- **Open risk for spike S1 (docs/11 §3).** `<ClientRouter />` may emit an
-  inline bootstrap script, which `script-src 'self'` would block. S1 must
-  load the built site under the real header and confirm. If it *is* blocked,
-  the pre-approved fallback is to **drop `<ClientRouter />`** — which also
-  drops View Transitions (docs/02 §6, docs/06 §7). Record whichever branch is
-  taken in the decision log. Do not resolve this by re-introducing inline
-  script hashes without re-reading this section.
+- **The CSP is split between a header and a meta tag (decision D20,
+  supersedes D18).** Settled empirically in spike S1, 2026-07-27:
+  - `<ClientRouter />` compiles to an **external** module script — it was
+    never the problem.
+  - **Astro's island hydration is.** Every `client:*` directive emits inline
+    bootstrap scripts into that page's HTML. With six islands (docs/02 §5)
+    that is effectively every page, so the D18 plan — "ship nothing inline,
+    use plain `script-src 'self'`" — is **not achievable**. Verified: the
+    probe page with one `client:idle` island carried two inline scripts; the
+    page without an island carried none.
+  - The fix is Astro's own `security.csp` (stable in Astro 7, configured in
+    `astro.config.ts`). It hashes the snippets **it** generates and emits a
+    per-page `<meta http-equiv="content-security-policy">` carrying
+    `script-src`/`style-src` plus our other directives. No hand-maintained
+    hash list, no `emit-csp.mjs`, no placeholder to forget — which was B4's
+    real complaint.
+- **`_headers` must therefore carry only `frame-ancestors`.** A header CSP
+  and a meta CSP are enforced as **two separate policies**, and a resource
+  must satisfy both — so a `script-src 'self'` in `_headers` would intersect
+  with the meta policy, drop Astro's hashes, and break every island.
+  `frame-ancestors` is the one directive that must stay in the header,
+  because meta-tag CSP ignores it by spec. `X-Frame-Options: DENY` backs it up.
+- **Verification** (re-run whenever islands or the config change): build,
+  then for every page in `dist/**/*.html` recompute the SHA-256 of each
+  inline `<script>`/`<style>` body and assert it appears in that page's meta
+  policy. P1 ran this and every inline resource matched. This check is worth
+  keeping as a build-time assertion — it fails loudly if Astro ever emits a
+  snippet it does not hash.
+- **Residual weakness, accepted:** Astro puts the union of known hashes in
+  every page's policy (9 hashes on a page that uses 3). Still hash-pinned,
+  never `'unsafe-inline'` — just less tight per page than it could be.
 - **JSON-LD** (`<script type="application/ld+json">`) is a data block, not an
   executable script, so it needs no hash under `script-src` (docs/16 §7).
 - **Cache-Control precedence.** Cloudflare `_headers` applies *every* matching
@@ -145,9 +157,25 @@ moves the file and opens the tracking issue (docs/12 §4).
 ## 7. Supply-chain hygiene
 
 - `pnpm-lock.yaml` committed; CI uses `pnpm install --frozen-lockfile`.
-- `.npmrc`: `ignore-scripts=true` (no postinstall execution; the chosen
-  stack needs none — verify in spike S1, whitelist individually via
-  `pnpm.onlyBuiltDependencies` if something truly requires it).
+- **Dependency build scripts: `allowBuilds` in `pnpm-workspace.yaml`, and
+  deliberately NOT `ignore-scripts`.** Corrected in P1 (2026-07-27) — the
+  original guidance was wrong twice over:
+  1. pnpm ≥ 10 **already** blocks dependency install scripts by default and
+     requires an explicit per-package allowlist. That is strictly better than
+     `ignore-scripts`: reviewable, granular, committed.
+  2. Setting `ignore-scripts=true` on top *also* suppresses the allowlist, so
+     esbuild never links its native binary and `pnpm build` cannot run at all.
+     pnpm 11 additionally hard-fails on any un-decided build script, so this
+     is a build-stopper, not a warning.
+  3. pnpm 11 moved the setting out of `package.json`'s `pnpm` field into
+     `pnpm-workspace.yaml` and renamed it `allowBuilds` — leaving it in
+     `package.json` is silently ignored with a warning.
+
+  Current allowlist, each entry a decision: `esbuild: true` (native binary,
+  the build cannot run without it), `lefthook: true` (installs our git
+  hooks), `workerd: false` (Cloudflare's local Worker runtime, pulled in by
+  wrangler — we ship pure static assets and never run a Worker locally).
+  Flipping any entry to `true` requires a decision-log line.
 - Renovate weekly + `osv-scanner` + `pnpm audit --prod` gate (docs/01 §5,
   docs/12 §6).
 - All GitHub Actions pinned to **commit SHAs** with a version comment.

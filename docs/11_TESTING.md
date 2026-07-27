@@ -26,11 +26,14 @@ build + units + the checklist cover it). Revisit post-v1 if islands grow.
 | `i18n/index.ts` | var substitution; missing-key fallback; parity assertion (en/vi key sets equal — the same check CI runs) |
 | `validate-data.mjs` | fixture-based: dup slug, dup name (diacritic-insensitive), unknown category, http URL, flagged-in-main-tree each produce the right error row |
 
-**Fuzzy vector note.** The old `gmip` → GIMP case is a *transposition*
-(Levenshtein distance 2) and cannot pass at `fuzzy: 0.15`, which allows about
-one edit on a 4-character term. S2 settles this: either raise the constant
-(≈ `0.3`) or use a real one-edit typo such as `gimo` → GIMP. Whichever is
-chosen, the value in docs/05 §A2 and the vector here must be updated together.
+**Fuzzy vectors — resolved by S2 (2026-07-27), decision D22.** The old
+`gmip` → GIMP case is a *transposition* (2 edits on 4 characters) and needs
+`fuzzy ≥ 0.375`; measurement showed that setting also stops the correctly
+spelled `gimp` from being an exact match (table in docs/05 §A2). It was
+**retired** in favour of `fuzzy = 0.25` plus honest vectors: `gimo` → GIMP
+(1 edit) and `fierfox` → Firefox (transposition in a 7-char term). The suite
+also pins the *precision* side — `gimp` → only GIMP, `archiver` → only 7-Zip
+— so a future fuzzy miss cannot be "fixed" by raising the constant.
 
 Coverage gates: `src/lib/**` ≥ 90 % lines (normalize/issueUrl at 100 %);
 no gate on `.astro/.svelte` (rendered output is checked by build + manual).
@@ -46,10 +49,27 @@ no gate on `.astro/.svelte` (rendered output is checked by build + manual).
   `@vite-pwa/astro`, `@astrojs/sitemap`, `@astrojs/rss`, Vitest.
 - **Method:** scaffold, add all, build a page using each (an icon, a styled
   Svelte island, PWA manifest emit, one rss/sitemap route), `pnpm build`,
-  `pnpm test` on a trivial spec. Also confirm `ignore-scripts=true` breaks
-  nothing.
+  `pnpm test` on a trivial spec. Also settle the dependency build-script
+  policy (docs/09 §7).
 - **Exit:** clean build + dev HMR + SW emitted.
 - **Fallback (pre-approved):** pin `astro@6.5.x`; record in decision log.
+
+**S1 result — PASSED 2026-07-27.** Astro 7.1.3 · Svelte 5.56.8 · Tailwind
+4.3.3 · MiniSearch 7.2.0 · nanostores 1.4.1 · Vitest 4.1.10 all build and
+type-check together; the Astro 6.5 fallback was **not** needed. Four findings
+changed the spec:
+
+1. `@nanostores/svelte` does not exist (D15 amended, docs/01 §2).
+2. Island hydration emits inline scripts ⇒ D18 unachievable, replaced by the
+   split CSP of D20 (docs/09 §4). ClientRouter itself is external, so View
+   Transitions are safe.
+3. TypeScript 7 breaks `astro check` ⇒ hold at 6.x (D21).
+4. `ignore-scripts=true` does **not** "break nothing" — it stops the build
+   outright, and pnpm ≥ 10 supersedes it anyway (docs/09 §7).
+
+Still open in S1, and it needs a deploy (H2/H3), not code: the
+`trailingSlash: 'never'` × `html_handling` check. Run the two `curl` probes in
+docs/16 §10 the moment the first deploy lands.
 
 **S1 additionally owns two questions this suite could not settle on paper.
 Neither is optional — both change shipped behavior:**

@@ -1,0 +1,26 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// S1 probe page: exercises unplugin-icons, a Svelte island, and Tailwind.
+import Base from '../layouts/Base.astro';
+import ShProbe from '../components/islands/ShProbe.svelte';
+import IconGlobe from '~icons/lucide/globe';
+import IconSevenZip from '~icons/simple-icons/7zip';
+---
+
+<Base title="SoftHarbor — S1 probe">
+  <main class="mx-auto max-w-3xl p-6">
+    <h1 class="font-display text-4xl">SoftHarbor</h1>
+    <p style="color: var(--sh-muted)">P1 scaffold probe — not a real page.</p>
+
+    <p class="my-4 flex items-center gap-2">
+      <IconGlobe aria-hidden="true" />
+      <IconSevenZip aria-hidden="true" />
+      <span class="font-mono text-xs">icons inlined at build</span>
+    </p>
+
+    <ShProbe client:idle />
+
+    <p class="mt-6"><a href="/probe" style="color: var(--sh-accent)">second page →</a></p>
+  </main>
+</Base>

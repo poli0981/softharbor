@@ -1,0 +1,14 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreExportsUsedInFile": true,
+  "entry": ["astro.config.ts", "src/pages/**/*.{astro,ts}", "scripts/*.mjs"],
+  "project": ["src/**/*.{ts,astro,svelte}", "scripts/**/*.mjs"],
+  "ignoreDependencies": [
+    "tailwindcss",
+    "@fontsource-variable/bricolage-grotesque",
+    "@fontsource/be-vietnam-pro",
+    "@fontsource/ibm-plex-mono",
+    "@iconify-json/simple-icons",
+    "@iconify-json/lucide"
+  ]
+}

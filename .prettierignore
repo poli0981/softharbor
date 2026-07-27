@@ -1,0 +1,11 @@
+dist/
+.astro/
+node_modules/
+pnpm-lock.yaml
+LICENSE
+
+# The spec suite is hand-wrapped at ~76 columns and its tables are aligned by
+# hand. Prettier would rewrap and realign them, producing enormous diffs that
+# bury the actual content change in every docs PR. Reviewability wins here.
+docs/
+CLAUDE.md

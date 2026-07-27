@@ -1,0 +1,26 @@
+# Git hooks — docs/10 §4.
+# `data` and `i18n` are two jobs on two globs on purpose: folding the parity
+# check into validate:data means a commit touching only src/i18n/*.json never
+# runs it (docs/07 §3).
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format
+      glob: '*.{ts,js,mjs,astro,svelte,css,json,jsonc,yml,yaml,md}'
+      run: pnpm prettier --write {staged_files}
+      stage_fixed: true
+    - name: lint
+      glob: '*.{ts,js,mjs,astro,svelte}'
+      run: pnpm eslint {staged_files}
+    - name: data
+      glob: 'src/data/**'
+      run: pnpm validate:data
+    - name: i18n
+      glob: 'src/i18n/**'
+      run: pnpm i18n:check
+
+pre-push:
+  jobs:
+    - name: test
+      run: pnpm test

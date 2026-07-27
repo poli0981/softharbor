@@ -1,0 +1,36 @@
+/* SPDX-License-Identifier: GPL-3.0-only
+   Copyright (C) 2026 poli0981 (SkullMute)
+   Design tokens — docs/06 §2. Spike-scope subset; full token set lands in M1. */
+
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --font-sans: 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+:root,
+:root[data-theme='light'] {
+  --sh-bg: oklch(0.97 0.01 85);
+  --sh-surface: oklch(0.99 0.005 85);
+  --sh-ink: oklch(0.22 0.015 75);
+  --sh-muted: oklch(0.48 0.012 75);
+  --sh-accent: oklch(0.52 0.11 235);
+  --sh-border: var(--sh-ink);
+}
+
+:root[data-theme='dark'] {
+  --sh-bg: oklch(0.19 0.01 85);
+  --sh-surface: oklch(0.23 0.012 85);
+  --sh-ink: oklch(0.93 0.008 85);
+  --sh-muted: oklch(0.7 0.01 85);
+  --sh-accent: oklch(0.72 0.1 235);
+  --sh-border: oklch(0.42 0.012 85);
+}
+
+body {
+  background: var(--sh-bg);
+  color: var(--sh-ink);
+  font-family: var(--font-sans);
+}

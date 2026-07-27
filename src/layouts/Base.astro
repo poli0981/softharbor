@@ -1,0 +1,27 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  locale?: 'en' | 'vi';
+}
+const { title, locale = 'en' } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {/* Blocking, same-origin, NOT inline — docs/05 §A8, docs/09 §4 (D18). */}
+    <script is:inline src="/theme.js"></script>
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

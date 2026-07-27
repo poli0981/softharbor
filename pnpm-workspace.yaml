@@ -1,0 +1,18 @@
+# Supply-chain gate (docs/09 §7).
+#
+# pnpm >= 10 blocks dependency install scripts by default; each one must be
+# decided here explicitly. pnpm 11 moved this out of package.json's "pnpm"
+# field into this file and renamed it to `allowBuilds` — putting it in
+# package.json is silently ignored with a warning (found in spike S1).
+#
+# Flipping any entry to true requires a decision-log line.
+
+allowBuilds:
+  # Native binary for the Vite/Astro toolchain. The build cannot run without it.
+  esbuild: true
+  # Downloads the lefthook binary that installs our git hooks (docs/10 §4).
+  lefthook: true
+  # Cloudflare's local Worker runtime, pulled in by wrangler. SoftHarbor ships
+  # pure static assets and never runs a Worker locally (docs/01 §1), so this
+  # binary is dead weight. False is a decision, not an oversight.
+  workerd: false

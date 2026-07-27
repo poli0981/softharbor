@@ -83,14 +83,29 @@ export const miniSearchOptions = {
   "loading index…" state for the (rare) slow fetch.
 - Empty query ⇒ search layer passes *all* slugs through to A3.
 
-**`fuzzy` is provisional and S2 owns it.** `0.15` is a guess, and at least one
-declared test vector contradicts it: docs/11 §2 requires `gmip` → GIMP, but
-`gmip`→`gimp` is a character transposition — Levenshtein distance **2** —
-while `0.15 × 4 chars` buys roughly **1** edit. So as written that test fails.
-S2 must tune the constant against the real vector table (expect to need
-≈ `0.3`) *or* replace the vector with a genuine one-edit typo, then record the
-chosen value here. Raising `fuzzy` costs precision under `combineWith: 'AND'`,
-so measure — do not just turn it up until the test passes.
+**`fuzzy = 0.25` — settled by measurement in S2 (2026-07-27), decision D22.**
+MiniSearch converts the fraction to `round(term.length × fuzzy)` edits. The
+sweep over the fixture set:
+
+| fuzzy | `gmip` | `gimo` | `fierfox` | `archiver` | `gimp` |
+|---|---|---|---|---|---|
+| 0.15 | — | gimp | — | 7-zip | gimp |
+| **0.25** | — | **gimp** | **firefox** | **7-zip** | **gimp** |
+| 0.375 | gimp, 7-zip | gimp, firefox | firefox | 7-zip | **gimp, 7-zip** |
+| 0.6 | gimp, 7-zip | gimp, firefox | firefox | 7-zip, brave, gimp | gimp, 7-zip |
+
+The old spec demanded `gmip` → GIMP. That is a transposition — 2 edits on a
+4-character term — so it needs `fuzzy ≥ 0.375`, and the same row shows the
+price: at 0.375 the **correctly spelled** query `gimp` also returns 7-Zip.
+Two edits on a four-letter word matches a large slice of any dictionary, so
+precision collapses exactly where the user is most sure they typed it right.
+
+0.25 is the knee: 1 edit on short terms, 2 on terms of 6+ characters. It
+catches realistic typos (`gimo`, `fierfox`) while exact queries stay exact.
+**The `gmip` vector was retired** (docs/11 §2) rather than paying for it.
+`src/lib/search.test.ts` pins both directions — the typos that must match and
+the exact queries that must not blur — so nobody "fixes" a future fuzzy miss
+by turning the constant up.
 
 ## A3 — Filter & sort composition
 

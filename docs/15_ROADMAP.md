@@ -92,6 +92,14 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-27 | `wrangler` `html_handling` made explicit; `sitemap({ filter })` excludes `/offline` + `/errors/*`; `_astro/*` and HTML cache rules added | ✅ |
 | 2026-07-27 | Export contract `$schema` → `schemaVersion: 1` (integer) before it ships and freezes | ✅ |
 | 2026-07-27 | New **H10**: enable "Allow GitHub Actions to create and approve pull requests" — the quarantine sweep cannot open its PR without it | ⚠ Kokone |
+| 2026-07-27 | **P1/M0 executed.** Scaffold builds; S1 and S2 passed; findings below | ✅ |
+| 2026-07-27 | **B7 / D15 amended** — `@nanostores/svelte` **does not exist** (registry 404). Not needed: nanostores atoms satisfy Svelte's store contract natively | ✅ (verified) |
+| 2026-07-27 | **D20 supersedes D18** — Astro island hydration emits inline scripts, so "nothing inline" is unachievable. CSP split: Astro `security.csp` meta owns script-src/style-src with generated hashes; `_headers` owns only `frame-ancestors` | ✅ (S1, hashes re-verified) |
+| 2026-07-27 | ClientRouter is an **external** script — View Transitions survive. The M1 fallback risk is closed | ✅ (S1) |
+| 2026-07-27 | **D21** hold TypeScript at 6.x — TS 7's native compiler breaks `astro check` | ✅ (S1, reproduced) |
+| 2026-07-27 | **D22** `FUZZY = 0.25`; `gmip → GIMP` vector retired as not worth its false positives | ✅ (S2, measured) |
+| 2026-07-27 | `ignore-scripts=true` removed — pnpm ≥ 10 blocks dep scripts by default; the flag also suppresses the `allowBuilds` allowlist and stops the build entirely. pnpm line corrected 10.x → 11.x | ✅ (S1) |
+| 2026-07-27 | Prettier ignores `docs/` + `CLAUDE.md` — the suite is hand-wrapped, and reformatting would bury every future docs diff | ✅ |
 
 ## 5. Open questions for Kokone
 
@@ -109,11 +117,15 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
    convention for community projects ("VSCodium contributors" vs "VSCodium
    Team"): it has to be answered once, or 32 seed entries will answer it 32
    different ways.
-7. **D18 / S1 blocking risk** — if `<ClientRouter />` cannot run under
-   `script-src 'self'`, the fallback drops View Transitions entirely. Is that
-   acceptable, or is the card→detail morph worth reopening the CSP design?
-   Cheaper to answer before M1 than after M3.
+7. ~~**D18 / S1 blocking risk** — View Transitions under a strict CSP.~~
+   **Closed 2026-07-27 by S1:** ClientRouter compiles to an external script,
+   so View Transitions are safe. The real constraint was island hydration,
+   handled by D20. No product decision needed.
 8. **H10** — repo setting for Actions-created PRs (docs/12 §4).
+9. **S3 and S5 are blocked on you, not on code.** S3 (GitHub issue-form
+   prefill limit) needs the repo to exist — **H1**. S5 (PWA offline on the
+   real origin) needs the zone and a deploy — **H2/H3**. Everything else in
+   M0 is done, so these two are the critical path into M1.
 
 ## 6. Suite maintenance
 
