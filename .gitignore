@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+.astro/
+.output/
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+worker-configuration.d.ts
+
+# Test & tooling output
+coverage/
+.vitest/
+lychee/
+*.tsbuildinfo
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Claude Code worktrees (also in .git/info/exclude)
+.claude/worktrees/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local env
+.env
+.env.*
+!.env.example
+*.local
