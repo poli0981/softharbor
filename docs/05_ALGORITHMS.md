@@ -49,21 +49,33 @@ import { normalizeViet } from './normalize';
 
 export const miniSearchOptions = {
   idField: 'slug',
-  fields: ['name', 'tags', 'summaryEn', 'summaryVi'],
-  storeFields: ['slug'],                     // display data stays in the DOM
+  fields: ['name', 'tags', 'summaryEn', 'summaryVi'],   // raw values, not pre-normalized
+  // No storeFields: MiniSearch already returns the id on every result, and
+  // display data is in the DOM (A3). Storing anything here just inflates
+  // /search-index.json.
+  extractField: (doc, field) => {
+    const v = doc[field];
+    return Array.isArray(v) ? v.join(' ') : v;   // `tags` is string[] — be explicit
+  },
   processTerm: (t: string) => {
     const n = normalizeViet(t);
-    return n.length > 0 ? n : null;
+    return n.length > 0 ? n : null;              // null drops the term
   },
   searchOptions: {
     prefix: true,
-    fuzzy: 0.15,
+    fuzzy: 0.15,          // PROVISIONAL — S2 sets the real value, see below
     boost: { name: 3, tags: 2, summaryEn: 1, summaryVi: 1 },
     combineWith: 'AND',
   },
 } as const;
 ```
 
+- Fields are indexed **raw**. `processTerm` is what normalizes, and MiniSearch
+  runs it on *both* sides — once per term at `addAll` time (so the serialized
+  index on disk is already normalized) and once per query term. That is
+  exactly A1's "same function on both sides, imported from one module". Do not
+  add pre-normalized `nameNorm`/`summaryEnNorm` copies: they would double the
+  index and give `boost` two sets of keys to disagree about.
 - Index is built in `src/pages/search-index.json.ts` at build time
   (`MiniSearch.addAll` over the collection → `JSON.stringify(mini)`), then
   `MiniSearch.loadJSON` on the client — zero client-side indexing cost.
@@ -71,10 +83,27 @@ export const miniSearchOptions = {
   "loading index…" state for the (rare) slow fetch.
 - Empty query ⇒ search layer passes *all* slugs through to A3.
 
+**`fuzzy` is provisional and S2 owns it.** `0.15` is a guess, and at least one
+declared test vector contradicts it: docs/11 §2 requires `gmip` → GIMP, but
+`gmip`→`gimp` is a character transposition — Levenshtein distance **2** —
+while `0.15 × 4 chars` buys roughly **1** edit. So as written that test fails.
+S2 must tune the constant against the real vector table (expect to need
+≈ `0.3`) *or* replace the vector with a genuine one-edit typo, then record the
+chosen value here. Raising `fuzzy` costs precision under `combineWith: 'AND'`,
+so measure — do not just turn it up until the test passes.
+
 ## A3 — Filter & sort composition
 
 State (nanostores, `src/lib/stores.ts`): `query`, `categories: Set`,
 `platforms: Set`, `pricing: Set`, `sort: 'name' | 'added'`.
+
+**Where the facet data comes from.** Every card wrapper is server-rendered
+with `data-slug`, `data-categories`, `data-platforms`, `data-pricing`,
+`data-added` (docs/06 §6). The filter island reads those attributes and
+nothing else. This matters: `/search-index.json` is lazy-loaded on first
+search interaction, so filtering and sorting **must not depend on it** — a
+user who only clicks facets never triggers that fetch, and one who filters
+before the index lands must still get correct results.
 
 ```
 visible = searchResults(query)                 // A2, or ALL if query empty
@@ -166,9 +195,16 @@ once, acceptance held in memory.
 
 ## A8 — Theme resolution (no-flash)
 
-Inline `<head>` script (hashed for CSP, docs/09 §4):
+`public/theme.js` — **not** inline. The strict CSP is `script-src 'self'` with
+no hashes (docs/09 §4, decision D18), so this ships as a real file loaded by a
+*blocking* tag in `<head>`, before any stylesheet-dependent paint:
+
+```html
+<script src="/theme.js"></script>   <!-- no defer, no async: must run pre-paint -->
+```
 
 ```js
+// public/theme.js — plain classic script, not a module (modules are deferred).
 (() => {
   const s = localStorage.getItem('sh:theme');              // 'light'|'dark'|null
   const dark = s ? s === 'dark'
@@ -176,6 +212,12 @@ Inline `<head>` script (hashed for CSP, docs/09 §4):
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
 })();
 ```
+
+A render-blocking same-origin script in `<head>` runs before first paint just
+as an inline one does, so there is no theme flash — the only cost is one
+request, which is cached and HTTP/2-multiplexed. This file lives in `public/`
+(copied verbatim to `dist/`) so it is never bundled, hashed, or renamed; the
+`<script src>` path is therefore stable.
 
 `ShThemeToggle` cycles system → light → dark (writes/clears `sh:theme`) and
 keeps `data-theme` in sync with a `change` listener on the media query while

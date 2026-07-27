@@ -35,6 +35,15 @@ parallelizes with earlier milestones once M2 lands.
 7. **Community data automation** — app_request issues auto-drafting data
    PRs for maintainer review.
 8. Playwright smoke pack if island count grows past six.
+9. **Grid pagination — triggered by size, not by date.** `/apps` server-renders
+   every card and filters by toggling `hidden` (docs/05 §A3), which is what
+   keeps the no-JS experience whole. That trade stops paying somewhere around
+   **~250 entries**: at ~600 bytes of HTML per card, 250 cards ≈ 150 KB and
+   1 000 cards ≈ 600 KB, against an LCP target of < 1.5 s on mid-range mobile
+   (docs/00 §2.5). **Trigger:** when the dataset passes 250 apps, or `/apps`
+   HTML passes 200 KB gzip, paginate or virtualize — and keep a full
+   unpaginated listing reachable for no-JS users. Revisit before the count
+   gets there, not after.
 
 ## 3. Explicitly rejected (for the record)
 
@@ -69,6 +78,20 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-20 | HSTS zone-level, phased P1→P2→optional P3 preload (H9 = Kokone's call) | ⚠ review (N5) |
 | 2026-07-20 | Contact = `contact@softharbor.net` via Email Routing; SPF + DMARC quarantine→reject | ⚠ review (N7) |
 | 2026-07-20 | SEO additions: GSC Domain property, Bing import, Crawler Hints/IndexNow ON, JSON-LD `SoftwareApplication` + `BreadcrumbList` (price only for `free`) | ⚠ review (N8) |
+| 2026-07-27 | **Suite audit → v1.2.** Six build/deploy blockers fixed before any code was written (below) | ✅ |
+| 2026-07-27 | CI called `reusable-node-ci.yml` and `reusable-notify.yml` — **neither exists** in `poli0981/.github`. Rewired to `reusable-web-react.yml` (generic Node, accepts pnpm) + a local `gates` job, and `announce-release.yml` (Discord-only) | ✅ (verified via `gh`) |
+| 2026-07-27 | **D16** `developer` required in schema + rendered (docs/04 §2 documented a field the `.strict()` schema rejected) | ⚠ review |
+| 2026-07-27 | **D18** CSP: zero inline scripts, `script-src 'self'`, no hash pipeline; theme → `public/theme.js` | ⚠ review — **S1 must confirm ClientRouter survives** |
+| 2026-07-27 | Card markup: wrapping `<a>` with nested chip links replaced by the stretched-link pattern (nested anchors are invalid HTML) | ✅ |
+| 2026-07-27 | VI glossary moved out of `vi.json` into docs/07 §9 — a `_glossary` key would fail the strict parity check it was meant to serve | ✅ |
+| 2026-07-27 | Search index stores **raw** fields; `processTerm` normalizes both sides. No `*Norm` copies, no `storeFields` | ✅ |
+| 2026-07-27 | `fuzzy: 0.15` marked provisional — the declared `gmip → GIMP` vector needs ~2 edits and cannot pass. **S2 owns the final value** | ⚠ open |
+| 2026-07-27 | **D17** pnpm 10 kept despite npm siblings | ✅ |
+| 2026-07-27 | Toolchain majors corrected against `poli0981-dev`: TypeScript 6, ESLint 10, lefthook 2, knip 6 | ✅ (verified) |
+| 2026-07-27 | Action pins bumped to `checkout@v7` / `setup-node@v6` / `pnpm/action-setup@v6`; SHA-pinning rule scoped to repo-local workflows | ✅ |
+| 2026-07-27 | `wrangler` `html_handling` made explicit; `sitemap({ filter })` excludes `/offline` + `/errors/*`; `_astro/*` and HTML cache rules added | ✅ |
+| 2026-07-27 | Export contract `$schema` → `schemaVersion: 1` (integer) before it ships and freezes | ✅ |
+| 2026-07-27 | New **H10**: enable "Allow GitHub Actions to create and approve pull requests" — the quarantine sweep cannot open its PR without it | ⚠ Kokone |
 
 ## 5. Open questions for Kokone
 
@@ -82,11 +105,28 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
    alternative hue before M1 tokens land.
 5. Launch announcement scope: full notify.py fan-out, or soft-launch to
    Discord first for a week of feedback?
+6. **D16** — `developer` is now required on every entry. Confirm the naming
+   convention for community projects ("VSCodium contributors" vs "VSCodium
+   Team"): it has to be answered once, or 32 seed entries will answer it 32
+   different ways.
+7. **D18 / S1 blocking risk** — if `<ClientRouter />` cannot run under
+   `script-src 'self'`, the fallback drops View Transitions entirely. Is that
+   acceptable, or is the card→detail morph worth reopening the CSP design?
+   Cheaper to answer before M1 than after M3.
+8. **H10** — repo setting for Actions-created PRs (docs/12 §4).
 
 ## 6. Suite maintenance
 
-This suite (v1.1, 2026-07-20 — v1.0 was 2026-07-15, pre-domain) is the
-contract. Any implementation that
+This suite (v1.2, 2026-07-27 — v1.1 was 2026-07-20 post-domain; v1.0 was
+2026-07-15, pre-domain) is the contract. Any implementation that
 diverges updates the relevant doc **in the same PR** (docs/10 §7-8). Version
 bumps: minor for clarifications, major when a hard rule or locked decision
 changes.
+
+**v1.2 was a correctness pass, not a feature pass** — no hard rule and no
+pre-existing locked decision changed; six blockers, ten high-severity
+inconsistencies and thirteen smaller ones were fixed, and D16–D19 were added.
+Its lesson is D19: any claim in these docs about a system we do not own
+(the ops repo's workflows, a library's version, a platform's default) is a
+**hypothesis until checked against that system**. Four of the six blockers
+were of exactly that kind and all four were verifiable in under a minute.

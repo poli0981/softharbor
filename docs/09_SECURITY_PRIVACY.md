@@ -35,13 +35,17 @@ threat-model update in this file first.
 
 ```
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-<THEME_HASH>'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=0, must-revalidate
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
 
 /api/apps.json
   Access-Control-Allow-Origin: *
@@ -56,16 +60,32 @@ threat-model update in this file first.
 
 Notes:
 
-- **Inline scripts.** Exactly two inline snippets exist: the theme no-flash
-  script (docs/05 §A8) and Astro's View-Transitions runtime glue. Enable
-  Astro's CSP support so hashes are generated at build; the `script-src`
-  hash list in `_headers` must be produced by a small build step
-  (`scripts/emit-csp.mjs` reads Astro's hash output and rewrites the
-  placeholder) — never hand-maintained. If Astro's CSP feature proves
-  awkward in spike S1, fallback: externalize both snippets to tiny `.js`
-  files and drop the hash entirely (`script-src 'self'`), accepting a
-  one-frame theme flash risk mitigated by a blocking `<script src>` in
-  `<head>`.
+- **No inline scripts — `script-src 'self'`, no hashes (decision D18).**
+  SoftHarbor has no Worker script (hard rule 1), so it cannot set CSP from
+  middleware the way `poli0981.dev` does; `_headers` is the only channel, and
+  a static file cannot learn a per-build hash without a fragile extra step.
+  So the constraint is inverted: **nothing inline ships at all.** The theme
+  no-flash snippet becomes `public/theme.js`, loaded as a *blocking*
+  `<script src="/theme.js">` in `<head>` (docs/05 §A8) — it still executes
+  before first paint, so there is no flash; the only cost is one cached
+  same-origin request. There is deliberately **no** `scripts/emit-csp.mjs`
+  and no hash placeholder: an unreplaced `sha256-<…>` token would silently
+  invalidate the whole `script-src` list, which is precisely the failure this
+  design removes.
+- **Open risk for spike S1 (docs/11 §3).** `<ClientRouter />` may emit an
+  inline bootstrap script, which `script-src 'self'` would block. S1 must
+  load the built site under the real header and confirm. If it *is* blocked,
+  the pre-approved fallback is to **drop `<ClientRouter />`** — which also
+  drops View Transitions (docs/02 §6, docs/06 §7). Record whichever branch is
+  taken in the decision log. Do not resolve this by re-introducing inline
+  script hashes without re-reading this section.
+- **JSON-LD** (`<script type="application/ld+json">`) is a data block, not an
+  executable script, so it needs no hash under `script-src` (docs/16 §7).
+- **Cache-Control precedence.** Cloudflare `_headers` applies *every* matching
+  rule, so the `/*` block's `must-revalidate` and the `/_astro/*` `immutable`
+  rule both match hashed assets. Verify with
+  `curl -sI https://softharbor.net/_astro/<file>` that the immutable value
+  wins; if it does not, scope the HTML rule to `/*.html` instead of `/*`.
 - `Strict-Transport-Security` is deliberately **absent from `_headers`**:
   it is configured once at the zone level with a phased max-age rollout
   (docs/16 §5) so it also rides on redirect responses. Keeping it out of

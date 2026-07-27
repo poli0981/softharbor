@@ -34,19 +34,33 @@ softharbor/
 ├── CLAUDE.md                      # AI dev instructions
 ├── LICENSE                        # GPL-3.0-only (GitHub picker)
 ├── LICENSE-DATA.md                # CC BY-SA 4.0 for src/data/** (docs/14 §1)
+├── SECURITY.md                    # reporting policy (docs/09 §5)
+├── CHANGELOG.md                   # Keep-a-Changelog, features only (docs/13 §1)
 ├── README.md                      # bilingual EN/VI (written in P6)
 ├── astro.config.ts
 ├── wrangler.jsonc
-├── package.json / pnpm-lock.yaml / .nvmrc
+├── package.json / pnpm-lock.yaml / .nvmrc / .npmrc   # ignore-scripts (docs/09 §7)
 ├── eslint.config.js / prettier.config.js / knip.json / lefthook.yml
+├── renovate.json                  # dependency policy (docs/12 §6)
+├── .gitignore
+├── .github/
+│   ├── CODEOWNERS                 # * @poli0981 + .github/ scripts/ src/data/ (T6)
+│   ├── ISSUE_TEMPLATE/            # bug_report.yml · app_request.yml · config.yml
+│   └── workflows/                 # docs/12: ci.yml · codeql.yml · notify.yml
+│                                  #   deploy.yml · preview.yml
+│                                  #   quarantine.yml · link-check.yml
 ├── data/
 │   └── quarantine/                # flagged apps parked here (docs/03 §5)
 ├── scripts/
 │   ├── validate-data.mjs          # cross-file checks beyond Zod (docs/03 §2)
+│   ├── check-i18n-parity.mjs      # EN/VI key parity (docs/07 §3)
 │   ├── quarantine.mjs             # move flagged entries (docs/12 §4)
-│   └── extract-urls.mjs           # URL list for lychee (docs/12 §5)
+│   ├── extract-urls.mjs           # URL list for lychee (docs/12 §5)
+│   └── gen-licenses.mjs           # third-party notices appendix (docs/14 §3e)
 ├── public/
-│   ├── _headers                   # security headers (docs/09 §4)
+│   ├── _headers                   # security + cache headers (docs/09 §4)
+│   ├── _redirects                 # path-level slug renames only (docs/16 §4)
+│   ├── theme.js                   # no-flash theme script (docs/05 §A8)
 │   ├── robots.txt
 │   ├── .well-known/security.txt
 │   ├── favicon.svg / icons/       # PWA icons
@@ -64,6 +78,7 @@ softharbor/
     │   ├── normalize.ts           # VN-insensitive normalizer (docs/05 §A1)
     │   ├── search.ts              # MiniSearch factory (docs/05 §A2)
     │   ├── stores.ts              # nanostores: query/filters/sort
+    │   ├── paths.ts               # shared getStaticPaths for both locales (docs/07 §2)
     │   ├── ringbuffer.ts          # console error buffer (docs/05 §A5)
     │   └── issueUrl.ts            # bug-report URL builder (docs/05 §A6)
     ├── components/
@@ -113,10 +128,14 @@ import AstroPWA from '@vite-pwa/astro';
 import tailwindcss from '@tailwindcss/vite';
 import Icons from 'unplugin-icons/vite';
 
+// Reachable but meaningless in SERPs — noindex'd (docs/16 §7) AND kept out of
+// the sitemap, or GSC reports "Submitted URL marked noindex" forever.
+const NON_INDEXED = /\/(404|500|403|429|offline)\/?$/;
+
 export default defineConfig({
   site: 'https://softharbor.net',
   output: 'static',
-  trailingSlash: 'never',
+  trailingSlash: 'never',   // must agree with wrangler html_handling — §7, spike S1
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'vi'],
@@ -124,13 +143,17 @@ export default defineConfig({
   },
   integrations: [
     svelte(),
-    sitemap({ i18n: { defaultLocale: 'en', locales: { en: 'en', vi: 'vi' } } }),
+    sitemap({
+      i18n: { defaultLocale: 'en', locales: { en: 'en', vi: 'vi' } },
+      filter: (page) => !NON_INDEXED.test(page),
+    }),
     AstroPWA(/* docs/08 §D */),
   ],
   vite: {
     plugins: [tailwindcss(), Icons({ compiler: 'astro' })],
   },
-  // CSP hashing for the few inline scripts — docs/09 §4
+  // No CSP config: nothing inline ships, so `script-src 'self'` in
+  // public/_headers is the whole story — docs/09 §4.
 });
 ```
 
@@ -166,7 +189,12 @@ gate island persists across navigations so acceptance state never re-flashes
   // No "main" — pure static assets, requests are unbilled.
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"   // serves dist/404.html with HTTP 404
+    "not_found_handling": "404-page",       // serves dist/404.html with HTTP 404
+    // MUST be explicit and MUST agree with astro's trailingSlash: 'never'.
+    // Leaving it to the default is how a site ends up serving both
+    // /apps/7-zip and /apps/7-zip/ (duplicate content) or 307-looping between
+    // them. Spike S1 curl-tests both variants and pins the right value here.
+    "html_handling": "auto-trailing-slash"
   },
   "routes": [
     { "pattern": "softharbor.net", "custom_domain": true }  // docs/16 §3

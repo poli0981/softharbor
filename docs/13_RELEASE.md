@@ -29,8 +29,8 @@ Infra & correctness
 
 Content & legal
 
-- [ ] 30 seed apps merged (§4), every entry vetted (docs/09 §6), zero
-      `flagged`, summaries proof-read in both locales
+- [ ] All seed apps merged (§4 — 32 as proposed), every entry vetted
+      (docs/09 §6), zero `flagged`, summaries proof-read in both locales
 - [ ] Legal drafts reviewed by Kokone (H6), contact email live (H5),
       `LEGAL_VERSION` set; gate tested on a fresh profile in both locales
 - [ ] LICENSE (GPL-3.0) + LICENSE-DATA.md present; footer license line correct
@@ -40,6 +40,10 @@ Quality bar
 - [ ] Lighthouse mobile on `/apps`: Performance ≥ 95 · A11y = 100 ·
       Best Practices = 100 · SEO = 100
 - [ ] JS on `/apps` < 80 KB gzip (docs/00 §2.5)
+- [ ] Both gates above are **enforced in CI**, not just checked once here —
+      Lighthouse CI (assert A11y = 100) and a `size-limit` budget on the
+      `/apps` bundle, wired into `ci.yml`'s `gates` job (docs/12 §2). A
+      launch-day-only check is a number that starts regressing on day two.
 - [ ] VoiceOver (macOS) + NVDA (Windows) pass on grid, filter sheet, gate
 - [ ] Vietnamese diacritics visually clean in all three fonts at all scale
       steps (docs/06 §3)
@@ -53,10 +57,18 @@ Quality bar
    with role pings, pinned messages).
 4. Enable the RSS→notify.py cron for ongoing per-app announcements (§5).
 
-## 4. Seed list — 30 launch apps (proposed; H7 approves)
+## 4. Seed list — 32 launch apps (proposed; H7 approves)
 
 Balanced across the 12 categories; every entry must still pass vetting
 individually. `(1)` = onetime, `(f)` = free with C3 ruling noted.
+
+**Count.** The table below holds **32 distinct apps**, not the "30" earlier
+drafts claimed — 7-Zip is listed twice (primary category `utilities`, also
+shown under `file-management`) and is counted once. Two categories carry a
+single genuine entry each (`communication`: Thunderbird; `file-management`:
+FreeFileSync) — thin but acceptable for v1, and worth noting to H7 as the
+first place to add if the list is trimmed elsewhere. Whatever H7 approves,
+the number here and in §2's checklist must be updated together.
 
 | Category | Apps |
 |---|---|
@@ -97,6 +109,7 @@ slug; never backdate `addedAt`; feed stays deterministic. Message template
 | weekly (auto) | Renovate window + osv findings |
 | monthly (manual, ~30 min) | re-verify the 10 oldest `checkedAt` entries; refresh dates |
 | monthly (manual, ~10 min) | GSC review: Coverage, Core Web Vitals, hreflang errors; skim DMARC reports (docs/16 §6/§8) |
+| **annually (manual, ~2 min)** | **Roll `Expires` in `public/.well-known/security.txt` forward one year** (docs/09 §5). An expired `security.txt` is treated as invalid by scanners and researchers — and nothing else in this repo would notice. |
 | once, post-launch | HSTS phase transitions P1 → P2 (+2 weeks) → optional P3/preload (H9) — docs/16 §5 |
 | quarterly | review category taxonomy & criteria rulings; prune tags |
 

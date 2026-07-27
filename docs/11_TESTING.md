@@ -19,12 +19,18 @@ build + units + the checklist cover it). Revisit post-v1 if islands grow.
 | Module | Cases |
 |---|---|
 | `normalize.ts` | full vector table docs/05 §A1 incl. NFC vs NFD inputs, `đ/Đ`, whitespace collapse, empty string |
-| `search.ts` | index round-trip (`toJSON`/`loadJSON`); `trinh duyet` → browsers; prefix (`fire` → Firefox); fuzzy (`gmip` → GIMP); AND semantics; empty query behavior |
+| `search.ts` | index round-trip (`toJSON`/`loadJSON`); `trinh duyet` → browsers; prefix (`fire` → Firefox); fuzzy (see note); AND semantics; empty query behavior; `tags` array flattened by `extractField` |
 | `stores.ts` + filter fn | OR-within/AND-across facets; clear-all; sort orders incl. VN names |
 | `issueUrl.ts` | budget respected; truncation drops oldest lines first; empty buffer; URL-encoding of `#`/`&`/newlines |
 | feed builder | deterministic output; top-50 cutoff; stable guid |
 | `i18n/index.ts` | var substitution; missing-key fallback; parity assertion (en/vi key sets equal — the same check CI runs) |
 | `validate-data.mjs` | fixture-based: dup slug, dup name (diacritic-insensitive), unknown category, http URL, flagged-in-main-tree each produce the right error row |
+
+**Fuzzy vector note.** The old `gmip` → GIMP case is a *transposition*
+(Levenshtein distance 2) and cannot pass at `fuzzy: 0.15`, which allows about
+one edit on a 4-character term. S2 settles this: either raise the constant
+(≈ `0.3`) or use a real one-edit typo such as `gimo` → GIMP. Whichever is
+chosen, the value in docs/05 §A2 and the vector here must be updated together.
 
 Coverage gates: `src/lib/**` ≥ 90 % lines (normalize/issueUrl at 100 %);
 no gate on `.astro/.svelte` (rendered output is checked by build + manual).
@@ -44,6 +50,22 @@ no gate on `.astro/.svelte` (rendered output is checked by build + manual).
   nothing.
 - **Exit:** clean build + dev HMR + SW emitted.
 - **Fallback (pre-approved):** pin `astro@6.5.x`; record in decision log.
+
+**S1 additionally owns two questions this suite could not settle on paper.
+Neither is optional — both change shipped behavior:**
+
+1. **Does `script-src 'self'` survive `<ClientRouter />`?** (docs/09 §4, D18.)
+   Serve the built `dist/` with the real `_headers` CSP and navigate. If
+   ClientRouter emits an inline bootstrap, the console shows a CSP violation.
+   *Exit:* zero CSP violations with zero inline scripts.
+   *If it fails:* drop `<ClientRouter />` — and with it View Transitions
+   (docs/02 §6, docs/06 §7). Log the branch taken. Do **not** resolve this by
+   adding hashes back without re-reading docs/09 §4.
+2. **`trailingSlash: 'never'` × Workers `html_handling`.** (docs/02 §4/§7.)
+   Deploy and `curl -sI` **both** `/apps/7-zip` and `/apps/7-zip/`.
+   *Exit:* exactly one canonical URL returns 200 and the other 301s to it —
+   no redirect loop, no two live URLs for one page. Pin whichever
+   `html_handling` value produces that into `wrangler.jsonc`.
 
 ### S2 — Vietnamese search correctness
 - **Goal:** normalizer + MiniSearch behave on real Vietnamese.

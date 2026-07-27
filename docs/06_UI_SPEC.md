@@ -80,12 +80,18 @@ Empty state: friendly line + "Clear filters" + "Suggest this app →"
 "Clear all" + "Show N apps".
 
 **Detail `/apps/[slug]`** — breadcrumb (primary category); header: logo
-64 px + name (h1, `transition:name={slug}`) + pricing & license badges;
-summary paragraph; **link rail** of three equal bordered buttons: Homepage ↗
-· Repository ↗ (hidden when null) · Download ↗ (accent-filled — the page's
-one loud element); meta block (mono): platforms · tags · security line ·
-added/updated dates; footer note: "Links go to the official site.
-SoftHarbor hosts no downloads." + "Report an issue with this entry".
+64 px + name (h1, `transition:name={slug}`) + **developer line** directly
+under the h1 (`detail.developer` label + `developer` value, muted, body
+weight) + pricing & license badges; summary paragraph; **link rail** of three
+equal bordered buttons: Homepage ↗ · Repository ↗ (hidden when null) ·
+Download ↗ (accent-filled — the page's one loud element); meta block (mono):
+platforms · tags · security line · added/updated dates; footer note: "Links
+go to the official site. SoftHarbor hosts no downloads." + "Report an issue
+with this entry".
+
+The developer line sits *above* the link rail on purpose: a reader should be
+able to match "who makes this" against the domain they are about to click.
+It is plain text, never a link — we do not maintain vendor pages.
 
 **Category `/categories/[id]`** — h1 = label, count, pre-filtered grid.
 
@@ -108,13 +114,33 @@ connection to load new pages."
 └──────────────────────────────────────────────┘
 ```
 
-- Whole card is one `<a>` to the detail page; category chips are nested
-  links with `position:relative` z-fix; platform icons carry `aria-label`.
+- **Card markup — stretched link, never a wrapping `<a>`.** An `<a>` nested
+  inside another `<a>` is invalid HTML: the parser *closes* the outer anchor
+  when it meets the inner one, so the card link silently breaks and the
+  "A11y = 100" gate (docs/13 §2) cannot pass. Use the standard pattern
+  instead — the card is an `<article class="relative">`, the **app title** is
+  the only link to the detail page and carries the overlay:
+
+  ```css
+  .sh-card-title a::after { content: ''; position: absolute; inset: 0; }
+  .sh-card a:not(.sh-card-title a) { position: relative; z-index: 1; }
+  ```
+
+  Category chips are then ordinary **sibling** links that sit above the
+  overlay and navigate normally. One card = one primary link in the
+  accessibility tree; platform icons carry `aria-label`.
+- Each card wrapper carries the facet data the filter island needs (docs/05
+  §A3): `data-slug`, `data-categories`, `data-platforms`, `data-pricing`,
+  `data-added`. These are the **only** source filtering reads, so sorting and
+  filtering work before `/search-index.json` has loaded — and keep working if
+  the user never touches search.
 - Pills: pricing (`FREE` ink-on-paper / `ONE-TIME` accent outline /
   `FREE + ONE-TIME`) and SPDX id (mono) only when open source.
-- Security line copy (exact, both locales in dictionaries):
-  `clean` → "No known warnings · checked {date}" ·
-  `unverified` → "Not yet verified · listed {date}" ·
+- Security line copy (exact, both locales in dictionaries). **Each string
+  renders the date field it actually names** — the dated-honesty claim is the
+  product (hard rule 4), so the words and the data must not drift apart:
+  `clean` → "No known warnings · checked {date}" ← `security.checkedAt` ·
+  `unverified` → "Not yet verified · listed {date}" ← **`addedAt`** ·
   `flagged` → never rendered (quarantined before build).
 - States: hover = translate(-2px,-2px) + offset shadow; focus-visible =
   accent ring; filtered-out = `hidden` attr (A3).
@@ -143,10 +169,12 @@ Touch targets ≥ 44×44 px; hover effects gated behind `@media (hover:hover)`.
 
 - Contrast ≥ 4.5:1 body, ≥ 3:1 large text & UI — verify both themes with
   the token table above (adjust L values, keep hues).
-- Keyboard: `/` focuses search (suppressed inside inputs) · Esc clears then
-  blurs · Tab order header → toolbar → cards → footer · sheet & gate use
-  native `<dialog>` (focus trap, `aria-modal`, Esc — gate intercepts Esc,
-  docs/14 §2).
+- Keyboard: `/` focuses search (suppressed inside inputs, **and while the
+  legal gate is open** — a global shortcut that reaches through a modal
+  defeats the focus trap and can scroll content the user hasn't accepted yet)
+  · Esc clears then blurs · Tab order header → toolbar → cards → footer ·
+  sheet & gate use native `<dialog>` (focus trap, `aria-modal`, Esc — gate
+  intercepts Esc, docs/14 §2).
 - `aria-live="polite"` result count; icons decorative (`aria-hidden`) with
   text alternatives; `lang` attribute correct per locale, including
   `lang="vi"` snippets embedded in EN pages.

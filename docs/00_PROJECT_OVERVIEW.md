@@ -1,7 +1,7 @@
 # 00 — Project Overview
 
 > **Project:** SoftHarbor
-> **Doc suite version:** 1.1 (2026-07-20)
+> **Doc suite version:** 1.2 (2026-07-27)
 > **Author:** poli0981 / SkullMute · **License:** code GPL-3.0-only · data CC BY-SA 4.0
 > **Platform:** Web (static), Cloudflare Workers Static Assets, canonical `https://softharbor.net`
 
@@ -88,6 +88,10 @@ consistent over time.
 | D13 | Locale routing | `en` default unprefixed, `vi` at `/vi/…`, **no auto-redirect** | 2026-07-15 | SEO-safe; a dismissible banner suggests VI instead (docs/07 §5) |
 | D14 | Analytics | None in v1 | 2026-07-15 | Simplest honest privacy policy |
 | D15 | Cross-island state | nanostores (`nanostores` + `@nanostores/svelte`) | 2026-07-15 | Astro-recommended, ~1 KB |
+| D16 | `developer` field | **Required** in the schema and rendered on the detail page | 2026-07-27 | Lets a reader match "who makes this" against the domain they're about to click — the same trust proposition as "official links only" (docs/04 §2, docs/06 §5) |
+| D17 | Package manager | **pnpm 10** kept, though sibling org projects use npm | 2026-07-27 | `reusable-web-react.yml` accepts `package-manager: pnpm`, so nothing is lost; docs/09 §7's `ignore-scripts` + `--frozen-lockfile` posture stays intact |
+| D18 | CSP / inline scripts | **Zero inline scripts → `script-src 'self'`**, no hashes, no `emit-csp` build step | 2026-07-27 | No Worker script (hard rule 1) ⇒ no middleware ⇒ `_headers` is the only channel, and a static file cannot carry a per-build hash safely. Theme snippet moves to `public/theme.js` (docs/05 §A8, docs/09 §4). **Open:** S1 must confirm `<ClientRouter />` survives it |
+| D19 | Suite correctness | Spec claims about external systems are **verified against the real system** before they enter the docs | 2026-07-27 | The 2026-07-27 audit found two ops-repo workflows that never existed and four stale tool majors — all cheap to catch on paper, all expensive to catch in CI |
 
 ## 6. Identifiers (locked)
 
@@ -131,3 +135,4 @@ See `CLAUDE.md` for the full table. Reading order for a new contributor:
 | H7 | Approve the 30-app seed list (docs/13 §4) | P6 |
 | H8 | Create the GSC **Domain property** for `softharbor.net` (DNS TXT verify) + enable Crawler Hints; submit sitemap & import to Bing at launch (docs/16 §8) | P6 |
 | H9 | Decide on HSTS phase P3 (`preload` submission — semi-irreversible, docs/16 §5) | post-launch |
+| H10 | Enable *Settings → Actions → General → **Allow GitHub Actions to create and approve pull requests*** — without it the nightly quarantine sweep cannot open its PR and hard rule 5 stops being enforced mechanically (docs/12 §4) | P6 |

@@ -2,7 +2,7 @@
 
 > Root instruction file for AI-assisted development (Claude Code).
 > Read this first. Detailed specs live in `docs/00–16`.
-> Suite version: 1.1 (2026-07-20) · Author: poli0981 / SkullMute
+> Suite version: 1.2 (2026-07-27) · Author: poli0981 / SkullMute
 
 ## What this project is
 
@@ -77,7 +77,8 @@ pnpm build              # astro build → dist/
 pnpm preview            # astro preview
 pnpm lint               # eslint + prettier --check
 pnpm test               # vitest run
-pnpm validate:data      # node scripts/validate-data.mjs
+pnpm validate:data      # node scripts/validate-data.mjs   (L2 data rules)
+pnpm i18n:check         # node scripts/check-i18n-parity.mjs (EN/VI key parity)
 pnpm deploy             # wrangler deploy (CI does this on main)
 ```
 

@@ -1,8 +1,15 @@
-# 01 — Tech Stack (verified 2026-07-15)
+# 01 — Tech Stack (verified 2026-07-15 · re-verified 2026-07-27)
 
 > All version lines below were checked against upstream release channels on
 > **2026-07-15**. Install the latest patch within each stated line. Renovate
 > keeps them current afterwards (§5).
+>
+> **Re-verified 2026-07-27** against `E:\poli0981-dev\package.json` — the
+> org's closest sibling project, already shipping Astro 7 on Cloudflare
+> Workers. Astro / Svelte / Tailwind / Wrangler / Node confirmed as stated;
+> **TypeScript, ESLint, lefthook and knip were all a major behind** and have
+> been corrected below. Prefer that project's `package.json` as the reference
+> when scaffolding — it is a working install, not a claim.
 
 ## 1. Runtime & toolchain
 
@@ -19,7 +26,7 @@
 | Framework | `astro` | **7.0.x** (≥ 7.0.9) | Static output. Ships Vite 8 + Rolldown (Rust bundler). Content Layer + Zod validation is the backbone of the data pipeline. |
 | Islands | `svelte` + `@astrojs/svelte` | Svelte **5.x** | Runes mode. Only 6 islands exist (docs/02 §5). |
 | Styling | `tailwindcss` + `@tailwindcss/vite` | **4.3.x** (≥ 4.3.2) | CSS-first config via `@theme`; tokens in docs/06 §2. |
-| Language | `typescript` | **5.x** latest | `strict` + `noUncheckedIndexedAccess` (docs/10 §1). |
+| Language | `typescript` | **6.x** (`~6.0.3` in the sibling) | `strict` + `noUncheckedIndexedAccess` (docs/10 §1). |
 | State | `nanostores` + `@nanostores/svelte` | latest | Cross-island filter/search state (~1 KB). |
 | Search | `minisearch` | **7.x** | Client-side index; options in docs/05 §A2. |
 | Icons | `unplugin-icons` + `@iconify-json/simple-icons` + `@iconify-json/lucide` | latest | Simple Icons = app logos (SVG, CC0 set — trademark caveat in docs/14 §3d); Lucide = UI icons. Build-time inlined; nothing fetched at runtime. |
@@ -31,11 +38,11 @@
 
 | Purpose | Package | Line |
 |---|---|---|
-| Lint | `eslint` 9.x flat config + `typescript-eslint` 8.x + `eslint-plugin-astro` + `eslint-plugin-svelte` | latest |
+| Lint | `eslint` **10.x** flat config + `typescript-eslint` 8.x + `eslint-plugin-astro` 3.x + `eslint-plugin-svelte` 3.x | latest |
 | Format | `prettier` 3.x + `prettier-plugin-astro` + `prettier-plugin-svelte` + `prettier-plugin-tailwindcss` | latest |
-| Dead code | `knip` | **lastest** |
+| Dead code | `knip` | **6.x** |
 | Unit tests | `vitest` | latest line compatible with the toolchain (Vitest bundles its own Vite — no conflict with Astro's Vite 8; confirm in spike S1) |
-| Git hooks | `lefthook` | 1.x |
+| Git hooks | `lefthook` | **2.x** |
 | Link checking (CI) | `lychee` via `lycheeverse/lychee-action` | v2 line |
 | Dep updates | Renovate app | config in docs/12 §6 |
 | CVE scan | `osv-scanner` action + `pnpm audit` | latest |

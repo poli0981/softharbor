@@ -24,11 +24,16 @@ review date after the maintainer runs the vetting checklist (docs/09 §6).
 | Layer | Where | Catches |
 |---|---|---|
 | L1 Zod schema | `src/content.config.ts`, runs inside `astro build` | Types, enums, URL shape, summary lengths, date formats |
-| L2 `scripts/validate-data.mjs` | CI + pre-commit | Cross-file rules Zod can't see: duplicate slugs vs filenames, duplicate `name` (case/diacritic-insensitive), `categories[]` ids exist in registry, `links.*` are https, no `flagged` entries inside `src/data/apps/`, logo asset exists when `local:` |
+| L2 `scripts/validate-data.mjs` | CI (`ci.yml` job `gates`) + pre-commit | Cross-file rules Zod can't see: **slug format `^[a-z0-9]+(-[a-z0-9]+)*$` and ≤ 40 chars** (docs/04 §2 — Zod never sees the filename), duplicate slugs vs filenames, duplicate `name` (case/diacritic-insensitive), `categories[]` ids exist in registry, `links.*` are https, no `flagged` entries inside `src/data/apps/`, logo asset exists when `local:` |
+| L2b `scripts/check-i18n-parity.mjs` | CI (`ci.yml` job `gates`) + pre-commit | EN/VI dictionary key parity (docs/07 §3) — a **separate** script and a separate `pnpm i18n:check`, because it is triggered by `src/i18n/**`, not `src/data/**` |
 | L3 lychee link check | CI (PR: changed files only; weekly: all) | Dead/redirected official links |
 | L4 Human review | PR review | Criteria judgment, summary quality, official-domain authenticity |
 
-L2 failures print a table of `file → rule → detail` and exit non-zero.
+Both L2 scripts are plain Node (`fs` + `JSON.parse`) — they run **outside**
+Astro and must never import from `astro:content`. Failures print a table of
+`file → rule → detail` and exit non-zero. Port the structure from
+`E:\qoute\scripts\validate-data.ts` and `check-i18n-parity.ts`, which already
+implement exactly this contract.
 
 ## 3. Build artifacts (derived, never hand-edited)
 
@@ -36,10 +41,13 @@ L2 failures print a table of `file → rule → detail` and exit non-zero.
 
 1. **Pages** — `/apps/<slug>` ×2 locales, category pages, grid, welcome.
 2. **`/search-index.json`** — serialized MiniSearch index built in
-   `search-index.json.ts`: for each app, `id` (slug), `name`,
-   `nameNorm`, `summaryEnNorm`, `summaryViNorm`, `tagsNorm`, plus stored
-   display fields (docs/05 §A2). Normalization happens at build so the
-   client ships no extra work.
+   `search-index.json.ts`: for each app, `slug` (the id) plus the **raw**
+   `name`, `tags`, `summaryEn`, `summaryVi` (docs/05 §A2). There are no
+   pre-normalized `*Norm` fields: normalization is `processTerm`'s job, and
+   MiniSearch applies it on **both** sides — at `addAll` time (so the
+   serialized index on disk is already normalized) and to each query term.
+   One function, one import, no duplicated logic (docs/05 §A1). Display data
+   is **not** stored in the index — it is already in the DOM (docs/05 §A3).
 3. **`/api/apps.json`** — full public dataset export (§6).
 4. **`/rss.xml`** — 50 newest by `addedAt` (§7).
 5. **Sitemap** with hreflang pairs (docs/07 §6).
@@ -81,17 +89,28 @@ data file is only allowed for entries that never shipped.
 
 ```jsonc
 {
-  "$schema": "softharbor-export-v1",
+  "schemaVersion": 1,
   "generatedAt": "2026-07-15T00:00:00Z",
   "count": 30,
   "license": "CC-BY-SA-4.0",
   "attribution": "SoftHarbor contributors — https://github.com/poli0981/softharbor",
-  "apps": [ { /* exactly the schema of docs/04 §2, plus "slug" */ } ]
+  "apps": [ { /* exactly the schema of docs/04 §1, plus "slug" */ } ]
 }
 ```
 
-Breaking changes to this shape require a `$schema` bump and a decision-log
-entry.
+`schemaVersion` is an integer, **not** `$schema`: by JSON Schema convention
+`$schema` holds a URI to a schema document, and this is a frozen public
+contract — getting it right costs nothing now and a breaking change later.
+
+Every app object carries every field of docs/04 §1 including `developer`,
+plus `slug`. Because the collection schema is `.strict()`, the export shape
+cannot silently grow. Breaking changes require a `schemaVersion` bump and a
+decision-log entry.
+
+`generatedAt` is a build timestamp, so this file changes on every deploy even
+when the data does not. That is fine here — but it is exactly why `/rss.xml`
+carries **no** channel-level `lastBuildDate` (§7, docs/05 §A4): the feed's
+byte-determinism is a contract, this file's is not.
 
 ## 7. Feed → announcement pipeline
 

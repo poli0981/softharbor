@@ -155,6 +155,11 @@ the same PR — the current policy would junk such mail by design.
   `<meta name="robots" content="noindex">` (reachable but meaningless in
   SERPs). The 404 page needs nothing — its status code excludes it. Legal
   pages stay indexable.
+  **They must also be excluded from the sitemap**, via the `sitemap({ filter })`
+  option in `astro.config.ts` (docs/02 §4). `noindex` alone is not enough:
+  submitting a noindex'd URL makes GSC report *"Submitted URL marked
+  noindex"* on every crawl, which buries the hreflang errors we actually
+  want to see (§8 monitoring cadence).
 - **Structured data (JSON-LD):**
   - `/apps/[slug]`: `SoftwareApplication` — `name`, `description`
     (locale summary), `operatingSystem` (joined platforms),
@@ -233,6 +238,18 @@ curl -sI https://www.softharbor.net/apps?x=1 # 301 → apex, path+query kept
 curl -sI https://softharbor.net/apps/nope    # 404, branded page
 curl -sI https://softharbor.<account>.workers.dev/   # dead (workers_dev off)
 dig TXT _dmarc.softharbor.net +short         # DMARC policy present
+
+# Trailing-slash canonicalisation (docs/02 §4/§7 — trailingSlash 'never'
+# vs assets.html_handling). Exactly ONE of these returns 200 and the other
+# must 301/308 to it. Two 200s = duplicate content; a loop = misconfigured.
+curl -sI https://softharbor.net/apps/7-zip
+curl -sI https://softharbor.net/apps/7-zip/
+
+# CSP must show script-src 'self' with NO sha256- token (docs/09 §4, D18).
+curl -sI https://softharbor.net/ | grep -i content-security-policy
+
+# Hashed assets must win the immutable cache rule over the /* default.
+curl -sI https://softharbor.net/_astro/<any-hashed-file> | grep -i cache-control
 ```
 
 Plus: hstspreload.org checker (informational until P3), a DMARC report

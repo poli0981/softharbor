@@ -62,13 +62,28 @@ knip runs in CI; unused exports/deps fail the build.
 pre-commit:
   parallel: true
   commands:
-    format: { glob: '*.{ts,js,mjs,astro,svelte,css,json,md}', run: pnpm prettier --check {staged_files} }
-    lint:   { glob: '*.{ts,astro,svelte}', run: pnpm eslint {staged_files} }
-    data:   { glob: 'src/data/**', run: pnpm validate:data }
+    format:
+      glob: '*.{ts,js,mjs,astro,svelte,css,json,jsonc,yml,yaml,md}'
+      run: pnpm prettier --write {staged_files}
+      stage_fixed: true          # fix-and-restage beats fail-and-retype
+    lint:
+      glob: '*.{ts,js,mjs,astro,svelte}'
+      run: pnpm eslint {staged_files}
+    data:
+      glob: 'src/data/**'
+      run: pnpm validate:data
+    i18n:                        # separate glob — see docs/07 §3
+      glob: 'src/i18n/**'
+      run: pnpm i18n:check
 pre-push:
   commands:
     test: { run: pnpm test }
 ```
+
+The `data` and `i18n` hooks are two commands on two globs on purpose. Folding
+the parity check into `validate:data` (as an earlier draft did) means a commit
+touching only `src/i18n/*.json` never runs it — the exact edit most likely to
+break parity would be the one edit that skips the gate.
 
 ## 5. Commits & PRs
 
@@ -102,7 +117,8 @@ same PR — divergence is a defect.
 
 ## 8. Definition of Done (per PR)
 
-1. `pnpm lint` + `pnpm test` + `pnpm build` + `pnpm validate:data` green.
+1. `pnpm lint` + `pnpm test` + `pnpm build` + `pnpm validate:data` +
+   `pnpm i18n:check` green.
 2. New/changed behavior covered by a unit test when it lives in `src/lib/`.
 3. Both locales updated when a UI string changed (CI parity check green).
 4. No new dependency without a decision-log line (docs/15 §4).
