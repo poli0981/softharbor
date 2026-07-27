@@ -6,6 +6,8 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import astro from 'eslint-plugin-astro';
 import svelte from 'eslint-plugin-svelte';
+import svelteParser from 'svelte-eslint-parser';
+import globals from 'globals';
 
 export default tseslint.config(
   { ignores: ['dist/', '.astro/', 'node_modules/', 'public/theme.js'] },
@@ -37,6 +39,26 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
     },
+  },
+  {
+    // Everything under src/ ships to (or is compiled for) the browser.
+    files: ['src/**/*.{ts,svelte,astro}'],
+    languageOptions: { globals: globals.browser },
+  },
+  {
+    // <script lang="ts"> inside .svelte needs the TS parser forwarded, or
+    // `interface` is a parse error.
+    files: ['**/*.svelte'],
+    languageOptions: {
+      parser: svelteParser,
+      parserOptions: { parser: tseslint.parser },
+      globals: globals.browser,
+    },
+  },
+  {
+    // docs/10 §1: "no non-null `!` outside tests" — tests are the exception.
+    files: ['**/*.test.ts'],
+    rules: { '@typescript-eslint/no-non-null-assertion': 'off' },
   },
   {
     // Storage access goes through typed helpers in src/lib (docs/10 §3).

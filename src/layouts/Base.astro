@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 import { ClientRouter } from 'astro:transitions';
+import ShLegalGate from '../components/islands/ShLegalGate.svelte';
 import '../styles/global.css';
 
 interface Props {
@@ -17,11 +18,20 @@ const { title, locale = 'en' } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    {/* Blocking, same-origin, NOT inline — docs/05 §A8, docs/09 §4 (D18). */}
+    {/* Blocking, same-origin, NOT inline — docs/05 §A8, docs/09 §4 (D20). */}
     <script is:inline src="/theme.js"></script>
     <ClientRouter />
   </head>
   <body>
+    {
+      /*
+      client:load — must block interaction immediately, not on idle.
+      transition:persist — the island survives ClientRouter navigations so
+      acceptance never re-flashes; it re-asserts modal state after each swap
+      (docs/02 §5, docs/14 Part 2).
+    */
+    }
+    <ShLegalGate client:load transition:persist {locale} />
     <slot />
   </body>
 </html>

@@ -100,6 +100,9 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-27 | **D22** `FUZZY = 0.25`; `gmip → GIMP` vector retired as not worth its false positives | ✅ (S2, measured) |
 | 2026-07-27 | `ignore-scripts=true` removed — pnpm ≥ 10 blocks dep scripts by default; the flag also suppresses the `allowBuilds` allowlist and stops the build entirely. pnpm line corrected 10.x → 11.x | ✅ (S1) |
 | 2026-07-27 | Prettier ignores `docs/` + `CLAUDE.md` — the suite is hand-wrapped, and reformatting would bury every future docs diff | ✅ |
+| 2026-07-27 | **S4 passed**, catching two design bugs: a `transition:persist`ed `<dialog>` loses top-layer state across a swap (fixed by re-asserting `showModal()` on `astro:after-swap`), and a persisted island keeps its first `locale` prop, so EN copy leaked onto `/vi/` pages (fixed by deriving locale from the path) | ✅ |
+| 2026-07-27 | Island tests added in **happy-dom** (`vitest.config.ts`, two projects). Does **not** reopen the no-Playwright decision — asserts island state machines only; layout/top-layer/visual stay manual (docs/11 §1) | ⚠ review |
+| 2026-07-27 | Legal-gate session fallback moved from a module-local `let` to a `globalThis` key — its scope really is the session, and a module-local silently leaked acceptance between tests | ✅ |
 
 ## 5. Open questions for Kokone
 

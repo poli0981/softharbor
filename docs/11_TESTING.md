@@ -14,6 +14,15 @@
 No Playwright in v1 (decision: the site has six islands and no forms;
 build + units + the checklist cover it). Revisit post-v1 if islands grow.
 
+**Island tests run in happy-dom** (added in S4). `vitest.config.ts` declares
+two projects: `unit` (node, `src/lib/**`) and `islands` (happy-dom,
+`src/components/**`), the latter with `resolve.conditions: ['browser']` or
+Svelte resolves to its SSR build and `mount()` throws. This is not a
+substitute for Playwright and does not pretend to be: it asserts island
+*state machines* — open/close, keyboard interception, lifecycle across
+simulated `astro:after-swap` — never layout, top-layer stacking, or visual
+appearance. Those stay on the manual checklist (docs/13 §2).
+
 ## 2. Unit targets (`vitest`)
 
 | Module | Cases |
@@ -24,6 +33,7 @@ build + units + the checklist cover it). Revisit post-v1 if islands grow.
 | `issueUrl.ts` | budget respected; truncation drops oldest lines first; empty buffer; URL-encoding of `#`/`&`/newlines |
 | feed builder | deterministic output; top-50 cutoff; stable guid |
 | `i18n/index.ts` | var substitution; missing-key fallback; parity assertion (en/vi key sets equal — the same check CI runs) |
+| `legal.ts` | version equality (stale **and** newer both re-open); garbage value; route exemptions incl. near-miss paths (`/legalish`, `/offlinely` must stay gated); hostile localStorage fails open per session |
 | `validate-data.mjs` | fixture-based: dup slug, dup name (diacritic-insensitive), unknown category, http URL, flagged-in-main-tree each produce the right error row |
 
 **Fuzzy vectors — resolved by S2 (2026-07-27), decision D22.** The old
@@ -111,6 +121,32 @@ Neither is optional — both change shipped behavior:**
   grid → detail → back pre-accept and post-accept; verify focus trap, Esc
   interception, exempt routes, `sh:legal` versioning incl. downgrade value.
 - **Exit:** zero flash, zero interaction leaks, exemptions correct.
+
+**S4 result — PASSED 2026-07-27, with two design bugs caught.** The gate is
+`ShLegalGate.svelte` (`client:load` + `transition:persist`); 32 automated
+assertions cover it (`legal.test.ts` + `ShLegalGate.test.ts`).
+
+1. **A persisted `<dialog>` can come out of a document swap with `open`
+   cleared.** `transition:persist` preserves the DOM node, not the top-layer
+   state — so the gate would have silently stopped blocking after the first
+   navigation. Fixed by re-asserting `showModal()` in an `astro:after-swap`
+   handler; the test closes the dialog behind the component's back and swaps,
+   to prove the re-assert is load-bearing.
+2. **A persisted island keeps the `locale` prop it first rendered with.**
+   Navigating `/apps` → `/vi/apps` left English gate copy on a Vietnamese
+   page. Fixed by deriving locale from `location.pathname` on every swap
+   rather than trusting the prop.
+
+Also verified: Esc intercepted pre-accept (`cancel` prevented); acceptance
+persists and never re-flashes across swaps; exempt routes never gate, and
+navigation *onto* and *off* an exempt route updates correctly; a stale **or
+newer** stored version re-opens (equality, not ordering); hostile localStorage
+fails open for the session instead of dead-locking.
+
+**Not covered by the automated pass** — these stay manual launch-checklist
+items (docs/13 §2), because the environment has no browser: real top-layer
+stacking/backdrop, actual focus trapping by the UA, and "no visual flash".
+The tests assert the *state machine* that drives those, not their rendering.
 
 ### S5 — PWA offline on the real origin
 - **Goal:** offline fallback works where users are: `softharbor.net`.
