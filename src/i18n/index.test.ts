@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import en from './en.json';
 import vi from './vi.json';
 import { localeFromPath, localePair, localePath, t } from './index';
+import { canonicalPath } from '../lib/locale';
 
 describe('t() — lookup and interpolation', () => {
   it('returns the locale string', () => {
@@ -60,6 +61,26 @@ describe('locale routing (docs/07 §2/§5)', () => {
     expect(localePath('vi', '/apps')).toBe('/vi/apps');
     expect(localePath('en', '/')).toBe('/');
     expect(localePath('vi', '/')).toBe('/vi');
+  });
+
+  it('canonicalPath strips the emitted .html that build.format:file adds', () => {
+    // The regression this pins: every canonical and hreflang shipped as
+    // /apps.html, disagreeing with both the sitemap and the served URL.
+    expect(canonicalPath('/apps.html')).toBe('/apps');
+    expect(canonicalPath('/legal/disclaimer.html')).toBe('/legal/disclaimer');
+    expect(canonicalPath('/vi/apps/7-zip.html')).toBe('/vi/apps/7-zip');
+    expect(canonicalPath('/index.html')).toBe('/');
+    expect(canonicalPath('/')).toBe('/');
+    expect(canonicalPath('/apps')).toBe('/apps'); // already clean, unchanged
+    expect(canonicalPath('/apps/')).toBe('/apps'); // trailingSlash: 'never'
+  });
+
+  it('localePair normalises .html too, so switcher and hreflang agree', () => {
+    expect(localePair('/legal/disclaimer.html')).toEqual({
+      en: '/legal/disclaimer',
+      vi: '/vi/legal/disclaimer',
+    });
+    expect(localePair('/vi/apps.html')).toEqual({ en: '/apps', vi: '/vi/apps' });
   });
 
   it('localePair is symmetric — the same pair from either side', () => {

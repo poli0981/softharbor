@@ -1,0 +1,101 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+//
+// docs/14 — shared chrome for the five legal documents. Prose lives per
+// locale in src/components/legal/, not in the i18n dictionaries: docs/07 §1
+// puts legal in its own layer precisely because multi-paragraph documents are
+// content, not UI strings, and the English text is canonical (docs/07 §8).
+//
+// These routes are EXEMPT from the legal gate (docs/14 Part 2) — the gate
+// links here, so gating them would dead-lock acceptance.
+import Base from '../../layouts/Base.astro';
+import { LEGAL_VERSION } from '../../lib/legal';
+import { localePath, t, type Locale } from '../../i18n';
+
+interface Props {
+  title: string;
+  locale: Locale;
+}
+const { title, locale } = Astro.props;
+
+const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+}).format(new Date(`${LEGAL_VERSION}T00:00:00Z`));
+
+const docs = [
+  ['/legal/disclaimer', 'footer.legal.disclaimer'],
+  ['/legal/privacy', 'footer.legal.privacy'],
+  ['/legal/terms', 'footer.legal.terms'],
+  ['/legal/trademarks', 'footer.legal.trademarks'],
+  ['/legal/third-party', 'footer.legal.thirdParty'],
+] as const;
+---
+
+<Base {title} {locale}>
+  <article class="sh-prose max-w-2xl">
+    <h1 class="text-[length:var(--text-h1)] font-semibold">{title}</h1>
+
+    <p class="mt-2 font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
+      {t(locale, 'legal.lastUpdated', { date: updated })}
+    </p>
+
+    {
+      locale === 'vi' && (
+        <p
+          class="sh-panel mt-6 p-4 text-[var(--text-small)]"
+          style="color: var(--sh-muted)"
+          lang="vi"
+        >
+          {/* Fixed notice required on every VI legal page (docs/07 §8). */}
+          {t('vi', 'legal.viNotice')}
+        </p>
+      )
+    }
+
+    <div class="mt-8 flex flex-col gap-4"><slot /></div>
+
+    <nav
+      aria-label={t(locale, 'footer.legal.heading')}
+      class="mt-12 flex flex-wrap gap-4 border-t-2 pt-6"
+      style="border-color: var(--sh-border)"
+    >
+      {
+        docs.map(([path, key]) => (
+          <a href={localePath(locale, path)} class="hover:underline">
+            {t(locale, key)}
+          </a>
+        ))
+      }
+    </nav>
+  </article>
+</Base>
+
+<style is:global>
+  /* Legal prose is the one place on the site with real running text. */
+  .sh-prose h2 {
+    font-size: var(--text-h3);
+    font-weight: 600;
+    margin-top: 1.5rem;
+  }
+  .sh-prose p {
+    max-width: 65ch;
+  }
+  .sh-prose strong {
+    font-weight: 700;
+  }
+  .sh-prose a {
+    color: var(--sh-accent);
+    text-decoration: underline;
+  }
+  .sh-prose ol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    counter-reset: item;
+  }
+  .sh-prose ol > li {
+    max-width: 65ch;
+  }
+</style>

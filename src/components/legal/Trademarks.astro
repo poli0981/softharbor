@@ -1,0 +1,59 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/14 §3d. The logo-handling rules here are the ones src/lib/icon.ts and
+// the Simple Icons caveat in §3e depend on.
+import type { Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const CONTACT = 'contact@softharbor.net';
+---
+
+{
+  locale === 'en' ? (
+    <>
+      <p>
+        All product names, brands, and logos on SoftHarbor are trademarks or registered trademarks
+        of their respective owners. They are used solely for{' '}
+        <strong>nominative identification</strong> — to state truthfully which software an entry
+        describes — which does not imply affiliation, sponsorship, or endorsement in either
+        direction.
+      </p>
+      <h2>Logo handling rules we hold ourselves to</h2>
+      <p>
+        Logos are shown unmodified (no recoloring beyond monochrome rendering of vector marks, no
+        distortion), at reasonable UI sizes, next to accurate information, sourced from the Simple
+        Icons set or the vendor's official brand assets. "SoftHarbor" and the SoftHarbor wordmark
+        identify this project.
+      </p>
+      <h2>Takedown</h2>
+      <p>
+        If you own a mark and want its use changed or removed, email{' '}
+        <a href={`mailto:${CONTACT}`}>{CONTACT}</a> or open a GitHub issue — we comply promptly and
+        remove the entry's logo (or the entry) while discussing.
+      </p>
+    </>
+  ) : (
+    <>
+      <p>
+        Mọi tên sản phẩm, thương hiệu và logo trên SoftHarbor là nhãn hiệu hoặc nhãn hiệu đã đăng ký
+        của chủ sở hữu tương ứng, chỉ được dùng nhằm <strong>nhận diện đúng sản phẩm</strong> mà mục
+        tương ứng mô tả — không hàm ý liên kết, tài trợ hay chứng thực theo bất kỳ chiều nào.
+      </p>
+      <h2>Nguyên tắc với logo</h2>
+      <p>
+        Hiển thị nguyên bản (không đổi màu ngoài việc render đơn sắc với logo vector, không biến
+        dạng), ở kích thước hợp lý, đi kèm thông tin chính xác, lấy từ bộ Simple Icons hoặc bộ nhận
+        diện chính thức của nhà phát triển. "SoftHarbor" và wordmark SoftHarbor nhận diện dự án này.
+      </p>
+      <h2>Yêu cầu gỡ bỏ</h2>
+      <p>
+        Nếu bạn là chủ sở hữu nhãn hiệu và muốn thay đổi hoặc gỡ việc sử dụng, hãy email{' '}
+        <a href={`mailto:${CONTACT}`}>{CONTACT}</a> hoặc mở GitHub issue — chúng tôi sẽ xử lý nhanh
+        chóng và tạm gỡ logo (hoặc mục liên quan) trong quá trình trao đổi.
+      </p>
+    </>
+  )
+}

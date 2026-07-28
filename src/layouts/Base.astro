@@ -6,7 +6,8 @@ import { ClientRouter } from 'astro:transitions';
 import ShLegalGate from '../components/islands/ShLegalGate.svelte';
 import ShHeader from '../components/ShHeader.astro';
 import ShFooter from '../components/ShFooter.astro';
-import { localePair, t, type Locale } from '../i18n';
+import { LOCALES, localePair, localePath, t, type Locale } from '../i18n';
+import { canonicalPath } from '../lib/locale';
 import '../styles/global.css';
 
 interface Props {
@@ -19,9 +20,30 @@ interface Props {
 const { title, description, locale = 'en', noindex = false } = Astro.props;
 
 const site = Astro.site ?? new URL('https://softharbor.net');
+// canonicalPath, never Astro.url.pathname directly: with build.format 'file'
+// the latter is the emitted FILE name (/apps.html), which would make every
+// canonical disagree with the sitemap and with the URL actually served.
 const pair = localePair(Astro.url.pathname);
-const canonical = new URL(Astro.url.pathname, site);
+const canonical = new URL(canonicalPath(Astro.url.pathname), site);
 const desc = description ?? t(locale, 'site.tagline');
+
+// Both locales resolved here, server-side: the gate is persisted across
+// navigations and must switch language without a reload, but importing the
+// dictionaries into the island would bundle every key (docs/07 §3).
+const gateStrings = Object.fromEntries(
+  LOCALES.map((l) => [
+    l,
+    {
+      title: t(l, 'gate.title'),
+      body: t(l, 'gate.body'),
+      accept: t(l, 'gate.accept'),
+      disclaimer: t(l, 'gate.link.disclaimer'),
+      terms: t(l, 'gate.link.terms'),
+      privacy: t(l, 'gate.link.privacy'),
+      base: localePath(l, '/legal'),
+    },
+  ]),
+);
 ---
 
 <!doctype html>
@@ -75,7 +97,7 @@ const desc = description ?? t(locale, 'site.tagline');
       (docs/02 §5, docs/14 Part 2, spike S4).
     */
     }
-    <ShLegalGate client:load transition:persist {locale} />
+    <ShLegalGate client:load transition:persist {locale} strings={gateStrings} />
 
     <a href="#main" class="sh-skip">{t(locale, 'nav.skipToContent')}</a>
     <ShHeader {locale} />

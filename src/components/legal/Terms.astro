@@ -1,0 +1,91 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/14 §3c. Governing law (Vietnam) is a Kokone sign-off item — docs/14 Part 4.
+import type { Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const CONTACT = 'contact@softharbor.net';
+const SITE = 'https://softharbor.net';
+---
+
+{
+  locale === 'en' ? (
+    <ol>
+      <li>
+        <strong>Acceptance:</strong> using <a href={SITE}>{SITE}</a> means you accept these terms,
+        the Disclaimer, and the Privacy Policy; the consent dialog records acceptance in your
+        browser.
+      </li>
+      <li>
+        <strong>The service:</strong> an informational directory of links and metadata; no downloads
+        are hosted; availability is not guaranteed and the service may change or stop at any time.
+      </li>
+      <li>
+        <strong>Acceptable use:</strong> no scraping at abusive rates (the public dataset at{' '}
+        <a href="/api/apps.json">/api/apps.json</a> exists — use it), no attempts to disrupt the
+        service, no misrepresentation of SoftHarbor as affiliated with listed vendors.
+      </li>
+      <li>
+        <strong>Intellectual property:</strong> site code is GPL-3.0-only; the dataset is CC BY-SA
+        4.0 (see LICENSE-DATA); third-party names and logos remain their owners' property.
+      </li>
+      <li>
+        <strong>No warranty / limitation of liability:</strong> the service is provided "as is"
+        without warranties of any kind; to the maximum extent permitted by law, the operator is not
+        liable for any damages arising from use of the service or of third-party software reached
+        through it.
+      </li>
+      <li>
+        <strong>Changes:</strong> material changes bump the version and re-show the consent dialog.
+      </li>
+      <li>
+        <strong>Governing law:</strong> the laws of Vietnam, without regard to conflict-of-law
+        rules; if a provision is unenforceable, the remainder stands.
+      </li>
+      <li>
+        Contact: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      </li>
+    </ol>
+  ) : (
+    <ol>
+      <li>
+        <strong>Chấp nhận:</strong> việc sử dụng <a href={SITE}>{SITE}</a> đồng nghĩa bạn chấp nhận
+        các điều khoản này, Tuyên bố miễn trừ và Chính sách quyền riêng tư; hộp thoại đồng ý ghi
+        nhận việc chấp nhận trong trình duyệt của bạn.
+      </li>
+      <li>
+        <strong>Dịch vụ:</strong> trang thông tin tổng hợp liên kết và siêu dữ liệu; không lưu trữ
+        tệp tải về; không bảo đảm tính khả dụng; dịch vụ có thể thay đổi hoặc dừng bất kỳ lúc nào.
+      </li>
+      <li>
+        <strong>Sử dụng hợp lệ:</strong> không scrape với tần suất gây hại (đã có bộ dữ liệu công
+        khai tại <a href="/api/apps.json">/api/apps.json</a> — hãy dùng nó), không phá hoại dịch vụ,
+        không mạo nhận SoftHarbor liên kết với các nhà phát triển được liệt kê.
+      </li>
+      <li>
+        <strong>Sở hữu trí tuệ:</strong> mã nguồn theo GPL-3.0-only; bộ dữ liệu theo CC BY-SA 4.0
+        (xem LICENSE-DATA); tên và logo bên thứ ba thuộc chủ sở hữu tương ứng.
+      </li>
+      <li>
+        <strong>Không bảo đảm / giới hạn trách nhiệm:</strong> dịch vụ cung cấp "nguyên trạng" không
+        kèm bất kỳ bảo đảm nào; trong phạm vi tối đa pháp luật cho phép, người vận hành không chịu
+        trách nhiệm cho thiệt hại phát sinh từ việc dùng dịch vụ hoặc phần mềm bên thứ ba truy cập
+        qua dịch vụ.
+      </li>
+      <li>
+        <strong>Thay đổi:</strong> thay đổi trọng yếu sẽ nâng phiên bản và hiển thị lại hộp thoại
+        đồng ý.
+      </li>
+      <li>
+        <strong>Luật áp dụng:</strong> pháp luật Việt Nam; nếu một điều khoản vô hiệu, các điều
+        khoản còn lại vẫn giữ hiệu lực.
+      </li>
+      <li>
+        Liên hệ: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      </li>
+    </ol>
+  )
+}

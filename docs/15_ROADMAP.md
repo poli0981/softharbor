@@ -123,6 +123,11 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-28 | **nanostores' `$name` convention is incompatible with Svelte** — `$` is reserved for auto-subscription, so atoms are exported unprefixed and referenced as `$name` in components (docs/05 §A3) | ✅ |
 | 2026-07-28 | Grid controller lives in `src/lib/grid.ts`, not a 7th island — docs/02 §5 caps islands at six. Reordering uses CSS `order`, never DOM moves | ✅ |
 | 2026-07-28 | All 5 seed entries share `addedAt`, so the "Newest" sort currently falls through to the name tiebreak. Correct, but it means sort order is only exercised by unit tests until entries land on different days | ⚠ note |
+| 2026-07-28 | **M4 complete** — legal gate copy moved into the dictionaries, 5 legal documents ×2 locales, `ShLangSwitch` + `ShThemeToggle`, `LICENSE-DATA.md`. Five of six islands now exist (`ShBugReport` is M5) | ✅ |
+| 2026-07-28 | **Regression caught in M4, introduced by the S1 trailing-slash fix**: `build.format: 'file'` makes `Astro.url.pathname` the emitted FILE name, so all 52 pages shipped `.html` canonicals and hreflangs that disagreed with the sitemap. Fixed via `canonicalPath()` (docs/07 §6) and pinned by tests | ✅ |
+| 2026-07-28 | Gate strings are passed to the island as props rather than importing `t` — the gate must switch locale without a reload, but importing the dictionaries would bundle all 78 keys into it | ✅ |
+| 2026-07-28 | Locale ROUTING split into `src/lib/locale.ts` (no dictionary import) so islands can use `localePair` without pulling in every string | ✅ |
+| 2026-07-28 | Legal drafts are published as written in docs/14. **H6 (Kokone's review) is still outstanding**, and `LEGAL_VERSION` should be reset to the approval date when it happens — bumping it re-opens the gate for everyone, which is the intended behaviour | ⚠ Kokone |
 
 ## 5. Open questions for Kokone
 

@@ -5,11 +5,30 @@
   import { onMount } from 'svelte';
   import { acceptLegal, isAccepted, isExempt } from '../../lib/legal';
 
+  interface GateStrings {
+    title: string;
+    body: string;
+    accept: string;
+    disclaimer: string;
+    terms: string;
+    privacy: string;
+    base: string;
+  }
+
   interface Props {
     /** Locale of the page that first rendered the island (SSR correctness). */
     locale?: 'en' | 'vi';
+    /**
+     * BOTH locales' strings, resolved server-side from src/i18n.
+     *
+     * Passed as a prop rather than importing `t` here on purpose: the gate is
+     * persisted across navigations and must be able to switch language without
+     * a reload, but importing the dictionaries would bundle all ~65 keys into
+     * this island. Props ship only the seven strings it actually renders.
+     */
+    strings: Record<'en' | 'vi', GateStrings>;
   }
-  const { locale: initialLocale = 'en' }: Props = $props();
+  const { locale: initialLocale = 'en', strings }: Props = $props();
 
   let dialogEl: HTMLDialogElement | undefined = $state();
   let shouldShow = $state(false);
@@ -75,31 +94,7 @@
     };
   });
 
-  // Copy is placeholder text for S4. The shipped strings come from the i18n
-  // dictionaries in M4 (docs/07 §3) — this island must not become a second
-  // home for user-facing copy.
-  const COPY = {
-    en: {
-      title: 'Before you continue',
-      body: 'SoftHarbor is a link directory. We don’t host downloads, and we can’t guarantee third-party software. Statuses like “no known warnings” reflect checks on the date shown — verify anything you install. By continuing you accept the',
-      disclaimer: 'Disclaimer',
-      terms: 'Terms of Use',
-      privacy: 'Privacy Policy',
-      accept: 'I understand and accept',
-      base: '/legal',
-    },
-    vi: {
-      title: 'Trước khi tiếp tục',
-      body: 'SoftHarbor là trang tổng hợp liên kết. Chúng tôi không lưu trữ tệp cài đặt và không thể bảo đảm cho phần mềm bên thứ ba. Trạng thái như “không có cảnh báo đã biết” chỉ phản ánh việc kiểm tra tại ngày ghi kèm — hãy tự xác minh trước khi cài đặt. Khi tiếp tục, bạn chấp nhận',
-      disclaimer: 'Tuyên bố miễn trừ',
-      terms: 'Điều khoản sử dụng',
-      privacy: 'Chính sách quyền riêng tư',
-      accept: 'Tôi hiểu và chấp nhận',
-      base: '/vi/legal',
-    },
-  } as const;
-
-  const copy = $derived(COPY[locale]);
+  const copy = $derived(strings[locale]);
 </script>
 
 <!-- No decline button by design: leaving the site is the alternative, and the

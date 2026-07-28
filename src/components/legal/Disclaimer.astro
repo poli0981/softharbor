@@ -1,0 +1,86 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/14 §3a. EN is canonical (docs/07 §8); both locales kept in one file so
+// a change to one is visibly a change to the other during review.
+import type { Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const CONTACT = 'contact@softharbor.net';
+---
+
+{
+  locale === 'en' ? (
+    <>
+      <p>SoftHarbor is an independent, non-commercial directory of desktop software.</p>
+      <ol>
+        <li>
+          <strong>No affiliation:</strong> we are not affiliated with, endorsed by, or sponsored by
+          any listed developer; names and logos identify products only (see Trademarks).
+        </li>
+        <li>
+          <strong>No hosting:</strong> we host no installers; all download links lead to third-party
+          sites we do not control.
+        </li>
+        <li>
+          <strong>No warranty on information:</strong> listings — including pricing, license,
+          platform availability, and security status — are provided "as is" and may be outdated or
+          wrong; pricing models change without notice.
+        </li>
+        <li>
+          <strong>Security statuses are not guarantees:</strong> "No known warnings — checked
+          &lt;date&gt;" means our checklist found nothing <em>on that date</em>; it is not an audit,
+          a certification, or a promise of safety. Software can be compromised after our check.
+          Always download from official sources, verify signatures or checksums where offered, and
+          use your own judgment.
+        </li>
+        <li>
+          <strong>Your risk:</strong> installing third-party software is entirely at your own risk;
+          to the maximum extent permitted by law we accept no liability for damages arising from
+          software you obtain via links on this site.
+        </li>
+        <li>
+          Report dangerous or incorrect listings: GitHub issues or{' '}
+          <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+        </li>
+      </ol>
+    </>
+  ) : (
+    <>
+      <p>SoftHarbor là trang tổng hợp phần mềm desktop độc lập, phi thương mại.</p>
+      <ol>
+        <li>
+          <strong>Không liên kết:</strong> chúng tôi không liên kết, không được bảo trợ hay tài trợ
+          bởi bất kỳ nhà phát triển nào; tên và logo chỉ nhằm nhận diện sản phẩm (xem Thương hiệu).
+        </li>
+        <li>
+          <strong>Không lưu trữ:</strong> chúng tôi không lưu trữ tệp cài đặt; mọi liên kết tải về
+          dẫn tới trang bên thứ ba ngoài tầm kiểm soát của chúng tôi.
+        </li>
+        <li>
+          <strong>Không bảo đảm thông tin:</strong> thông tin — gồm giá, giấy phép, nền tảng hỗ trợ,
+          trạng thái bảo mật — được cung cấp "nguyên trạng", có thể lỗi thời hoặc sai; mô hình giá
+          có thể thay đổi bất kỳ lúc nào.
+        </li>
+        <li>
+          <strong>Trạng thái bảo mật không phải bảo chứng:</strong> "Không có cảnh báo đã biết — đã
+          kiểm tra &lt;ngày&gt;" nghĩa là quy trình kiểm tra của chúng tôi không phát hiện gì{' '}
+          <em>tại ngày đó</em>; đây không phải kiểm định hay cam kết an toàn. Phần mềm có thể bị xâm
+          phạm sau thời điểm kiểm tra. Hãy luôn tải từ nguồn chính thức, xác minh chữ ký/checksum
+          nếu có, và tự cân nhắc.
+        </li>
+        <li>
+          <strong>Rủi ro của bạn:</strong> việc cài đặt phần mềm bên thứ ba hoàn toàn thuộc rủi ro
+          của bạn; trong phạm vi tối đa pháp luật cho phép, chúng tôi không chịu trách nhiệm cho
+          thiệt hại phát sinh.
+        </li>
+        <li>
+          Báo cáo mục nguy hiểm hoặc sai: GitHub issues hoặc{' '}
+          <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+        </li>
+      </ol>
+    </>
+  )
+}

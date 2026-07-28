@@ -1,0 +1,96 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/14 §3b. The storage inventory here must stay in step with docs/09 §8.
+import type { Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const CONTACT = 'contact@softharbor.net';
+---
+
+{
+  locale === 'en' ? (
+    <>
+      <p>
+        <strong>Short version: we collect nothing.</strong>
+      </p>
+      <ol>
+        <li>
+          <strong>No accounts, no forms, no analytics, no ads, no cookies.</strong>
+        </li>
+        <li>
+          <strong>Local preferences only:</strong> language, theme, and legal-acceptance version are
+          stored in your browser's localStorage (<code>sh:lang</code>, <code>sh:theme</code>,{' '}
+          <code>sh:legal</code>) and never transmitted; clearing site data removes them. A service
+          worker caches a small offline page.
+        </li>
+        <li>
+          <strong>Infrastructure:</strong> the site is served by Cloudflare, which processes
+          connection data (such as IP addresses) as a network provider under its own privacy policy.
+          We do not receive or store this data; aggregate request counts are visible to us in
+          Cloudflare's dashboard.
+        </li>
+        <li>
+          <strong>Bug reports:</strong> the "Report a bug" button opens a{' '}
+          <strong>prefilled GitHub issue in your browser</strong> containing the page URL, your
+          browser/OS string, and recent console error lines from this site. Nothing is sent until
+          you review and submit it on GitHub, under GitHub's terms and privacy policy.
+        </li>
+        <li>
+          <strong>Third-party links</strong> lead to sites with their own policies.
+        </li>
+        <li>
+          <strong>Changes</strong> to this policy bump the version date and re-show the consent
+          gate.
+        </li>
+      </ol>
+      <p>
+        Contact: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      </p>
+    </>
+  ) : (
+    <>
+      <p>
+        <strong>Phiên bản ngắn gọn: chúng tôi không thu thập gì.</strong>
+      </p>
+      <ol>
+        <li>
+          <strong>
+            Không tài khoản, không biểu mẫu, không analytics, không quảng cáo, không cookie.
+          </strong>
+        </li>
+        <li>
+          <strong>Chỉ lưu tuỳ chọn cục bộ:</strong> ngôn ngữ, giao diện sáng/tối và phiên bản điều
+          khoản đã chấp nhận được lưu trong localStorage của trình duyệt (<code>sh:lang</code>,{' '}
+          <code>sh:theme</code>, <code>sh:legal</code>), không bao giờ được truyền đi; xoá dữ liệu
+          trang sẽ xoá chúng. Service worker lưu một trang offline nhỏ.
+        </li>
+        <li>
+          <strong>Hạ tầng:</strong> trang được phục vụ bởi Cloudflare — đơn vị xử lý dữ liệu kết nối
+          (như địa chỉ IP) theo chính sách riêng của họ với vai trò nhà cung cấp hạ tầng. Chúng tôi
+          không nhận hay lưu dữ liệu này; chỉ thấy số liệu truy cập tổng hợp trong bảng điều khiển
+          Cloudflare.
+        </li>
+        <li>
+          <strong>Báo lỗi:</strong> nút "Report a bug" mở một{' '}
+          <strong>issue GitHub được điền sẵn trong trình duyệt của bạn</strong> gồm URL trang, chuỗi
+          trình duyệt/hệ điều hành và các dòng lỗi console gần đây của trang này. Không có gì được
+          gửi đi cho tới khi bạn xem lại và tự đăng trên GitHub, theo điều khoản và chính sách của
+          GitHub.
+        </li>
+        <li>
+          <strong>Liên kết bên thứ ba</strong> có chính sách riêng.
+        </li>
+        <li>
+          <strong>Thay đổi</strong> chính sách sẽ cập nhật ngày phiên bản và hiển thị lại hộp thoại
+          chấp nhận.
+        </li>
+      </ol>
+      <p>
+        Liên hệ: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      </p>
+    </>
+  )
+}

@@ -1,0 +1,77 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/14 §3e. The Simple Icons caveat is shown verbatim, as the doc requires.
+import type { Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const rows = [
+  {
+    component: 'Astro, Svelte, Tailwind CSS, MiniSearch, nanostores, Workbox (via @vite-pwa)',
+    license: 'MIT',
+    note: { en: 'build/runtime', vi: 'dựng/chạy' },
+  },
+  {
+    component: 'Lucide icons',
+    license: 'ISC',
+    note: { en: 'UI icons', vi: 'biểu tượng giao diện' },
+  },
+  {
+    component: 'Simple Icons',
+    license: 'CC0-1.0',
+    note: {
+      en: 'The icons are CC0, but the brands they depict remain trademarks of their owners; see /legal/trademarks',
+      vi: 'Bộ biểu tượng theo CC0, nhưng các thương hiệu được mô tả vẫn là nhãn hiệu của chủ sở hữu; xem /legal/trademarks',
+    },
+  },
+  {
+    component: 'Bricolage Grotesque · Be Vietnam Pro · IBM Plex Mono',
+    license: 'SIL OFL 1.1',
+    note: { en: 'self-hosted via Fontsource', vi: 'tự lưu trữ qua Fontsource' },
+  },
+];
+---
+
+<p>
+  {
+    locale === 'en'
+      ? 'SoftHarbor is built with open-source software. Runtime and asset dependencies and their licenses:'
+      : 'SoftHarbor được xây dựng trên phần mềm mã nguồn mở. Các thành phần và giấy phép tương ứng:'
+  }
+</p>
+
+<div class="-mx-4 overflow-x-auto px-4">
+  <table class="w-full border-collapse text-[var(--text-small)]">
+    <thead>
+      <tr class="border-b-2 text-left" style="border-color: var(--sh-border)">
+        <th class="py-2 pr-4">{locale === 'en' ? 'Component' : 'Thành phần'}</th>
+        <th class="py-2 pr-4">{locale === 'en' ? 'License' : 'Giấy phép'}</th>
+        <th class="py-2">{locale === 'en' ? 'Note' : 'Ghi chú'}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => (
+          <tr class="border-b" style="border-color: var(--sh-border); opacity: .95">
+            <td class="py-2 pr-4 align-top">{r.component}</td>
+            <td class="py-2 pr-4 align-top font-mono whitespace-nowrap">{r.license}</td>
+            <td class="py-2 align-top" style="color: var(--sh-muted)">
+              {r.note[locale]}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<p style="color: var(--sh-muted)">
+  {
+    locale === 'en'
+      ? 'A full machine-generated dependency list is regenerated each release.'
+      : 'Danh sách phụ thuộc đầy đủ được tạo tự động mỗi bản phát hành.'
+  }
+</p>

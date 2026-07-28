@@ -4,10 +4,19 @@
 
 import en from './en.json';
 import vi from './vi.json';
+import { type Locale } from '../lib/locale';
 
-export type Locale = 'en' | 'vi';
-export const LOCALES: readonly Locale[] = ['en', 'vi'];
-export const DEFAULT_LOCALE: Locale = 'en';
+// Routing helpers live in src/lib/locale.ts (no dictionary import) so islands
+// can use them without bundling every string; re-exported here so callers have
+// one place to import from.
+export {
+  DEFAULT_LOCALE,
+  LOCALES,
+  localeFromPath,
+  localePair,
+  localePath,
+  type Locale,
+} from '../lib/locale';
 
 /** Key union derived from en.json — a typo is a compile error, not a blank. */
 export type Key = keyof typeof en;
@@ -21,24 +30,4 @@ export function t(locale: Locale, key: Key, vars: Record<string, string | number
   let s: string = dict[locale][key] ?? dict.en[key] ?? key;
   for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, String(v));
   return s;
-}
-
-/** `en` → `/apps`, `vi` → `/vi/apps`. Slugs never localise (docs/07 §2). */
-export function localePath(locale: Locale, path: string): string {
-  const clean = path === '/' ? '' : path;
-  return locale === DEFAULT_LOCALE ? clean || '/' : `/vi${clean}`;
-}
-
-/**
- * Both directions of the EN⇄VI pair for a path in EITHER locale.
- * Single source for the language switcher href and the hreflang alternates,
- * so the two can never disagree (docs/07 §5).
- */
-export function localePair(pathname: string): Record<Locale, string> {
-  const bare = pathname === '/vi' ? '/' : pathname.replace(/^\/vi(?=\/)/, '') || '/';
-  return { en: localePath('en', bare), vi: localePath('vi', bare) };
-}
-
-export function localeFromPath(pathname: string): Locale {
-  return pathname === '/vi' || pathname.startsWith('/vi/') ? 'vi' : 'en';
 }

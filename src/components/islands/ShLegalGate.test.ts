@@ -8,12 +8,39 @@
 // "no visual flash" are NOT covered here — see the manual note in docs/11 §3.
 
 import { flushSync, mount, unmount } from 'svelte';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi as vitestVi } from 'vitest';
 import ShLegalGate from './ShLegalGate.svelte';
+import en from '../../i18n/en.json';
+import vi from '../../i18n/vi.json';
+
+/**
+ * Real dictionary strings, so these tests break if a gate key is renamed or
+ * dropped — the point of moving the copy out of the island in M4.
+ */
+const STRINGS = {
+  en: {
+    title: en['gate.title'],
+    body: en['gate.body'],
+    accept: en['gate.accept'],
+    disclaimer: en['gate.link.disclaimer'],
+    terms: en['gate.link.terms'],
+    privacy: en['gate.link.privacy'],
+    base: '/legal',
+  },
+  vi: {
+    title: vi['gate.title'],
+    body: vi['gate.body'],
+    accept: vi['gate.accept'],
+    disclaimer: vi['gate.link.disclaimer'],
+    terms: vi['gate.link.terms'],
+    privacy: vi['gate.link.privacy'],
+    base: '/vi/legal',
+  },
+};
 
 /** mount() schedules effects in a microtask; flush so assertions see onMount. */
 function mountGate(target: HTMLElement) {
-  const instance = mount(ShLegalGate, { target });
+  const instance = mount(ShLegalGate, { target, props: { strings: STRINGS } });
   flushSync();
   return instance;
 }
@@ -60,7 +87,7 @@ afterEach(() => {
   app = undefined;
   Reflect.deleteProperty(globalThis, 'localStorage');
   Reflect.deleteProperty(globalThis, '__shLegalAcceptedThisSession');
-  vi.resetModules();
+  vitestVi.resetModules();
 });
 
 describe('ShLegalGate — blocks before acceptance', () => {

@@ -1,8 +1,9 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/06 §4 — sticky header. Static in M1; ShLangSwitch and ShThemeToggle
-// replace the placeholder slots in M4 (docs/02 §5).
+// docs/06 §4 — sticky header.
+import ShLangSwitch from './islands/ShLangSwitch.svelte';
+import ShThemeToggle from './islands/ShThemeToggle.svelte';
 import { localePath, t, type Locale } from '../i18n';
 
 interface Props {
@@ -11,13 +12,19 @@ interface Props {
 const { locale } = Astro.props;
 const home = localePath(locale, '/');
 const apps = localePath(locale, '/apps');
+
+const themeLabels = {
+  system: t(locale, 'theme.system'),
+  light: t(locale, 'theme.light'),
+  dark: t(locale, 'theme.dark'),
+};
 ---
 
 <header
   class="sticky top-0 z-30 border-b-2"
   style="background: var(--sh-bg); border-color: var(--sh-border)"
 >
-  <div class="mx-auto flex max-w-[1360px] items-center gap-4 px-4 py-3 md:px-6">
+  <div class="mx-auto flex max-w-[1360px] flex-wrap items-center gap-4 px-4 py-3 md:px-6">
     <a href={home} class="font-display text-[1.375rem] font-semibold tracking-tight">
       {t(locale, 'site.name')}
     </a>
@@ -30,10 +37,37 @@ const apps = localePath(locale, '/apps');
     </nav>
 
     <span
-      class="sh-pill ml-auto hidden md:inline-block"
+      class="sh-pill ml-auto hidden lg:inline-block"
       style="color: var(--sh-muted); border-color: var(--sh-muted)"
     >
       {t(locale, 'search.hint')}
     </span>
+
+    {
+      /*
+      client:idle — both are preferences, not gates: the page is fully usable
+      before they hydrate, and /theme.js has already applied the right theme
+      pre-paint (docs/02 §5, docs/05 §A8).
+    */
+    }
+    <div class="ml-auto flex items-center gap-3 lg:ml-0">
+      {
+        /*
+      The suggestion banner is resolved with t('vi', …) regardless of page
+      locale — deliberately. It only ever renders to someone whose browser is
+      Vietnamese while they are on an EN page (docs/07 §2), so addressing them
+      in English would be exactly backwards. The EN entries for those keys
+      exist for dictionary parity and are never rendered.
+    */
+      }
+      <ShLangSwitch
+        client:idle
+        label={t(locale, 'lang.label')}
+        suggestText={t('vi', 'lang.suggest.text')}
+        suggestAccept={t('vi', 'lang.suggest.accept')}
+        suggestDismiss={t('vi', 'lang.suggest.dismiss')}
+      />
+      <ShThemeToggle client:idle label={t(locale, 'theme.label')} labels={themeLabels} />
+    </div>
   </div>
 </header>
