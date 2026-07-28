@@ -214,6 +214,26 @@ hreflang errors) — added to docs/13 §6.
 
 ## 10. Rollout sequence & verification
 
+> **Status 2026-07-27 — apex is LIVE.** `wrangler deploy` created the apex DNS
+> record and provisioned the certificate; `https://softharbor.net` serves the
+> M1 skeleton. Verified: http → https 301, apex 200, `/nope` → branded 404,
+> `_headers` applied, canonical URLs 200 with only the slashed variants
+> redirecting, service worker registering and controlling, workers.dev main
+> route dead (404).
+>
+> **Still to do, all dashboard steps (§4, §5, §6, §8):** `www` placeholder
+> record + Redirect Rule R1, HSTS phase P1, Email Routing + DMARC, GSC Domain
+> property + Crawler Hints. None are blocking, and all are steps 4–7 of the
+> sequence below.
+>
+> A temporary `X-Robots-Tag: noindex` is set in `_headers` while the dataset is
+> empty — **remove before v1.0.0** (docs/13 §2). Do not enable the §8 search
+> plumbing until it is gone, or the two will fight.
+>
+> Immediately after a fresh custom-domain deploy the edge briefly served the
+> pre-deploy trailing-slash behaviour before settling. Re-run the checks a
+> minute later before diagnosing anything.
+
 Order (fits between M5 and M6 of docs/15 — roughly one focused day):
 
 1. Zone added → NS live (external registrar) → DNSSEC on.

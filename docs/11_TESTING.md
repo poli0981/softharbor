@@ -121,13 +121,18 @@ than degrading into 414, `BUDGET = 5000` sits ~25 % below the first failure
 instead of the 80 %-of-hard-limit this doc originally specified — 80 % of the
 414 boundary lands *inside* the 500 band.
 
-**Still outstanding:** "prefill lands in the correct fields" is unverified.
-It needs `.github/ISSUE_TEMPLATE/bug_report.yml` on the **default branch**
-(GitHub reads issue templates only from there) and a logged-in session to see
-the rendered form. The template is written and committed on the feature
-branch; the check is a one-minute manual step once that branch reaches `main`:
-open the URL from `buildBugUrl()` and confirm Page URL, Browser & OS and
-Console output are populated.
+`bug_report.yml` **is now on `main`** and GitHub serves it, so the prefill
+path is live. **One manual step remains** — confirming the params land in the
+right fields needs a signed-in browser, which is not something automation
+should do on the maintainer's behalf. Open this and check that *Page URL*,
+*Browser & OS* and *Console output* are pre-populated:
+
+```
+https://github.com/poli0981/softharbor/issues/new?template=bug_report.yml&labels=bug&page-url=https%3A%2F%2Fsoftharbor.net%2Fapps&environment=test&console-output=probe
+```
+
+If a field is empty, its `id` in `bug_report.yml` no longer matches the query
+param in `issueUrl.ts` — that pairing is the contract (docs/12 §7).
 
 ### S4 — Legal gate × View Transitions
 - **Goal:** gate never re-flashes across ClientRouter navigations and truly
@@ -197,6 +202,11 @@ shipped:
 Verified: `_headers` applies on Workers Static Assets, `/nope` → real 404,
 SW active **and controlling**, `/offline` precached with all 13 fonts and
 rendering both languages, online navigation still serving real pages.
+
+**Re-verified on `https://softharbor.net` itself** after the apex deploy
+(2026-07-27): SW active **and controlling**, 15 precache entries incl. all 13
+fonts, `/offline` cache-servable, online navigation still serving real pages,
+zero console errors.
 
 **Still outstanding:** the actual airplane-mode pass on desktop **and Android
 Chrome**, which is a device test. The software wiring above is what can be

@@ -111,6 +111,9 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-27 | **S5 software passed**, 4 bugs: SW never registered (`@vite-pwa/astro` emits but never references `registerSW.js`); `navigateFallback` served the offline page to *online* visitors; `clientsClaim` false; workbox globs coupled to `build.format`. Device airplane-mode pass still outstanding | ✅ / ⚠ |
 | 2026-07-27 | **S3 partial**: `BUDGET = 5000`. GitHub 500s between ~7 160 and ~7 960 rather than degrading to 414, so 80 %-of-hard-limit would have landed inside the 500 band. Field-mapping check still needs the template on `main` | ✅ / ⚠ |
 | 2026-07-27 | Pre-launch `X-Robots-Tag: noindex` in `_headers` while the dataset is empty; removal is a launch-checklist item (docs/13 §2) | ✅ |
+| 2026-07-27 | **`softharbor.net` is LIVE** — apex deployed, DNS + cert provisioned by `wrangler deploy`, M1 skeleton serving. **M0 and M1 complete** | ✅ |
+| 2026-07-27 | S5 re-verified on the production origin (SW controlling, 15 precache entries, no console errors). Airplane-mode device pass still outstanding | ✅ / ⚠ |
+| 2026-07-27 | `main` fast-forwarded to the feature branch so `bug_report.yml` reaches the default branch — GitHub reads issue templates only from there | ✅ |
 
 ## 5. Open questions for Kokone
 
