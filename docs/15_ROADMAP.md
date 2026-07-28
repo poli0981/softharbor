@@ -107,6 +107,10 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-27 | `_headers` had a dead `/fonts/*` rule and the PWA a dead `fonts/*.woff2` glob: Astro hashes fonts into `/_astro/`, so the offline shell would have shipped **unstyled**. Both corrected (docs/08 D, docs/09 §4) | ✅ (found by inspecting `dist/`) |
 | 2026-07-27 | Page bodies live in `src/components/pages/*.astro`; `src/pages/**` are thin locale wrappers. Implements the docs/07 §2 no-duplication rule for whole pages, not just `getStaticPaths` | ✅ |
 | 2026-07-27 | i18n parity script also enforces **alphabetical key order** — a 200-key dictionary is unreviewable otherwise | ✅ |
+| 2026-07-27 | **S1 closed on a real deploy**: `build.format: 'file'` + `html_handling: 'drop-trailing-slash'`. The default pairing 307'd every canonical URL we advertise | ✅ (measured) |
+| 2026-07-27 | **S5 software passed**, 4 bugs: SW never registered (`@vite-pwa/astro` emits but never references `registerSW.js`); `navigateFallback` served the offline page to *online* visitors; `clientsClaim` false; workbox globs coupled to `build.format`. Device airplane-mode pass still outstanding | ✅ / ⚠ |
+| 2026-07-27 | **S3 partial**: `BUDGET = 5000`. GitHub 500s between ~7 160 and ~7 960 rather than degrading to 414, so 80 %-of-hard-limit would have landed inside the 500 band. Field-mapping check still needs the template on `main` | ✅ / ⚠ |
+| 2026-07-27 | Pre-launch `X-Robots-Tag: noindex` in `_headers` while the dataset is empty; removal is a launch-checklist item (docs/13 §2) | ✅ |
 
 ## 5. Open questions for Kokone
 

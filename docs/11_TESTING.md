@@ -114,6 +114,21 @@ Neither is optional — both change shipped behavior:**
 - **Exit:** empirical limit documented; `BUDGET` in `issueUrl.ts` set to
   ~80 % of it; prefill lands in the correct fields.
 
+**S3 result — PARTIAL, 2026-07-27.** The length ceiling is measured and
+`BUDGET` is set (table + reasoning in docs/05 §A6): clean to 6 660, a **500
+band from ~7 160 to ~7 960**, then 414 from ~8 360. Because GitHub 500s rather
+than degrading into 414, `BUDGET = 5000` sits ~25 % below the first failure
+instead of the 80 %-of-hard-limit this doc originally specified — 80 % of the
+414 boundary lands *inside* the 500 band.
+
+**Still outstanding:** "prefill lands in the correct fields" is unverified.
+It needs `.github/ISSUE_TEMPLATE/bug_report.yml` on the **default branch**
+(GitHub reads issue templates only from there) and a logged-in session to see
+the rendered form. The template is written and committed on the feature
+branch; the check is a one-minute manual step once that branch reaches `main`:
+open the URL from `buildBugUrl()` and confirm Page URL, Browser & OS and
+Console output are populated.
+
 ### S4 — Legal gate × View Transitions
 - **Goal:** gate never re-flashes across ClientRouter navigations and truly
   blocks interaction pre-accept.
@@ -157,6 +172,35 @@ The tests assert the *state machine* that drives those, not their rendering.
   up a redeploy without hard refresh.
 - **Exit:** fallback fires on both devices on the production origin;
   update flow clean.
+
+**S5 result — software PASSED on a real origin, 2026-07-27** (Cloudflare
+preview URL; the Worker was created with a routes-free config so nothing is
+attached to `softharbor.net` yet). Four bugs found, all of which would have
+shipped:
+
+1. **The service worker never registered.** `@vite-pwa/astro` emits
+   `registerSW.js` and `sw.js` but references them from no page, and the build
+   reports success either way — the entire offline story silently did not
+   exist. `Base.astro` now loads the emitted file.
+2. **`navigateFallback` served the offline page to ONLINE visitors.** Alone it
+   registers a NavigationRoute answering *every* navigation from the precache;
+   an online request for `/apps` returned "You appear to be offline". Part D's
+   original `NetworkOnly` + `precacheFallback` shape is correct and had been
+   dropped from the config.
+3. **`clientsClaim` was false**, so the SW controlled only pages loaded after
+   activation — a first-time visitor losing connection mid-session got the
+   browser's error page.
+4. The workbox globs are **coupled to `build.format`** (`offline.html`, not
+   `offline/**`), and Workbox normalises the precache key to the extensionless
+   `/offline`. Both verified against the emitted manifest rather than assumed.
+
+Verified: `_headers` applies on Workers Static Assets, `/nope` → real 404,
+SW active **and controlling**, `/offline` precached with all 13 fonts and
+rendering both languages, online navigation still serving real pages.
+
+**Still outstanding:** the actual airplane-mode pass on desktop **and Android
+Chrome**, which is a device test. The software wiring above is what can be
+verified without one.
 
 ## 4. Continuous wiring
 

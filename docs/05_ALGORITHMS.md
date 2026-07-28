@@ -191,8 +191,23 @@ export function buildBugUrl(consoleText: string): string {
 }
 ```
 
-`BUDGET` is an empirical constant — spike S3 binary-searches the real limit
-on github.com and sets it with ~20 % headroom.
+**`BUDGET = 5000`** — measured by spike S3 against github.com (2026-07-27,
+two probes per length):
+
+| Total URL length | GitHub response |
+|---|---|
+| ≤ 6 660 | `302` — accepted |
+| 7 160 – 7 960 | **`500` Internal Server Error** |
+| ~8 160 | connection reset |
+| ≥ 8 360 | `414` URI Too Long |
+
+The important part is the *shape*: GitHub does not degrade gracefully into a
+414. There is a ~1.3 KB band where it plainly 500s, and the only person who
+ever meets it is a user who just clicked "Report a bug" — the worst possible
+moment for an error page. So the budget sits **~25 % below the first observed
+failure (6 660)**, not at 80 % of the hard 414 limit: 80 % of 8 360 is 6 688,
+which lands inside the 500 band. Re-measure if GitHub changes; the constant is
+an observation, not a standard.
 
 ## A7 — Legal-gate version check
 

@@ -11,12 +11,21 @@ const REPO = 'https://github.com/poli0981/softharbor';
 /**
  * Total-URL budget in characters.
  *
- * Measured by spike S3 (2026-07-27) — see docs/11 §3 for the method and the
- * observed ceiling. Set well below the limit that actually fails, because the
- * failure mode is silent: GitHub does not error, it drops the prefill and the
- * user files a report with an empty console field.
+ * Measured against github.com in spike S3 (2026-07-27), two probes per length:
+ *
+ *   ≤ 6660  → 302, clean
+ *   7160-7960 → 500 Internal Server Error
+ *   ~8160   → connection reset
+ *   ≥ 8360  → 414 URI Too Long
+ *
+ * Note the shape: GitHub does not degrade gracefully into 414. There is a
+ * ~1.3 KB band where it simply 500s, and a user only ever meets it at the
+ * worst moment — the click that was meant to report a bug. So the budget sits
+ * ~25 % below the first observed failure rather than at the 80 % of the hard
+ * limit docs/05 §A6 originally assumed; 80 % of the 414 boundary would land
+ * inside the 500 band.
  */
-export const BUDGET = 6000;
+export const BUDGET = 5000;
 
 export function buildBugUrl(
   consoleText: string,
