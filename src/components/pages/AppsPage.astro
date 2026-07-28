@@ -1,12 +1,14 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/06 §5 — grid. Server-rendered with ALL apps, unfiltered: the search /
-// filter island (M3) hides cards by toggling [hidden], so the no-JS
-// experience stays whole (docs/03 §8, docs/05 §A3).
+// docs/06 §5 — grid + toolbar. The grid is server-rendered with ALL apps,
+// unfiltered: the islands hide cards by toggling [hidden] and reorder with CSS
+// `order`, so the no-JS experience stays whole (docs/03 §8, docs/05 §A3).
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ShAppCard from '../ShAppCard.astro';
+import ShSearch from '../islands/ShSearch.svelte';
+import ShFilterSheet from '../islands/ShFilterSheet.svelte';
 import { byAddedDesc } from '../../lib/paths';
 import { t, type Locale } from '../../i18n';
 
@@ -16,32 +18,83 @@ interface Props {
 const { locale } = Astro.props;
 
 const apps = (await getCollection('apps')).sort(byAddedDesc);
-const count = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB').format(apps.length);
+const categories = (await getCollection('categories')).sort((a, b) => a.data.order - b.data.order);
+
+const nf = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB');
+
+const facetOptions = {
+  categories: categories.map((c) => ({ value: c.id, label: c.data.label[locale] })),
+  platforms: (['windows', 'macos', 'linux'] as const).map((p) => ({
+    value: p,
+    label: t(locale, `platform.${p}`),
+  })),
+  pricing: (['free', 'free-onetime', 'onetime'] as const).map((p) => ({
+    value: p,
+    label: t(locale, `pricing.${p}`),
+  })),
+};
 ---
 
 <Base title={`${t(locale, 'apps.title')} — ${t(locale, 'site.name')}`} {locale}>
   <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'apps.title')}</h1>
   <p class="mt-2 max-w-2xl" style="color: var(--sh-muted)">{t(locale, 'apps.intro')}</p>
 
-  <p
-    class="mt-6 font-mono text-[var(--text-badge)]"
-    aria-live="polite"
-    style="color: var(--sh-muted)"
-  >
-    {t(locale, 'apps.count', { n: count })}
-  </p>
+  {/* client:idle — the grid is readable without either island (docs/02 §5). */}
+  <div class="mt-6 flex flex-wrap items-center gap-3">
+    <div class="min-w-0 flex-1">
+      <ShSearch
+        client:idle
+        placeholder={t(locale, 'search.placeholder')}
+        label={t(locale, 'search.label')}
+        loadingLabel={t(locale, 'search.loading')}
+        sortLabel={t(locale, 'sort.label')}
+        sortName={t(locale, 'sort.name')}
+        sortAdded={t(locale, 'sort.added')}
+      />
+    </div>
+    <ShFilterSheet
+      client:idle
+      openLabel={t(locale, 'filters.open')}
+      closeLabel={t(locale, 'filters.close')}
+      clearLabel={t(locale, 'filters.clear')}
+      showLabel={t(locale, 'filters.show')}
+      headings={{
+        categories: t(locale, 'filters.categories'),
+        platforms: t(locale, 'filters.platforms'),
+        pricing: t(locale, 'filters.pricing'),
+      }}
+      options={facetOptions}
+    />
+  </div>
 
   {
-    apps.length === 0 ? (
-      <p class="sh-panel mt-4 p-6" style="color: var(--sh-muted)">
-        {t(locale, 'apps.empty')}
-      </p>
-    ) : (
-      <div id="sh-grid" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {apps.map((app) => (
-          <ShAppCard {app} {locale} />
-        ))}
-      </div>
-    )
+    /*
+    Server-rendered with the true total so a no-JS visitor sees a correct
+    number; the grid controller rewrites it from data-count-template, which is
+    how the island stays locale-agnostic (docs/07 §3).
+  */
   }
+  <p
+    id="sh-count"
+    class="mt-6 font-mono text-[var(--text-badge)]"
+    aria-live="polite"
+    data-count-template={t(locale, 'apps.count', { n: '{n}' })}
+    style="color: var(--sh-muted)"
+  >
+    {t(locale, 'apps.count', { n: nf.format(apps.length) })}
+  </p>
+
+  <div id="sh-grid" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    {apps.map((app) => <ShAppCard {app} {locale} />)}
+  </div>
+
+  {/* Hidden until filtering actually yields nothing (docs/06 §5). */}
+  <p
+    id="sh-empty"
+    class="sh-panel mt-8 p-6"
+    style="color: var(--sh-muted)"
+    hidden={apps.length > 0}
+  >
+    {t(locale, 'apps.empty')}
+  </p>
 </Base>

@@ -119,6 +119,10 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-28 | `unplugin-icons` is static-import-only and cannot resolve a data-driven `logo`. `src/lib/icon.ts` inlines from the same vendored Iconify JSON at build time; the T4 ban carries one carve-out scoped to three named files | ⚠ review |
 | 2026-07-28 | Seed entries enter as `security.status: "unverified"` — `clean` requires the docs/09 §6 checklist, and hard rule 4 forbids clean-by-default. Licenses/developers still need the L4 pass | ⚠ Kokone |
 | 2026-07-28 | Post-deploy edge propagation makes brand-new routes 404 intermittently for a minute or two; documented in docs/16 §10 so it is not mistaken for a config bug | ✅ |
+| 2026-07-28 | **M3 complete** — `/search-index.json`, nanostores, pure filter/sort in `src/lib/filter.ts`, `ShSearch` + `ShFilterSheet`. S2 vectors verified **in-app**; facets compose; no-JS grid intact | ✅ |
+| 2026-07-28 | **nanostores' `$name` convention is incompatible with Svelte** — `$` is reserved for auto-subscription, so atoms are exported unprefixed and referenced as `$name` in components (docs/05 §A3) | ✅ |
+| 2026-07-28 | Grid controller lives in `src/lib/grid.ts`, not a 7th island — docs/02 §5 caps islands at six. Reordering uses CSS `order`, never DOM moves | ✅ |
+| 2026-07-28 | All 5 seed entries share `addedAt`, so the "Newest" sort currently falls through to the name tiebreak. Correct, but it means sort order is only exercised by unit tests until entries land on different days | ⚠ note |
 
 ## 5. Open questions for Kokone
 

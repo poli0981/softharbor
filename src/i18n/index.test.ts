@@ -40,7 +40,13 @@ describe('dictionary parity (hard rule 6 — same check CI runs)', () => {
     // The allowlist is deliberately exhaustive rather than a pattern: every
     // entry is a proper noun that Vietnamese also writes in Latin script, and
     // adding to it should require saying why (docs/07 §9 keeps the glossary).
-    const PROPER_NOUNS = ['platform.linux', 'platform.macos', 'platform.windows', 'site.name'];
+    const PROPER_NOUNS = [
+      'platform.linux',
+      'platform.macos',
+      'platform.windows',
+      'site.name',
+      'sort.name', // "A–Z" — the Latin range reads the same in Vietnamese
+    ];
     const identical = Object.keys(en).filter(
       (k) => en[k as keyof typeof en] === vi[k as keyof typeof vi],
     );

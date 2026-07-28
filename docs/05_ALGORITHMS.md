@@ -112,6 +112,22 @@ by turning the constant up.
 State (nanostores, `src/lib/stores.ts`): `query`, `categories: Set`,
 `platforms: Set`, `pricing: Set`, `sort: 'name' | 'added'`.
 
+**Export the atoms WITHOUT the `$` prefix** that nanostores' own docs use.
+Svelte reserves `$` for store auto-subscription, so `import { $query }` in a
+`.svelte` file is a hard compile error (`dollar_prefix_invalid`) — and it is
+precisely by naming the export `query` that a component can write `$query` to
+read it reactively. The two conventions collide head-on and nanostores is the
+side that gives (found in M3).
+
+**Where the logic lives.** The composition and sort below are pure functions in
+`src/lib/filter.ts`, unit-tested without a DOM. `src/lib/grid.ts` is the thin
+layer that reads the `data-*` facets off the cards and writes `hidden` /
+`order`. Neither is an island: docs/02 §5 fixes the count at six, so
+`ShSearch` mounts the grid controller rather than a seventh island existing.
+
+Reordering uses **CSS `order`, not DOM moves** — moving nodes on every
+keystroke would drop focus and restart the entrance animation.
+
 **Where the facet data comes from.** Every card wrapper is server-rendered
 with `data-slug`, `data-categories`, `data-platforms`, `data-pricing`,
 `data-added` (docs/06 §6). The filter island reads those attributes and
