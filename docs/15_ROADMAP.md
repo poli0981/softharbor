@@ -132,7 +132,14 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-28 | Feed determinism **verified by building twice and comparing hashes** — `/rss.xml` byte-identical, so notify.py cannot double-fire. `@astrojs/rss` has no `guid` option, so the slug guid is injected via `customData` (docs/05 §A4) | ✅ |
 | 2026-07-28 | Ring-buffer listeners moved OUT of `ShBugReport` into `public/errors.js`: the island is `client:visible` in the footer, so hydration-time listeners would have missed every error before the user scrolled (docs/05 §A5) | ✅ |
 | 2026-07-28 | `public/*.js` is now linted with browser globals rather than ignored — `theme.js` had been exempt | ✅ |
-| 2026-07-28 | **PNG PWA icons (192/512/maskable) still missing.** `favicon.svg` is a placeholder anchor mark; the real wordmark is a design deliverable and was not fabricated. The manifest ships `icons: []`, so there is no install prompt — harmless, but a launch-checklist item | ⚠ Kokone |
+| 2026-07-28 | **PNG PWA icons (192/512/maskable) still missing.** ⛔ superseded — Kokone chose to ship the existing SVG: manifest now uses `favicon.svg`, `sizes: "any"`, `purpose: "any maskable"`. Raster PNGs remain an optional upgrade | ✅ |
+| 2026-07-28 | **M6 complete** — CI/CD workflows, `quarantine.mjs`, renovate, CODEOWNERS, issue templates. Infra section of the launch checklist verified green against production | ✅ |
+| 2026-07-28 | **H6 approved.** `LEGAL_VERSION` set to 2026-07-28; everyone who accepted the pre-approval wording sees the gate once more, as intended | ✅ Kokone |
+| 2026-07-28 | **`X-Robots-Tag: noindex` removed.** It guarded against indexing an EMPTY site; with real entries, legal pages and a sitemap live that objection no longer holds | ✅ |
+| 2026-07-28 | **`www` was being deleted by `wrangler deploy`** — a hand-added DNS record is not in the Worker's trigger list, so deploys reconciled it away and the redirect died silently. Fixed by declaring `www.softharbor.net` as a second `custom_domain` so wrangler owns the record. **Redirect Rule R1 is now a hard prerequisite**: without it www would serve a duplicate of the site | ✅ (verified across a deploy) |
+| 2026-07-28 | Quarantine sweep tested end-to-end: a flagged entry vanishes from the detail page, grid, API export, RSS feed **and** search index — all five surfaces | ✅ |
+| 2026-07-28 | Dead-code sweep: `ShProbe.svelte` (a dead S1 leftover sitting in `islands/`, where docs/02 §5 caps the count at six), 5 unused exports, 2 `exactOptionalPropertyTypes` violations. `knip` now passes clean so the next one is visible | ✅ |
+| 2026-07-28 | **v1.0.0 NOT tagged.** Infra is green but the dataset is 5 of 32 entries and all are `unverified` — the docs/09 §6 checklist has not been run. Tagging now would rest hard rule 4's honesty claim on unchecked data | ⚠ Kokone |
 
 ## 5. Open questions for Kokone
 

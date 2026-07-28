@@ -10,6 +10,18 @@ additions — the RSS feed *is* the data changelog.
 
 ## 2. Launch checklist (gate for calling it v1.0.0)
 
+> **Status 2026-07-28.** The infra section below is **green** — verified
+> against production after the M6 deploy: `http→https` 301, `www→apex` 301 with
+> path and query preserved, apex 200, branded 404, HSTS present, no
+> `X-Robots-Tag`, workers.dev route dead (404), DMARC resolving, and
+> `/api/apps.json`, `/rss.xml`, `/sitemap-index.xml`, `security.txt` all 200.
+>
+> **What still blocks v1.0.0 is content, not infrastructure:** the dataset
+> holds 5 entries against the 32 in §4, and every one is
+> `security.status: "unverified"` because the §6 vetting checklist has not been
+> run against them. Tagging v1.0.0 before that would put the project's own
+> honesty claim (hard rule 4) on a dataset nobody has checked.
+
 Infra & correctness
 
 - [ ] Spikes S1–S5 all passed (docs/11 §3); fallbacks recorded if taken
@@ -26,8 +38,10 @@ Infra & correctness
       DNSSEC signing, `www` → 301 apex with path+query, http → https,
       workers.dev main route dead, HSTS phase P1 header present,
       DMARC record resolves, `contact@softharbor.net` receives a test mail
-- [ ] No stray `workers.dev` references in the repo
-      (`git grep workers.dev` → only docs/16 §3's preview note)
+- [x] No stray `workers.dev` references in the repo. `git grep workers.dev`
+      outside `docs/` and the lockfile should return only **`CLAUDE.md`'s
+      hosting summary** — that and docs/16 §3 are deliberate descriptions of
+      the disabled route, not live URLs. Anything else is a real stray.
 - [ ] **`X-Robots-Tag: noindex` removed from `public/_headers`.** It was added
       pre-launch so an empty site could be deployed without being indexed;
       leaving it in would silently keep the finished site out of every search
