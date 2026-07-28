@@ -3,6 +3,8 @@
   "apps.empty": "Chưa có ứng dụng nào — danh sách đang được bổ sung.",
   "apps.intro": "Mọi liên kết đều dẫn tới trang chính thức của nhà phát triển. SoftHarbor không lưu trữ tệp cài đặt.",
   "apps.title": "Ứng dụng",
+  "bug.errorCount": "{n} lỗi",
+  "bug.report": "Báo lỗi",
   "card.checked": "đã kiểm tra {date}",
   "card.listed": "đưa vào danh sách {date}",
   "card.security.clean": "Không có cảnh báo đã biết",

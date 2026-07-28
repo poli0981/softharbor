@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/06 §4 — footer. ShBugReport lands in M5 (docs/02 §5).
+import ShBugReport from './islands/ShBugReport.svelte';
 import { localePath, t, type Locale } from '../i18n';
 
 interface Props {
@@ -48,6 +49,18 @@ const built = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
       >
         {t(locale, 'footer.github')}
       </a>
+      {
+        /* client:visible — it lives at the bottom and nothing depends on it
+          until seen. The ring buffer it reads is filled from /errors.js, which
+          loads early, so scrolling late does not lose errors (docs/05 §A5). */
+      }
+      <span class="font-mono text-[var(--text-badge)]">
+        <ShBugReport
+          client:visible
+          label={t(locale, 'bug.report')}
+          countLabel={t(locale, 'bug.errorCount')}
+        />
+      </span>
       <span class="font-mono text-[var(--text-badge)]">
         {t(locale, 'footer.builtAt', { date: built })}
       </span>

@@ -1,0 +1,16 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// Dormant (docs/08 Part C): with no Worker script a 500 practically cannot
+// originate from us, and Cloudflare's own infra errors (52x) show their page,
+// which a Free zone cannot customise.
+import ErrorPage from '../../components/pages/ErrorPage.astro';
+---
+
+<ErrorPage
+  code="500"
+  titleEn="Something broke"
+  titleVi="Đã xảy ra lỗi"
+  bodyEn="SoftHarbor is a static site with no server code, so this should be impossible. If you are seeing it, the report button in the footer helps."
+  bodyVi="SoftHarbor là trang tĩnh, không có mã chạy trên máy chủ, nên lỗi này gần như không thể xảy ra. Nếu bạn gặp, hãy dùng nút báo lỗi ở chân trang."
+/>

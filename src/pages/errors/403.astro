@@ -1,0 +1,16 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// Dormant (docs/08 Part C): nothing issues 403 in v1 — the WAF features
+// are deliberately OFF (docs/16 §9). Kept so a future Pro-zone Custom Errors
+// switch-on is a config-only task.
+import ErrorPage from '../../components/pages/ErrorPage.astro';
+---
+
+<ErrorPage
+  code="403"
+  titleEn="Access denied"
+  titleVi="Truy cập bị từ chối"
+  bodyEn="Nothing on SoftHarbor requires permission, so this is unexpected. If you reached this page, please report it."
+  bodyVi="Không phần nào của SoftHarbor yêu cầu quyền truy cập, nên đây là tình huống bất thường. Nếu bạn gặp trang này, hãy báo cho chúng tôi."
+/>

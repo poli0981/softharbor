@@ -1,0 +1,77 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+//
+// docs/16 §7 — structured data.
+//
+// A <script type="application/ld+json"> is a DATA block, not executable
+// script, so the strict CSP needs no hash for it (docs/09 §4) — confirmed in
+// the S1 build.
+import type { CollectionEntry } from 'astro:content';
+import { localePath, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  site: URL;
+  app?: CollectionEntry<'apps'>;
+  categoryLabelEn?: string;
+  /** Rendered on the welcome page only. */
+  website?: boolean;
+}
+const { locale, site, app, categoryLabelEn, website = false } = Astro.props;
+
+const abs = (path: string) => new URL(path, site).href;
+
+const nodes: Record<string, unknown>[] = [];
+
+if (website) {
+  // One WebSite node, on / only. No SearchAction in v1: search is client-side
+  // with no ?q= deep link to point at (docs/16 §7, docs/15 §2).
+  nodes.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'SoftHarbor',
+    url: abs(localePath(locale, '/')),
+    inLanguage: locale === 'vi' ? 'vi-VN' : 'en-GB',
+  });
+}
+
+if (app) {
+  const d = app.data;
+  nodes.push({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: d.name,
+    description: d.summary[locale],
+    operatingSystem: d.platforms
+      .map((p) => ({ windows: 'Windows', macos: 'macOS', linux: 'Linux' })[p])
+      .join(', '),
+    applicationCategory: categoryLabelEn,
+    url: abs(localePath(locale, `/apps/${app.id}`)),
+    author: { '@type': 'Organization', name: d.developer },
+    sameAs: [d.links.homepage, d.links.repo].filter(Boolean),
+    // Price is stated ONLY for `free`. We do not know the amount for onetime
+    // entries and will not invent one — truthfulness over rich-result greed
+    // (docs/16 §7, hard rule 4's spirit).
+    ...(d.pricing === 'free'
+      ? { offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } }
+      : {}),
+  });
+
+  nodes.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'SoftHarbor', item: abs(localePath(locale, '/')) },
+      { '@type': 'ListItem', position: 2, name: 'Apps', item: abs(localePath(locale, '/apps')) },
+      { '@type': 'ListItem', position: 3, name: d.name },
+    ],
+  });
+}
+---
+
+{
+  nodes.map((node) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(node)} />
+  ))
+}

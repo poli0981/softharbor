@@ -1,0 +1,16 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// Dormant (docs/08 Part C): rate limiting is deliberately OFF in v1
+// (docs/16 §9), and on a Free zone a block would show Cloudflare's own page
+// anyway. Kept as a config-only switch-on.
+import ErrorPage from '../../components/pages/ErrorPage.astro';
+---
+
+<ErrorPage
+  code="429"
+  titleEn="Too many requests"
+  titleVi="Quá nhiều yêu cầu"
+  bodyEn="You have been rate limited. The public dataset at /api/apps.json exists precisely so tools do not have to scrape the pages."
+  bodyVi="Bạn đã bị giới hạn tần suất truy cập. Bộ dữ liệu công khai tại /api/apps.json tồn tại để công cụ không phải quét từng trang."
+/>

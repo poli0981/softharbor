@@ -128,6 +128,11 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-28 | Gate strings are passed to the island as props rather than importing `t` — the gate must switch locale without a reload, but importing the dictionaries would bundle all 78 keys into it | ✅ |
 | 2026-07-28 | Locale ROUTING split into `src/lib/locale.ts` (no dictionary import) so islands can use `localePair` without pulling in every string | ✅ |
 | 2026-07-28 | Legal drafts are published as written in docs/14. **H6 (Kokone's review) is still outstanding**, and `LEGAL_VERSION` should be reset to the approval date when it happens — bumping it re-opens the gate for everyone, which is the intended behaviour | ⚠ Kokone |
+| 2026-07-28 | **M5 complete** — `/api/apps.json`, `/rss.xml`, `ShBugReport` (the 6th and final island), dormant `/errors/*`, 404/offline, `security.txt`, `SECURITY.md`, JSON-LD, favicon. **All six islands now exist**; a seventh needs a decision-log entry | ✅ |
+| 2026-07-28 | Feed determinism **verified by building twice and comparing hashes** — `/rss.xml` byte-identical, so notify.py cannot double-fire. `@astrojs/rss` has no `guid` option, so the slug guid is injected via `customData` (docs/05 §A4) | ✅ |
+| 2026-07-28 | Ring-buffer listeners moved OUT of `ShBugReport` into `public/errors.js`: the island is `client:visible` in the footer, so hydration-time listeners would have missed every error before the user scrolled (docs/05 §A5) | ✅ |
+| 2026-07-28 | `public/*.js` is now linted with browser globals rather than ignored — `theme.js` had been exempt | ✅ |
+| 2026-07-28 | **PNG PWA icons (192/512/maskable) still missing.** `favicon.svg` is a placeholder anchor mark; the real wordmark is a design deliverable and was not fabricated. The manifest ships `icons: []`, so there is no install prompt — harmless, but a launch-checklist item | ⚠ Kokone |
 
 ## 5. Open questions for Kokone
 

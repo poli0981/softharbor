@@ -1,33 +1,36 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/05 §A5 — in-memory console ring buffer feeding the bug-report flow.
 //
-// Privacy (docs/09 §8): captures only exception text from our own origin.
-// Never wraps console.*, never reads input values, never leaves the page
-// until the user explicitly opens a bug report (§A6).
+// docs/05 §A5 — reader for the console ring buffer.
+//
+// The buffer is FILLED by public/errors.js, which is loaded early from
+// Base.astro. It cannot live in this module: ShBugReport is client:visible in
+// the footer (docs/02 §5), so listeners attached at hydration would miss every
+// error that happened before the user scrolled — the ones a bug report is
+// actually about. The two halves meet on `window.__shErrors`.
+//
+// Privacy (docs/09 §8): in-memory only, page lifetime, never transmitted until
+// the user opens a report themselves.
 
-const CAP = 20;
-const MAX_LINE = 500;
-const buf: string[] = [];
+const GLOBAL_KEY = '__shErrors';
 
-/** Exported for tests; the listeners below are the only production callers. */
-export function push(line: string, now = new Date()): void {
-  buf.push(`[${now.toISOString()}] ${line}`.slice(0, MAX_LINE));
-  if (buf.length > CAP) buf.shift();
+export const CAP = 20;
+
+function raw(): string[] {
+  const v = (globalThis as Record<string, unknown>)[GLOBAL_KEY];
+  return Array.isArray(v) ? (v as string[]) : [];
 }
 
-export const getBuffer = (): string => buf.join('\n');
+/** Newest-last, joined for the issue body. Empty string when nothing happened. */
+export function getBuffer(): string {
+  return raw().join('\n');
+}
 
-export const clearBuffer = (): void => void buf.splice(0, buf.length);
+export function bufferSize(): number {
+  return raw().length;
+}
 
-/** Idempotent: calling twice must not double-record every error. */
-let attached = false;
-
-export function attach(target: Window): void {
-  if (attached) return;
-  attached = true;
-  target.addEventListener('error', (e) => push(`error: ${e.message} @ ${e.filename}:${e.lineno}`));
-  target.addEventListener('unhandledrejection', (e) =>
-    push(`unhandledrejection: ${String(e.reason).slice(0, 400)}`),
-  );
+/** Test seam — production only ever appends via public/errors.js. */
+export function __setBufferForTests(lines: string[]): void {
+  (globalThis as Record<string, unknown>)[GLOBAL_KEY] = lines;
 }

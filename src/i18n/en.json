@@ -3,6 +3,8 @@
   "apps.empty": "No apps yet — the directory is being seeded.",
   "apps.intro": "Every link goes to the developer's official page. SoftHarbor hosts no downloads.",
   "apps.title": "Apps",
+  "bug.errorCount": "{n} errors",
+  "bug.report": "Report a bug",
   "card.checked": "checked {date}",
   "card.listed": "listed {date}",
   "card.security.clean": "No known warnings",

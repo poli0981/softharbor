@@ -10,7 +10,18 @@ import svelteParser from 'svelte-eslint-parser';
 import globals from 'globals';
 
 export default tseslint.config(
-  { ignores: ['dist/', '.astro/', 'node_modules/', 'public/theme.js'] },
+  { ignores: ['dist/', '.astro/', 'node_modules/'] },
+  {
+    // Unbundled scripts shipped verbatim from public/. They must stay plain
+    // browser JS — no imports, no TypeScript — because they load before the
+    // bundle and at a stable path (docs/05 §A8, §A5). Previously theme.js was
+    // simply ignored; linting them is better than exempting them.
+    files: ['public/*.js'],
+    languageOptions: {
+      globals: globals.browser,
+      sourceType: 'script',
+    },
+  },
   js.configs.recommended,
   ...tseslint.configs.strict,
   ...astro.configs.recommended,
@@ -46,6 +57,12 @@ export default tseslint.config(
       'src/components/ShAppCard.astro',
       'src/components/pages/AppDetailPage.astro',
       'src/components/pages/CategoriesPage.astro',
+      // ShJsonLd emits JSON.stringify() of an object it builds itself into a
+      // <script type="application/ld+json">. That is a DATA block, not
+      // executable script (docs/09 §4), and Astro's normal escaping would
+      // corrupt the JSON — &quot; is not valid inside it. Values come from the
+      // schema-validated collection, never from a request.
+      'src/components/ShJsonLd.astro',
     ],
     rules: {
       'astro/no-set-html-directive': 'off',

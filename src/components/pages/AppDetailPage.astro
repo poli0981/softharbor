@@ -5,6 +5,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import ShJsonLd from '../ShJsonLd.astro';
 import { iconSvg } from '../../lib/icon';
 import { localePath, t, type Locale } from '../../i18n';
 
@@ -45,6 +46,12 @@ const meta: Array<[string, string]> = [
 ---
 
 <Base title={`${d.name} — ${t(locale, 'site.name')}`} description={d.summary[locale]} {locale}>
+  <ShJsonLd
+    {locale}
+    site={Astro.site ?? new URL('https://softharbor.net')}
+    {app}
+    categoryLabelEn={primary?.data.label.en}
+  />
   <nav aria-label="Breadcrumb" class="text-[var(--text-small)]" style="color: var(--sh-muted)">
     <a href={localePath(locale, '/apps')} class="hover:underline">{t(locale, 'apps.title')}</a>
     <span aria-hidden="true"> / </span>

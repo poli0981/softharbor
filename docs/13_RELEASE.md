@@ -17,6 +17,11 @@ Infra & correctness
 - [ ] `curl -I` shows full header set (docs/09 §4); observatory scan grade A
 - [ ] `/apps/nonexistent` → HTTP 404 branded page; airplane-mode → offline page
 - [ ] `/api/apps.json`, `/rss.xml`, `/sitemap-index.xml` valid (W3C feed validator)
+- [ ] **PWA icons exist** — `public/icons/` 192, 512 and maskable PNGs, wired
+      into the manifest. `favicon.svg` is a placeholder anchor mark and the
+      manifest ships `icons: []` until the real wordmark lands (docs/06 §4),
+      so there is currently no install prompt.
+- [ ] `security.txt` `Expires` is in the future (annual task, §6)
 - [ ] Domain package verified end-to-end (docs/16 §10 command block):
       DNSSEC signing, `www` → 301 apex with path+query, http → https,
       workers.dev main route dead, HSTS phase P1 header present,

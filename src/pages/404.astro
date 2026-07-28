@@ -1,31 +1,17 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/06 §5, docs/08 Part C — served by Workers Static Assets via
-// not_found_handling: "404-page", with a real HTTP 404. No noindex needed:
-// the status code already excludes it (docs/16 §7).
-import Base from '../layouts/Base.astro';
+// Served by Workers Static Assets via not_found_handling: "404-page", with a
+// real HTTP 404 (docs/08 Part C). No noindex needed — the status code already
+// excludes it from SERPs (docs/16 §7).
+import ErrorPage from '../components/pages/ErrorPage.astro';
 ---
 
-<Base title="Not found — SoftHarbor" locale="en">
-  <div class="relative">
-    <span
-      aria-hidden="true"
-      class="pointer-events-none absolute -top-8 -left-2 font-mono text-[8rem] leading-none opacity-40 select-none"
-      style="color: var(--sh-muted)">404</span
-    >
-    <div class="relative">
-      <h1 class="text-[length:var(--text-h1)] font-semibold">That page isn't here</h1>
-      <p class="mt-3 max-w-xl" style="color: var(--sh-muted)">
-        The link may be old, or the entry may have been removed.
-      </p>
-      <p class="mt-6 max-w-xl" lang="vi" style="color: var(--sh-muted)">
-        Không tìm thấy trang này. Liên kết có thể đã cũ hoặc mục tương ứng đã được gỡ.
-      </p>
-      <p class="mt-8 flex gap-4">
-        <a href="/" class="underline" style="color: var(--sh-accent)">Home</a>
-        <a href="/apps" class="underline" style="color: var(--sh-accent)">Apps</a>
-      </p>
-    </div>
-  </div>
-</Base>
+<ErrorPage
+  code="404"
+  titleEn="That page isn't here"
+  titleVi="Không tìm thấy trang"
+  bodyEn="The link may be old, or the entry may have been removed — flagged apps are quarantined rather than kept live."
+  bodyVi="Liên kết có thể đã cũ, hoặc mục tương ứng đã được gỡ — ứng dụng bị gắn cờ sẽ được đưa vào khu cách ly thay vì giữ lại."
+  noindex={false}
+/>

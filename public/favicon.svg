@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="SoftHarbor">
+  <!-- Placeholder mark: an anchor, matching the "safe berth after a reinstall"
+       idea behind the name (docs/00 §5 D1). The real wordmark and the PNG PWA
+       icons (192/512/maskable) are a design deliverable, not something to
+       fabricate — tracked in docs/13 §2. Uses currentColor so it inherits the
+       theme like every other icon on the site. -->
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+     stroke-linejoin="round">
+    <circle cx="16" cy="6" r="3" />
+    <path d="M16 9v18" />
+    <path d="M9 14h14" />
+    <path d="M5 19a11 11 0 0 0 22 0" />
+  </g>
+</svg>

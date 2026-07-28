@@ -54,6 +54,7 @@ const gateStrings = Object.fromEntries(
     <title>{title}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical.href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {noindex && <meta name="robots" content="noindex" />}
 
     {
@@ -85,6 +86,16 @@ const gateStrings = Object.fromEntries(
     */
     }
     <script is:inline defer src="/registerSW.js"></script>
+
+    {
+      /*
+      Console ring buffer (docs/05 §A5). Loaded here rather than inside
+      ShBugReport because that island is client:visible in the footer — a
+      listener attached at hydration would miss every error that happened
+      before the user scrolled, which is most of them.
+    */
+    }
+    <script is:inline defer src="/errors.js"></script>
 
     <ClientRouter />
   </head>

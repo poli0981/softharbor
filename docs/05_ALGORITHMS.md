@@ -158,6 +158,19 @@ announced via `aria-live="polite"`.
 data ⇒ byte-identical feed, so `notify.py` cron never double-fires on
 redeploys without data changes.
 
+Two implementation notes from M5:
+
+- **`@astrojs/rss` has no `guid` option** — it derives `<guid>` from `link`.
+  The bare slug with `isPermaLink="false"` has to be injected via
+  `customData`. Verified in the emitted XML that this produces exactly one
+  `<guid>`, not two.
+- **Same-day ties break by name** (`src/lib/feed.ts`). Not cosmetic: ordering
+  must be a function of the data alone, or two entries added on the same day
+  could swap places between builds and be re-announced. Determinism is
+  asserted by building twice and comparing hashes — `/rss.xml` is byte-
+  identical, while `/api/apps.json` legitimately differs because
+  `generatedAt` is a build timestamp (docs/03 §6).
+
 ## A5 — Console ring buffer
 
 ```ts
@@ -174,6 +187,14 @@ window.addEventListener('unhandledrejection', (e) =>
   push(`unhandledrejection: ${String(e.reason).slice(0, 400)}`));
 export const getBuffer = () => buf.join('\n');
 ```
+
+**The buffer cannot live in the island.** `ShBugReport` is `client:visible` in
+the footer (docs/02 §5), so listeners attached at hydration would miss every
+error that happened before the user scrolled — which is most of them, and
+exactly the ones a bug report is about. The listeners therefore ship in
+`public/errors.js`, loaded `defer` from `Base.astro`, and the two halves meet
+on `window.__shErrors`; `src/lib/ringbuffer.ts` is only the reader. External
+file, so no CSP hash is needed (docs/09 §4).
 
 Privacy: captures only exception text from our own origin; never wraps
 `console.*`, never touches input values, never leaves the page until the

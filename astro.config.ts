@@ -93,9 +93,7 @@ export default defineConfig({
         // original patterns ('offline/**', 'fonts/*.woff2') matched nothing,
         // which is a silent failure: the build succeeds and the offline page
         // simply is not there (found in M1 and S5).
-        // (favicon.svg lands in M5 — adding it here before it exists only
-        // produces a build warning.)
-        globPatterns: ['offline.html', '_astro/*.woff2'],
+        globPatterns: ['offline.html', '_astro/*.woff2', 'favicon.svg'],
 
         // skipWaiting is already true under registerType 'autoUpdate', but
         // clientsClaim is not — without it the SW controls only pages loaded

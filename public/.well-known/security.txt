@@ -1,0 +1,6 @@
+Contact: mailto:contact@softharbor.net
+Contact: https://github.com/poli0981/softharbor/security/advisories/new
+Preferred-Languages: en, vi
+Expires: 2027-07-28T00:00:00.000Z
+Canonical: https://softharbor.net/.well-known/security.txt
+Policy: https://github.com/poli0981/softharbor/blob/main/SECURITY.md

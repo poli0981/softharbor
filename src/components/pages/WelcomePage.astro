@@ -5,6 +5,7 @@
 // /src/pages/vi/index.astro; the locale is the only difference, so the markup
 // lives here exactly once (docs/07 §2).
 import Base from '../../layouts/Base.astro';
+import ShJsonLd from '../ShJsonLd.astro';
 import { localePath, t, type Locale } from '../../i18n';
 
 interface Props {
@@ -16,6 +17,8 @@ const how = ['welcome.how.official', 'welcome.how.pricing', 'welcome.how.securit
 ---
 
 <Base title={`${t(locale, 'site.name')} — ${t(locale, 'site.tagline')}`} {locale}>
+  <ShJsonLd {locale} site={Astro.site ?? new URL('https://softharbor.net')} website />
+
   <section class="max-w-3xl">
     <h1 class="text-[length:var(--text-display)] font-semibold">
       {t(locale, 'welcome.hero.title')}
