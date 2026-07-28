@@ -18,6 +18,23 @@ Everything else uses the default `GITHUB_TOKEN` with **explicit least
 without its own `permissions:` block silently defaults to `none` and the
 reusable workflow fails.
 
+**The rule is stricter than "not none": a caller's permissions must be a
+SUPERSET of every job in the workflow it calls — including jobs that will be
+skipped.** GitHub validates this before running anything, so the failure mode
+is `startup_failure` in ~1 second with no logs and no annotation pointing at
+the cause. Both callers hit this on 2026-07-28: `codeql` was missing
+`packages: read`, and `ci` could not satisfy `reusable-web-react.yml`'s
+Pages-deploy job (`pages: write`, `id-token: write`) even with
+`deploy-pages: false`. When a caller dies at startup, read the *reusable*
+workflow's job-level `permissions:` blocks first.
+
+**`CLOUDFLARE_API_TOKEN` needs zone scopes, not just Workers.** The "Edit
+Cloudflare Workers" template alone fails with `Authentication error
+[code: 10000]` on `/zones/…/workers/routes` as soon as `wrangler.jsonc`
+declares a `custom_domain`. Add **Zone → Workers Routes → Edit** and
+**Zone → DNS → Edit**. A local `wrangler deploy` will not reveal this: local
+wrangler uses OAuth with full rights, so CI is the only place the gap shows.
+
 All third-party actions **in this repository's own workflows** are pinned to
 commit SHAs (`@<sha> # vX.Y.Z` comment); Renovate maintains the pins. The rule
 is scoped deliberately: the `poli0981/.github` reusable workflows pin their

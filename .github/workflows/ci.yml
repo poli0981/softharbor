@@ -79,8 +79,11 @@ jobs:
       - name: EN/VI key parity (hard rule 6)
         run: pnpm i18n:check
 
+      # The action lives in a SUBDIRECTORY of the repo and there is no rolling
+      # `v2` tag — only full versions. `…/osv-scanner-action@v2` does not
+      # resolve. Renovate keeps this pinned version current.
       - name: Vulnerability scan
-        uses: google/osv-scanner-action/osv-scanner-action@v2
+        uses: google/osv-scanner-action/osv-scanner-action@v2.3.8
         with:
           scan-args: |-
             --lockfile=pnpm-lock.yaml

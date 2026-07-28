@@ -8,9 +8,14 @@ on:
     - cron: '31 3 * * 1'
 
 # Required matrix — security-events: write is what lets results upload.
+# Must be a SUPERSET of what the reusable workflow's jobs declare — a called
+# workflow cannot request a permission the caller lacks, and the run is
+# rejected at startup if it tries. `packages: read` is the easy one to miss:
+# it is there so CodeQL can fetch internal query packs.
 permissions:
   actions: read
   contents: read
+  packages: read
   security-events: write
 
 jobs:
