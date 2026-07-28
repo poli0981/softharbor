@@ -230,9 +230,18 @@ hreflang errors) — added to docs/13 §6.
 > empty — **remove before v1.0.0** (docs/13 §2). Do not enable the §8 search
 > plumbing until it is gone, or the two will fight.
 >
-> Immediately after a fresh custom-domain deploy the edge briefly served the
-> pre-deploy trailing-slash behaviour before settling. Re-run the checks a
-> minute later before diagnosing anything.
+> **Wait out edge propagation before trusting any post-deploy check.**
+> Observed twice: after the first custom-domain deploy the edge briefly served
+> the *pre-deploy* trailing-slash behaviour, and after the M2 deploy the newly
+> added `/apps/<slug>` routes returned **404 intermittently** — the same URL
+> alternating 200 and 404 between requests, because PoPs still serving the
+> previous version genuinely did not have those routes. Both settled within a
+> minute or two.
+>
+> So: a 404 on a brand-new route immediately after deploy is the expected
+> transient, not a bug. Re-run the checks a few times and only investigate if
+> results are **stable** and wrong. Verifying once, immediately, is how you
+> end up debugging a correct configuration.
 
 Order (fits between M5 and M6 of docs/15 — roughly one focused day):
 

@@ -114,6 +114,11 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-27 | **`softharbor.net` is LIVE** — apex deployed, DNS + cert provisioned by `wrangler deploy`, M1 skeleton serving. **M0 and M1 complete** | ✅ |
 | 2026-07-27 | S5 re-verified on the production origin (SW controlling, 15 precache entries, no console errors). Airplane-mode device pass still outstanding | ✅ / ⚠ |
 | 2026-07-27 | `main` fast-forwarded to the feature branch so `bug_report.yml` reaches the default branch — GitHub reads issue templates only from there | ✅ |
+| 2026-07-28 | **M2 complete** — Zod schema (L1), `validate-data.mjs` (L2), `extract-urls.mjs` (L3), 12-category registry, 5 seed apps, card/grid/detail/category pages in both locales. 43 pages, deployed | ✅ |
+| 2026-07-28 | **The T4 `set:html` ban had never worked** — the hand-rolled selector targeted `JSXAttribute`, which astro-eslint-parser does not emit for template directives. Replaced with `astro/no-set-html-directive` and negative-controlled | ✅ |
+| 2026-07-28 | `unplugin-icons` is static-import-only and cannot resolve a data-driven `logo`. `src/lib/icon.ts` inlines from the same vendored Iconify JSON at build time; the T4 ban carries one carve-out scoped to three named files | ⚠ review |
+| 2026-07-28 | Seed entries enter as `security.status: "unverified"` — `clean` requires the docs/09 §6 checklist, and hard rule 4 forbids clean-by-default. Licenses/developers still need the L4 pass | ⚠ Kokone |
+| 2026-07-28 | Post-deploy edge propagation makes brand-new routes 404 intermittently for a minute or two; documented in docs/16 §10 so it is not mistaken for a config bug | ✅ |
 
 ## 5. Open questions for Kokone
 
