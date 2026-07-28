@@ -28,10 +28,7 @@
   // prerequisite — without it www would serve a duplicate of the site, which
   // is the exact hazard docs/16 N1/N2 exist to prevent. Verified after every
   // deploy in the launch checklist (docs/13 §2).
-  "routes": [
-    { "pattern": "softharbor.net", "custom_domain": true },
-    { "pattern": "www.softharbor.net", "custom_domain": true },
-  ],
+
   "workers_dev": false, // canonical origin is the custom domain only
   "preview_urls": true, // explicit: defaults to workers_dev's value
 }
