@@ -16,8 +16,22 @@ const NON_INDEXED = /\/(404|500|403|429|offline)\/?$/;
 export default defineConfig({
   site: 'https://softharbor.net',
   output: 'static',
-  // Must agree with assets.html_handling in wrangler.jsonc — docs/02 §7, spike S1.
+
+  // trailingSlash + build.format + wrangler's html_handling are ONE decision,
+  // not three (spike S1, measured 2026-07-27 on a real deploy).
+  //
+  // With the default `format: 'directory'` Astro emits dist/apps/index.html,
+  // and Workers' auto-trailing-slash then 307s /apps -> /apps/. But our
+  // canonicals, sitemap, hreflang alternates and internal links all use the
+  // NO-slash form, so every advertised URL would cost a redirect and none of
+  // them would ever return 200 directly — the duplicate-content hazard
+  // docs/16 works hard to avoid, plus a round-trip on every navigation.
+  //
+  // `format: 'file'` emits dist/apps.html, so /apps IS the asset. Paired with
+  // html_handling: "drop-trailing-slash" in wrangler.jsonc, /apps/ redirects
+  // to /apps and the canonical URL is the one that serves.
   trailingSlash: 'never',
+  build: { format: 'file' },
 
   i18n: {
     defaultLocale: 'en',
@@ -56,6 +70,14 @@ export default defineConfig({
     }),
     AstroPWA({
       registerType: 'autoUpdate',
+      // MUST be explicit. Without it the build still emits registerSW.js but
+      // never references it from any page, so the service worker never
+      // registers and the offline fallback silently does not exist — the
+      // build reports success either way (found in spike S5, 2026-07-27).
+      // 'script' (external file) not 'inline': the CSP is script-src 'self'
+      // plus hashes Astro generates, and a PWA-injected inline snippet is not
+      // one of them (docs/09 §4, D20).
+      injectRegister: 'script',
       manifest: {
         name: 'SoftHarbor',
         short_name: 'SoftHarbor',
@@ -65,12 +87,38 @@ export default defineConfig({
         icons: [],
       },
       workbox: {
-        // Fonts are content-hashed into _astro/, not a /fonts/ directory — an
-        // earlier spec's 'fonts/*.woff2' glob matched nothing, which would
-        // have shipped an unstyled offline page (found in M1).
-        globPatterns: ['offline/**', '_astro/*.woff2', 'favicon.svg'],
-        navigateFallback: '/offline',
-        navigateFallbackDenylist: [/^\/api\//, /^\/rss\.xml$/],
+        // These globs are coupled to build.format — 'file' emits offline.html,
+        // 'directory' would emit offline/index.html. And fonts are
+        // content-hashed into _astro/, never a /fonts/ directory. Both of the
+        // original patterns ('offline/**', 'fonts/*.woff2') matched nothing,
+        // which is a silent failure: the build succeeds and the offline page
+        // simply is not there (found in M1 and S5).
+        // (favicon.svg lands in M5 — adding it here before it exists only
+        // produces a build warning.)
+        globPatterns: ['offline.html', '_astro/*.woff2'],
+
+        // skipWaiting is already true under registerType 'autoUpdate', but
+        // clientsClaim is not — without it the SW controls only pages loaded
+        // AFTER activation, so a first-time visitor who loses connection mid
+        // session gets the browser's error page instead of ours (S5).
+        clientsClaim: true,
+
+        // NO `navigateFallback` here. On its own it registers a NavigationRoute
+        // that serves the precached fallback for EVERY navigation — verified in
+        // S5: an online request for /apps returned the offline page. Content
+        // freshness beats offline cleverness (docs/08 Part D), so navigations
+        // are NetworkOnly and the offline page is strictly a failure path.
+        //
+        // The glob matches the FILE (offline.html); Workbox normalises the
+        // precache key to the extensionless '/offline', which is what
+        // fallbackURL must name. Confirmed against the emitted manifest.
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkOnly',
+            options: { precacheFallback: { fallbackURL: '/offline' } },
+          },
+        ],
       },
     }),
   ],

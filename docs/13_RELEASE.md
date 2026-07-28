@@ -23,6 +23,11 @@ Infra & correctness
       DMARC record resolves, `contact@softharbor.net` receives a test mail
 - [ ] No stray `workers.dev` references in the repo
       (`git grep workers.dev` → only docs/16 §3's preview note)
+- [ ] **`X-Robots-Tag: noindex` removed from `public/_headers`.** It was added
+      pre-launch so an empty site could be deployed without being indexed;
+      leaving it in would silently keep the finished site out of every search
+      engine. Verify with `curl -sI https://softharbor.net/ | grep -i robots`
+      returning nothing.
 - [ ] Search Console **Domain property** for `softharbor.net` verified;
       sitemap `https://softharbor.net/sitemap-index.xml` submitted; Bing
       imported from GSC; Crawler Hints enabled (docs/16 §8)

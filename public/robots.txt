@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://softharbor.net/sitemap-index.xml

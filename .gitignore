@@ -36,3 +36,6 @@ Thumbs.db
 !.env.example
 *.local
 .claude/
+
+# Temporary config used only to create the Worker / push preview versions.
+wrangler.preview.jsonc

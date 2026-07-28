@@ -7,11 +7,12 @@
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page", // serves dist/404.html with HTTP 404
-    // Explicit, and must agree with astro's trailingSlash: 'never'.
-    // Spike S1 could not finish verifying this — it needs a real deploy
-    // (blocked on H2/H3). Until then treat the value as unconfirmed and run
-    // the two curl checks in docs/16 §10 immediately after the first deploy.
-    "html_handling": "auto-trailing-slash",
+    // Pairs with astro's trailingSlash:'never' + build.format:'file'.
+    // Measured in S1 on a real deploy: "auto-trailing-slash" 307s /apps to
+    // /apps/, which contradicts every canonical, sitemap entry and hreflang
+    // alternate we emit. "drop-trailing-slash" makes the no-slash URL the one
+    // that serves 200 and redirects the slashed variant to it.
+    "html_handling": "drop-trailing-slash",
   },
   "routes": [{ "pattern": "softharbor.net", "custom_domain": true }],
   "workers_dev": false, // canonical origin is the custom domain only

@@ -52,6 +52,18 @@ const desc = description ?? t(locale, 'site.tagline');
 
     {/* Blocking, same-origin, NOT inline — docs/05 §A8, docs/09 §4 (D20). */}
     <script is:inline src="/theme.js"></script>
+
+    {
+      /*
+      Service-worker registration. @vite-pwa/astro EMITS /registerSW.js and
+      /sw.js but never references them from any page — the build reports
+      success while the SW silently never registers, so the offline fallback
+      would not exist in production (found in spike S5). We load the emitted
+      file ourselves. External, not inline, to satisfy script-src (docs/09 §4).
+    */
+    }
+    <script is:inline defer src="/registerSW.js"></script>
+
     <ClientRouter />
   </head>
   <body class="flex min-h-dvh flex-col">

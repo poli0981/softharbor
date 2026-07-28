@@ -1,0 +1,30 @@
+name: Bug report
+description: Something on the site is broken
+labels: [bug]
+body:
+  # Field `id`s are load-bearing: they are the prefill query params used by
+  # src/lib/issueUrl.ts (docs/05 §A6, docs/12 §7). Renaming one is a breaking
+  # change to every already-shipped client.
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened / expected
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser & OS
+      description: Auto-filled when you use the in-site button
+  - type: textarea
+    id: console-output
+    attributes:
+      label: Console output
+      render: shell
+      description: Auto-filled; feel free to trim
