@@ -1,0 +1,119 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/06 §6 — card anatomy.
+import type { CollectionEntry } from 'astro:content';
+import { iconSvg } from '../lib/icon';
+import { localePath, t, type Locale } from '../i18n';
+
+interface Props {
+  app: CollectionEntry<'apps'>;
+  locale: Locale;
+}
+const { app, locale } = Astro.props;
+const d = app.data;
+
+const dateFmt = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+});
+const fmt = (iso: string) => dateFmt.format(new Date(`${iso}T00:00:00Z`));
+
+// Each string renders the date field it actually NAMES — the dated-honesty
+// claim is the product (hard rule 4, docs/06 §6).
+const security =
+  d.security.status === 'clean'
+    ? `${t(locale, 'card.security.clean')} · ${t(locale, 'card.checked', { date: fmt(d.security.checkedAt) })}`
+    : `${t(locale, 'card.security.unverified')} · ${t(locale, 'card.listed', { date: fmt(d.addedAt) })}`;
+---
+
+<!--
+  Stretched-link pattern, NOT a wrapping <a> (docs/06 §6): an <a> inside an <a>
+  is invalid HTML — the parser closes the outer one, silently breaking the card
+  link and the a11y tree. The title is the only link to the detail page and its
+  ::after covers the card; the category chips are ordinary siblings above it.
+
+  The data-* attributes are the ONLY source the filter island reads (docs/05
+  §A3), so filtering and sorting work before /search-index.json has loaded and
+  keep working if search is never used.
+-->
+<article
+  class="sh-panel sh-lift sh-card relative flex flex-col gap-3 p-5"
+  data-slug={app.id}
+  data-categories={d.categories.map((c) => c.id).join(' ')}
+  data-platforms={d.platforms.join(' ')}
+  data-pricing={d.pricing}
+  data-added={d.addedAt}
+  data-name={d.name}
+>
+  <div class="flex items-start gap-3">
+    {
+      /* Build-time SVG from a vendored icon set, never user input. The
+        set:html carve-out is scoped to this file in eslint.config.js. */
+    }
+    <Fragment
+      set:html={iconSvg(d.logo, {
+        class: 'mt-0.5 size-10 shrink-0',
+        'aria-hidden': 'true',
+        fill: 'currentColor',
+      })}
+    />
+    <div class="min-w-0">
+      <h3 class="sh-card-title text-[17px] leading-tight font-semibold">
+        <a href={localePath(locale, `/apps/${app.id}`)}>{d.name}</a>
+      </h3>
+      <p class="truncate text-[var(--text-small)]" style="color: var(--sh-muted)">{d.developer}</p>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2">
+    <span class="sh-pill">{t(locale, `pricing.${d.pricing}`)}</span>
+    {d.license && <span class="sh-pill">{d.license}</span>}
+    <span class="font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
+      {d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · ')}
+    </span>
+  </div>
+
+  <p class="line-clamp-2 text-[var(--text-small)]" style="color: var(--sh-muted)">
+    {d.summary[locale]}
+  </p>
+
+  <hr style="border-color: var(--sh-border); opacity: .35" />
+
+  <p class="font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
+    <span
+      aria-hidden="true"
+      style={`color: var(--sh-${d.security.status === 'clean' ? 'ok' : 'warn'})`}>●</span
+    >
+    {security}
+  </p>
+
+  <p class="flex flex-wrap gap-2 text-[var(--text-badge)]">
+    {
+      d.categories.map((c) => (
+        <a
+          href={localePath(locale, `/categories/${c.id}`)}
+          class="sh-chip hover:underline"
+          style="color: var(--sh-accent)"
+        >
+          {c.id}
+        </a>
+      ))
+    }
+  </p>
+</article>
+
+<style>
+  /* The overlay that makes the whole card clickable while keeping exactly one
+     link in the accessibility tree. */
+  .sh-card-title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  /* Chips must sit above that overlay to stay independently clickable. */
+  .sh-chip {
+    position: relative;
+    z-index: 1;
+  }
+</style>

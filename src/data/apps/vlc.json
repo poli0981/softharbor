@@ -1,0 +1,21 @@
+{
+  "name": "VLC media player",
+  "developer": "VideoLAN",
+  "logo": "simple-icons:vlcmediaplayer",
+  "summary": {
+    "en": "Media player that handles almost any audio or video format without installing extra codecs.",
+    "vi": "Trình phát đa phương tiện xử lý gần như mọi định dạng âm thanh và video mà không cần cài thêm codec."
+  },
+  "categories": ["media"],
+  "tags": ["video", "audio", "player"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.videolan.org/vlc/",
+    "repo": "https://code.videolan.org/videolan/vlc",
+    "download": "https://www.videolan.org/vlc/#download"
+  },
+  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,51 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/06 §5 — SEO landing per category: h1 = label, count, pre-filtered grid.
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ShAppCard from '../ShAppCard.astro';
+import { byAddedDesc } from '../../lib/paths';
+import { localePath, t, type Locale } from '../../i18n';
+
+interface Props {
+  category: CollectionEntry<'categories'>;
+  locale: Locale;
+}
+const { category, locale } = Astro.props;
+
+const apps = (await getCollection('apps'))
+  .filter((a) => a.data.categories.some((c) => c.id === category.id))
+  .sort(byAddedDesc);
+
+const label = category.data.label[locale];
+const count = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB').format(apps.length);
+---
+
+<Base title={`${label} — ${t(locale, 'site.name')}`} {locale}>
+  <nav aria-label="Breadcrumb" class="text-[var(--text-small)]" style="color: var(--sh-muted)">
+    <a href={localePath(locale, '/categories')} class="hover:underline">
+      {t(locale, 'categories.title')}
+    </a>
+  </nav>
+
+  <h1 class="mt-4 text-[length:var(--text-h1)] font-semibold">{label}</h1>
+  <p class="mt-2 font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
+    {t(locale, 'apps.count', { n: count })}
+  </p>
+
+  {
+    apps.length === 0 ? (
+      <p class="sh-panel mt-8 p-6" style="color: var(--sh-muted)">
+        {t(locale, 'apps.empty')}
+      </p>
+    ) : (
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {apps.map((app) => (
+          <ShAppCard {app} {locale} />
+        ))}
+      </div>
+    )
+  }
+</Base>

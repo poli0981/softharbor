@@ -1,0 +1,128 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/06 §5 — detail page. Shared by /apps/[slug] and /vi/apps/[slug].
+import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { iconSvg } from '../../lib/icon';
+import { localePath, t, type Locale } from '../../i18n';
+
+interface Props {
+  app: CollectionEntry<'apps'>;
+  locale: Locale;
+}
+const { app, locale } = Astro.props;
+const d = app.data;
+
+// The schema guarantees min(1) category, but TypeScript cannot see that, and
+// docs/10 §1 bans non-null assertions outside tests — so narrow it honestly.
+const [primaryRef] = d.categories;
+const primary = primaryRef ? await getEntry('categories', primaryRef.id) : undefined;
+
+const dateFmt = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+});
+const fmt = (iso: string) => dateFmt.format(new Date(`${iso}T00:00:00Z`));
+
+const security =
+  d.security.status === 'clean'
+    ? `${t(locale, 'card.security.clean')} · ${t(locale, 'card.checked', { date: fmt(d.security.checkedAt) })}`
+    : `${t(locale, 'card.security.unverified')} · ${t(locale, 'card.listed', { date: fmt(d.addedAt) })}`;
+
+const meta: Array<[string, string]> = [
+  [t(locale, 'detail.platforms'), d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · ')],
+  ...(d.tags.length
+    ? ([[t(locale, 'detail.tags'), d.tags.join(' · ')]] as Array<[string, string]>)
+    : []),
+  [t(locale, 'detail.security'), security],
+  [t(locale, 'detail.added'), fmt(d.addedAt)],
+  ...(d.updatedAt
+    ? ([[t(locale, 'detail.updated'), fmt(d.updatedAt)]] as Array<[string, string]>)
+    : []),
+];
+---
+
+<Base title={`${d.name} — ${t(locale, 'site.name')}`} description={d.summary[locale]} {locale}>
+  <nav aria-label="Breadcrumb" class="text-[var(--text-small)]" style="color: var(--sh-muted)">
+    <a href={localePath(locale, '/apps')} class="hover:underline">{t(locale, 'apps.title')}</a>
+    <span aria-hidden="true"> / </span>
+    {
+      primary && (
+        <a href={localePath(locale, `/categories/${primary.id}`)} class="hover:underline">
+          {primary.data.label[locale]}
+        </a>
+      )
+    }
+  </nav>
+
+  <header class="mt-4 flex items-start gap-4" transition:name={app.id}>
+    <Fragment
+      set:html={iconSvg(d.logo, {
+        class: 'size-16 shrink-0',
+        'aria-hidden': 'true',
+        fill: 'currentColor',
+      })}
+    />
+    <div>
+      <h1 class="text-[length:var(--text-h1)] font-semibold">{d.name}</h1>
+      <p style="color: var(--sh-muted)">
+        <span class="font-mono text-[var(--text-badge)]">{t(locale, 'detail.developer')}:</span>
+        {d.developer}
+      </p>
+      <p class="mt-2 flex flex-wrap gap-2">
+        <span class="sh-pill">{t(locale, `pricing.${d.pricing}`)}</span>
+        {d.license && <span class="sh-pill">{d.license}</span>}
+      </p>
+    </div>
+  </header>
+
+  <p class="mt-6 max-w-2xl text-[length:var(--text-h3)]">{d.summary[locale]}</p>
+
+  {/* Link rail — Download is the page's one loud element (docs/06 §5). */}
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a
+      href={d.links.homepage}
+      rel="noopener"
+      class="sh-lift rounded-[var(--radius-card)] border-2 px-4 py-3"
+      style="border-color: var(--sh-border)">{t(locale, 'detail.homepage')} ↗</a
+    >
+    {
+      d.links.repo && (
+        <a
+          href={d.links.repo}
+          rel="noopener"
+          class="sh-lift rounded-[var(--radius-card)] border-2 px-4 py-3"
+          style="border-color: var(--sh-border)"
+        >
+          {t(locale, 'detail.repo')} ↗
+        </a>
+      )
+    }
+    <a
+      href={d.links.download}
+      rel="noopener"
+      class="sh-lift rounded-[var(--radius-card)] border-2 px-4 py-3 font-medium"
+      style="background: var(--sh-accent); color: var(--sh-accent-ink); border-color: var(--sh-border)"
+      >{t(locale, 'detail.download')} ↗</a
+    >
+  </div>
+
+  <dl class="sh-panel mt-8 grid max-w-2xl gap-2 p-5 font-mono text-[var(--text-badge)]">
+    {
+      meta.map(([label, value]) => (
+        <div class="flex flex-wrap gap-x-3">
+          <dt class="min-w-28" style="color: var(--sh-muted)">
+            {label}
+          </dt>
+          <dd>{value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <p class="mt-6 max-w-2xl text-[var(--text-small)]" style="color: var(--sh-muted)">
+    {t(locale, 'detail.officialNote')}
+  </p>
+</Base>

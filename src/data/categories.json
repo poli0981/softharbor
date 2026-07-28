@@ -1,0 +1,74 @@
+[
+  {
+    "id": "browser",
+    "label": { "en": "Browsers", "vi": "Trình duyệt" },
+    "icon": "globe",
+    "order": 1
+  },
+  {
+    "id": "graphics",
+    "label": { "en": "Graphics & Design", "vi": "Đồ hoạ & Thiết kế" },
+    "icon": "palette",
+    "order": 2
+  },
+  {
+    "id": "developer-tools",
+    "label": { "en": "Developer Tools", "vi": "Công cụ lập trình" },
+    "icon": "terminal",
+    "order": 3
+  },
+  {
+    "id": "ide-editor",
+    "label": { "en": "IDEs & Editors", "vi": "IDE & Trình soạn thảo" },
+    "icon": "code",
+    "order": 4
+  },
+  {
+    "id": "media",
+    "label": { "en": "Audio & Video", "vi": "Âm thanh & Video" },
+    "icon": "clapperboard",
+    "order": 5
+  },
+  {
+    "id": "productivity",
+    "label": { "en": "Productivity", "vi": "Năng suất" },
+    "icon": "list-checks",
+    "order": 6
+  },
+  {
+    "id": "utilities",
+    "label": { "en": "Utilities", "vi": "Tiện ích" },
+    "icon": "wrench",
+    "order": 7
+  },
+  {
+    "id": "security-privacy",
+    "label": { "en": "Security & Privacy", "vi": "Bảo mật & Riêng tư" },
+    "icon": "shield",
+    "order": 8
+  },
+  {
+    "id": "communication",
+    "label": { "en": "Communication", "vi": "Liên lạc" },
+    "icon": "message-circle",
+    "order": 9
+  },
+  {
+    "id": "file-management",
+    "label": { "en": "File Management", "vi": "Quản lý tệp" },
+    "icon": "folder",
+    "order": 10
+  },
+  {
+    "id": "gaming",
+    "label": { "en": "Gaming Tools", "vi": "Công cụ chơi game" },
+    "icon": "gamepad-2",
+    "order": 11
+  },
+  {
+    "id": "system",
+    "label": { "en": "System Tools", "vi": "Công cụ hệ thống" },
+    "icon": "cpu",
+    "order": 12
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "name": "KeePassXC",
+  "developer": "KeePassXC Team",
+  "logo": "simple-icons:keepassxc",
+  "summary": {
+    "en": "Offline password manager storing an encrypted database file you keep and sync yourself.",
+    "vi": "Trình quản lý mật khẩu ngoại tuyến, lưu tệp cơ sở dữ liệu mã hoá do bạn tự giữ và đồng bộ."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["passwords", "offline", "encryption"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://keepassxc.org",
+    "repo": "https://github.com/keepassxreboot/keepassxc",
+    "download": "https://keepassxc.org/download/"
+  },
+  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "addedAt": "2026-07-28"
+}

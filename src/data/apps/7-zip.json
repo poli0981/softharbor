@@ -1,0 +1,21 @@
+{
+  "name": "7-Zip",
+  "developer": "Igor Pavlov",
+  "logo": "simple-icons:7zip",
+  "summary": {
+    "en": "File archiver with high-ratio 7z compression and support for dozens of archive formats.",
+    "vi": "Trình nén và giải nén tệp với định dạng 7z tỷ lệ nén cao, hỗ trợ hàng chục định dạng lưu trữ."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["archiver", "compression", "portable"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "LGPL-2.1-or-later",
+  "links": {
+    "homepage": "https://www.7-zip.org",
+    "repo": null,
+    "download": "https://www.7-zip.org/download.html"
+  },
+  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Krita",
+  "developer": "Krita Foundation",
+  "logo": "simple-icons:krita",
+  "summary": {
+    "en": "Digital painting application built around configurable brush engines, with animation support.",
+    "vi": "Ứng dụng vẽ kỹ thuật số xoay quanh hệ thống cọ vẽ tuỳ chỉnh được, có hỗ trợ làm hoạt hình."
+  },
+  "categories": ["graphics"],
+  "tags": ["painting", "digital-art", "animation"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://krita.org",
+    "repo": "https://invent.kde.org/graphics/krita",
+    "download": "https://krita.org/en/download/"
+  },
+  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "addedAt": "2026-07-28"
+}

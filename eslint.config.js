@@ -17,15 +17,38 @@ export default tseslint.config(
   ...svelte.configs.recommended,
   {
     rules: {
-      // T4: no raw HTML injection anywhere (docs/09 §2).
-      'no-restricted-syntax': [
-        'error',
-        {
-          selector: "JSXAttribute[name.name='set:html'], Property[key.name='set:html']",
-          message: 'set:html is banned — XSS surface (docs/09 T4).',
-        },
-      ],
       '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
+  {
+    // T4 (docs/09 §2): no raw HTML injection.
+    //
+    // This uses eslint-plugin-astro's purpose-built rule. An earlier
+    // hand-rolled `no-restricted-syntax` selector targeted JSXAttribute, which
+    // astro-eslint-parser never produces for a template directive — so the ban
+    // silently matched nothing and three components used set:html with a clean
+    // CI. Found in M2. Do not replace this with a custom selector.
+    files: ['**/*.astro'],
+    rules: {
+      'astro/no-set-html-directive': 'error',
+    },
+  },
+  {
+    // The ONE carve-out, scoped to exact files rather than a loose disable.
+    //
+    // These inline SVG from `src/lib/icon.ts`, which reads the vendored
+    // @iconify-json packages. The only data-derived input is the schema-
+    // constrained `logo` / `icon` string used as a lookup KEY — it is never
+    // interpolated into markup, and an unknown key throws at build time.
+    // The alternative is an <img> that cannot inherit currentColor, breaking
+    // the monochrome theming docs/04 §2 and docs/14 §3d require.
+    files: [
+      'src/components/ShAppCard.astro',
+      'src/components/pages/AppDetailPage.astro',
+      'src/components/pages/CategoriesPage.astro',
+    ],
+    rules: {
+      'astro/no-set-html-directive': 'off',
     },
   },
   {

@@ -1,32 +1,47 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/06 §5 — grid shell. The dataset arrives in M2 and the search/filter
-// island in M3; for now this renders the empty state so the skeleton is
-// honest about having no data rather than faking cards.
+// docs/06 §5 — grid. Server-rendered with ALL apps, unfiltered: the search /
+// filter island (M3) hides cards by toggling [hidden], so the no-JS
+// experience stays whole (docs/03 §8, docs/05 §A3).
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import ShAppCard from '../ShAppCard.astro';
+import { byAddedDesc } from '../../lib/paths';
 import { t, type Locale } from '../../i18n';
 
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
+
+const apps = (await getCollection('apps')).sort(byAddedDesc);
+const count = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB').format(apps.length);
 ---
 
 <Base title={`${t(locale, 'apps.title')} — ${t(locale, 'site.name')}`} {locale}>
   <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'apps.title')}</h1>
   <p class="mt-2 max-w-2xl" style="color: var(--sh-muted)">{t(locale, 'apps.intro')}</p>
 
-  {
-    /* The grid is server-rendered from the collection in M2; filtering will
-      toggle [hidden] on these wrappers via data-* attributes (docs/05 §A3). */
-  }
-  <div
-    id="sh-grid"
-    class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    data-app-count="0"
+  <p
+    class="mt-6 font-mono text-[var(--text-badge)]"
+    aria-live="polite"
+    style="color: var(--sh-muted)"
   >
-  </div>
+    {t(locale, 'apps.count', { n: count })}
+  </p>
 
-  <p class="sh-panel mt-8 p-6" style="color: var(--sh-muted)">{t(locale, 'apps.empty')}</p>
+  {
+    apps.length === 0 ? (
+      <p class="sh-panel mt-4 p-6" style="color: var(--sh-muted)">
+        {t(locale, 'apps.empty')}
+      </p>
+    ) : (
+      <div id="sh-grid" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {apps.map((app) => (
+          <ShAppCard {app} {locale} />
+        ))}
+      </div>
+    )
+  }
 </Base>

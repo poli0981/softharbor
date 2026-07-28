@@ -1,0 +1,21 @@
+{
+  "name": "Firefox",
+  "developer": "Mozilla",
+  "logo": "simple-icons:firefox",
+  "summary": {
+    "en": "Web browser with an independent rendering engine and tracking protection enabled by default.",
+    "vi": "Trình duyệt web dùng engine dựng trang độc lập, bật sẵn tính năng chặn theo dõi."
+  },
+  "categories": ["browser"],
+  "tags": ["browser", "privacy"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://www.mozilla.org/firefox/",
+    "repo": "https://hg.mozilla.org/mozilla-central",
+    "download": "https://www.mozilla.org/firefox/new/"
+  },
+  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "addedAt": "2026-07-28"
+}
