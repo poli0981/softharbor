@@ -2,19 +2,27 @@
 
 ## 1. Milestones (solo-dev estimates, focused days)
 
-| M | Scope (docs) | Exit criteria | Est. |
-|---|---|---|---|
-| **M0 — Spikes** | S1–S5 (11 §3) | all pass or fallbacks recorded | 2–3 d |
-| **M1 — Skeleton** | scaffold, tokens, fonts, layout, Base.astro, dark mode (02, 06) | Welcome + empty grid deployed manually (preview URL, or `softharbor.net` once H2's zone is live) | 2 d |
-| **M2 — Data layer** | schema, registry, validate-data, 5 seed apps, detail pages (03, 04) | build fails on bad fixture; 5 real entries render EN+VI | 2 d |
-| **M3 — Find things** | search index route, ShSearch, ShFilterSheet, sort, nanostores (05) | S2 vectors pass in-app; filters compose; no-JS grid intact | 3 d |
-| **M4 — Trust layer** | legal gate, legal pages ×2 locales, security lines, ShLangSwitch, ShThemeToggle (07, 14) | gate passes S4 checks; parity CI green | 3 d |
-| **M5 — Resilience & pipes** | 404/offline/PWA, dormant errors, /api/apps.json, rss, bug-report button, _headers (08, 09) | launch-checklist infra section fully green | 2–3 d |
-| **M6 — Ship** | CI/CD wiring, branch protection, 30 seed apps, checklist, v1.0.0 (12, 13) | public announcement sent | 3–4 d |
+| M | Scope (docs) | Exit criteria | Est. | State |
+|---|---|---|---|---|
+| **M0 — Spikes** | S1–S5 (11 §3) | all pass or fallbacks recorded | 2–3 d | ✅ 2026-07-27/28 |
+| **M1 — Skeleton** | scaffold, tokens, fonts, layout, Base.astro, dark mode (02, 06) | Welcome + empty grid deployed manually (preview URL, or `softharbor.net` once H2's zone is live) | 2 d | ✅ |
+| **M2 — Data layer** | schema, registry, validate-data, 5 seed apps, detail pages (03, 04) | build fails on bad fixture; 5 real entries render EN+VI | 2 d | ✅ |
+| **M3 — Find things** | search index route, ShSearch, ShFilterSheet, sort, nanostores (05) | S2 vectors pass in-app; filters compose; no-JS grid intact | 3 d | ✅ |
+| **M4 — Trust layer** | legal gate, legal pages ×2 locales, security lines, ShLangSwitch, ShThemeToggle (07, 14) | gate passes S4 checks; parity CI green | 3 d | ✅ |
+| **M5 — Resilience & pipes** | 404/offline/PWA, dormant errors, /api/apps.json, rss, bug-report button, _headers (08, 09) | launch-checklist infra section fully green | 2–3 d | ✅ |
+| **M6 — Ship** | CI/CD wiring, branch protection, 30 seed apps, checklist, v1.0.0 (12, 13) | public announcement sent | 3–4 d | ◐ infra done; data + tag + announcement open |
 
 Total ≈ 17–20 focused days, **plus ~1 day for the `softharbor.net` domain
 package** (docs/16 §10) slotted between M5 and M6. Data entry (M6)
 parallelizes with earlier milestones once M2 lands.
+
+**Where it stands (2026-07-28).** `https://softharbor.net` is live and every
+automated gate is green — `lint · i18n:check · validate:data · test · check ·
+build · check:styles · knip`, 55 pages from 5 entries, CI and CodeQL passing,
+deploys handled by Cloudflare Workers Builds on push to `main` (docs/12 §3).
+**M6 is not closed**: the dataset is 5 of the ~32 seed entries and every one is
+`security.status: "unverified"`, so **v1.0.0 is deliberately untagged** — see
+§5. The remaining work is curation and repo settings, not code.
 
 ## 2. Post-v1 backlog (ordered by current intent)
 
@@ -149,29 +157,52 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 
 ## 5. Open questions for Kokone
 
-1. Approve the ⚠ rows above — both the 2026-07-15 set and the new
-   2026-07-20 domain/SEO set (cheap now, expensive later).
-2. H9: HSTS `preload` — go/no-go after the burn-in period
-   (semi-irreversible; docs/16 §5 P3).
-3. H7: seed list docs/13 §4 — any additions/removals? (Current list leans
-   Windows; fine for the primary persona?)
-4. Accent hue: harbor blue (`oklch(0.52 0.11 235)`) — approve or pick an
-   alternative hue before M1 tokens land.
-5. Launch announcement scope: full notify.py fan-out, or soft-launch to
-   Discord first for a week of feedback?
-6. **D16** — `developer` is now required on every entry. Confirm the naming
-   convention for community projects ("VSCodium contributors" vs "VSCodium
-   Team"): it has to be answered once, or 32 seed entries will answer it 32
-   different ways.
-7. ~~**D18 / S1 blocking risk** — View Transitions under a strict CSP.~~
-   **Closed 2026-07-27 by S1:** ClientRouter compiles to an external script,
-   so View Transitions are safe. The real constraint was island hydration,
-   handled by D20. No product decision needed.
-8. **H10** — repo setting for Actions-created PRs (docs/12 §4).
-9. **S3 and S5 are blocked on you, not on code.** S3 (GitHub issue-form
-   prefill limit) needs the repo to exist — **H1**. S5 (PWA offline on the
-   real origin) needs the zone and a deploy — **H2/H3**. Everything else in
-   M0 is done, so these two are the critical path into M1.
+Everything below is blocked on a decision or a setting, not on code. Ordered
+by what gates the v1.0.0 tag.
+
+**Gating the launch**
+
+1. **Seed and vet the remaining ~27 entries** (docs/13 §4, H7). This is the
+   only real blocker: 5 of ~32 are in, and all 5 are `unverified` because
+   `clean` requires the docs/09 §6 checklist per entry (reputation sweep +
+   VirusTotal + `evidence` URL). Tagging v1.0.0 before that would rest hard
+   rule 4's honesty claim on unchecked data. Also confirm any
+   additions/removals — the current list leans Windows.
+2. **D16 naming convention for community projects** — "VSCodium contributors"
+   vs "VSCodium Team". Answer once, or 32 entries will answer it 32 ways.
+3. **Launch announcement scope** — full notify.py fan-out, or soft-launch to
+   Discord for a week of feedback first?
+
+**Repo settings (each is a silent failure until set)**
+
+4. **Branch protection**: require **`ci / build` AND `ci / gates`** as required
+   checks. Naming only the workflow leaves the gates job unenforced.
+5. **H10** — Settings → Actions → General → *Allow GitHub Actions to create and
+   approve pull requests*, or the nightly quarantine sweep cannot open its PR
+   (docs/12 §4).
+6. **Delete `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`** — unused since
+   deployment moved to Workers Builds (docs/12 §3).
+7. **GSC Domain property + Bing import + Crawler Hints** (docs/16 §8).
+
+**Live but off-spec — decide whether to reconcile**
+
+8. **HSTS is already at phase P3 (`preload`)**, skipping the staged P1→P2
+   burn-in docs/16 §5 designed. It works; `preload` is semi-irreversible, so
+   this is now a "keep and update the doc" call rather than a go/no-go.
+9. **DMARC is `p=none`** (Cloudflare's auto record), not the `p=quarantine`
+   docs/16 §6 specifies.
+10. Raster PWA icons (192/512/maskable) remain an optional upgrade — the
+    manifest ships `favicon.svg` with `sizes: "any"`, per your call.
+
+**Closed**
+
+11. ~~Accent hue~~ — harbor blue `oklch(0.52 0.11 235)` shipped in M1 tokens.
+12. ~~**D18 / S1 blocking risk** — View Transitions under a strict CSP.~~
+    **Closed 2026-07-27 by S1:** ClientRouter compiles to an external script,
+    so View Transitions are safe. The real constraint was island hydration,
+    handled by D20.
+13. ~~**S3 and S5 blocked on H1/H2/H3.**~~ Closed 2026-07-28 — both ran against
+    the live origin.
 
 ## 6. Suite maintenance
 
