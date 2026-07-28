@@ -111,8 +111,7 @@
       type="search"
       autocomplete="off"
       spellcheck="false"
-      class="w-full rounded-[var(--radius-card)] border-2 px-4 py-3"
-      style="background: var(--sh-surface); border-color: var(--sh-border)"
+      class="bg-sh-surface border-sh-border w-full rounded-[var(--radius-card)] border-2 px-4 py-3"
       {value}
       oninput={onInput}
       onkeydown={onKeydown}
@@ -120,8 +119,8 @@
     />
     {#if loading}
       <span
-        class="absolute top-1/2 right-3 -translate-y-1/2 font-mono text-[var(--text-badge)]"
-        style="color: var(--sh-muted)">{loadingLabel}</span
+        class="text-sh-muted absolute top-1/2 right-3 -translate-y-1/2 font-mono text-[var(--text-badge)]"
+        >{loadingLabel}</span
       >
     {/if}
   </div>
@@ -129,8 +128,7 @@
   <label class="sr-only" for="sh-sort">{sortLabel}</label>
   <select
     id="sh-sort"
-    class="rounded-[var(--radius-card)] border-2 px-3 py-3"
-    style="background: var(--sh-surface); border-color: var(--sh-border)"
+    class="bg-sh-surface border-sh-border rounded-[var(--radius-card)] border-2 px-3 py-3"
     onchange={(e) => sort.set((e.currentTarget as HTMLSelectElement).value as SortOrder)}
   >
     <option value="name">{sortName}</option>

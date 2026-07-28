@@ -21,7 +21,7 @@ const countFor = (id: string) =>
 
 <Base title={`${t(locale, 'categories.title')} — ${t(locale, 'site.name')}`} {locale}>
   <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'categories.title')}</h1>
-  <p class="mt-2 max-w-2xl" style="color: var(--sh-muted)">{t(locale, 'categories.intro')}</p>
+  <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'categories.intro')}</p>
 
   <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {
@@ -40,7 +40,7 @@ const countFor = (id: string) =>
               </a>
             </h2>
           </div>
-          <p class="mt-2 font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
+          <p class="text-sh-muted mt-2 font-mono text-[var(--text-badge)]">
             {t(locale, 'apps.count', { n: countFor(c.id) })}
           </p>
         </li>

@@ -56,8 +56,7 @@
 
 <button
   type="button"
-  class="sh-pill"
-  style="border-color: var(--sh-muted); color: var(--sh-muted); min-height: 44px; padding-inline: 0.75rem"
+  class="sh-pill border-sh-muted text-sh-muted min-h-11 px-3"
   aria-label={`${label}: ${current}`}
   data-testid="sh-theme-toggle"
   data-choice={choice}

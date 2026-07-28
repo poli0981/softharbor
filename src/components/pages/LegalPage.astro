@@ -37,17 +37,13 @@ const docs = [
   <article class="sh-prose max-w-2xl">
     <h1 class="text-[length:var(--text-h1)] font-semibold">{title}</h1>
 
-    <p class="mt-2 font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
+    <p class="text-sh-muted mt-2 font-mono text-[var(--text-badge)]">
       {t(locale, 'legal.lastUpdated', { date: updated })}
     </p>
 
     {
       locale === 'vi' && (
-        <p
-          class="sh-panel mt-6 p-4 text-[var(--text-small)]"
-          style="color: var(--sh-muted)"
-          lang="vi"
-        >
+        <p class="sh-panel text-sh-muted mt-6 p-4 text-[var(--text-small)]" lang="vi">
           {/* Fixed notice required on every VI legal page (docs/07 §8). */}
           {t('vi', 'legal.viNotice')}
         </p>
@@ -58,8 +54,7 @@ const docs = [
 
     <nav
       aria-label={t(locale, 'footer.legal.heading')}
-      class="mt-12 flex flex-wrap gap-4 border-t-2 pt-6"
-      style="border-color: var(--sh-border)"
+      class="border-sh-border mt-12 flex flex-wrap gap-4 border-t-2 pt-6"
     >
       {
         docs.map(([path, key]) => (

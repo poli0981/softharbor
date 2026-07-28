@@ -96,6 +96,17 @@ Notes:
   never `'unsafe-inline'` — just less tight per page than it could be.
 - **JSON-LD** (`<script type="application/ld+json">`) is a data block, not an
   executable script, so it needs no hash under `script-src` (docs/16 §7).
+- **`style-src` bans inline `style` ATTRIBUTES, not just `<style>` blocks.**
+  Hashes do not apply to attributes — only `'unsafe-hashes'` or
+  `'unsafe-inline'` would permit them, and the policy has neither. So any
+  `style="…"` in a component is **silently dropped by the browser**: the build
+  passes, the source looks right, and the declaration simply is not there. That
+  is how the sticky header shipped fully transparent, letting page content bleed
+  through it (found 2026-07-28, after ~49 inline styles had accumulated).
+  Every design token is therefore exposed as a Tailwind utility
+  (`text-sh-muted`, `bg-sh-surface`, `border-sh-border`) in
+  `src/styles/global.css`, and **`pnpm check:styles` fails the build if any
+  `style=` reaches `dist/`**. Do not relax the policy to fix a styling bug.
 - **Cache-Control precedence.** Cloudflare `_headers` applies *every* matching
   rule, so the `/*` block's `must-revalidate` and the `/_astro/*` `immutable`
   rule both match hashed assets. Verify with

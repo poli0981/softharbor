@@ -1,13 +1,24 @@
-# docs/12 §2. Two jobs on purpose.
+# docs/12 §2 — self-contained, deliberately.
 #
-# `reusable-web-react.yml` is, despite its name, a generic Node CI (it takes
-# package-manager: 'npm' | 'pnpm'). But it exposes no generic `run:` input, and
-# a job that delegates with `uses:` cannot interleave extra steps — so
-# SoftHarbor's own gates live in a sibling job.
+# This called `poli0981/.github` → `reusable-web-react.yml` and every run ended
+# in `startup_failure`. Two reasons, both worth recording:
 #
-# Inventory verified 2026-07-27: the ops repo has reusable-web-react.yml,
-# reusable-codeql.yml and announce-release.yml. There is NO reusable-node-ci.yml
-# and NO reusable-notify.yml; earlier drafts called both.
+#  1. That workflow's Pages-deploy job declares `pages: write` and
+#     `id-token: write`. A called workflow may not request permissions the
+#     caller lacks, so GitHub rejects the ENTIRE run before anything executes —
+#     even though the job is skipped by `deploy-pages: false`. Granting them
+#     would mean handing a Workers-deployed site the ability to mint OIDC
+#     tokens it never uses.
+#
+#  2. It runs lint / typecheck / test only *if a matching package script
+#     exists*. Rename a script and CI quietly stops checking while still going
+#     green. This project's gates ARE the product — and this repo has already
+#     shipped four separate silent no-ops (a dead set:html lint rule, workbox
+#     globs matching nothing, an unregistered service worker, CSP-dropped
+#     inline styles). A silently-skipping CI is the wrong tool here.
+#
+# The duplicated "logic" is six pnpm invocations. That is a fair price for a
+# gate that fails loudly.
 name: ci
 
 on:
@@ -15,35 +26,47 @@ on:
   push:
     branches: [main]
 
-# Explicit — a caller without its own block silently defaults every scope to
-# `none` and the reusable workflow fails (docs/12 §1).
+# Explicit — a workflow without its own block defaults every scope to `none`.
 permissions:
   contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  # Cancel superseded PR runs; let main runs finish.
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   build:
-    uses: poli0981/.github/.github/workflows/reusable-web-react.yml@main
-    with:
-      node-version: '24'
-      package-manager: pnpm
-      build-command: pnpm build
-      test-command: pnpm test
-      deploy-pages: false # we deploy to Workers, not Pages (docs/12 §3)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint & format
+        run: pnpm lint
+      - name: Types
+        run: pnpm check
+      - name: Unit tests
+        run: pnpm test
+      - name: Build
+        run: pnpm build
+      # Must run AFTER build — it inspects dist/. CSP style-src drops inline
+      # style attributes silently, so this is the only thing that catches them.
+      - name: No inline style attributes
+        run: pnpm check:styles
+      - name: Dead code
+        run: pnpm knip
 
   gates:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v7
         with:
-          # extract-urls --changed diffs against origin/main.
-          fetch-depth: 0
+          fetch-depth: 0 # extract-urls --changed diffs against origin/main
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v6
         with:
@@ -55,8 +78,6 @@ jobs:
         run: pnpm validate:data
       - name: EN/VI key parity (hard rule 6)
         run: pnpm i18n:check
-      - name: Dead code
-        run: pnpm knip
 
       - name: Vulnerability scan
         uses: google/osv-scanner-action/osv-scanner-action@v2
@@ -66,8 +87,8 @@ jobs:
       - name: Audit production deps
         run: pnpm audit --prod
 
-      # PR-time link check over changed data files only; the weekly job owns
-      # the full sweep (docs/12 §5).
+      # PR-time link check over changed data files only; link-check.yml owns
+      # the weekly full sweep (docs/12 §5).
       - name: Collect changed official links
         if: github.event_name == 'pull_request'
         run: node scripts/extract-urls.mjs --changed > /tmp/urls.txt

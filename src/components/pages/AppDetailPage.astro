@@ -52,7 +52,7 @@ const meta: Array<[string, string]> = [
     {app}
     categoryLabelEn={primary?.data.label.en}
   />
-  <nav aria-label="Breadcrumb" class="text-[var(--text-small)]" style="color: var(--sh-muted)">
+  <nav aria-label="Breadcrumb" class="text-sh-muted text-[var(--text-small)]">
     <a href={localePath(locale, '/apps')} class="hover:underline">{t(locale, 'apps.title')}</a>
     <span aria-hidden="true"> / </span>
     {
@@ -74,7 +74,7 @@ const meta: Array<[string, string]> = [
     />
     <div>
       <h1 class="text-[length:var(--text-h1)] font-semibold">{d.name}</h1>
-      <p style="color: var(--sh-muted)">
+      <p class="text-sh-muted">
         <span class="font-mono text-[var(--text-badge)]">{t(locale, 'detail.developer')}:</span>
         {d.developer}
       </p>
@@ -92,16 +92,15 @@ const meta: Array<[string, string]> = [
     <a
       href={d.links.homepage}
       rel="noopener"
-      class="sh-lift rounded-[var(--radius-card)] border-2 px-4 py-3"
-      style="border-color: var(--sh-border)">{t(locale, 'detail.homepage')} ↗</a
+      class="sh-lift border-sh-border rounded-[var(--radius-card)] border-2 px-4 py-3"
+      >{t(locale, 'detail.homepage')} ↗</a
     >
     {
       d.links.repo && (
         <a
           href={d.links.repo}
           rel="noopener"
-          class="sh-lift rounded-[var(--radius-card)] border-2 px-4 py-3"
-          style="border-color: var(--sh-border)"
+          class="sh-lift border-sh-border rounded-[var(--radius-card)] border-2 px-4 py-3"
         >
           {t(locale, 'detail.repo')} ↗
         </a>
@@ -110,8 +109,7 @@ const meta: Array<[string, string]> = [
     <a
       href={d.links.download}
       rel="noopener"
-      class="sh-lift rounded-[var(--radius-card)] border-2 px-4 py-3 font-medium"
-      style="background: var(--sh-accent); color: var(--sh-accent-ink); border-color: var(--sh-border)"
+      class="sh-lift bg-sh-accent text-sh-accent-ink border-sh-border rounded-[var(--radius-card)] border-2 px-4 py-3 font-medium"
       >{t(locale, 'detail.download')} ↗</a
     >
   </div>
@@ -120,16 +118,14 @@ const meta: Array<[string, string]> = [
     {
       meta.map(([label, value]) => (
         <div class="flex flex-wrap gap-x-3">
-          <dt class="min-w-28" style="color: var(--sh-muted)">
-            {label}
-          </dt>
+          <dt class="text-sh-muted min-w-28">{label}</dt>
           <dd>{value}</dd>
         </div>
       ))
     }
   </dl>
 
-  <p class="mt-6 max-w-2xl text-[var(--text-small)]" style="color: var(--sh-muted)">
+  <p class="text-sh-muted mt-6 max-w-2xl text-[var(--text-small)]">
     {t(locale, 'detail.officialNote')}
   </p>
 </Base>

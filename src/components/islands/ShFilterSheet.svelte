@@ -52,15 +52,12 @@
 
 <button
   type="button"
-  class="rounded-[var(--radius-card)] border-2 px-4 py-3"
-  style="background: var(--sh-surface); border-color: var(--sh-border)"
+  class="bg-sh-surface border-sh-border rounded-[var(--radius-card)] border-2 px-4 py-3"
   onclick={() => dialog?.showModal()}
 >
   {openLabel}
   {#if $activeFilterCount > 0}
-    <span class="sh-pill ml-2" style="background: var(--sh-accent); color: var(--sh-accent-ink)"
-      >{$activeFilterCount}</span
-    >
+    <span class="sh-pill bg-sh-accent text-sh-accent-ink ml-2">{$activeFilterCount}</span>
   {/if}
 </button>
 
@@ -89,15 +86,13 @@
     <footer class="mt-auto flex gap-3 pt-4">
       <button
         type="button"
-        class="rounded-[var(--radius-card)] border-2 px-4 py-2"
-        style="border-color: var(--sh-border)"
+        class="border-sh-border rounded-[var(--radius-card)] border-2 px-4 py-2"
         disabled={!$hasActiveFilters}
         onclick={clearAll}>{clearLabel}</button
       >
       <button
         type="submit"
-        class="ml-auto rounded-[var(--radius-card)] border-2 px-4 py-2 font-medium"
-        style="background: var(--sh-accent); color: var(--sh-accent-ink); border-color: var(--sh-border)"
+        class="bg-sh-accent text-sh-accent-ink border-sh-border ml-auto rounded-[var(--radius-card)] border-2 px-4 py-2 font-medium"
         aria-label={closeLabel}
       >
         {showLabel.replaceAll('{n}', String($visibleCount))}

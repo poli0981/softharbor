@@ -17,4 +17,7 @@ jobs:
   codeql:
     uses: poli0981/.github/.github/workflows/reusable-codeql.yml@main
     with:
-      languages: javascript-typescript
+      # A JSON ARRAY STRING, not a bare value — the reusable workflow feeds it
+      # to fromJSON() for its matrix. `javascript-typescript` on its own throws
+      # and the run dies with startup_failure before any step executes.
+      languages: '["javascript-typescript"]'

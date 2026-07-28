@@ -26,19 +26,19 @@ const { code, titleEn, titleVi, bodyEn, bodyVi, noindex = true } = Astro.props;
     {/* Giant clipped status code at 40% opacity, behind the text (docs/06 §5). */}
     <span
       aria-hidden="true"
-      class="pointer-events-none absolute -top-10 -left-2 font-mono text-[8rem] leading-none opacity-40 select-none"
-      style="color: var(--sh-muted)">{code}</span
+      class="text-sh-muted pointer-events-none absolute -top-10 -left-2 font-mono text-[8rem] leading-none opacity-40 select-none"
+      >{code}</span
     >
     <div class="relative">
       <h1 class="text-[length:var(--text-h1)] font-semibold">{titleEn}</h1>
-      <p class="mt-3 max-w-xl" style="color: var(--sh-muted)">{bodyEn}</p>
+      <p class="text-sh-muted mt-3 max-w-xl">{bodyEn}</p>
 
       <h2 class="mt-8 text-[length:var(--text-h3)] font-semibold" lang="vi">{titleVi}</h2>
-      <p class="mt-2 max-w-xl" lang="vi" style="color: var(--sh-muted)">{bodyVi}</p>
+      <p class="text-sh-muted mt-2 max-w-xl" lang="vi">{bodyVi}</p>
 
       <p class="mt-8 flex flex-wrap gap-4">
-        <a href="/" class="underline" style="color: var(--sh-accent)">SoftHarbor</a>
-        <a href="/apps" class="underline" style="color: var(--sh-accent)">Apps</a>
+        <a href="/" class="text-sh-accent underline">SoftHarbor</a>
+        <a href="/apps" class="text-sh-accent underline">Apps</a>
       </p>
     </div>
   </div>

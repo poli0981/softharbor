@@ -23,13 +23,12 @@ const how = ['welcome.how.official', 'welcome.how.pricing', 'welcome.how.securit
     <h1 class="text-[length:var(--text-display)] font-semibold">
       {t(locale, 'welcome.hero.title')}
     </h1>
-    <p class="mt-4 text-[length:var(--text-h3)]" style="color: var(--sh-muted)">
+    <p class="text-sh-muted mt-4 text-[length:var(--text-h3)]">
       {t(locale, 'welcome.hero.sub')}
     </p>
     <a
       href={localePath(locale, '/apps')}
-      class="sh-lift mt-8 inline-block rounded-[var(--radius-card)] border-2 px-5 py-3 font-medium"
-      style="background: var(--sh-accent); color: var(--sh-accent-ink); border-color: var(--sh-border)"
+      class="sh-lift bg-sh-accent text-sh-accent-ink border-sh-border mt-8 inline-block rounded-[var(--radius-card)] border-2 px-5 py-3 font-medium"
     >
       {t(locale, 'welcome.cta')}
     </a>

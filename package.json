@@ -12,19 +12,20 @@
   },
   "//": "Dependency build-script policy lives in pnpm-workspace.yaml (allowBuilds) — pnpm 11 ignores a \"pnpm\" field here.",
   "scripts": {
-    "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
     "check": "astro check",
-    "lint": "eslint . && prettier --check .",
+    "check:styles": "node scripts/check-no-inline-styles.mjs",
+    "coverage": "vitest run --coverage",
+    "deploy": "wrangler deploy",
+    "dev": "astro dev",
     "format": "prettier --write .",
+    "i18n:check": "node scripts/check-i18n-parity.mjs",
+    "knip": "knip",
+    "lint": "eslint . && prettier --check .",
+    "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "coverage": "vitest run --coverage",
-    "knip": "knip",
-    "validate:data": "node scripts/validate-data.mjs",
-    "i18n:check": "node scripts/check-i18n-parity.mjs",
-    "deploy": "wrangler deploy"
+    "validate:data": "node scripts/validate-data.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

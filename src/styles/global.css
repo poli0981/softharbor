@@ -23,6 +23,31 @@
 @import '@fontsource/ibm-plex-mono/vietnamese-500.css';
 
 @theme {
+  /* Design tokens exposed as Tailwind colours, so every use is a UTILITY
+     (`text-sh-muted`, `bg-sh-surface`, `border-sh-border`) and never an inline
+     `style` attribute.
+
+     This is not a style preference — it is a correctness requirement. CSP
+     `style-src` governs inline style ATTRIBUTES as well as <style> blocks, and
+     hashes do not apply to attributes: only 'unsafe-hashes' or 'unsafe-inline'
+     would permit them. Our policy has neither (docs/09 §4, D20), so every
+     `style="…"` on the site was silently dropped by the browser — the sticky
+     header rendered transparent and content bled through it. Found 2026-07-28.
+
+     Each maps to the runtime custom property rather than a literal, so the
+     values still switch with html[data-theme]. A build guard asserts no
+     `style=` survives into dist (scripts/check-no-inline-styles.mjs). */
+  --color-sh-bg: var(--sh-bg);
+  --color-sh-surface: var(--sh-surface);
+  --color-sh-ink: var(--sh-ink);
+  --color-sh-muted: var(--sh-muted);
+  --color-sh-accent: var(--sh-accent);
+  --color-sh-accent-ink: var(--sh-accent-ink);
+  --color-sh-ok: var(--sh-ok);
+  --color-sh-warn: var(--sh-warn);
+  --color-sh-danger: var(--sh-danger);
+  --color-sh-border: var(--sh-border);
+
   --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
   --font-sans: 'Be Vietnam Pro', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;

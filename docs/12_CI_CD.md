@@ -94,7 +94,10 @@ Keep the caller thin: if the reusable's interface changes, adapt `with:` —
 never fork its logic locally. The `gates` job is ours and stays ours.
 
 `.github/workflows/codeql.yml` — `reusable-codeql.yml` **does** exist (verified
-2026-07-27). **Permissions matrix (required):**
+2026-07-27). Its `languages` input is a **JSON array string**, because the
+workflow feeds it to `fromJSON()` for its matrix: `'["javascript-typescript"]'`,
+not `javascript-typescript`. A bare value dies with `startup_failure` before
+any step runs. **Permissions matrix (required):**
 
 ```yaml
 name: codeql

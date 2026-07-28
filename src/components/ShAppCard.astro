@@ -62,28 +62,31 @@ const security =
       <h3 class="sh-card-title text-[17px] leading-tight font-semibold">
         <a href={localePath(locale, `/apps/${app.id}`)}>{d.name}</a>
       </h3>
-      <p class="truncate text-[var(--text-small)]" style="color: var(--sh-muted)">{d.developer}</p>
+      <p class="text-sh-muted truncate text-[var(--text-small)]">{d.developer}</p>
     </div>
   </div>
 
   <div class="flex flex-wrap items-center gap-2">
     <span class="sh-pill">{t(locale, `pricing.${d.pricing}`)}</span>
     {d.license && <span class="sh-pill">{d.license}</span>}
-    <span class="font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
+    <span class="text-sh-muted font-mono text-[var(--text-badge)]">
       {d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · ')}
     </span>
   </div>
 
-  <p class="line-clamp-2 text-[var(--text-small)]" style="color: var(--sh-muted)">
+  <p class="text-sh-muted line-clamp-2 text-[var(--text-small)]">
     {d.summary[locale]}
   </p>
 
-  <hr style="border-color: var(--sh-border); opacity: .35" />
+  <hr class="border-sh-border opacity-35" />
 
-  <p class="font-mono text-[var(--text-badge)]" style="color: var(--sh-muted)">
-    <span
-      aria-hidden="true"
-      style={`color: var(--sh-${d.security.status === 'clean' ? 'ok' : 'warn'})`}>●</span
+  <p class="text-sh-muted font-mono text-[var(--text-badge)]">
+    {
+      /* Conditional CLASS, not a conditional style attribute — CSP style-src
+        drops inline style attributes silently (docs/09 §4). */
+    }
+    <span aria-hidden="true" class={d.security.status === 'clean' ? 'text-sh-ok' : 'text-sh-warn'}
+      >●</span
     >
     {security}
   </p>
@@ -93,8 +96,7 @@ const security =
       d.categories.map((c) => (
         <a
           href={localePath(locale, `/categories/${c.id}`)}
-          class="sh-chip hover:underline"
-          style="color: var(--sh-accent)"
+          class="sh-chip text-sh-accent hover:underline"
         >
           {c.id}
         </a>

@@ -37,7 +37,7 @@ const facetOptions = {
 
 <Base title={`${t(locale, 'apps.title')} — ${t(locale, 'site.name')}`} {locale}>
   <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'apps.title')}</h1>
-  <p class="mt-2 max-w-2xl" style="color: var(--sh-muted)">{t(locale, 'apps.intro')}</p>
+  <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'apps.intro')}</p>
 
   {/* client:idle — the grid is readable without either island (docs/02 §5). */}
   <div class="mt-6 flex flex-wrap items-center gap-3">
@@ -76,10 +76,9 @@ const facetOptions = {
   }
   <p
     id="sh-count"
-    class="mt-6 font-mono text-[var(--text-badge)]"
+    class="text-sh-muted mt-6 font-mono text-[var(--text-badge)]"
     aria-live="polite"
     data-count-template={t(locale, 'apps.count', { n: '{n}' })}
-    style="color: var(--sh-muted)"
   >
     {t(locale, 'apps.count', { n: nf.format(apps.length) })}
   </p>
@@ -89,12 +88,7 @@ const facetOptions = {
   </div>
 
   {/* Hidden until filtering actually yields nothing (docs/06 §5). */}
-  <p
-    id="sh-empty"
-    class="sh-panel mt-8 p-6"
-    style="color: var(--sh-muted)"
-    hidden={apps.length > 0}
-  >
+  <p id="sh-empty" class="sh-panel text-sh-muted mt-8 p-6" hidden={apps.length > 0}>
     {t(locale, 'apps.empty')}
   </p>
 </Base>

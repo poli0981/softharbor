@@ -140,6 +140,10 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-28 | Quarantine sweep tested end-to-end: a flagged entry vanishes from the detail page, grid, API export, RSS feed **and** search index — all five surfaces | ✅ |
 | 2026-07-28 | Dead-code sweep: `ShProbe.svelte` (a dead S1 leftover sitting in `islands/`, where docs/02 §5 caps the count at six), 5 unused exports, 2 `exactOptionalPropertyTypes` violations. `knip` now passes clean so the next one is visible | ✅ |
 | 2026-07-28 | **v1.0.0 NOT tagged.** Infra is green but the dataset is 5 of 32 entries and all are `unverified` — the docs/09 §6 checklist has not been run. Tagging now would rest hard rule 4's honesty claim on unchecked data | ⚠ Kokone |
+| 2026-07-28 | **CSP `style-src` was silently dropping every inline `style` attribute** — 49 of them. The sticky header rendered transparent and content bled through. Tokens are now Tailwind utilities and `check:styles` fails the build on any `style=` in dist (docs/09 §4) | ✅ |
+| 2026-07-28 | `ci.yml` made **self-contained**, superseding the reusable-workflow caller: `reusable-web-react.yml`'s Pages job declares `pages: write` + `id-token: write`, and a caller cannot grant less, so every run died at `startup_failure` — and its steps run only "if the script exists", which silently green-lights a renamed gate | ✅ |
+| 2026-07-28 | `reusable-codeql.yml` takes `languages` as a **JSON array string** (`'["javascript-typescript"]'`); a bare value throws in `fromJSON` and kills the run at startup | ✅ |
+| 2026-07-28 | **`CLOUDFLARE_API_TOKEN` lacks zone permissions** — CI deploy fails with `Authentication error [code: 10000]` on `/workers/routes`. Local deploys worked because wrangler uses OAuth, which masked it. Needs Zone→Workers Routes→Edit and Zone→DNS→Edit | ⚠ Kokone |
 
 ## 5. Open questions for Kokone
 

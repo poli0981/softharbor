@@ -46,7 +46,7 @@ const rows = [
 <div class="-mx-4 overflow-x-auto px-4">
   <table class="w-full border-collapse text-[var(--text-small)]">
     <thead>
-      <tr class="border-b-2 text-left" style="border-color: var(--sh-border)">
+      <tr class="border-sh-border border-b-2 text-left">
         <th class="py-2 pr-4">{locale === 'en' ? 'Component' : 'Thành phần'}</th>
         <th class="py-2 pr-4">{locale === 'en' ? 'License' : 'Giấy phép'}</th>
         <th class="py-2">{locale === 'en' ? 'Note' : 'Ghi chú'}</th>
@@ -55,12 +55,10 @@ const rows = [
     <tbody>
       {
         rows.map((r) => (
-          <tr class="border-b" style="border-color: var(--sh-border); opacity: .95">
+          <tr class="border-sh-border border-b opacity-95">
             <td class="py-2 pr-4 align-top">{r.component}</td>
             <td class="py-2 pr-4 align-top font-mono whitespace-nowrap">{r.license}</td>
-            <td class="py-2 align-top" style="color: var(--sh-muted)">
-              {r.note[locale]}
-            </td>
+            <td class="text-sh-muted py-2 align-top">{r.note[locale]}</td>
           </tr>
         ))
       }
@@ -68,7 +66,7 @@ const rows = [
   </table>
 </div>
 
-<p style="color: var(--sh-muted)">
+<p class="text-sh-muted">
   {
     locale === 'en'
       ? 'A full machine-generated dependency list is regenerated each release.'
