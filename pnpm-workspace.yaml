@@ -16,3 +16,13 @@ allowBuilds:
   # pure static assets and never runs a Worker locally (docs/01 §1), so this
   # binary is dead weight. False is a decision, not an oversight.
   workerd: false
+
+# Security override — GHSA-mh99-v99m-4gvg (CVSS 7.5) affects brace-expansion
+# <5.0.8, and no patched 2.x exists. It reaches us only through
+# @vite-pwa/astro -> vite-plugin-pwa -> workbox-build -> ... -> minimatch@5,
+# i.e. BUILD tooling; nothing here ships to a visitor. Forcing 5.x across a
+# three-major gap is only acceptable because the package's surface is a single
+# `expand()` function — and because the build and full test suite are run
+# against it below. Remove once upstream moves.
+overrides:
+  brace-expansion: '^5.0.8'
