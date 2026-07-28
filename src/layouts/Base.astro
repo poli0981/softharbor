@@ -6,7 +6,7 @@ import { ClientRouter } from 'astro:transitions';
 import ShLegalGate from '../components/islands/ShLegalGate.svelte';
 import ShHeader from '../components/ShHeader.astro';
 import ShFooter from '../components/ShFooter.astro';
-import { LOCALES, localePair, localePath, t, type Locale } from '../i18n';
+import { localePair, localePath, t, type Locale } from '../i18n';
 import { canonicalPath } from '../lib/locale';
 import '../styles/global.css';
 
@@ -30,20 +30,21 @@ const desc = description ?? t(locale, 'site.tagline');
 // Both locales resolved here, server-side: the gate is persisted across
 // navigations and must switch language without a reload, but importing the
 // dictionaries into the island would bundle every key (docs/07 §3).
-const gateStrings = Object.fromEntries(
-  LOCALES.map((l) => [
-    l,
-    {
-      title: t(l, 'gate.title'),
-      body: t(l, 'gate.body'),
-      accept: t(l, 'gate.accept'),
-      disclaimer: t(l, 'gate.link.disclaimer'),
-      terms: t(l, 'gate.link.terms'),
-      privacy: t(l, 'gate.link.privacy'),
-      base: localePath(l, '/legal'),
-    },
-  ]),
-);
+// Built as an explicit record rather than Object.fromEntries, which widens to
+// { [k: string]: … } and no longer satisfies the island's Record<Locale, …>.
+const gateStringsFor = (l: Locale) => ({
+  title: t(l, 'gate.title'),
+  body: t(l, 'gate.body'),
+  accept: t(l, 'gate.accept'),
+  disclaimer: t(l, 'gate.link.disclaimer'),
+  terms: t(l, 'gate.link.terms'),
+  privacy: t(l, 'gate.link.privacy'),
+  base: localePath(l, '/legal'),
+});
+const gateStrings: Record<Locale, ReturnType<typeof gateStringsFor>> = {
+  en: gateStringsFor('en'),
+  vi: gateStringsFor('vi'),
+};
 ---
 
 <!doctype html>

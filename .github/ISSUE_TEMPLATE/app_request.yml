@@ -1,0 +1,42 @@
+name: App request
+description: Suggest software for the directory
+labels: [app-request]
+body:
+  - type: input
+    id: app-name
+    attributes: { label: App name }
+    validations: { required: true }
+  - type: input
+    id: homepage
+    attributes:
+      label: Official homepage (https)
+      description: The developer's own domain or official repository — not a download portal.
+    validations: { required: true }
+  - type: dropdown
+    id: pricing
+    attributes:
+      label: Pricing
+      options:
+        - Free
+        - Free + optional one-time purchase
+        - One-time purchase
+    validations: { required: true }
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Platforms
+      options:
+        - label: Windows
+        - label: macOS
+        - label: Linux
+  - type: checkboxes
+    id: criteria
+    attributes:
+      label: Inclusion criteria (docs/00 §3)
+      options:
+        - label: Not subscription-only — the free tier is self-sufficient, or it is a one-time purchase
+          required: true
+        - label: The links above are the developer's official pages
+          required: true
+        - label: Actively maintained, or stable-and-finished
+          required: true

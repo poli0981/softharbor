@@ -38,10 +38,6 @@ export function toggleFacet(facet: Facet, value: string): void {
   store.set(next);
 }
 
-export function isSelected(facet: Facet, value: string): boolean {
-  return FACETS[facet].get().has(value);
-}
-
 export function clearAll(): void {
   query.set('');
   for (const store of Object.values(FACETS)) store.set(new Set());

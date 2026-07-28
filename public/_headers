@@ -11,17 +11,14 @@
 # script-src or style-src — the intersection would drop Astro's hashes and
 # break every island.
 #
-# ┌─────────────────────────────────────────────────────────────────────────┐
-# │ PRE-LAUNCH ONLY — REMOVE `X-Robots-Tag: noindex` BELOW BEFORE v1.0.0.    │
-# │ The site is deployed but has no dataset yet; letting it be indexed empty │
-# │ risks a lingering "Crawled — currently not indexed" state. robots.txt    │
-# │ stays as docs/16 §7 specifies; this header is the temporary part.        │
-# │ Removing it is a launch-checklist item (docs/13 §2).                     │
-# └─────────────────────────────────────────────────────────────────────────┘
+# The pre-launch `X-Robots-Tag: noindex` was REMOVED on 2026-07-28. It existed
+# only while the dataset was empty, where an indexed blank site can linger as
+# "Crawled — currently not indexed". With real entries, legal pages and a
+# sitemap live, that objection no longer applies and indexing is wanted.
+# robots.txt (docs/16 §7) has always been the permanent control.
 
 /*
   Content-Security-Policy: frame-ancestors 'none'
-  X-Robots-Tag: noindex
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin

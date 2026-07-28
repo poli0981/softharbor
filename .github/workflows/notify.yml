@@ -1,0 +1,24 @@
+# docs/12 §2 — tagged release → Discord.
+#
+# Scope note: announce-release.yml reaches DISCORD ONLY. The multi-platform
+# notify.py cross-poster consumes /rss.xml on its own cron in its own repo
+# (docs/03 §7, docs/13 §5), so per-app announcements need no workflow here —
+# only a valid, deterministic feed.
+name: notify
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  announce:
+    uses: poli0981/.github/.github/workflows/announce-release.yml@main
+    secrets: inherit

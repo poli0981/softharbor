@@ -14,8 +14,6 @@
 
 const GLOBAL_KEY = '__shErrors';
 
-export const CAP = 20;
-
 function raw(): string[] {
   const v = (globalThis as Record<string, unknown>)[GLOBAL_KEY];
   return Array.isArray(v) ? (v as string[]) : [];
@@ -28,9 +26,4 @@ export function getBuffer(): string {
 
 export function bufferSize(): number {
   return raw().length;
-}
-
-/** Test seam — production only ever appends via public/errors.js. */
-export function __setBufferForTests(lines: string[]): void {
-  (globalThis as Record<string, unknown>)[GLOBAL_KEY] = lines;
 }

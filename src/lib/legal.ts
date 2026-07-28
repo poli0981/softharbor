@@ -2,8 +2,15 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/05 §A7 + docs/14 Part 2 — legal-gate version check and route exemptions.
 
-/** Bump when ANY legal document changes; re-opens the gate for everyone. */
-export const LEGAL_VERSION = '2026-07-27';
+/**
+ * Bump when ANY legal document changes; re-opens the gate for everyone.
+ *
+ * Set to the H6 approval date — 2026-07-28, the day Kokone signed off on the
+ * docs/14 drafts (docs/14 Part 4). Anyone who accepted the pre-approval
+ * wording sees the gate once more, which is the intended behaviour: they
+ * agreed to different text.
+ */
+export const LEGAL_VERSION = '2026-07-28';
 
 const KEY = 'sh:legal';
 

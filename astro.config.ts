@@ -84,7 +84,20 @@ export default defineConfig({
         description: 'Free & buy-once desktop software, one page.',
         theme_color: '#f7f4ee',
         background_color: '#f7f4ee',
-        icons: [],
+        // The existing SVG, used as-is. A single scalable icon covers every
+        // size, and `purpose: 'any maskable'` lets platforms that crop to a
+        // shape do so without a separate asset. Browsers with no SVG-manifest
+        // support simply fall back to the favicon — strictly better than the
+        // empty array that shipped in M5, which suppressed the install prompt
+        // entirely. Raster PNGs remain the eventual upgrade (docs/13 §2).
+        icons: [
+          {
+            src: '/favicon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any maskable',
+          },
+        ],
       },
       workbox: {
         // These globs are coupled to build.format — 'file' emits offline.html,

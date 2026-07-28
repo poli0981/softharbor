@@ -1,0 +1,72 @@
+# docs/12 §4 — enforces hard rule 5 mechanically.
+#
+# Runs on data pushes AND nightly. The nightly cron is the point: it guarantees
+# a flagged entry never survives more than 24 h even if a reviewer missed it.
+# It opens a PR rather than pushing to main, so a human stays in the loop.
+name: quarantine
+
+on:
+  push:
+    branches: [main]
+    paths: ['src/data/apps/**']
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - id: sweep
+        run: node scripts/quarantine.mjs
+
+      # NOTE: requires Settings → Actions → General → "Allow GitHub Actions to
+      # create and approve pull requests" (action item H10). Without it this
+      # step fails even with the permissions block above.
+      - if: steps.sweep.outputs.moved != ''
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: quarantine/auto
+          title: 'data: quarantine flagged entries'
+          commit-message: 'data: quarantine ${{ steps.sweep.outputs.moved }}'
+          labels: security, quarantine
+          body: |
+            Automated sweep: entries with `security.status: "flagged"` were
+            moved to `data/quarantine/`, which is outside the content glob, so
+            they stop rendering on the next build (docs/03 §5).
+
+            Nothing was deleted. Restoring is a `git mv` plus a status edit;
+            the reason and evidence live in the linked tracking issue.
+
+      - if: steps.sweep.outputs.moved != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            for (const slug of `${{ steps.sweep.outputs.moved }}`.trim().split(/\s+/)) {
+              if (!slug) continue;
+              await github.rest.issues.create({ ...context.repo,
+                title: `[quarantine] ${slug}`,
+                labels: ['security', 'quarantine'],
+                body: [
+                  `\`${slug}\` was flagged and moved to \`data/quarantine/\`.`,
+                  '',
+                  'Record here before closing:',
+                  '- [ ] Reason it was flagged',
+                  '- [ ] Evidence link (VirusTotal / vendor advisory)',
+                  '- [ ] Date checked',
+                  '- [ ] Whether users were plausibly exposed (docs/13 §7)',
+                  '',
+                  'Restoring is a reviewed PR: status back to `clean`/`unverified`,',
+                  'a fresh `checkedAt`, and the file moved back (docs/03 §5).',
+                ].join('\n') });
+            }

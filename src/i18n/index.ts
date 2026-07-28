@@ -9,14 +9,7 @@ import { type Locale } from '../lib/locale';
 // Routing helpers live in src/lib/locale.ts (no dictionary import) so islands
 // can use them without bundling every string; re-exported here so callers have
 // one place to import from.
-export {
-  DEFAULT_LOCALE,
-  LOCALES,
-  localeFromPath,
-  localePair,
-  localePath,
-  type Locale,
-} from '../lib/locale';
+export { localeFromPath, localePair, localePath, type Locale } from '../lib/locale';
 
 /** Key union derived from en.json — a typo is a compile error, not a blank. */
 export type Key = keyof typeof en;

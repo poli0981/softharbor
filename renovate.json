@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":pinAllExceptPeerDependencies",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "schedule": ["before 6am on monday"],
+  "packageRules": [
+    { "groupName": "minor+patch", "matchUpdateTypes": ["minor", "patch"] },
+    { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": true },
+    {
+      "description": "TypeScript 7's native compiler does not expose the API astro check needs, so pnpm check fails on it. Hold at 6.x until Astro supports it (docs/01 §2, D21).",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
+      "description": "Astro/Vite/Tailwind majors must re-run spike S1 before merge (docs/01 §5.5).",
+      "matchPackageNames": ["astro", "vite", "tailwindcss", "@tailwindcss/vite"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true,
+      "addLabels": ["needs-spike-s1"]
+    }
+  ]
+}

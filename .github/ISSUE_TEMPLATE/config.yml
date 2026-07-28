@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & discussion
+    url: https://github.com/poli0981/softharbor/discussions
+    about: General questions, suggestions and anything that is not a bug or an app request.
+  - name: Report a security issue
+    url: https://github.com/poli0981/softharbor/security/advisories/new
+    about: Private vulnerability reporting — please do NOT open a public issue.

@@ -43,7 +43,7 @@
 | Type | Name | Content | Proxy | Purpose |
 |---|---|---|---|---|
 | *(auto)* | `softharbor.net` | Worker custom domain | ☁️ | created by `wrangler deploy` (§3) — do not hand-edit |
-| AAAA | `www` | `100::` | ☁️ | placeholder so the redirect rule (§4) has a proxied hostname to fire on (`A 192.0.2.1` works too) |
+| *(auto)* | `www` | Worker custom domain | ☁️ | **Declared in `wrangler.jsonc` routes, not added by hand.** A hand-made `AAAA www → 100::` placeholder works until the next `wrangler deploy` reconciles the Worker's triggers and removes it — the redirect then dies silently (observed 2026-07-28). Letting wrangler own the record makes it survive deploys and reproduce from a fresh clone. **Prerequisite: rule R1 (§4) must exist, or www would serve a duplicate of the site instead of redirecting.** |
 | MX ×3 + TXT (SPF) | `@` | added by Email Routing wizard | — | §6 |
 | TXT | `_dmarc` | §6 policy | — | anti-spoofing |
 | TXT | `@` | `google-site-verification=…` | — | GSC Domain property (§8) |
@@ -70,7 +70,10 @@ ever appear.
   "compatibility_date": "2026-07-15",
   "assets": { "directory": "./dist", "not_found_handling": "404-page" },
   "routes": [
-    { "pattern": "softharbor.net", "custom_domain": true }
+    { "pattern": "softharbor.net", "custom_domain": true },
+    // www is declared so wrangler owns its DNS record and a deploy cannot
+    // delete it (§2.2). Redirect Rule R1 (§4) keeps it from serving the site.
+    { "pattern": "www.softharbor.net", "custom_domain": true }
   ],
   "workers_dev": false,     // kills softharbor.<account>.workers.dev
   "preview_urls": true      // explicit — defaults to workers_dev's value

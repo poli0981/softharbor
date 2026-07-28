@@ -10,13 +10,16 @@
 import type { CollectionEntry } from 'astro:content';
 import { localePath, type Locale } from '../i18n';
 
+// `| undefined` is explicit because tsconfig sets exactOptionalPropertyTypes
+// (docs/10 §1): there, `foo?: string` means "absent or string", NOT "may be
+// passed as undefined" — and these are passed from optional lookups.
 interface Props {
   locale: Locale;
   site: URL;
-  app?: CollectionEntry<'apps'>;
-  categoryLabelEn?: string;
+  app?: CollectionEntry<'apps'> | undefined;
+  categoryLabelEn?: string | undefined;
   /** Rendered on the welcome page only. */
-  website?: boolean;
+  website?: boolean | undefined;
 }
 const { locale, site, app, categoryLabelEn, website = false } = Astro.props;
 

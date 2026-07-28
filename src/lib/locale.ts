@@ -9,7 +9,6 @@
 // src/i18n/index.ts re-exports them, keeping one implementation.
 
 export type Locale = 'en' | 'vi';
-export const LOCALES: readonly Locale[] = ['en', 'vi'];
 export const DEFAULT_LOCALE: Locale = 'en';
 
 /**

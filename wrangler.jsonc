@@ -14,7 +14,24 @@
     // that serves 200 and redirects the slashed variant to it.
     "html_handling": "drop-trailing-slash",
   },
-  "routes": [{ "pattern": "softharbor.net", "custom_domain": true }],
+  // BOTH hostnames are declared, and that is deliberate.
+  //
+  // `wrangler deploy` reconciles the Worker's triggers against this list. A
+  // `www` DNS record added by hand in the dashboard is not part of that list,
+  // so a deploy can remove it and the www -> apex redirect silently dies
+  // (observed 2026-07-28). Declaring www here makes wrangler CREATE and KEEP
+  // the proxied record, so the configuration reproduces from a fresh clone
+  // (docs/16 §3) instead of depending on a manual step.
+  //
+  // www never SERVES the site: the zone Redirect Rule (docs/16 §4 R1) runs
+  // before Workers and 301s it to the apex. That rule is therefore a hard
+  // prerequisite — without it www would serve a duplicate of the site, which
+  // is the exact hazard docs/16 N1/N2 exist to prevent. Verified after every
+  // deploy in the launch checklist (docs/13 §2).
+  "routes": [
+    { "pattern": "softharbor.net", "custom_domain": true },
+    { "pattern": "www.softharbor.net", "custom_domain": true },
+  ],
   "workers_dev": false, // canonical origin is the custom domain only
   "preview_urls": true, // explicit: defaults to workers_dev's value
 }

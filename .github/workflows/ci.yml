@@ -1,0 +1,78 @@
+# docs/12 §2. Two jobs on purpose.
+#
+# `reusable-web-react.yml` is, despite its name, a generic Node CI (it takes
+# package-manager: 'npm' | 'pnpm'). But it exposes no generic `run:` input, and
+# a job that delegates with `uses:` cannot interleave extra steps — so
+# SoftHarbor's own gates live in a sibling job.
+#
+# Inventory verified 2026-07-27: the ops repo has reusable-web-react.yml,
+# reusable-codeql.yml and announce-release.yml. There is NO reusable-node-ci.yml
+# and NO reusable-notify.yml; earlier drafts called both.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Explicit — a caller without its own block silently defaults every scope to
+# `none` and the reusable workflow fails (docs/12 §1).
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Cancel superseded PR runs; let main runs finish.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  build:
+    uses: poli0981/.github/.github/workflows/reusable-web-react.yml@main
+    with:
+      node-version: '24'
+      package-manager: pnpm
+      build-command: pnpm build
+      test-command: pnpm test
+      deploy-pages: false # we deploy to Workers, not Pages (docs/12 §3)
+
+  gates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # extract-urls --changed diffs against origin/main.
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Data rules (L2)
+        run: pnpm validate:data
+      - name: EN/VI key parity (hard rule 6)
+        run: pnpm i18n:check
+      - name: Dead code
+        run: pnpm knip
+
+      - name: Vulnerability scan
+        uses: google/osv-scanner-action/osv-scanner-action@v2
+        with:
+          scan-args: |-
+            --lockfile=pnpm-lock.yaml
+      - name: Audit production deps
+        run: pnpm audit --prod
+
+      # PR-time link check over changed data files only; the weekly job owns
+      # the full sweep (docs/12 §5).
+      - name: Collect changed official links
+        if: github.event_name == 'pull_request'
+        run: node scripts/extract-urls.mjs --changed > /tmp/urls.txt
+      - name: Link check
+        if: github.event_name == 'pull_request'
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: '--max-concurrency 4 --retry-wait-time 2 /tmp/urls.txt'

@@ -1,0 +1,7 @@
+# docs/12 §8 — T6: a malicious PR must not be able to alter what runs.
+* @poli0981
+
+# Highest-risk paths, called out explicitly so a review is always required.
+/.github/**   @poli0981
+/scripts/**   @poli0981
+/src/data/**  @poli0981

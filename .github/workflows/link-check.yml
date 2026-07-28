@@ -1,0 +1,33 @@
+# docs/12 §5 — weekly full sweep of every official link in the dataset.
+# PR-time checking covers only changed files, inside ci.yml's `gates` job.
+name: link-check
+
+on:
+  schedule:
+    - cron: '43 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: node scripts/extract-urls.mjs > /tmp/urls.txt
+
+      - id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: '--max-concurrency 4 --retry-wait-time 2 /tmp/urls.txt'
+          # Link rot is triage, not a build break — it opens an issue instead.
+          fail: false
+
+      - if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'link-check: broken official links'
+          content-filepath: ./lychee/out.md
+          labels: link-rot

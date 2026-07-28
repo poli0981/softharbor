@@ -9,11 +9,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n';
 
-export interface AppPathProps {
-  app: CollectionEntry<'apps'>;
-  locale: Locale;
-}
-
 /** Sort helper shared by grid and feed: newest first, name as tiebreak. */
 export function byAddedDesc(a: CollectionEntry<'apps'>, b: CollectionEntry<'apps'>): number {
   return b.data.addedAt.localeCompare(a.data.addedAt) || a.data.name.localeCompare(b.data.name);
