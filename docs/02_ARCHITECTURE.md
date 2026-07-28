@@ -49,8 +49,9 @@ softharbor/
 │   ├── CODEOWNERS                 # * @poli0981 + .github/ scripts/ src/data/ (T6)
 │   ├── ISSUE_TEMPLATE/            # bug_report.yml · app_request.yml · config.yml
 │   └── workflows/                 # docs/12: ci.yml · codeql.yml · notify.yml
-│                                  #   deploy.yml · preview.yml
 │                                  #   quarantine.yml · link-check.yml
+│                                  #   (NO deploy/preview — Cloudflare Workers
+│                                  #    Builds owns deployment, docs/12 §3)
 ├── data/
 │   └── quarantine/                # flagged apps parked here (docs/03 §5)
 ├── scripts/

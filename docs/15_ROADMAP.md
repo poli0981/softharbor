@@ -143,7 +143,9 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-28 | **CSP `style-src` was silently dropping every inline `style` attribute** — 49 of them. The sticky header rendered transparent and content bled through. Tokens are now Tailwind utilities and `check:styles` fails the build on any `style=` in dist (docs/09 §4) | ✅ |
 | 2026-07-28 | `ci.yml` made **self-contained**, superseding the reusable-workflow caller: `reusable-web-react.yml`'s Pages job declares `pages: write` + `id-token: write`, and a caller cannot grant less, so every run died at `startup_failure` — and its steps run only "if the script exists", which silently green-lights a renamed gate | ✅ |
 | 2026-07-28 | `reusable-codeql.yml` takes `languages` as a **JSON array string** (`'["javascript-typescript"]'`); a bare value throws in `fromJSON` and kills the run at startup | ✅ |
-| 2026-07-28 | **`CLOUDFLARE_API_TOKEN` lacks zone permissions** — CI deploy fails with `Authentication error [code: 10000]` on `/workers/routes`. Local deploys worked because wrangler uses OAuth, which masked it. Needs Zone→Workers Routes→Edit and Zone→DNS→Edit | ⚠ Kokone |
+| 2026-07-28 | **`CLOUDFLARE_API_TOKEN` lacks zone permissions** — CI deploy fails with `Authentication error [code: 10000]` on `/workers/routes`. Local deploys worked because wrangler uses OAuth, which masked it | ⛔ moot — deploy workflow removed (below) |
+| 2026-07-28 | **Deployment moved to Cloudflare Workers Builds** (dashboard git integration). `deploy.yml` and `preview.yml` deleted: they duplicated a pipeline the dashboard already runs, and needed a token with zone-write scopes nothing else requires. `wrangler.jsonc` remains the source of truth for routes; the build environment is now Cloudflare's and must match `.nvmrc` | ✅ Kokone |
+| 2026-07-28 | `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repo secrets are now unused by any workflow — **delete them** unless something else claims them (action item H3 is retired) | ⚠ Kokone |
 
 ## 5. Open questions for Kokone
 

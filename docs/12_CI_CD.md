@@ -3,16 +3,39 @@
 ## 1. Overview
 
 ```
-PR ──▶ ci (job build → ops reusable; job gates → local) ──▶ review ──▶ squash to main
-                                                        │
-                     ┌──────────────────────────────────┤
-                     ▼                                  ▼
-             deploy.yml (wrangler)              quarantine.yml (paths)
-PR ──▶ preview.yml (versions upload → comment)
+PR ──▶ ci (build + gates, both local) ──▶ review ──▶ squash to main
+                                                       │
+                     ┌─────────────────────────────────┤
+                     ▼                                 ▼
+      Cloudflare Workers Builds            quarantine.yml (paths)
+      (git integration — NOT a workflow)
 cron ─▶ link-check.yml (weekly) · quarantine.yml (nightly) · codeql · renovate
 ```
 
-Secrets (action item H3): `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+**Deployment is not a GitHub workflow.** The repository is connected to
+Cloudflare via the Workers dashboard git integration, which builds and deploys
+on every push to `main` and produces PR previews itself. `deploy.yml` and
+`preview.yml` were removed on 2026-07-28: they duplicated that pipeline, and
+they failed anyway — the API token they used carries Workers scopes but not
+**Zone → Workers Routes → Edit** / **Zone → DNS → Edit**, which
+`wrangler deploy` needs the moment `wrangler.jsonc` declares a `custom_domain`
+(`Authentication error [code: 10000]`). The dashboard integration deploys with
+account-level credentials and has no such gap.
+
+Consequences worth knowing:
+
+- `wrangler.jsonc` is still the source of truth for routes and asset handling —
+  Workers Builds runs `wrangler deploy` against it, so the two custom domains
+  (§16 §3) and `html_handling` still apply.
+- The **build environment is now Cloudflare's**, not a GitHub runner. It must
+  match `.nvmrc` (Node 24) and use pnpm, or the deployed output can differ from
+  what CI validated. Verify after any toolchain bump (docs/13 §2).
+- `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repo secrets (action item
+  H3) are **no longer used by any workflow**. They can be deleted, and should
+  be if nothing else claims them — an unused deploy credential is pure risk.
+- A local `wrangler deploy` still works for the maintainer and is the fastest
+  way to ship a hotfix, but it bypasses `ci`. Prefer pushing.
+
 Everything else uses the default `GITHUB_TOKEN` with **explicit least
 `permissions:` blocks in every caller** — the Phase-5 lesson: a caller stub
 without its own `permissions:` block silently defaults to `none` and the
@@ -55,66 +78,44 @@ current majors when the pins are first resolved to SHAs.
 > would have failed on the first CI run. Re-check the listing before adding
 > any new caller.
 
-`.github/workflows/ci.yml` — **two jobs.** Despite its name,
-`reusable-web-react.yml` is a generic Node CI: it accepts
-`package-manager: 'npm' | 'pnpm'` and runs lint / typecheck / test / build
-when the matching package script exists. But it exposes **no generic `run:`
-input**, and a job that delegates with `uses:` cannot interleave extra steps —
-so SoftHarbor's own gates live in a second, sibling job in the same file.
+`.github/workflows/ci.yml` — **self-contained, two jobs (`build`, `gates`).**
 
-```yaml
-name: ci
-on:
-  pull_request:
-  push: { branches: [main] }
-permissions:
-  contents: read
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  # Cancel superseded PR runs; let main runs finish.
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
-jobs:
-  # Lint + test + build, via the shared workflow.
-  build:
-    uses: poli0981/.github/.github/workflows/reusable-web-react.yml@main
-    with:
-      node-version: '24'
-      package-manager: pnpm
-      build-command: pnpm build
-      test-command: pnpm test
-      deploy-pages: false        # we deploy to Workers, not Pages (§3)
+It is deliberately NOT a caller. An earlier version delegated to
+`reusable-web-react.yml` and every run ended in `startup_failure`, for two
+independent reasons:
 
-  # SoftHarbor-specific gates — cannot live inside the call above.
-  gates:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@<pinned-sha> # v7
-      - uses: pnpm/action-setup@<pinned-sha> # v6
-      - uses: actions/setup-node@<pinned-sha> # v6
-        with: { node-version-file: .nvmrc, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm validate:data        # L2 cross-file rules, docs/03 §2
-      - run: pnpm i18n:check           # EN/VI key parity, docs/07 §3
-      - uses: google/osv-scanner-action@<pinned-sha> # lockfile mode, docs/01 §5
-      - run: pnpm audit --prod
-      # PR-time link check, changed data files only (full sweep: §5).
-      - if: github.event_name == 'pull_request'
-        run: node scripts/extract-urls.mjs --changed > /tmp/urls.txt
-      - if: github.event_name == 'pull_request'
-        uses: lycheeverse/lychee-action@<pinned-sha> # v2
-        with: { args: '--max-concurrency 4 /tmp/urls.txt' }
-```
+1. That workflow's Pages-deploy job declares `pages: write` and
+   `id-token: write`. A caller cannot request less than a called workflow
+   needs, so GitHub rejected the run before any step — even though the job is
+   skipped by `deploy-pages: false`. Granting them would hand a
+   Workers-deployed site the ability to mint OIDC tokens it never uses.
+2. It runs lint / typecheck / test **only if a matching package script
+   exists**. Rename a script and CI silently stops checking while still going
+   green. This project's gates *are* the product, and it has already shipped
+   four separate silent no-ops (a dead `set:html` lint rule, workbox globs
+   matching nothing, an unregistered service worker, CSP-dropped inline
+   styles). A quietly-skipping CI is the wrong tool here.
 
-Keep the caller thin: if the reusable's interface changes, adapt `with:` —
-never fork its logic locally. The `gates` job is ours and stays ours.
+The duplicated "logic" is six `pnpm` invocations — a fair price for a gate that
+fails loudly. Jobs:
+
+- **`build`** — `pnpm lint`, `check`, `test`, `build`, then **`check:styles`**
+  (must run after `build`; it inspects `dist/`) and `knip`.
+- **`gates`** — `validate:data`, `i18n:check`, `osv-scanner`, `pnpm audit
+  --prod`, and on PRs the changed-files lychee sweep.
+
+Two action references that do not work the obvious way: the OSV scanner lives
+in a **subdirectory** of its repo and publishes **no rolling major tag**, so it
+is `google/osv-scanner-action/osv-scanner-action@v2.3.8` — `@v2` does not
+resolve at all.
 
 `.github/workflows/codeql.yml` — `reusable-codeql.yml` **does** exist (verified
-2026-07-27). Its `languages` input is a **JSON array string**, because the
-workflow feeds it to `fromJSON()` for its matrix: `'["javascript-typescript"]'`,
-not `javascript-typescript`. A bare value dies with `startup_failure` before
-any step runs. **Permissions matrix (required):**
+2026-07-27). Two things it is easy to get wrong, both fatal at startup:
+
+- `languages` is a **JSON array string** — it is fed to `fromJSON()` for a
+  matrix. `'["javascript-typescript"]'`, not `javascript-typescript`.
+- the caller must grant **`packages: read`** (CodeQL fetches query packs) on
+  top of the obvious three.
 
 ```yaml
 name: codeql
@@ -124,11 +125,12 @@ on:
 permissions:
   actions: read
   contents: read
+  packages: read          # easy to miss — reusable workflow declares it
   security-events: write
 jobs:
   codeql:
     uses: poli0981/.github/.github/workflows/reusable-codeql.yml@main
-    with: { languages: javascript-typescript }
+    with: { languages: '["javascript-typescript"]' }
 ```
 
 `.github/workflows/notify.yml` (tagged release → Discord announcement):
@@ -155,64 +157,26 @@ deliberately **not wired here**: it consumes `/rss.xml` on its own cron in its
 own repo (docs/03 §7, docs/13 §5). Per-app announcements therefore need no
 workflow in this repository — only a valid, deterministic feed.
 
-## 3. Deploy & previews (repo-local)
+## 3. Deploy & previews (Cloudflare git integration)
 
-`.github/workflows/deploy.yml`:
+There are **no deploy or preview workflows in this repo**. Cloudflare Workers
+Builds is connected to the GitHub repository and owns both:
 
-```yaml
-name: deploy
-on:
-  push: { branches: [main] }
-concurrency: { group: deploy, cancel-in-progress: false }
-permissions:
-  contents: read
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@<pinned-sha> # v7
-      - uses: pnpm/action-setup@<pinned-sha> # v6
-      - uses: actions/setup-node@<pinned-sha> # v6
-        with: { node-version-file: .nvmrc, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - uses: cloudflare/wrangler-action@<pinned-sha> # v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
-```
+| Trigger | What happens |
+|---|---|
+| push to `main` | Cloudflare builds and deploys to `softharbor.net` |
+| pull request | Cloudflare builds a preview and reports it on the PR |
 
-`.github/workflows/preview.yml` (same-repo PRs only — secrets are not
-exposed to forks, and fork PRs here are data PRs that don't need previews):
+Rollback stays where it was: dashboard → the Worker → **Deployments** → promote
+a previous version, or `wrangler rollback` locally.
 
-```yaml
-name: preview
-on:
-  pull_request: { branches: [main] }
-permissions:
-  contents: read
-  pull-requests: write
-jobs:
-  preview:
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    steps:
-      # …same setup/build steps as deploy…
-      - id: upload
-        uses: cloudflare/wrangler-action@<pinned-sha> # v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: versions upload
-      - uses: actions/github-script@<pinned-sha> # v7
-        with:
-          script: |
-            const url = `${{ steps.upload.outputs.deployment-url }}`;
-            github.rest.issues.createComment({ ...context.repo,
-              issue_number: context.issue.number,
-              body: `🔍 Preview: ${url}` });
-```
+Preview URLs remain unlisted, short-lived and carry no sitemap; the indexing
+risk is accepted, and a static `_headers` file cannot vary `X-Robots-Tag` by
+host (docs/16 §3). Never link one publicly.
+
+**Do not re-add a `deploy.yml`.** Two pipelines racing on the same Worker is
+worse than either alone, and the token a workflow would need carries zone-level
+write scopes that nothing else in this repo requires (§1).
 
 ## 4. Quarantine workflow (repo-local)
 
