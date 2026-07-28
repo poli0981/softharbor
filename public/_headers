@@ -21,6 +21,9 @@
   Cross-Origin-Resource-Policy: same-origin
   Cache-Control: public, max-age=0, must-revalidate
 
+# Content-hashed by Vite — this covers JS, CSS *and* the self-hosted fonts,
+# which Astro emits into /_astro/ rather than a /fonts/ directory. An earlier
+# spec had a separate /fonts/* rule; it matched nothing (found in M1).
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -30,6 +33,3 @@
 
 /search-index.json
   Cache-Control: public, max-age=300
-
-/fonts/*
-  Cache-Control: public, max-age=31536000, immutable

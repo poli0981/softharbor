@@ -124,6 +124,10 @@
 
 <style>
   dialog {
+    /* Tailwind's preflight zeroes margins globally, which kills the UA
+       stylesheet's `margin: auto` that centres a modal <dialog>. Without this
+       the gate renders in the top-left corner. */
+    margin: auto;
     max-width: 32rem;
     border: 2px solid var(--sh-border);
     border-radius: 10px;

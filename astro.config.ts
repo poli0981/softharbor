@@ -65,7 +65,10 @@ export default defineConfig({
         icons: [],
       },
       workbox: {
-        globPatterns: ['offline/**', 'fonts/*.woff2', 'favicon.svg'],
+        // Fonts are content-hashed into _astro/, not a /fonts/ directory — an
+        // earlier spec's 'fonts/*.woff2' glob matched nothing, which would
+        // have shipped an unstyled offline page (found in M1).
+        globPatterns: ['offline/**', '_astro/*.woff2', 'favicon.svg'],
         navigateFallback: '/offline',
         navigateFallbackDenylist: [/^\/api\//, /^\/rss\.xml$/],
       },

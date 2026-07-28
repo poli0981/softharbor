@@ -85,6 +85,9 @@ softharbor/
     │   └── issueUrl.ts            # bug-report URL builder (docs/05 §A6)
     ├── components/
     │   ├── Sh*.astro              # static components (cards, badges, header…)
+    │   ├── pages/*.astro          # shared page bodies, one per route shape;
+    │   │                          #   src/pages/** are thin locale wrappers
+    │   │                          #   so EN and VI cannot drift (docs/07 §2)
     │   └── islands/Sh*.svelte     # the 6 islands (§5)
     ├── layouts/Base.astro
     ├── styles/global.css          # @theme tokens (docs/06 §2)

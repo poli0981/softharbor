@@ -1,0 +1,47 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/06 §5 — Welcome. Rendered by BOTH /src/pages/index.astro and
+// /src/pages/vi/index.astro; the locale is the only difference, so the markup
+// lives here exactly once (docs/07 §2).
+import Base from '../../layouts/Base.astro';
+import { localePath, t, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const how = ['welcome.how.official', 'welcome.how.pricing', 'welcome.how.security'] as const;
+---
+
+<Base title={`${t(locale, 'site.name')} — ${t(locale, 'site.tagline')}`} {locale}>
+  <section class="max-w-3xl">
+    <h1 class="text-[length:var(--text-display)] font-semibold">
+      {t(locale, 'welcome.hero.title')}
+    </h1>
+    <p class="mt-4 text-[length:var(--text-h3)]" style="color: var(--sh-muted)">
+      {t(locale, 'welcome.hero.sub')}
+    </p>
+    <a
+      href={localePath(locale, '/apps')}
+      class="sh-lift mt-8 inline-block rounded-[var(--radius-card)] border-2 px-5 py-3 font-medium"
+      style="background: var(--sh-accent); color: var(--sh-accent-ink); border-color: var(--sh-border)"
+    >
+      {t(locale, 'welcome.cta')}
+    </a>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="text-[length:var(--text-h2)] font-semibold">{t(locale, 'welcome.how.title')}</h2>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        how.map((key) => (
+          <li class="sh-panel p-5">
+            <p>{t(locale, key)}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

@@ -1,0 +1,56 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/06 §4 — footer. ShBugReport lands in M5 (docs/02 §5).
+import { localePath, t, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const legal = [
+  ['/legal/disclaimer', 'footer.legal.disclaimer'],
+  ['/legal/privacy', 'footer.legal.privacy'],
+  ['/legal/terms', 'footer.legal.terms'],
+  ['/legal/trademarks', 'footer.legal.trademarks'],
+  ['/legal/third-party', 'footer.legal.thirdParty'],
+] as const;
+
+// Build date, not request date — this is a static site, so it is the honest
+// "as of" for everything on the page.
+const built = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+}).format(new Date());
+---
+
+<footer class="mt-16 border-t-2" style="border-color: var(--sh-border)">
+  <div
+    class="mx-auto flex max-w-[1360px] flex-col gap-4 px-4 py-8 md:flex-row md:justify-between md:px-6"
+  >
+    <nav aria-label={t(locale, 'footer.legal.heading')} class="flex flex-wrap gap-x-4 gap-y-2">
+      {
+        legal.map(([path, key]) => (
+          <a href={localePath(locale, path)} class="hover:underline">
+            {t(locale, key)}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex flex-col gap-1 md:items-end" style="color: var(--sh-muted)">
+      <span class="font-mono text-[var(--text-badge)]">{t(locale, 'footer.license')}</span>
+      <a
+        href="https://github.com/poli0981/softharbor"
+        rel="noopener"
+        class="font-mono text-[var(--text-badge)] hover:underline"
+      >
+        {t(locale, 'footer.github')}
+      </a>
+      <span class="font-mono text-[var(--text-badge)]">
+        {t(locale, 'footer.builtAt', { date: built })}
+      </span>
+    </div>
+  </div>
+</footer>

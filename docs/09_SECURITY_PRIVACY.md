@@ -53,10 +53,13 @@ threat-model update in this file first.
 
 /search-index.json
   Cache-Control: public, max-age=300
-
-/fonts/*
-  Cache-Control: public, max-age=31536000, immutable
 ```
+
+**There is no `/fonts/*` rule.** Astro content-hashes the self-hosted fonts
+into `/_astro/` along with JS and CSS, so the `/fonts/*` rule earlier drafts
+carried matched nothing (verified in M1: `dist/` contains 13 `.woff2` files,
+all under `_astro/`). The `/_astro/*` rule above already gives them the right
+`immutable` treatment — and correctly so, since they *are* content-hashed.
 
 Notes:
 

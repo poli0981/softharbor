@@ -16,7 +16,7 @@ export default getViteConfig({
         test: {
           name: 'unit',
           environment: 'node',
-          include: ['src/lib/**/*.test.ts'],
+          include: ['src/{lib,i18n}/**/*.test.ts'],
         },
       },
       {

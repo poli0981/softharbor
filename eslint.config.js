@@ -46,6 +46,11 @@ export default tseslint.config(
     languageOptions: { globals: globals.browser },
   },
   {
+    // Build/CI scripts and root config run in Node, never in a browser.
+    files: ['scripts/**/*.mjs', '*.config.{ts,js,mjs}'],
+    languageOptions: { globals: globals.node },
+  },
+  {
     // <script lang="ts"> inside .svelte needs the TS parser forwarded, or
     // `interface` is a parse error.
     files: ['**/*.svelte'],

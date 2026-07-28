@@ -1,15 +1,54 @@
 /* SPDX-License-Identifier: GPL-3.0-only
    Copyright (C) 2026 poli0981 (SkullMute)
-   Design tokens — docs/06 §2. Spike-scope subset; full token set lands in M1. */
+   Design tokens & base styles — docs/06 §2, §3, §7. */
 
 @import 'tailwindcss';
+
+/* Self-hosted fonts, latin + vietnamese only (hard rule 7 — zero third-party
+   requests at runtime). Bricolage is a variable font whose package ships one
+   stylesheet covering vietnamese/latin-ext/latin; each @font-face carries a
+   unicode-range, so a browser still downloads only the subsets it needs.
+   Be Vietnam Pro and IBM Plex Mono expose per-subset files, so we name exactly
+   the weights docs/06 §3 calls for and nothing else. */
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource/be-vietnam-pro/latin-400.css';
+@import '@fontsource/be-vietnam-pro/latin-500.css';
+@import '@fontsource/be-vietnam-pro/latin-700.css';
+@import '@fontsource/be-vietnam-pro/vietnamese-400.css';
+@import '@fontsource/be-vietnam-pro/vietnamese-500.css';
+@import '@fontsource/be-vietnam-pro/vietnamese-700.css';
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+@import '@fontsource/ibm-plex-mono/latin-500.css';
+@import '@fontsource/ibm-plex-mono/vietnamese-400.css';
+@import '@fontsource/ibm-plex-mono/vietnamese-500.css';
 
 @theme {
   --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
   --font-sans: 'Be Vietnam Pro', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* docs/06 §3 — desktop step; the mobile step is applied in the media query
+     at the bottom so the scale lives in one place. */
+  --text-display: 2.75rem; /* 44 */
+  --text-h1: 2rem; /* 32 */
+  --text-h2: 1.5rem; /* 24 */
+  --text-h3: 1.1875rem; /* 19 */
+  --text-body: 1rem; /* 16 */
+  --text-small: 0.875rem; /* 14 */
+  --text-badge: 0.78125rem; /* 12.5 */
+
+  --radius-card: 10px;
+  --radius-pill: 999px;
+
+  /* docs/06 §7 */
+  --ease-sh: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-slow: 250ms;
 }
 
+/* Colour tokens switch on html[data-theme]; /theme.js sets that attribute
+   before first paint (docs/05 §A8). Light is also the :root default so the
+   page is legible if scripting is off entirely. */
 :root,
 :root[data-theme='light'] {
   --sh-bg: oklch(0.97 0.01 85);
@@ -17,6 +56,10 @@
   --sh-ink: oklch(0.22 0.015 75);
   --sh-muted: oklch(0.48 0.012 75);
   --sh-accent: oklch(0.52 0.11 235);
+  --sh-accent-ink: oklch(0.98 0.005 235);
+  --sh-ok: oklch(0.55 0.12 150);
+  --sh-warn: oklch(0.62 0.13 75);
+  --sh-danger: oklch(0.55 0.19 25);
   --sh-border: var(--sh-ink);
 }
 
@@ -26,11 +69,120 @@
   --sh-ink: oklch(0.93 0.008 85);
   --sh-muted: oklch(0.7 0.01 85);
   --sh-accent: oklch(0.72 0.1 235);
+  --sh-accent-ink: oklch(0.16 0.02 235);
+  --sh-ok: oklch(0.72 0.12 150);
+  --sh-warn: oklch(0.75 0.12 75);
+  --sh-danger: oklch(0.68 0.17 25);
   --sh-border: oklch(0.42 0.012 85);
 }
 
-body {
-  background: var(--sh-bg);
-  color: var(--sh-ink);
-  font-family: var(--font-sans);
+/* Tell the UA about both themes so form controls and scrollbars follow. */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    background: var(--sh-bg);
+    color: var(--sh-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    line-height: 1.15;
+    /* Vietnamese stacks diacritics two deep (ậ, ễ, ữ); the tighter display
+       leading must not clip them — visual QA item, docs/06 §3. */
+    text-wrap: balance;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--sh-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* The soft-brutalist tell: offset, unblurred shadow (docs/06 §2). */
+  .sh-panel {
+    background: var(--sh-surface);
+    border: 2px solid var(--sh-border);
+    border-radius: var(--radius-card);
+  }
+
+  .sh-lift {
+    transition:
+      transform var(--duration-fast) var(--ease-sh),
+      box-shadow var(--duration-fast) var(--ease-sh);
+  }
+
+  @media (hover: hover) {
+    .sh-lift:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--sh-border);
+    }
+  }
+
+  .sh-pill {
+    border: 2px solid var(--sh-border);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: var(--text-badge);
+    padding: 0.125rem 0.5rem;
+  }
+
+  /* Visible only to keyboard users, per docs/06 §9 tab order. */
+  .sh-skip {
+    position: absolute;
+    left: -9999px;
+  }
+  .sh-skip:focus {
+    left: 1rem;
+    top: 1rem;
+    z-index: 50;
+    background: var(--sh-surface);
+    border: 2px solid var(--sh-border);
+    border-radius: var(--radius-card);
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Mobile step of the type scale (docs/06 §3). */
+@media (width < 40rem) {
+  :root {
+    --text-display: 2.25rem; /* 36 */
+    --text-h1: 1.75rem; /* 28 */
+    --text-h2: 1.375rem; /* 22 */
+    --text-h3: 1.125rem; /* 18 */
+  }
+}
+
+/* docs/06 §7 — everything collapses to instant, including View Transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

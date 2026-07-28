@@ -117,7 +117,10 @@ AstroPWA({
     icons: [/* 192, 512, maskable — public/icons/ */],
   },
   workbox: {
-    globPatterns: ['offline/**', 'fonts/*.woff2', 'favicon.svg'], // shell only
+    // '_astro/*.woff2', NOT 'fonts/*.woff2' — Astro hashes fonts into _astro/,
+    // so the old glob matched nothing and the offline page would have rendered
+    // unstyled (found in M1, 2026-07-27).
+    globPatterns: ['offline/**', '_astro/*.woff2', 'favicon.svg'], // shell only
     navigateFallback: '/offline',
     navigateFallbackDenylist: [/^\/api\//, /^\/rss\.xml$/],
     runtimeCaching: [{

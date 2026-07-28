@@ -103,6 +103,10 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-27 | **S4 passed**, catching two design bugs: a `transition:persist`ed `<dialog>` loses top-layer state across a swap (fixed by re-asserting `showModal()` on `astro:after-swap`), and a persisted island keeps its first `locale` prop, so EN copy leaked onto `/vi/` pages (fixed by deriving locale from the path) | ✅ |
 | 2026-07-27 | Island tests added in **happy-dom** (`vitest.config.ts`, two projects). Does **not** reopen the no-Playwright decision — asserts island state machines only; layout/top-layer/visual stay manual (docs/11 §1) | ⚠ review |
 | 2026-07-27 | Legal-gate session fallback moved from a module-local `let` to a `globalThis` key — its scope really is the session, and a module-local silently leaked acceptance between tests | ✅ |
+| 2026-07-27 | **M1 skeleton done** — tokens, self-hosted fonts, Base/header/footer, Welcome + empty grid in **both** locales, i18n helper + parity gate | ✅ |
+| 2026-07-27 | `_headers` had a dead `/fonts/*` rule and the PWA a dead `fonts/*.woff2` glob: Astro hashes fonts into `/_astro/`, so the offline shell would have shipped **unstyled**. Both corrected (docs/08 D, docs/09 §4) | ✅ (found by inspecting `dist/`) |
+| 2026-07-27 | Page bodies live in `src/components/pages/*.astro`; `src/pages/**` are thin locale wrappers. Implements the docs/07 §2 no-duplication rule for whole pages, not just `getStaticPaths` | ✅ |
+| 2026-07-27 | i18n parity script also enforces **alphabetical key order** — a 200-key dictionary is unreviewable otherwise | ✅ |
 
 ## 5. Open questions for Kokone
 

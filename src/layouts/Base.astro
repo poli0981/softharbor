@@ -1,15 +1,27 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
+// docs/02 §4, docs/06 §4, docs/07 §6.
 import { ClientRouter } from 'astro:transitions';
 import ShLegalGate from '../components/islands/ShLegalGate.svelte';
+import ShHeader from '../components/ShHeader.astro';
+import ShFooter from '../components/ShFooter.astro';
+import { localePair, t, type Locale } from '../i18n';
 import '../styles/global.css';
 
 interface Props {
   title: string;
-  locale?: 'en' | 'vi';
+  description?: string;
+  locale?: Locale;
+  /** Reachable but meaningless in SERPs — /offline, /errors/* (docs/16 §7). */
+  noindex?: boolean;
 }
-const { title, locale = 'en' } = Astro.props;
+const { title, description, locale = 'en', noindex = false } = Astro.props;
+
+const site = Astro.site ?? new URL('https://softharbor.net');
+const pair = localePair(Astro.url.pathname);
+const canonical = new URL(Astro.url.pathname, site);
+const desc = description ?? t(locale, 'site.tagline');
 ---
 
 <!doctype html>
@@ -18,20 +30,48 @@ const { title, locale = 'en' } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical.href} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    {
+      /* Canonical is self-per-locale; alternates come from the single
+        localePair() source the switcher will also use (docs/07 §5/§6). */
+    }
+    <link rel="alternate" hreflang="en" href={new URL(pair.en, site).href} />
+    <link rel="alternate" hreflang="vi" href={new URL(pair.vi, site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(pair.en, site).href} />
+
+    <meta property="og:site_name" content={t(locale, 'site.name')} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:locale" content={locale === 'vi' ? 'vi_VN' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={locale === 'vi' ? 'en_GB' : 'vi_VN'} />
+    <meta name="twitter:card" content="summary" />
+
     {/* Blocking, same-origin, NOT inline — docs/05 §A8, docs/09 §4 (D20). */}
     <script is:inline src="/theme.js"></script>
     <ClientRouter />
   </head>
-  <body>
+  <body class="flex min-h-dvh flex-col">
     {
       /*
       client:load — must block interaction immediately, not on idle.
-      transition:persist — the island survives ClientRouter navigations so
-      acceptance never re-flashes; it re-asserts modal state after each swap
-      (docs/02 §5, docs/14 Part 2).
+      transition:persist — survives ClientRouter navigations so acceptance
+      never re-flashes; it re-asserts modal state after each swap
+      (docs/02 §5, docs/14 Part 2, spike S4).
     */
     }
     <ShLegalGate client:load transition:persist {locale} />
-    <slot />
+
+    <a href="#main" class="sh-skip">{t(locale, 'nav.skipToContent')}</a>
+    <ShHeader {locale} />
+
+    <main id="main" class="mx-auto w-full max-w-[1360px] flex-1 px-4 py-8 md:px-6">
+      <slot />
+    </main>
+
+    <ShFooter {locale} />
   </body>
 </html>

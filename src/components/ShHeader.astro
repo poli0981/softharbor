@@ -1,0 +1,39 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/06 §4 — sticky header. Static in M1; ShLangSwitch and ShThemeToggle
+// replace the placeholder slots in M4 (docs/02 §5).
+import { localePath, t, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const home = localePath(locale, '/');
+const apps = localePath(locale, '/apps');
+---
+
+<header
+  class="sticky top-0 z-30 border-b-2"
+  style="background: var(--sh-bg); border-color: var(--sh-border)"
+>
+  <div class="mx-auto flex max-w-[1360px] items-center gap-4 px-4 py-3 md:px-6">
+    <a href={home} class="font-display text-[1.375rem] font-semibold tracking-tight">
+      {t(locale, 'site.name')}
+    </a>
+
+    <nav aria-label={t(locale, 'nav.apps')} class="flex items-center gap-4">
+      <a href={apps} class="hover:underline">{t(locale, 'nav.apps')}</a>
+      <a href={localePath(locale, '/categories')} class="hover:underline">
+        {t(locale, 'nav.categories')}
+      </a>
+    </nav>
+
+    <span
+      class="sh-pill ml-auto hidden md:inline-block"
+      style="color: var(--sh-muted); border-color: var(--sh-muted)"
+    >
+      {t(locale, 'search.hint')}
+    </span>
+  </div>
+</header>
