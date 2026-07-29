@@ -1,0 +1,25 @@
+{
+  "name": "GParted",
+  "developer": "The GParted Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Partition editor that creates, resizes and moves partitions across most common file systems.",
+    "vi": "Trình quản lý phân vùng, tạo, thay đổi kích thước và di chuyển phân vùng trên hầu hết hệ tệp phổ biến."
+  },
+  "categories": ["system"],
+  "tags": ["partitioning", "filesystem", "resize", "linux"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://gparted.org",
+    "repo": null,
+    "download": "https://gparted.org/download.php"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

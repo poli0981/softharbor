@@ -1,0 +1,25 @@
+{
+  "name": "ProtonUp-Qt",
+  "developer": "DavidoTek",
+  "logo": "monogram",
+  "summary": {
+    "en": "Installs and updates custom Proton and Wine builds for Steam, Lutris and Heroic without touching the terminal.",
+    "vi": "Cài và cập nhật các bản Proton, Wine tuỳ biến cho Steam, Lutris và Heroic mà không cần dùng dòng lệnh."
+  },
+  "categories": ["gaming", "utilities"],
+  "tags": ["proton", "wine", "steam-deck", "linux"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://davidotek.github.io/protonup-qt/",
+    "repo": "https://github.com/DavidoTek/ProtonUp-Qt",
+    "download": "https://github.com/DavidoTek/ProtonUp-Qt/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

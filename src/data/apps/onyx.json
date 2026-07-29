@@ -1,0 +1,25 @@
+{
+  "name": "OnyX",
+  "developer": "Titanium Software",
+  "logo": "monogram",
+  "summary": {
+    "en": "Maintenance tool for macOS that verifies the disk, rebuilds caches and exposes hidden system options.",
+    "vi": "Công cụ bảo trì macOS, kiểm tra ổ đĩa, dựng lại bộ nhớ đệm và mở ra các tuỳ chọn hệ thống bị ẩn."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["maintenance", "cache", "tweaks", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://titanium-software.fr/en/onyx.html",
+    "repo": null,
+    "download": "https://titanium-software.fr/en/onyx.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

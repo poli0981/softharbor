@@ -1,0 +1,25 @@
+{
+  "name": "CrystalDiskInfo",
+  "developer": "Crystal Dew World",
+  "logo": "monogram",
+  "summary": {
+    "en": "Reads S.M.A.R.T. data from drives and warns when health values start drifting toward failure.",
+    "vi": "Đọc dữ liệu S.M.A.R.T. của ổ đĩa và cảnh báo khi các chỉ số sức khoẻ bắt đầu chuyển xấu."
+  },
+  "categories": ["system"],
+  "tags": ["smart", "disk-health", "monitoring", "alerts"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://crystalmark.info/en/software/crystaldiskinfo/",
+    "repo": "https://github.com/hiyohiyo/CrystalDiskInfo",
+    "download": "https://crystalmark.info/en/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Dolphin",
+  "developer": "Dolphin Emulator Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "GameCube and Wii emulator that renders original titles at resolutions the consoles never supported.",
+    "vi": "Trình giả lập GameCube và Wii, kết xuất game gốc ở độ phân giải mà máy thật chưa từng hỗ trợ."
+  },
+  "categories": ["gaming"],
+  "tags": ["gamecube", "wii", "upscaling", "netplay"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://dolphin-emu.org",
+    "repo": "https://github.com/dolphin-emu/dolphin",
+    "download": "https://dolphin-emu.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

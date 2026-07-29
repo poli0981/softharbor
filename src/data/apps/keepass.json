@@ -1,0 +1,25 @@
+{
+  "name": "KeePass",
+  "developer": "Dominik Reichl",
+  "logo": "monogram",
+  "summary": {
+    "en": "The original offline password database, stored in a single encrypted file and extended through plugins.",
+    "vi": "Cơ sở dữ liệu mật khẩu ngoại tuyến nguyên bản, lưu trong một tệp mã hoá duy nhất và mở rộng bằng plugin."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["password-manager", "offline", "plugins", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://keepass.info",
+    "repo": null,
+    "download": "https://keepass.info/download.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

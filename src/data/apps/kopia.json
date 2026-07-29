@@ -1,0 +1,25 @@
+{
+  "name": "Kopia",
+  "developer": "Kopia contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Backup tool with content-addressed deduplication, offering both a desktop window and a command line.",
+    "vi": "Công cụ sao lưu khử trùng lặp theo nội dung, có cả cửa sổ giao diện lẫn dòng lệnh."
+  },
+  "categories": ["file-management"],
+  "tags": ["backup", "deduplication", "snapshots", "encryption"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://kopia.io",
+    "repo": "https://github.com/kopia/kopia",
+    "download": "https://kopia.io/docs/installation/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

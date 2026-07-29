@@ -1,0 +1,25 @@
+{
+  "name": "draw.io",
+  "developer": "JGraph Ltd",
+  "logo": "monogram",
+  "summary": {
+    "en": "Diagram editor that runs offline and stores files locally, with shape libraries for flowcharts and networks.",
+    "vi": "Trình vẽ sơ đồ chạy ngoại tuyến và lưu tệp cục bộ, có thư viện hình cho lưu đồ và sơ đồ mạng."
+  },
+  "categories": ["graphics", "productivity"],
+  "tags": ["diagram", "flowchart", "offline", "uml"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://www.drawio.com",
+    "repo": "https://github.com/jgraph/drawio-desktop",
+    "download": "https://github.com/jgraph/drawio-desktop/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

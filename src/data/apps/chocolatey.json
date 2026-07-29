@@ -1,0 +1,25 @@
+{
+  "name": "Chocolatey",
+  "developer": "Chocolatey Software",
+  "logo": "simple-icons:chocolatey",
+  "summary": {
+    "en": "Command-line package manager for Windows that installs and updates applications from a community repository.",
+    "vi": "Trình quản lý gói dòng lệnh cho Windows, cài và cập nhật ứng dụng từ kho phần mềm của cộng đồng."
+  },
+  "categories": ["system", "developer-tools"],
+  "tags": ["package-manager", "cli", "automation", "scripting"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://chocolatey.org",
+    "repo": "https://github.com/chocolatey/choco",
+    "download": "https://chocolatey.org/install"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

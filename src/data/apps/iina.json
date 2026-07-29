@@ -1,0 +1,25 @@
+{
+  "name": "IINA",
+  "developer": "IINA contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "macOS video player built on mpv, with Picture in Picture and native trackpad gestures.",
+    "vi": "Trình phát video cho macOS dựng trên mpv, hỗ trợ Picture in Picture và cử chỉ trackpad gốc."
+  },
+  "categories": ["media"],
+  "tags": ["video-player", "macos-native", "mpv", "picture-in-picture"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://iina.io",
+    "repo": "https://github.com/iina/iina",
+    "download": "https://iina.io"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

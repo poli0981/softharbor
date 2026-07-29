@@ -1,0 +1,25 @@
+{
+  "name": "Total Commander",
+  "developer": "Christian Ghisler",
+  "logo": "monogram",
+  "summary": {
+    "en": "Two-pane file manager for Windows driven by keyboard shortcuts and extended through a plugin system.",
+    "vi": "Trình quản lý tệp hai khung cho Windows, điều khiển bằng phím tắt và mở rộng qua hệ thống plugin."
+  },
+  "categories": ["file-management"],
+  "tags": ["dual-pane", "keyboard-driven", "plugins", "ftp"],
+  "platforms": ["windows"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.ghisler.com",
+    "repo": null,
+    "download": "https://www.ghisler.com/download.htm"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

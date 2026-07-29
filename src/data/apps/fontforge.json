@@ -1,0 +1,25 @@
+{
+  "name": "FontForge",
+  "developer": "FontForge contributors",
+  "logo": "simple-icons:fontforge",
+  "summary": {
+    "en": "Font editor that draws glyph outlines and exports to TrueType, OpenType and web font formats.",
+    "vi": "Trình biên tập phông chữ, vẽ đường viền glyph và xuất ra TrueType, OpenType cùng định dạng web."
+  },
+  "categories": ["graphics", "developer-tools"],
+  "tags": ["typography", "font-editor", "opentype", "vector"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://fontforge.org",
+    "repo": "https://github.com/fontforge/fontforge",
+    "download": "https://fontforge.org/en-US/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "MuseScore Studio",
+  "developer": "Muse Group",
+  "logo": "simple-icons:musescore",
+  "summary": {
+    "en": "Music notation editor that engraves scores and plays them back with bundled instrument sounds.",
+    "vi": "Trình soạn nhạc ký âm, dàn trang bản nhạc và phát lại bằng bộ tiếng nhạc cụ đi kèm."
+  },
+  "categories": ["media", "productivity"],
+  "tags": ["notation", "sheet-music", "midi", "musicxml"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://musescore.org",
+    "repo": "https://github.com/musescore/MuseScore",
+    "download": "https://musescore.org/en/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

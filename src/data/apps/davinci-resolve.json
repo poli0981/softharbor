@@ -1,0 +1,25 @@
+{
+  "name": "DaVinci Resolve",
+  "developer": "Blackmagic Design",
+  "logo": "simple-icons:davinciresolve",
+  "summary": {
+    "en": "Editing, colour grading, visual effects and audio post in one app, with a free tier that adds no watermark.",
+    "vi": "Dựng phim, chỉnh màu, kỹ xảo và hậu kỳ âm thanh trong một ứng dụng, bản miễn phí không đóng dấu chìm."
+  },
+  "categories": ["media", "graphics"],
+  "tags": ["video-editing", "color-grading", "vfx", "audio-post"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.blackmagicdesign.com",
+    "repo": null,
+    "download": "https://www.blackmagicdesign.com/products/davinciresolve"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

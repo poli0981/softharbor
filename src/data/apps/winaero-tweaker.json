@@ -1,0 +1,25 @@
+{
+  "name": "Winaero Tweaker",
+  "developer": "Winaero",
+  "logo": "monogram",
+  "summary": {
+    "en": "Collects hundreds of hidden Windows settings into one window, each with a reset to the original value.",
+    "vi": "Gom hàng trăm thiết lập ẩn của Windows vào một cửa sổ, mỗi mục đều có nút đưa về giá trị ban đầu."
+  },
+  "categories": ["system"],
+  "tags": ["tweaks", "registry", "customization", "windows"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://winaero.com/winaero-tweaker/",
+    "repo": null,
+    "download": "https://winaero.com/winaero-tweaker/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

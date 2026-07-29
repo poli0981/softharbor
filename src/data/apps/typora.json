@@ -1,0 +1,25 @@
+{
+  "name": "Typora",
+  "developer": "Typora",
+  "logo": "monogram",
+  "summary": {
+    "en": "Markdown editor that renders formatting in place, so there is no split preview pane to follow.",
+    "vi": "Trình soạn thảo Markdown hiển thị định dạng ngay tại chỗ, không cần khung xem trước chia đôi màn hình."
+  },
+  "categories": ["productivity"],
+  "tags": ["markdown", "wysiwyg", "writing", "export"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://typora.io",
+    "repo": null,
+    "download": "https://typora.io/#download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Spyder",
+  "developer": "Spyder Project Contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Scientific Python IDE with a variable explorer and IPython console aimed at data analysis work.",
+    "vi": "IDE Python cho khoa học dữ liệu, có bảng xem biến và console IPython phục vụ phân tích dữ liệu."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["python", "data-science", "ipython", "debugger"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://www.spyder-ide.org",
+    "repo": "https://github.com/spyder-ide/spyder",
+    "download": "https://www.spyder-ide.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "GOG Galaxy",
+  "developer": "GOG.com",
+  "logo": "simple-icons:gogdotcom",
+  "summary": {
+    "en": "Library client for DRM-free GOG games that can also pull in titles from Steam, Epic and other connected stores.",
+    "vi": "Ứng dụng quản lý thư viện game GOG không DRM, đồng thời gom được game từ Steam, Epic và các cửa hàng khác."
+  },
+  "categories": ["gaming"],
+  "tags": ["drm-free", "library", "multi-store", "achievements"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.gog.com",
+    "repo": null,
+    "download": "https://www.gog.com/galaxy"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

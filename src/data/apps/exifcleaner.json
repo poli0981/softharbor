@@ -1,0 +1,25 @@
+{
+  "name": "ExifCleaner",
+  "developer": "szTheory",
+  "logo": "monogram",
+  "summary": {
+    "en": "Strips metadata from photos, videos and PDFs by dragging them onto the window, in bulk if needed.",
+    "vi": "Xoá metadata khỏi ảnh, video và PDF bằng cách kéo thả vào cửa sổ, xử lý hàng loạt nếu cần."
+  },
+  "categories": ["security-privacy", "utilities"],
+  "tags": ["metadata", "exif", "drag-and-drop", "batch-processing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://exifcleaner.app",
+    "repo": "https://github.com/szTheory/exifcleaner",
+    "download": "https://github.com/szTheory/exifcleaner/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

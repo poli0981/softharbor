@@ -1,0 +1,25 @@
+{
+  "name": "Todoist",
+  "developer": "Doist",
+  "logo": "simple-icons:todoist",
+  "summary": {
+    "en": "Task manager built around typed natural-language due dates, with projects, labels and recurring tasks.",
+    "vi": "Ứng dụng quản lý công việc nhận hạn chót gõ bằng ngôn ngữ tự nhiên, có dự án, nhãn và việc lặp lại."
+  },
+  "categories": ["productivity"],
+  "tags": ["tasks", "natural-language", "reminders", "sync"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.todoist.com",
+    "repo": null,
+    "download": "https://www.todoist.com/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

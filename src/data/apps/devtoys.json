@@ -1,0 +1,25 @@
+{
+  "name": "DevToys",
+  "developer": "DevToys contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Offline collection of everyday developer utilities such as encoders, formatters and generators.",
+    "vi": "Bộ tiện ích lập trình thường dùng chạy ngoại tuyến, gồm mã hoá, định dạng và sinh dữ liệu mẫu."
+  },
+  "categories": ["developer-tools", "utilities"],
+  "tags": ["utilities", "offline", "formatter", "encoder"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://devtoys.app",
+    "repo": "https://github.com/DevToys-app/DevToys",
+    "download": "https://devtoys.app/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

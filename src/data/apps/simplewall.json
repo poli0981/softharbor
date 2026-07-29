@@ -1,0 +1,25 @@
+{
+  "name": "simplewall",
+  "developer": "Henry++",
+  "logo": "monogram",
+  "summary": {
+    "en": "Thin front end for the Windows Filtering Platform that blocks apps by default until you allow them.",
+    "vi": "Giao diện gọn cho Windows Filtering Platform, mặc định chặn ứng dụng cho tới khi bạn cho phép."
+  },
+  "categories": ["security-privacy", "system"],
+  "tags": ["firewall", "wfp", "portable", "blocklists"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.henrypp.org/product/simplewall",
+    "repo": "https://github.com/henrypp/simplewall",
+    "download": "https://github.com/henrypp/simplewall/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

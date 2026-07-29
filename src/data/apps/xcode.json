@@ -1,0 +1,25 @@
+{
+  "name": "Xcode",
+  "developer": "Apple",
+  "logo": "simple-icons:xcode",
+  "summary": {
+    "en": "Apple's IDE for macOS and iOS development, bundling simulators, Instruments and Interface Builder.",
+    "vi": "IDE của Apple để lập trình macOS và iOS, đi kèm trình giả lập, Instruments và Interface Builder."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["swift", "ios", "macos-native", "simulator"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://developer.apple.com/xcode/",
+    "repo": null,
+    "download": "https://developer.apple.com/xcode/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

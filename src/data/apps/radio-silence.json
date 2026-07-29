@@ -1,0 +1,25 @@
+{
+  "name": "Radio Silence",
+  "developer": "Juuso Salonen",
+  "logo": "monogram",
+  "summary": {
+    "en": "Minimal macOS outbound firewall: pick the apps to silence, with no rule prompts interrupting your work.",
+    "vi": "Tường lửa chặn kết nối ra tối giản cho macOS: chọn ứng dụng cần chặn, không có cửa sổ hỏi luật làm phiền."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["firewall", "outbound", "macos-native", "no-subscription"],
+  "platforms": ["macos"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://radiosilenceapp.com",
+    "repo": null,
+    "download": "https://radiosilenceapp.com"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "NetBird",
+  "developer": "NetBird GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Mesh VPN with access policies and an optional self-hosted control plane you run on your own server.",
+    "vi": "Mạng lưới VPN có chính sách truy cập và tuỳ chọn tự vận hành máy chủ điều khiển trên hạ tầng của bạn."
+  },
+  "categories": ["security-privacy", "developer-tools"],
+  "tags": ["mesh-vpn", "wireguard", "self-hostable", "access-control"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-3-Clause",
+  "links": {
+    "homepage": "https://netbird.io",
+    "repo": "https://github.com/netbirdio/netbird",
+    "download": "https://netbird.io/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

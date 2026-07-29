@@ -1,0 +1,25 @@
+{
+  "name": "Vim",
+  "developer": "The Vim Project",
+  "logo": "simple-icons:vim",
+  "summary": {
+    "en": "Modal terminal editor where editing commands are composed from keystrokes instead of menus.",
+    "vi": "Trình soạn thảo modal chạy trong terminal, ghép lệnh chỉnh sửa từ phím bấm thay vì dùng menu."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["terminal", "modal-editing", "lightweight", "scriptable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Vim",
+  "links": {
+    "homepage": "https://www.vim.org",
+    "repo": "https://github.com/vim/vim",
+    "download": "https://www.vim.org/download.php"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

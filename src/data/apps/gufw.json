@@ -1,0 +1,25 @@
+{
+  "name": "Gufw",
+  "developer": "Marcos Alvarez Costales",
+  "logo": "monogram",
+  "summary": {
+    "en": "Graphical front end for the ufw firewall, turning Linux rule syntax into checkboxes and profiles.",
+    "vi": "Giao diện đồ hoạ cho tường lửa ufw, biến cú pháp luật của Linux thành ô chọn và hồ sơ cấu hình."
+  },
+  "categories": ["security-privacy", "system"],
+  "tags": ["firewall", "ufw", "linux", "gui"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://costales.github.io/projects/gufw/",
+    "repo": "https://github.com/costales/gufw",
+    "download": "https://costales.github.io/projects/gufw/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

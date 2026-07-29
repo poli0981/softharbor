@@ -1,0 +1,25 @@
+{
+  "name": "WinSCP",
+  "developer": "Martin Přikryl",
+  "logo": "monogram",
+  "summary": {
+    "en": "File transfer client for SFTP, FTP and SCP, with a two-pane layout and scripting support.",
+    "vi": "Ứng dụng truyền tệp qua SFTP, FTP và SCP, giao diện hai khung và hỗ trợ viết kịch bản."
+  },
+  "categories": ["developer-tools", "file-management"],
+  "tags": ["sftp", "ftp", "scp", "scriptable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://winscp.net",
+    "repo": null,
+    "download": "https://winscp.net/eng/download.php"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

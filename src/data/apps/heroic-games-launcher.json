@@ -1,0 +1,25 @@
+{
+  "name": "Heroic Games Launcher",
+  "developer": "Heroic Games Launcher contributors",
+  "logo": "simple-icons:heroicgameslauncher",
+  "summary": {
+    "en": "Open-source launcher for Epic, GOG and Amazon libraries, running Windows titles on Linux and macOS through Wine.",
+    "vi": "Trình khởi chạy mã nguồn mở cho thư viện Epic, GOG và Amazon, chạy game Windows trên Linux và macOS qua Wine."
+  },
+  "categories": ["gaming"],
+  "tags": ["epic", "gog", "wine", "library"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://heroicgameslauncher.com",
+    "repo": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher",
+    "download": "https://heroicgameslauncher.com/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

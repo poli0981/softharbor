@@ -1,0 +1,25 @@
+{
+  "name": "Cyberduck",
+  "developer": "iterate GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Browser for remote storage, connecting to SFTP, WebDAV, S3 and consumer cloud drives in one window.",
+    "vi": "Trình duyệt kho lưu trữ từ xa, kết nối SFTP, WebDAV, S3 và các ổ đám mây phổ thông trong một cửa sổ."
+  },
+  "categories": ["file-management", "developer-tools"],
+  "tags": ["sftp", "webdav", "s3", "cloud-storage"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://cyberduck.io",
+    "repo": "https://github.com/iterate-ch/cyberduck",
+    "download": "https://cyberduck.io/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

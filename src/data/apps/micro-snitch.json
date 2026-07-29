@@ -1,0 +1,25 @@
+{
+  "name": "Micro Snitch",
+  "developer": "Objective Development Software GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Menu bar utility that reports whenever an app switches on the microphone or camera, and logs each event.",
+    "vi": "Tiện ích trên thanh menu, báo mỗi khi có ứng dụng bật micro hoặc camera và ghi lại từng lần như vậy."
+  },
+  "categories": ["security-privacy", "utilities"],
+  "tags": ["microphone", "webcam", "monitoring", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://obdev.at/products/microsnitch/index.html",
+    "repo": null,
+    "download": "https://obdev.at/products/microsnitch/index.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

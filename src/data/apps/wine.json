@@ -1,0 +1,25 @@
+{
+  "name": "Wine",
+  "developer": "WineHQ",
+  "logo": "monogram",
+  "summary": {
+    "en": "Compatibility layer that runs Windows programs on macOS and Linux by translating their system calls.",
+    "vi": "Lớp tương thích cho phép chạy chương trình Windows trên macOS và Linux bằng cách dịch các lệnh hệ thống."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["compatibility-layer", "windows-apps", "no-vm", "cross-platform"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "LGPL-2.1-or-later",
+  "links": {
+    "homepage": "https://www.winehq.org",
+    "repo": null,
+    "download": "https://www.winehq.org/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

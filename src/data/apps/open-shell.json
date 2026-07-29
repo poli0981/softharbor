@@ -1,0 +1,25 @@
+{
+  "name": "Open-Shell",
+  "developer": "Open-Shell contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Restores a classic Start menu on Windows, with configurable skins and the old search behaviour.",
+    "vi": "Khôi phục menu Start kiểu cũ trên Windows, tuỳ biến giao diện và trả lại cách tìm kiếm ngày trước."
+  },
+  "categories": ["system"],
+  "tags": ["start-menu", "classic-ui", "customization", "shell"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://open-shell.github.io/Open-Shell-Menu/",
+    "repo": "https://github.com/Open-Shell/Open-Shell-Menu",
+    "download": "https://github.com/Open-Shell/Open-Shell-Menu/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "NanaZip",
+  "developer": "M2-Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "7-Zip derivative rebuilt for modern Windows, adding the new context menu and Microsoft Store updates.",
+    "vi": "Nhánh phát triển từ 7-Zip cho Windows đời mới, bổ sung menu chuột phải mới và cập nhật qua Microsoft Store."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["archiver", "compression", "context-menu", "windows-11"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/M2Team/NanaZip",
+    "repo": "https://github.com/M2Team/NanaZip",
+    "download": "https://github.com/M2Team/NanaZip/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

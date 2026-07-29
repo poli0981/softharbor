@@ -1,0 +1,25 @@
+{
+  "name": "Stats",
+  "developer": "Serhiy Mytrovtsiy",
+  "logo": "monogram",
+  "summary": {
+    "en": "macOS menu bar monitor for CPU, memory, disk, network and battery, with configurable widgets per sensor.",
+    "vi": "Trình theo dõi trên thanh menu macOS cho CPU, RAM, ổ đĩa, mạng và pin, tuỳ biến widget cho từng cảm biến."
+  },
+  "categories": ["system"],
+  "tags": ["monitoring", "menu-bar", "sensors", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/exelban/stats",
+    "repo": "https://github.com/exelban/stats",
+    "download": "https://github.com/exelban/stats/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

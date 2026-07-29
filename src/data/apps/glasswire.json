@@ -1,0 +1,25 @@
+{
+  "name": "GlassWire",
+  "developer": "GlassWire",
+  "logo": "monogram",
+  "summary": {
+    "en": "Turns network traffic into a timeline graph and flags new connections, with a firewall tab to cut them off.",
+    "vi": "Biến lưu lượng mạng thành đồ thị theo thời gian, báo kết nối mới và có thẻ tường lửa để chặn ngay."
+  },
+  "categories": ["security-privacy", "system"],
+  "tags": ["network-monitor", "firewall", "bandwidth", "alerts"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.glasswire.com",
+    "repo": null,
+    "download": "https://www.glasswire.com/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

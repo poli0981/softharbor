@@ -1,0 +1,25 @@
+{
+  "name": "Sandboxie Plus",
+  "developer": "David Xanatos",
+  "logo": "monogram",
+  "summary": {
+    "en": "Runs Windows programs in an isolated box, so changes to files and registry vanish when the box is emptied.",
+    "vi": "Chạy chương trình Windows trong hộp cách ly, mọi thay đổi tệp và registry biến mất khi bạn xoá hộp."
+  },
+  "categories": ["security-privacy", "system"],
+  "tags": ["sandbox", "isolation", "testing", "malware-analysis"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://sandboxie-plus.com",
+    "repo": "https://github.com/sandboxie-plus/Sandboxie",
+    "download": "https://sandboxie-plus.com/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

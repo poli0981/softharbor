@@ -1,0 +1,25 @@
+{
+  "name": "Apache NetBeans",
+  "developer": "The Apache Software Foundation",
+  "logo": "monogram",
+  "summary": {
+    "en": "Apache IDE for Java, PHP and JavaScript, with project templates and a visual GUI builder.",
+    "vi": "IDE của Apache cho Java, PHP và JavaScript, có mẫu dự án và công cụ dựng giao diện trực quan."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["java", "php", "gui-builder", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://netbeans.apache.org",
+    "repo": "https://github.com/apache/netbeans",
+    "download": "https://netbeans.apache.org/front/main/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

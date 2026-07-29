@@ -1,0 +1,25 @@
+{
+  "name": "WizTree",
+  "developer": "Antibody Software",
+  "logo": "monogram",
+  "summary": {
+    "en": "Disk space analyser that reads the NTFS master file table directly, so a full drive scan finishes in seconds.",
+    "vi": "Công cụ phân tích dung lượng đọc thẳng bảng MFT của NTFS, quét toàn bộ ổ đĩa chỉ trong vài giây."
+  },
+  "categories": ["system", "file-management"],
+  "tags": ["disk-usage", "treemap", "ntfs", "fast"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://diskanalyzer.com",
+    "repo": null,
+    "download": "https://diskanalyzer.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

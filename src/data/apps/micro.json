@@ -1,0 +1,25 @@
+{
+  "name": "micro",
+  "developer": "Zachary Yedidia",
+  "logo": "monogram",
+  "summary": {
+    "en": "Terminal editor with familiar desktop shortcuts, mouse support and a single-binary install.",
+    "vi": "Trình soạn thảo terminal dùng phím tắt quen như trên desktop, hỗ trợ chuột, cài bằng một tệp duy nhất."
+  },
+  "categories": ["ide-editor", "utilities"],
+  "tags": ["terminal", "lightweight", "no-install", "portable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://micro-editor.github.io",
+    "repo": "https://github.com/zyedidia/micro",
+    "download": "https://github.com/zyedidia/micro/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

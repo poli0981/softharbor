@@ -1,0 +1,25 @@
+{
+  "name": "Midnight Commander",
+  "developer": "Midnight Commander contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Text-mode two-pane manager that works over SSH sessions, with a built-in viewer and editor.",
+    "vi": "Trình quản lý hai khung chạy ở chế độ văn bản, dùng được qua phiên SSH, kèm trình xem và soạn thảo."
+  },
+  "categories": ["file-management", "system"],
+  "tags": ["terminal", "dual-pane", "ssh", "editor"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://midnight-commander.org",
+    "repo": "https://github.com/MidnightCommander/mc",
+    "download": "https://midnight-commander.org/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

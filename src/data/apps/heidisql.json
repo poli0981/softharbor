@@ -1,0 +1,25 @@
+{
+  "name": "HeidiSQL",
+  "developer": "Ansgar Becker",
+  "logo": "monogram",
+  "summary": {
+    "en": "Lightweight Windows client for MySQL, MariaDB, PostgreSQL and SQL Server databases.",
+    "vi": "Ứng dụng nhẹ trên Windows để làm việc với MySQL, MariaDB, PostgreSQL và SQL Server."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["database", "mysql", "postgresql", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.heidisql.com",
+    "repo": "https://github.com/HeidiSQL/HeidiSQL",
+    "download": "https://www.heidisql.com/download.php"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

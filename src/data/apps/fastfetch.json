@@ -1,0 +1,25 @@
+{
+  "name": "Fastfetch",
+  "developer": "Fastfetch contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Prints a system summary next to the distribution logo in the terminal, written in C for quick startup.",
+    "vi": "In tóm tắt cấu hình máy cạnh logo hệ điều hành trong terminal, viết bằng C nên khởi chạy rất nhanh."
+  },
+  "categories": ["system"],
+  "tags": ["system-info", "terminal", "customization", "fast"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/fastfetch-cli/fastfetch",
+    "repo": "https://github.com/fastfetch-cli/fastfetch",
+    "download": "https://github.com/fastfetch-cli/fastfetch/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

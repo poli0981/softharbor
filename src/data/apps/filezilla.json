@@ -1,0 +1,25 @@
+{
+  "name": "FileZilla",
+  "developer": "Tim Kosse",
+  "logo": "simple-icons:filezilla",
+  "summary": {
+    "en": "Long-running FTP, FTPS and SFTP client with a transfer queue and a side-by-side local and remote tree.",
+    "vi": "Ứng dụng FTP, FTPS và SFTP lâu đời với hàng đợi truyền tệp và cây thư mục nội bộ đặt cạnh máy chủ."
+  },
+  "categories": ["file-management", "developer-tools"],
+  "tags": ["ftp", "sftp", "transfer-queue", "site-manager"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://filezilla-project.org",
+    "repo": null,
+    "download": "https://filezilla-project.org/download.php?type=client"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

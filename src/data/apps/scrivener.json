@@ -1,0 +1,25 @@
+{
+  "name": "Scrivener",
+  "developer": "Literature & Latte",
+  "logo": "monogram",
+  "summary": {
+    "en": "Long-form writing tool that splits a manuscript into rearrangeable sections beside research notes and outlines.",
+    "vi": "Công cụ viết dài hơi, chia bản thảo thành các phần sắp xếp lại được, đặt cạnh ghi chú tư liệu và dàn ý."
+  },
+  "categories": ["productivity"],
+  "tags": ["writing", "manuscript", "outlining", "no-subscription"],
+  "platforms": ["windows", "macos"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.literatureandlatte.com",
+    "repo": null,
+    "download": "https://www.literatureandlatte.com/scrivener/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

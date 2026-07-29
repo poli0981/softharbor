@@ -1,0 +1,25 @@
+{
+  "name": "Tor Browser",
+  "developer": "The Tor Project",
+  "logo": "simple-icons:torbrowser",
+  "summary": {
+    "en": "Firefox build that routes traffic through the Tor network and makes users' fingerprints look alike.",
+    "vi": "Bản dựng Firefox định tuyến lưu lượng qua mạng Tor và làm đồng nhất dấu vân tay trình duyệt giữa người dùng."
+  },
+  "categories": ["security-privacy", "browser"],
+  "tags": ["anonymity", "tor", "anti-fingerprinting", "privacy"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://www.torproject.org",
+    "repo": "https://gitlab.torproject.org/tpo/applications/tor-browser",
+    "download": "https://www.torproject.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

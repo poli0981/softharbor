@@ -1,0 +1,25 @@
+{
+  "name": "Timeshift",
+  "developer": "Linux Mint",
+  "logo": "monogram",
+  "summary": {
+    "en": "Takes system snapshots with rsync or Btrfs so a broken update can be rolled back from a live session.",
+    "vi": "Tạo ảnh chụp hệ thống bằng rsync hoặc Btrfs, giúp quay lại trạng thái cũ khi bản cập nhật làm hỏng máy."
+  },
+  "categories": ["system"],
+  "tags": ["snapshots", "rollback", "btrfs", "rsync"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://github.com/linuxmint/timeshift",
+    "repo": "https://github.com/linuxmint/timeshift",
+    "download": "https://github.com/linuxmint/timeshift/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

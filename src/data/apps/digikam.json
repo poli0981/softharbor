@@ -1,0 +1,25 @@
+{
+  "name": "digiKam",
+  "developer": "digiKam Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Photo manager for large libraries, with tagging, face detection and batch editing tools.",
+    "vi": "Trình quản lý ảnh cho thư viện lớn, hỗ trợ gắn thẻ, nhận diện khuôn mặt và chỉnh sửa hàng loạt."
+  },
+  "categories": ["graphics", "file-management"],
+  "tags": ["photo-management", "raw", "tagging", "batch-processing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.digikam.org",
+    "repo": "https://invent.kde.org/graphics/digikam",
+    "download": "https://www.digikam.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

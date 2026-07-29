@@ -1,0 +1,25 @@
+{
+  "name": "MPC-HC",
+  "developer": "clsid2",
+  "logo": "monogram",
+  "summary": {
+    "en": "Lightweight Windows player descended from Media Player Classic, kept current by a community fork.",
+    "vi": "Trình phát nhẹ cho Windows kế thừa Media Player Classic, được một bản fork cộng đồng duy trì."
+  },
+  "categories": ["media"],
+  "tags": ["video-player", "lightweight", "windows", "fork"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://github.com/clsid2/mpc-hc",
+    "repo": "https://github.com/clsid2/mpc-hc",
+    "download": "https://github.com/clsid2/mpc-hc/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

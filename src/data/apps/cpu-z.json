@@ -1,0 +1,25 @@
+{
+  "name": "CPU-Z",
+  "developer": "CPUID",
+  "logo": "monogram",
+  "summary": {
+    "en": "Reports processor, motherboard and memory details read straight from the hardware, plus a quick benchmark.",
+    "vi": "Hiển thị thông tin CPU, bo mạch chủ và RAM đọc trực tiếp từ phần cứng, kèm bài đo hiệu năng nhanh."
+  },
+  "categories": ["system"],
+  "tags": ["hardware-info", "cpu", "benchmark", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.cpuid.com/softwares/cpu-z.html",
+    "repo": null,
+    "download": "https://www.cpuid.com/softwares/cpu-z.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

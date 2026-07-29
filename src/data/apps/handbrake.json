@@ -1,0 +1,25 @@
+{
+  "name": "HandBrake",
+  "developer": "The HandBrake Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Video transcoder with presets that target specific devices, plus a batch processing queue.",
+    "vi": "Công cụ chuyển mã video với preset nhắm theo từng thiết bị, kèm hàng đợi xử lý hàng loạt."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["transcoding", "presets", "batch-processing", "compression"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://handbrake.fr",
+    "repo": "https://github.com/HandBrake/HandBrake",
+    "download": "https://handbrake.fr/downloads.php"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

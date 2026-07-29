@@ -1,0 +1,25 @@
+{
+  "name": "Notesnook",
+  "developer": "Streetwriters",
+  "logo": "monogram",
+  "summary": {
+    "en": "Note app that encrypts every note on the device before syncing, so the server never sees readable content.",
+    "vi": "Ứng dụng ghi chú mã hoá từng ghi chú ngay trên máy trước khi đồng bộ, máy chủ không đọc được nội dung."
+  },
+  "categories": ["productivity", "security-privacy"],
+  "tags": ["e2ee", "sync", "note-taking", "open-source"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://notesnook.com",
+    "repo": "https://github.com/streetwriters/notesnook",
+    "download": "https://notesnook.com/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

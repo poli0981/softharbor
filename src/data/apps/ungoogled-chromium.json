@@ -1,0 +1,25 @@
+{
+  "name": "ungoogled-chromium",
+  "developer": "ungoogled-software",
+  "logo": "monogram",
+  "summary": {
+    "en": "Chromium build with Google service integration and background connections stripped out of the source.",
+    "vi": "Bản dựng Chromium đã loại bỏ tích hợp dịch vụ Google và các kết nối chạy ngầm ngay từ mã nguồn."
+  },
+  "categories": ["browser", "security-privacy"],
+  "tags": ["chromium", "no-telemetry", "privacy", "portable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-3-Clause",
+  "links": {
+    "homepage": "https://ungoogled-software.github.io/",
+    "repo": "https://github.com/ungoogled-software/ungoogled-chromium",
+    "download": "https://ungoogled-software.github.io/ungoogled-chromium-binaries/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

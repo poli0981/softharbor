@@ -1,0 +1,25 @@
+{
+  "name": "Helix",
+  "developer": "Helix contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Modal terminal editor with selection-first editing and language server support that needs no plugins.",
+    "vi": "Trình soạn thảo modal trong terminal, chọn trước sửa sau, hỗ trợ language server mà không cần plugin."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["terminal", "modal-editing", "rust", "lsp"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://helix-editor.com",
+    "repo": "https://github.com/helix-editor/helix",
+    "download": "https://github.com/helix-editor/helix/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

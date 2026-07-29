@@ -1,0 +1,25 @@
+{
+  "name": "TortoiseGit",
+  "developer": "TortoiseGit developers",
+  "logo": "monogram",
+  "summary": {
+    "en": "Git client built into Windows Explorer, exposing repository actions from the right-click menu.",
+    "vi": "Ứng dụng Git tích hợp thẳng vào Windows Explorer, thao tác kho mã ngay từ menu chuột phải."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["git", "windows", "shell-integration", "gui"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://tortoisegit.org",
+    "repo": "https://github.com/TortoiseGit/TortoiseGit",
+    "download": "https://tortoisegit.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

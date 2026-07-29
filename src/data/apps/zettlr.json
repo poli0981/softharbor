@@ -1,0 +1,25 @@
+{
+  "name": "Zettlr",
+  "developer": "Hendrik Erz",
+  "logo": "simple-icons:zettlr",
+  "summary": {
+    "en": "Markdown editor for academic writing, with citation keys, Zotero integration and export through Pandoc.",
+    "vi": "Trình soạn thảo Markdown cho viết học thuật, hỗ trợ khoá trích dẫn, kết nối Zotero và xuất bản qua Pandoc."
+  },
+  "categories": ["productivity"],
+  "tags": ["markdown", "academic", "citations", "pandoc"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.zettlr.com",
+    "repo": "https://github.com/Zettlr/Zettlr",
+    "download": "https://www.zettlr.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

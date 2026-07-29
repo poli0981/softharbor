@@ -1,0 +1,25 @@
+{
+  "name": "Mullvad Browser",
+  "developer": "Mullvad VPN AB",
+  "logo": "monogram",
+  "summary": {
+    "en": "Tor Browser's anti-fingerprinting work without the Tor network, meant to be paired with a VPN.",
+    "vi": "Lấy phần chống vân tay của Tor Browser nhưng bỏ mạng Tor, thiết kế để dùng kèm một dịch vụ VPN."
+  },
+  "categories": ["security-privacy", "browser"],
+  "tags": ["anti-fingerprinting", "no-telemetry", "firefox-fork", "privacy"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://mullvad.net/en/browser",
+    "repo": "https://github.com/mullvad/mullvad-browser",
+    "download": "https://mullvad.net/en/download/browser/windows"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Obsidian",
+  "developer": "Obsidian",
+  "logo": "simple-icons:obsidian",
+  "summary": {
+    "en": "Note app that stores everything as local Markdown files and links notes into a navigable graph.",
+    "vi": "Ứng dụng ghi chú lưu toàn bộ dưới dạng tệp Markdown cục bộ, liên kết các ghi chú thành đồ thị duyệt được."
+  },
+  "categories": ["productivity"],
+  "tags": ["markdown", "local-first", "plugins", "knowledge-base"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://obsidian.md",
+    "repo": null,
+    "download": "https://obsidian.md/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

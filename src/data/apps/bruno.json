@@ -1,0 +1,25 @@
+{
+  "name": "Bruno",
+  "developer": "Bruno Software Inc.",
+  "logo": "simple-icons:bruno",
+  "summary": {
+    "en": "API client that stores request collections as plain text files so they live in your Git repository.",
+    "vi": "Ứng dụng thử API lưu bộ request dưới dạng tệp văn bản thuần, đặt chung trong kho Git của dự án."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["api-client", "rest", "graphql", "offline"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://www.usebruno.com",
+    "repo": "https://github.com/usebruno/bruno",
+    "download": "https://www.usebruno.com/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

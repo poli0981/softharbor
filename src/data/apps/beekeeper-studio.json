@@ -1,0 +1,25 @@
+{
+  "name": "Beekeeper Studio Community",
+  "developer": "Beekeeper Studio, Inc.",
+  "logo": "monogram",
+  "summary": {
+    "en": "SQL client with an autocompleting query editor, aimed at readability over configuration depth.",
+    "vi": "Ứng dụng SQL với trình soạn truy vấn có gợi ý, ưu tiên dễ đọc hơn là cấu hình phức tạp."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["database", "sql", "cross-platform", "query-editor"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.beekeeperstudio.io",
+    "repo": "https://github.com/beekeeper-studio/beekeeper-studio",
+    "download": "https://www.beekeeperstudio.io/get-community"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

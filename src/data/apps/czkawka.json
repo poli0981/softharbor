@@ -1,0 +1,25 @@
+{
+  "name": "Czkawka",
+  "developer": "Rafał Mikrut",
+  "logo": "monogram",
+  "summary": {
+    "en": "Finds duplicate files, similar images and empty folders, then lets you review before deleting anything.",
+    "vi": "Tìm tệp trùng, ảnh giống nhau và thư mục rỗng, cho bạn xem lại trước khi xoá bất cứ thứ gì."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["duplicates", "similar-images", "cleanup", "rust"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/qarmin/czkawka",
+    "repo": "https://github.com/qarmin/czkawka",
+    "download": "https://github.com/qarmin/czkawka/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

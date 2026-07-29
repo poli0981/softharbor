@@ -1,0 +1,25 @@
+{
+  "name": "Falkon",
+  "developer": "KDE",
+  "logo": "monogram",
+  "summary": {
+    "en": "Lightweight KDE browser built on QtWebEngine, with AdBlock and bookmark tools included.",
+    "vi": "Trình duyệt nhẹ của KDE dựng trên QtWebEngine, có sẵn AdBlock và công cụ quản lý dấu trang."
+  },
+  "categories": ["browser"],
+  "tags": ["lightweight", "qt", "kde", "adblock"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.falkon.org",
+    "repo": "https://invent.kde.org/network/falkon",
+    "download": "https://www.falkon.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

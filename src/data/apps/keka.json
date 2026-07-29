@@ -1,0 +1,25 @@
+{
+  "name": "Keka",
+  "developer": "Aone",
+  "logo": "monogram",
+  "summary": {
+    "en": "macOS archiver that compresses by dragging onto its window and splits large archives into volumes.",
+    "vi": "Trình nén cho macOS, nén bằng cách kéo thả vào cửa sổ và chia kho nén lớn thành nhiều phần."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["archiver", "compression", "drag-and-drop", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.keka.io",
+    "repo": "https://github.com/aonez/Keka",
+    "download": "https://www.keka.io"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

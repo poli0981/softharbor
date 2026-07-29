@@ -1,0 +1,25 @@
+{
+  "name": "MusicBrainz Picard",
+  "developer": "MetaBrainz Foundation",
+  "logo": "monogram",
+  "summary": {
+    "en": "Tags music files by matching their audio fingerprint against the MusicBrainz database.",
+    "vi": "Gắn thẻ tệp nhạc bằng cách đối chiếu dấu vân tay âm thanh với cơ sở dữ liệu MusicBrainz."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["tagging", "metadata", "fingerprinting", "batch-processing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://picard.musicbrainz.org",
+    "repo": "https://github.com/metabrainz/picard",
+    "download": "https://picard.musicbrainz.org/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

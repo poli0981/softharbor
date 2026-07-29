@@ -66,7 +66,7 @@ criteria (`docs/15`) are met.
 | **P3 — Static pages** | Welcome, `/apps`, `/apps/[slug]`, `/categories/[id]`, layouts, tokens, fonts, dark mode (no JS yet) | 02, 06 |
 | **P4 — Islands** | Search/filter/sort (MiniSearch + nanostores), language switcher, theme toggle, legal gate | 05, 06, 07, 14 |
 | **P5 — Resilience & outputs** | 404/offline/PWA, dormant error templates, `/api/apps.json`, `/rss.xml`, bug-report button | 03, 05, 08 |
-| **P6 — Ship** | `_headers`, CI/CD wiring, deploy, seed 30 apps, launch checklist | 09, 10, 12, 13 |
+| **P6 — Ship** | `_headers`, CI/CD wiring, deploy, seed the app catalogue (290 as of 2026-07-29), launch checklist | 09, 10, 12, 13 |
 
 ## Commands
 

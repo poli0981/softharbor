@@ -1,0 +1,25 @@
+{
+  "name": "Lutris",
+  "developer": "Lutris team",
+  "logo": "simple-icons:lutris",
+  "summary": {
+    "en": "Linux game manager that installs Windows, emulated and native titles using community-maintained setup scripts.",
+    "vi": "Trình quản lý game trên Linux, cài game Windows, game giả lập và game bản địa bằng script do cộng đồng biên soạn."
+  },
+  "categories": ["gaming"],
+  "tags": ["linux", "wine", "install-scripts", "library"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://lutris.net",
+    "repo": "https://github.com/lutris/lutris",
+    "download": "https://lutris.net/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

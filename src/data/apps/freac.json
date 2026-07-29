@@ -1,0 +1,25 @@
+{
+  "name": "fre:ac",
+  "developer": "Robert Kausch",
+  "logo": "monogram",
+  "summary": {
+    "en": "Audio converter and CD ripper covering MP3, FLAC, Opus and other common formats.",
+    "vi": "Công cụ chuyển đổi âm thanh và rip đĩa CD, hỗ trợ MP3, FLAC, Opus cùng nhiều định dạng phổ biến."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["audio-converter", "cd-ripper", "batch-processing", "portable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.freac.org",
+    "repo": "https://github.com/enzo1982/freac",
+    "download": "https://github.com/enzo1982/freac/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

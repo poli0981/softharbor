@@ -1,0 +1,25 @@
+{
+  "name": "Zeal",
+  "developer": "Oleg Shparber",
+  "logo": "monogram",
+  "summary": {
+    "en": "Offline documentation browser that stores API reference docsets for searching without a network.",
+    "vi": "Trình tra cứu tài liệu ngoại tuyến, lưu docset tham chiếu API để tìm kiếm khi không có mạng."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["documentation", "offline", "reference", "search"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://zealdocs.org",
+    "repo": "https://github.com/zealdocs/zeal",
+    "download": "https://zealdocs.org/download.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

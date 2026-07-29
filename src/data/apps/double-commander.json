@@ -1,0 +1,25 @@
+{
+  "name": "Double Commander",
+  "developer": "Double Commander contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Cross-platform two-pane manager modelled on Total Commander, with the same plugin interface on Linux.",
+    "vi": "Trình quản lý hai khung đa nền tảng theo mẫu Total Commander, giữ nguyên giao diện plugin trên Linux."
+  },
+  "categories": ["file-management"],
+  "tags": ["dual-pane", "cross-platform", "plugins", "batch-rename"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://doublecmd.sourceforge.io",
+    "repo": "https://github.com/doublecmd/doublecmd",
+    "download": "https://github.com/doublecmd/doublecmd/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

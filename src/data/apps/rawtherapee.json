@@ -1,0 +1,25 @@
+{
+  "name": "RawTherapee",
+  "developer": "RawTherapee developers",
+  "logo": "monogram",
+  "summary": {
+    "en": "RAW processor with detailed demosaicing and tone-curve controls aimed at photographers.",
+    "vi": "Trình xử lý ảnh RAW với tuỳ chọn khử khảm và đường cong tông màu chi tiết dành cho nhiếp ảnh."
+  },
+  "categories": ["graphics"],
+  "tags": ["raw", "photography", "non-destructive", "batch-processing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.rawtherapee.com",
+    "repo": "https://github.com/Beep6581/RawTherapee",
+    "download": "https://www.rawtherapee.com/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

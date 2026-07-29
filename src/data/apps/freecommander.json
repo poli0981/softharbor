@@ -1,0 +1,25 @@
+{
+  "name": "FreeCommander XE",
+  "developer": "Marek Jasinski",
+  "logo": "monogram",
+  "summary": {
+    "en": "Dual-pane Windows file manager with folder comparison and sync built in; donors get the 64-bit build.",
+    "vi": "Trình quản lý tệp hai khung cho Windows, có sẵn so sánh và đồng bộ thư mục; người ủng hộ nhận bản 64-bit."
+  },
+  "categories": ["file-management"],
+  "tags": ["dual-pane", "folder-compare", "portable", "sync"],
+  "platforms": ["windows"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://freecommander.com",
+    "repo": null,
+    "download": "https://freecommander.com/en/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

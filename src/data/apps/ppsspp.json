@@ -1,0 +1,25 @@
+{
+  "name": "PPSSPP",
+  "developer": "Henrik Rydgård",
+  "logo": "monogram",
+  "summary": {
+    "en": "PSP emulator that runs handheld titles at desktop resolutions, with support for replacement textures.",
+    "vi": "Trình giả lập PSP, chạy game máy cầm tay ở độ phân giải máy tính và hỗ trợ thay thế texture."
+  },
+  "categories": ["gaming"],
+  "tags": ["psp", "upscaling", "save-states", "portable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.ppsspp.org",
+    "repo": "https://github.com/hrydgard/ppsspp",
+    "download": "https://www.ppsspp.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

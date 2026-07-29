@@ -1,0 +1,25 @@
+{
+  "name": "RPCS3",
+  "developer": "RPCS3 Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "PlayStation 3 emulator with a public compatibility list recording how far each tested title runs.",
+    "vi": "Trình giả lập PlayStation 3 kèm danh sách tương thích công khai, ghi nhận mức độ chạy được của từng tựa game."
+  },
+  "categories": ["gaming"],
+  "tags": ["playstation-3", "vulkan", "compatibility", "save-states"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://rpcs3.net",
+    "repo": "https://github.com/RPCS3/rpcs3",
+    "download": "https://rpcs3.net/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

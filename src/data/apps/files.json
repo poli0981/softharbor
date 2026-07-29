@@ -1,0 +1,25 @@
+{
+  "name": "Files",
+  "developer": "Files Community",
+  "logo": "monogram",
+  "summary": {
+    "en": "Modern Windows file manager with tabs, dual pane and column layouts, following current Fluent design.",
+    "vi": "Trình quản lý tệp hiện đại cho Windows với thẻ, hai khung và bố cục cột, bám theo thiết kế Fluent hiện hành."
+  },
+  "categories": ["file-management"],
+  "tags": ["tabs", "dual-pane", "fluent-design", "open-source"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://files.community",
+    "repo": "https://github.com/files-community/Files",
+    "download": "https://files.community/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Epic Games Launcher",
+  "developer": "Epic Games",
+  "logo": "simple-icons:epicgames",
+  "summary": {
+    "en": "Store client for Epic's catalogue, which gives away a rotating selection of paid titles every week.",
+    "vi": "Ứng dụng cửa hàng của Epic, hằng tuần tặng miễn phí một số tựa game vốn phải trả tiền."
+  },
+  "categories": ["gaming"],
+  "tags": ["game-store", "library", "free-games", "cloud-saves"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://store.epicgames.com",
+    "repo": null,
+    "download": "https://store.epicgames.com/en-US/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

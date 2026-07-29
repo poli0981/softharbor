@@ -1,0 +1,25 @@
+{
+  "name": "Bitwarden",
+  "developer": "Bitwarden, Inc.",
+  "logo": "simple-icons:bitwarden",
+  "summary": {
+    "en": "Password manager with an unlimited free tier and a server component you can self-host if you prefer.",
+    "vi": "Trình quản lý mật khẩu có gói miễn phí không giới hạn mật khẩu, kèm máy chủ tự vận hành nếu bạn muốn."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["password-manager", "vault", "self-hostable", "sync"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://bitwarden.com",
+    "repo": "https://github.com/bitwarden/clients",
+    "download": "https://bitwarden.com/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

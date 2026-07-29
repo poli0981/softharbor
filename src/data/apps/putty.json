@@ -1,0 +1,25 @@
+{
+  "name": "PuTTY",
+  "developer": "Simon Tatham",
+  "logo": "monogram",
+  "summary": {
+    "en": "Small SSH and telnet client that runs from a single executable with no installation needed.",
+    "vi": "Ứng dụng SSH và telnet nhỏ gọn, chạy từ một tệp thực thi duy nhất mà không cần cài đặt."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["ssh", "telnet", "portable", "lightweight"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://www.chiark.greenend.org.uk/~sgtatham/putty/",
+    "repo": null,
+    "download": "https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

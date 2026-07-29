@@ -1,0 +1,25 @@
+{
+  "name": "Ventoy",
+  "developer": "Ventoy Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Prepares a USB stick once, then boots any ISO file simply copied onto it, holding several systems at a time.",
+    "vi": "Chỉ cần tạo USB một lần, sau đó chép tệp ISO vào là khởi động được, chứa nhiều hệ điều hành cùng lúc."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["bootable-usb", "iso", "multiboot", "uefi"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.ventoy.net",
+    "repo": "https://github.com/ventoy/Ventoy",
+    "download": "https://www.ventoy.net/en/download.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

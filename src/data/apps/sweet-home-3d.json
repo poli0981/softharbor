@@ -1,0 +1,25 @@
+{
+  "name": "Sweet Home 3D",
+  "developer": "eTeks",
+  "logo": "monogram",
+  "summary": {
+    "en": "Interior design tool that draws a floor plan in 2D and previews the result in 3D at the same time.",
+    "vi": "Công cụ thiết kế nội thất, vẽ mặt bằng 2D và xem trước kết quả 3D cùng lúc trên một màn hình."
+  },
+  "categories": ["graphics", "productivity"],
+  "tags": ["interior-design", "floor-plan", "3d", "beginners"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.sweethome3d.com",
+    "repo": null,
+    "download": "https://www.sweethome3d.com/download.jsp"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

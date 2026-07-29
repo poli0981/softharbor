@@ -1,0 +1,25 @@
+{
+  "name": "Neovim",
+  "developer": "Neovim contributors",
+  "logo": "simple-icons:neovim",
+  "summary": {
+    "en": "Vim fork with an embedded Lua runtime, a built-in LSP client and asynchronous plugin architecture.",
+    "vi": "Bản fork của Vim, tích hợp Lua, có sẵn client LSP và kiến trúc plugin chạy bất đồng bộ."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["terminal", "modal-editing", "lua", "lsp"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://neovim.io",
+    "repo": "https://github.com/neovim/neovim",
+    "download": "https://github.com/neovim/neovim/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

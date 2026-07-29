@@ -1,0 +1,25 @@
+{
+  "name": "Ollama",
+  "developer": "Ollama",
+  "logo": "simple-icons:ollama",
+  "summary": {
+    "en": "Runs open-weight language models on your own machine and exposes them over a local API.",
+    "vi": "Chạy các mô hình ngôn ngữ mã nguồn mở ngay trên máy và cung cấp chúng qua một API cục bộ."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["local-llm", "offline-ai", "cli", "api"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://ollama.com",
+    "repo": "https://github.com/ollama/ollama",
+    "download": "https://ollama.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

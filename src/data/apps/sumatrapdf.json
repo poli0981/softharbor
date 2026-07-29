@@ -1,0 +1,25 @@
+{
+  "name": "SumatraPDF",
+  "developer": "Krzysztof Kowalczyk",
+  "logo": "monogram",
+  "summary": {
+    "en": "Small document reader for PDF, ePub, MOBI, CBZ and DjVu that opens in a fraction of a second.",
+    "vi": "Trình đọc tài liệu nhỏ gọn cho PDF, ePub, MOBI, CBZ và DjVu, mở tệp gần như tức thì."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["pdf", "ebook", "lightweight", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.sumatrapdfreader.org",
+    "repo": "https://github.com/sumatrapdfreader/sumatrapdf",
+    "download": "https://www.sumatrapdfreader.org/download-free-pdf-viewer"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Notepad++",
+  "developer": "Don Ho",
+  "logo": "simple-icons:notepadplusplus",
+  "summary": {
+    "en": "Windows text editor with syntax highlighting for many languages, tabbed files and a macro recorder.",
+    "vi": "Trình soạn thảo văn bản cho Windows, tô màu cú pháp nhiều ngôn ngữ, mở theo tab và ghi lại macro."
+  },
+  "categories": ["ide-editor", "utilities"],
+  "tags": ["lightweight", "syntax-highlighting", "macros", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://notepad-plus-plus.org",
+    "repo": "https://github.com/notepad-plus-plus/notepad-plus-plus",
+    "download": "https://notepad-plus-plus.org/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

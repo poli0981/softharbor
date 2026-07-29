@@ -1,0 +1,25 @@
+{
+  "name": "GPG Suite",
+  "developer": "GPGTools GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Brings OpenPGP to macOS through a key manager and Services menu; the Apple Mail plugin is the paid part.",
+    "vi": "Mang OpenPGP lên macOS qua trình quản lý khoá và menu Services; phần trả phí là plugin cho Apple Mail."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["openpgp", "gnupg", "macos-native", "email-encryption"],
+  "platforms": ["macos"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://gpgtools.org",
+    "repo": "https://github.com/GPGTools",
+    "download": "https://gpgtools.org"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

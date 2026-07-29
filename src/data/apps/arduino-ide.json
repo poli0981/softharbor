@@ -1,0 +1,25 @@
+{
+  "name": "Arduino IDE",
+  "developer": "Arduino",
+  "logo": "simple-icons:arduino",
+  "summary": {
+    "en": "Editor and toolchain for Arduino boards, handling compilation and upload over USB in one window.",
+    "vi": "Trình soạn thảo kèm toolchain cho bo mạch Arduino, biên dịch và nạp chương trình qua USB trong một cửa sổ."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["arduino", "embedded", "microcontroller", "serial-monitor"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://www.arduino.cc",
+    "repo": "https://github.com/arduino/arduino-ide",
+    "download": "https://www.arduino.cc/en/software"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

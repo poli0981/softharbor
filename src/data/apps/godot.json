@@ -1,0 +1,25 @@
+{
+  "name": "Godot Engine",
+  "developer": "Godot Foundation",
+  "logo": "simple-icons:godotengine",
+  "summary": {
+    "en": "Game engine with a scene-based editor for 2D and 3D projects, exporting to desktop, mobile and web targets.",
+    "vi": "Engine làm game với trình soạn thảo theo scene cho dự án 2D và 3D, xuất bản ra desktop, di động và web."
+  },
+  "categories": ["gaming", "developer-tools"],
+  "tags": ["game-engine", "2d", "3d", "gdscript"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://godotengine.org",
+    "repo": "https://github.com/godotengine/godot",
+    "download": "https://godotengine.org/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Pixelorama",
+  "developer": "Orama Interactive",
+  "logo": "monogram",
+  "summary": {
+    "en": "Pixel art editor built with the Godot engine, offering animation timelines and tile-based drawing.",
+    "vi": "Trình vẽ pixel art dựng bằng engine Godot, có dòng thời gian hoạt hình và công cụ vẽ theo ô tile."
+  },
+  "categories": ["graphics", "gaming"],
+  "tags": ["pixel-art", "animation", "godot", "tilemap"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://orama-interactive.itch.io/pixelorama",
+    "repo": "https://github.com/Orama-Interactive/Pixelorama",
+    "download": "https://github.com/Orama-Interactive/Pixelorama/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

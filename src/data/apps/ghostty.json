@@ -1,0 +1,25 @@
+{
+  "name": "Ghostty",
+  "developer": "Mitchell Hashimoto",
+  "logo": "simple-icons:ghostty",
+  "summary": {
+    "en": "GPU-accelerated terminal that uses native platform widgets instead of drawing its own interface.",
+    "vi": "Terminal tăng tốc bằng GPU, dùng widget gốc của hệ điều hành thay vì tự vẽ giao diện riêng."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["terminal", "gpu-accelerated", "native", "zig"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://ghostty.org",
+    "repo": "https://github.com/ghostty-org/ghostty",
+    "download": "https://ghostty.org/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

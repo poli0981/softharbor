@@ -1,0 +1,25 @@
+{
+  "name": "Android Studio",
+  "developer": "Google",
+  "logo": "simple-icons:androidstudio",
+  "summary": {
+    "en": "Google's official Android IDE, bundling the emulator, layout inspector and Gradle build tooling.",
+    "vi": "IDE Android chính thức của Google, đi kèm trình giả lập, công cụ xem bố cục và hệ thống build Gradle."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["android", "kotlin", "emulator", "gradle"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://developer.android.com/studio",
+    "repo": null,
+    "download": "https://developer.android.com/studio"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

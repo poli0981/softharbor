@@ -1,0 +1,25 @@
+{
+  "name": "yEd Graph Editor",
+  "developer": "yWorks GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Diagram editor with automatic layout algorithms that arrange large graphs without manual placement.",
+    "vi": "Trình vẽ sơ đồ có thuật toán tự sắp xếp, bố trí đồ thị lớn mà không cần kéo thả thủ công."
+  },
+  "categories": ["graphics", "productivity"],
+  "tags": ["diagram", "auto-layout", "graph", "uml"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.yworks.com/products/yed",
+    "repo": null,
+    "download": "https://www.yworks.com/products/yed/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

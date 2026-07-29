@@ -1,0 +1,25 @@
+{
+  "name": "Firejail",
+  "developer": "Firejail contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Confines a Linux program with kernel namespaces and seccomp, using ready-made profiles for common apps.",
+    "vi": "Giới hạn chương trình Linux bằng namespace và seccomp của nhân, kèm hồ sơ dựng sẵn cho ứng dụng phổ biến."
+  },
+  "categories": ["security-privacy", "system"],
+  "tags": ["sandbox", "seccomp", "namespaces", "cli"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://firejail.wordpress.com",
+    "repo": "https://github.com/netblue30/firejail",
+    "download": "https://github.com/netblue30/firejail/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

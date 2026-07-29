@@ -1,0 +1,25 @@
+{
+  "name": "O&O ShutUp10++",
+  "developer": "O&O Software GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Portable switchboard for Windows privacy settings, marking which ones are safe to turn off and why.",
+    "vi": "Bảng công tắc di động cho các thiết lập riêng tư của Windows, chỉ rõ mục nào tắt được và vì sao."
+  },
+  "categories": ["security-privacy", "system"],
+  "tags": ["telemetry", "privacy-settings", "portable", "windows"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.oo-software.com/en/shutup10",
+    "repo": null,
+    "download": "https://www.oo-software.com/en/shutup10"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "MSI Afterburner",
+  "developer": "MSI",
+  "logo": "monogram",
+  "summary": {
+    "en": "Graphics card tuning tool with fan curves, undervolting and an on-screen display for temperature and frame rate.",
+    "vi": "Công cụ tinh chỉnh card đồ hoạ với đường cong quạt, hạ điện áp và lớp hiển thị nhiệt độ, khung hình khi chơi."
+  },
+  "categories": ["gaming", "system"],
+  "tags": ["overclocking", "monitoring", "fan-curve", "osd"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.msi.com/Landing/afterburner/graphics-cards",
+    "repo": null,
+    "download": "https://www.msi.com/Landing/afterburner/graphics-cards"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

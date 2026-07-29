@@ -1,0 +1,25 @@
+{
+  "name": "Strawberry Music Player",
+  "developer": "Jonas Kvinge",
+  "logo": "monogram",
+  "summary": {
+    "en": "Music player for local collections, with a tag editor and support for lossless formats.",
+    "vi": "Trình phát nhạc cho bộ sưu tập lưu trên máy, có trình sửa thẻ và hỗ trợ định dạng không nén."
+  },
+  "categories": ["media"],
+  "tags": ["music-player", "library", "lossless", "tag-editor"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.strawberrymusicplayer.org",
+    "repo": "https://github.com/strawberrymusicplayer/strawberry",
+    "download": "https://www.strawberrymusicplayer.org/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

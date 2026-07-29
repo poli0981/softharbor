@@ -1,0 +1,25 @@
+{
+  "name": "MusicBee",
+  "developer": "Steven Mayall",
+  "logo": "monogram",
+  "summary": {
+    "en": "Music manager for large libraries, with automatic tagging and device synchronisation.",
+    "vi": "Trình quản lý nhạc cho thư viện lớn, tự động gắn thẻ và đồng bộ sang thiết bị nghe nhạc."
+  },
+  "categories": ["media", "file-management"],
+  "tags": ["music-player", "library", "tagging", "device-sync"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://getmusicbee.com",
+    "repo": null,
+    "download": "https://getmusicbee.com/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

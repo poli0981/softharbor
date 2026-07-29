@@ -1,0 +1,25 @@
+{
+  "name": "btop++",
+  "developer": "Jakob Liljenberg",
+  "logo": "monogram",
+  "summary": {
+    "en": "Terminal resource monitor with mouse support and graphs for processor, memory, disks and network.",
+    "vi": "Trình theo dõi tài nguyên trong terminal, hỗ trợ chuột và vẽ biểu đồ cho CPU, RAM, ổ đĩa và mạng."
+  },
+  "categories": ["system"],
+  "tags": ["monitoring", "terminal", "graphs", "mouse-support"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://github.com/aristocratos/btop",
+    "repo": "https://github.com/aristocratos/btop",
+    "download": "https://github.com/aristocratos/btop/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

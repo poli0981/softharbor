@@ -1,0 +1,25 @@
+{
+  "name": "OpenToonz",
+  "developer": "Dwango",
+  "logo": "monogram",
+  "summary": {
+    "en": "2D animation software used in studio production, with a scan-and-cleanup workflow for hand-drawn art.",
+    "vi": "Phần mềm hoạt hình 2D dùng trong sản xuất studio, có quy trình quét và làm sạch nét vẽ tay."
+  },
+  "categories": ["graphics", "media"],
+  "tags": ["2d-animation", "traditional-animation", "compositing", "studio"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": "BSD-3-Clause",
+  "links": {
+    "homepage": "https://opentoonz.github.io",
+    "repo": "https://github.com/opentoonz/opentoonz",
+    "download": "https://opentoonz.github.io/e/index.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

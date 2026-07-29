@@ -1,0 +1,25 @@
+{
+  "name": "ClamAV",
+  "developer": "Cisco Systems, Inc.",
+  "logo": "monogram",
+  "summary": {
+    "en": "Open source antivirus engine with a command line scanner and signature database you can update yourself.",
+    "vi": "Nhân diệt virus mã nguồn mở, có trình quét dòng lệnh và kho chữ ký bạn có thể tự cập nhật."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["antivirus", "scanner", "cli", "signatures"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://www.clamav.net",
+    "repo": "https://github.com/Cisco-Talos/clamav",
+    "download": "https://www.clamav.net/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

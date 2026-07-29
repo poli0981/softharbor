@@ -1,0 +1,25 @@
+{
+  "name": "PDF-XChange Editor",
+  "developer": "PDF-XChange Co. Ltd",
+  "logo": "monogram",
+  "summary": {
+    "en": "PDF editor whose free mode covers viewing, annotating, form filling and OCR, with a licence unlocking the rest.",
+    "vi": "Trình chỉnh sửa PDF, chế độ miễn phí đủ để xem, chú thích, điền biểu mẫu và OCR, mua giấy phép mở phần còn lại."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["pdf", "annotations", "ocr", "forms"],
+  "platforms": ["windows"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.pdf-xchange.com",
+    "repo": null,
+    "download": "https://www.pdf-xchange.com/product/pdf-xchange-editor/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

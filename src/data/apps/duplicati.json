@@ -1,0 +1,25 @@
+{
+  "name": "Duplicati",
+  "developer": "Duplicati Inc.",
+  "logo": "simple-icons:duplicati",
+  "summary": {
+    "en": "Backup tool that sends encrypted incremental blocks to cloud storage, managed from a browser interface.",
+    "vi": "Công cụ sao lưu, gửi các khối gia tăng đã mã hoá lên đám mây và quản lý qua giao diện trình duyệt."
+  },
+  "categories": ["file-management"],
+  "tags": ["backup", "incremental", "encryption", "cloud-storage"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://duplicati.com",
+    "repo": "https://github.com/duplicati/duplicati",
+    "download": "https://duplicati.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

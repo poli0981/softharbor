@@ -1,0 +1,25 @@
+{
+  "name": "Windscribe",
+  "developer": "Windscribe Limited",
+  "logo": "monogram",
+  "summary": {
+    "en": "VPN client with an open source desktop app and a free tier metered in gigabytes per month.",
+    "vi": "Ứng dụng VPN với phần mềm máy tính mã nguồn mở và gói miễn phí tính theo số gigabyte mỗi tháng."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["vpn", "firewall", "ad-blocking", "open-source"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://windscribe.com",
+    "repo": "https://github.com/Windscribe/Desktop-App",
+    "download": "https://windscribe.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

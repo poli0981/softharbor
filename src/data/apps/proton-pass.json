@@ -1,0 +1,25 @@
+{
+  "name": "Proton Pass",
+  "developer": "Proton AG",
+  "logo": "monogram",
+  "summary": {
+    "en": "Password manager from the Proton suite, adding hide-my-email aliases beside the usual logins and notes.",
+    "vi": "Trình quản lý mật khẩu thuộc bộ Proton, có thêm bí danh email ẩn danh bên cạnh mật khẩu và ghi chú."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["password-manager", "email-alias", "end-to-end-encryption", "sync"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://proton.me/pass",
+    "repo": "https://github.com/protonpass",
+    "download": "https://proton.me/pass/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

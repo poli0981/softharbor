@@ -1,0 +1,25 @@
+{
+  "name": "foobar2000",
+  "developer": "Peter Pawłowski",
+  "logo": "simple-icons:foobar2000",
+  "summary": {
+    "en": "Configurable audio player built on a component system, supporting a wide range of formats.",
+    "vi": "Trình phát nhạc tuỳ biến sâu, hoạt động theo hệ thống component và hỗ trợ nhiều định dạng."
+  },
+  "categories": ["media"],
+  "tags": ["music-player", "customizable", "lightweight", "components"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.foobar2000.org",
+    "repo": null,
+    "download": "https://www.foobar2000.org/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

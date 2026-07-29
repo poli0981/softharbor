@@ -1,0 +1,25 @@
+{
+  "name": "Tailscale",
+  "developer": "Tailscale Inc.",
+  "logo": "simple-icons:tailscale",
+  "summary": {
+    "en": "Builds a private WireGuard mesh between your own machines, so they reach each other without port forwarding.",
+    "vi": "Dựng mạng lưới WireGuard riêng giữa các máy của bạn, giúp chúng gặp nhau mà không cần mở cổng router."
+  },
+  "categories": ["security-privacy", "developer-tools"],
+  "tags": ["mesh-vpn", "wireguard", "remote-access", "zero-config"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-3-Clause",
+  "links": {
+    "homepage": "https://tailscale.com",
+    "repo": "https://github.com/tailscale/tailscale",
+    "download": "https://tailscale.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

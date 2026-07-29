@@ -1,0 +1,25 @@
+{
+  "name": "Subtitle Edit",
+  "developer": "Nikolaj Lynge Olsson",
+  "logo": "simple-icons:subtitleedit",
+  "summary": {
+    "en": "Subtitle editor with waveform syncing, format conversion and built-in translation helpers.",
+    "vi": "Trình biên tập phụ đề với đồng bộ theo dạng sóng, chuyển định dạng và công cụ hỗ trợ dịch."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["subtitles", "srt", "synchronization", "translation"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.nikse.dk/subtitleedit",
+    "repo": "https://github.com/SubtitleEdit/subtitleedit",
+    "download": "https://github.com/SubtitleEdit/subtitleedit/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Freeplane",
+  "developer": "Freeplane contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Mind mapping tool with scripting, conditional styles and nodes that can hold attributes and calculated formulas.",
+    "vi": "Công cụ vẽ sơ đồ tư duy có scripting, kiểu hiển thị theo điều kiện và nút chứa được thuộc tính lẫn công thức tính."
+  },
+  "categories": ["productivity"],
+  "tags": ["mind-mapping", "outlining", "scripting", "java"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.freeplane.org",
+    "repo": "https://github.com/freeplane/freeplane",
+    "download": "https://github.com/freeplane/freeplane/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

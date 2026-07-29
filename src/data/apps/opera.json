@@ -1,0 +1,25 @@
+{
+  "name": "Opera",
+  "developer": "Opera Norway AS",
+  "logo": "simple-icons:opera",
+  "summary": {
+    "en": "Chromium browser with an ad blocker, a free VPN proxy and a sidebar that docks messaging apps.",
+    "vi": "Trình duyệt nền Chromium có sẵn trình chặn quảng cáo, VPN proxy miễn phí và thanh bên gắn các ứng dụng nhắn tin."
+  },
+  "categories": ["browser"],
+  "tags": ["chromium", "adblock", "vpn", "sidebar"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.opera.com",
+    "repo": null,
+    "download": "https://www.opera.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

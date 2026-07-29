@@ -1,0 +1,25 @@
+{
+  "name": "MobaXterm",
+  "developer": "Mobatek",
+  "logo": "monogram",
+  "summary": {
+    "en": "Remote computing toolbox bundling SSH, RDP, VNC, SFTP and an X server in one portable app.",
+    "vi": "Bộ công cụ làm việc từ xa gộp SSH, RDP, VNC, SFTP và X server vào một ứng dụng di động."
+  },
+  "categories": ["developer-tools", "system"],
+  "tags": ["ssh", "x-server", "rdp", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://mobaxterm.mobatek.net",
+    "repo": null,
+    "download": "https://mobaxterm.mobatek.net/download-home-edition.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

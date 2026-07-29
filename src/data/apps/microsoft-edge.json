@@ -1,0 +1,25 @@
+{
+  "name": "Microsoft Edge",
+  "developer": "Microsoft",
+  "logo": "simple-icons:microsoftedge",
+  "summary": {
+    "en": "Microsoft's Chromium browser shipped with Windows, adding vertical tabs and a built-in read-aloud mode.",
+    "vi": "Trình duyệt nền Chromium của Microsoft đi kèm Windows, bổ sung tab dọc và chế độ đọc to nội dung trang."
+  },
+  "categories": ["browser"],
+  "tags": ["chromium", "vertical-tabs", "read-aloud", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.microsoft.com/edge",
+    "repo": null,
+    "download": "https://www.microsoft.com/edge/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

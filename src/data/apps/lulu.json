@@ -1,0 +1,25 @@
+{
+  "name": "LuLu",
+  "developer": "Objective-See",
+  "logo": "monogram",
+  "summary": {
+    "en": "Open source macOS firewall that prompts on unknown outbound connections and asks nothing in return.",
+    "vi": "Tường lửa macOS mã nguồn mở, hỏi bạn mỗi khi có kết nối đi ra lạ và hoàn toàn không thu phí."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["firewall", "outbound", "macos-native", "open-source"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://objective-see.org/products/lulu.html",
+    "repo": "https://github.com/objective-see/LuLu",
+    "download": "https://objective-see.org/products/lulu.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

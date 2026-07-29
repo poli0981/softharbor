@@ -1,0 +1,25 @@
+{
+  "name": "Nova",
+  "developer": "Panic",
+  "logo": "monogram",
+  "summary": {
+    "en": "Native macOS editor from Panic with SFTP, Git and task runners built into a single window.",
+    "vi": "Trình soạn thảo gốc cho macOS của Panic, tích hợp SFTP, Git và trình chạy tác vụ trong một cửa sổ."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["macos-native", "sftp", "git", "web-development"],
+  "platforms": ["macos"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://nova.app",
+    "repo": null,
+    "download": "https://nova.app"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

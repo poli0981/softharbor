@@ -1,0 +1,25 @@
+{
+  "name": "ScummVM",
+  "developer": "The ScummVM Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Reimplements the engines behind classic point-and-click adventures so original game files run on current systems.",
+    "vi": "Viết lại engine của các game phiêu lưu point-and-click kinh điển để tệp game gốc chạy được trên máy đời mới."
+  },
+  "categories": ["gaming"],
+  "tags": ["adventure-games", "game-engines", "preservation", "save-states"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.scummvm.org",
+    "repo": "https://github.com/scummvm/scummvm",
+    "download": "https://www.scummvm.org/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

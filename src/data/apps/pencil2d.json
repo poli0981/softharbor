@@ -1,0 +1,25 @@
+{
+  "name": "Pencil2D",
+  "developer": "Pencil2D contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Lightweight animation tool for hand-drawn work, mixing bitmap and vector layers on one timeline.",
+    "vi": "Công cụ hoạt hình nhẹ cho nét vẽ tay, kết hợp lớp bitmap và vector trên cùng một dòng thời gian."
+  },
+  "categories": ["graphics", "media"],
+  "tags": ["2d-animation", "hand-drawn", "lightweight", "beginners"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://www.pencil2d.org",
+    "repo": "https://github.com/pencil2d/pencil",
+    "download": "https://www.pencil2d.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

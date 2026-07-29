@@ -1,0 +1,25 @@
+{
+  "name": "paint.net",
+  "developer": "dotPDN LLC",
+  "logo": "monogram",
+  "summary": {
+    "en": "Windows image editor with layers and plugins, sitting between Paint and full editing suites.",
+    "vi": "Trình chỉnh sửa ảnh cho Windows có lớp và plugin, nằm giữa Paint và các bộ chỉnh sửa đầy đủ."
+  },
+  "categories": ["graphics"],
+  "tags": ["raster", "layers", "plugins", "lightweight"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.getpaint.net",
+    "repo": null,
+    "download": "https://www.getpaint.net/download.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

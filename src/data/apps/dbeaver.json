@@ -1,0 +1,25 @@
+{
+  "name": "DBeaver Community",
+  "developer": "DBeaver Corp",
+  "logo": "simple-icons:dbeaver",
+  "summary": {
+    "en": "Database client that connects to most SQL engines through JDBC, with an ER diagram viewer.",
+    "vi": "Ứng dụng quản trị cơ sở dữ liệu kết nối hầu hết engine SQL qua JDBC, có trình xem sơ đồ ER."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["database", "sql", "jdbc", "er-diagram"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://dbeaver.io",
+    "repo": "https://github.com/dbeaver/dbeaver",
+    "download": "https://dbeaver.io/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

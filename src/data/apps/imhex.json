@@ -1,0 +1,25 @@
+{
+  "name": "ImHex",
+  "developer": "WerWolv",
+  "logo": "monogram",
+  "summary": {
+    "en": "Hex editor for reverse engineering, with a pattern language that labels binary structures.",
+    "vi": "Trình sửa hex phục vụ dịch ngược, có ngôn ngữ pattern để gán nhãn cấu trúc tệp nhị phân."
+  },
+  "categories": ["developer-tools", "security-privacy"],
+  "tags": ["hex-editor", "reverse-engineering", "binary", "pattern-language"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://imhex.werwolv.net",
+    "repo": "https://github.com/WerWolv/ImHex",
+    "download": "https://github.com/WerWolv/ImHex/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

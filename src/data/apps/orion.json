@@ -1,0 +1,25 @@
+{
+  "name": "Orion",
+  "developer": "Kagi",
+  "logo": "monogram",
+  "summary": {
+    "en": "WebKit browser for macOS that runs Safari, Chrome and Firefox extensions and sends no telemetry.",
+    "vi": "Trình duyệt nền WebKit cho macOS, chạy được tiện ích của Safari, Chrome lẫn Firefox và không gửi telemetry."
+  },
+  "categories": ["browser", "security-privacy"],
+  "tags": ["webkit", "no-telemetry", "extensions", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://orionbrowser.com",
+    "repo": null,
+    "download": "https://orionbrowser.com/platforms/macos"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

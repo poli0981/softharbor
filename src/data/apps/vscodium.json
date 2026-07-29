@@ -1,0 +1,25 @@
+{
+  "name": "VSCodium",
+  "developer": "VSCodium contributors",
+  "logo": "simple-icons:vscodium",
+  "summary": {
+    "en": "Community build of the VS Code source with Microsoft telemetry and branding removed.",
+    "vi": "Bản dựng cộng đồng từ mã nguồn VS Code, đã loại bỏ telemetry và thương hiệu của Microsoft."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["editor", "open-source-build", "no-telemetry"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://vscodium.com",
+    "repo": "https://github.com/VSCodium/vscodium",
+    "download": "https://github.com/VSCodium/vscodium/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

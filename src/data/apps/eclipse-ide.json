@@ -1,0 +1,25 @@
+{
+  "name": "Eclipse IDE",
+  "developer": "Eclipse Foundation",
+  "logo": "simple-icons:eclipseide",
+  "summary": {
+    "en": "Plugin-based IDE from the Eclipse Foundation, with separate distributions for Java, C/C++ and embedded work.",
+    "vi": "IDE dựa trên plugin của Eclipse Foundation, có bản dựng riêng cho Java, C/C++ và lập trình nhúng."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["java", "plugins", "cpp", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "EPL-2.0",
+  "links": {
+    "homepage": "https://eclipseide.org",
+    "repo": "https://github.com/eclipse-platform",
+    "download": "https://www.eclipse.org/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

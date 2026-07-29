@@ -86,13 +86,16 @@ Quality bar
 Balanced across the 12 categories; every entry must still pass vetting
 individually. `(1)` = onetime, `(f)` = free with C3 ruling noted.
 
-**Count.** The table below holds **32 distinct apps**, not the "30" earlier
-drafts claimed — 7-Zip is listed twice (primary category `utilities`, also
-shown under `file-management`) and is counted once. Two categories carry a
-single genuine entry each (`communication`: Thunderbird; `file-management`:
-FreeFileSync) — thin but acceptable for v1, and worth noting to H7 as the
-first place to add if the list is trimmed elsewhere. Whatever H7 approves,
-the number here and in §2's checklist must be updated together.
+**Count — superseded 2026-07-29.** The table below was the original **32
+distinct apps** (7-Zip is listed twice, primary category `utilities` and also
+under `file-management`; counted once). The seed that actually shipped is
+**290 apps**, imported in one batch under D24. The table is kept as the
+record of what was originally proposed to H7, not as the current dataset —
+`src/data/apps/` is the only authority for that.
+
+Of the 12 categories, **`communication` is now the only empty one**;
+Thunderbird from the table below is the obvious entry to add. Whatever the
+final number, it must be updated here and in §2's checklist together.
 
 | Category | Apps |
 |---|---|

@@ -1,0 +1,25 @@
+{
+  "name": "mpv",
+  "developer": "mpv developers",
+  "logo": "simple-icons:mpv",
+  "summary": {
+    "en": "Minimal media player driven by keyboard shortcuts and a config file, with no permanent toolbar.",
+    "vi": "Trình phát media tối giản, điều khiển bằng phím tắt và tệp cấu hình, không có thanh công cụ cố định."
+  },
+  "categories": ["media"],
+  "tags": ["video-player", "minimal", "scriptable", "cli"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://mpv.io",
+    "repo": "https://github.com/mpv-player/mpv",
+    "download": "https://mpv.io/installation/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

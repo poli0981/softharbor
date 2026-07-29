@@ -1,0 +1,25 @@
+{
+  "name": "Kate",
+  "developer": "KDE",
+  "logo": "monogram",
+  "summary": {
+    "en": "KDE editor with split views, a session manager and a built-in terminal for multi-file work.",
+    "vi": "Trình soạn thảo của KDE với chia khung, quản lý phiên làm việc và terminal tích hợp cho nhiều tệp."
+  },
+  "categories": ["ide-editor", "utilities"],
+  "tags": ["kde", "qt", "split-view", "lsp"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "LGPL-2.0-or-later",
+  "links": {
+    "homepage": "https://kate-editor.org",
+    "repo": "https://invent.kde.org/utilities/kate",
+    "download": "https://kate-editor.org/get-it/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

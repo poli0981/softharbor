@@ -1,0 +1,25 @@
+{
+  "name": "Sonic Pi",
+  "developer": "Sam Aaron",
+  "logo": "monogram",
+  "summary": {
+    "en": "Live coding environment where music is written as code and changed while it is playing.",
+    "vi": "Môi trường live coding, viết nhạc bằng mã lệnh và thay đổi ngay trong lúc bản nhạc đang phát."
+  },
+  "categories": ["media", "developer-tools"],
+  "tags": ["live-coding", "education", "synth", "ruby"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://sonic-pi.net",
+    "repo": "https://github.com/sonic-pi-net/sonic-pi",
+    "download": "https://sonic-pi.net"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

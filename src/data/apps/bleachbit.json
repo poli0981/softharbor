@@ -1,0 +1,25 @@
+{
+  "name": "BleachBit",
+  "developer": "BleachBit contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Clears caches, logs and temporary files by application, with an option to overwrite freed space.",
+    "vi": "Dọn bộ nhớ đệm, nhật ký và tệp tạm theo từng ứng dụng, có tuỳ chọn ghi đè phần dung lượng vừa giải phóng."
+  },
+  "categories": ["system", "security-privacy"],
+  "tags": ["cleanup", "temp-files", "shredding", "open-source"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.bleachbit.org",
+    "repo": "https://github.com/bleachbit/bleachbit",
+    "download": "https://www.bleachbit.org/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

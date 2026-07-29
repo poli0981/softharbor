@@ -1,0 +1,25 @@
+{
+  "name": "Kdenlive",
+  "developer": "KDE",
+  "logo": "simple-icons:kdenlive",
+  "summary": {
+    "en": "Multi-track video editor from KDE, with proxy editing for working on heavy source files.",
+    "vi": "Trình dựng phim đa track của KDE, hỗ trợ dựng qua tệp proxy khi làm việc với video nặng."
+  },
+  "categories": ["media"],
+  "tags": ["video-editing", "multi-track", "proxy-editing", "kde"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://kdenlive.org",
+    "repo": "https://invent.kde.org/multimedia/kdenlive",
+    "download": "https://kdenlive.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

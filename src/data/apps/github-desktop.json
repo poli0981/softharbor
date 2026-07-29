@@ -1,0 +1,25 @@
+{
+  "name": "GitHub Desktop",
+  "developer": "GitHub",
+  "logo": "monogram",
+  "summary": {
+    "en": "Graphical Git client that turns commits, branches and pull requests into a point-and-click workflow.",
+    "vi": "Ứng dụng Git giao diện đồ hoạ, biến commit, nhánh và pull request thành thao tác bấm chuột."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["git", "gui", "beginners", "pull-requests"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://desktop.github.com",
+    "repo": "https://github.com/desktop/desktop",
+    "download": "https://desktop.github.com/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

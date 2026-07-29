@@ -1,0 +1,25 @@
+{
+  "name": "BBEdit",
+  "developer": "Bare Bones Software, Inc.",
+  "logo": "monogram",
+  "summary": {
+    "en": "macOS text editor that keeps working in a free mode after the trial, with grep search across files.",
+    "vi": "Trình soạn thảo cho macOS, hết hạn dùng thử vẫn chạy ở chế độ miễn phí, có tìm kiếm grep nhiều tệp."
+  },
+  "categories": ["ide-editor", "utilities"],
+  "tags": ["macos-native", "grep", "text-processing", "sftp"],
+  "platforms": ["macos"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.barebones.com",
+    "repo": null,
+    "download": "https://www.barebones.com/products/bbedit/download.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

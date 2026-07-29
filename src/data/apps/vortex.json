@@ -1,0 +1,25 @@
+{
+  "name": "Vortex",
+  "developer": "Nexus Mods",
+  "logo": "monogram",
+  "summary": {
+    "en": "Mod manager from Nexus Mods that installs, sorts and profiles mods across a long list of supported games.",
+    "vi": "Trình quản lý mod của Nexus Mods, cài đặt, sắp thứ tự và tạo hồ sơ mod cho nhiều tựa game được hỗ trợ."
+  },
+  "categories": ["gaming"],
+  "tags": ["mod-manager", "load-order", "profiles", "nexus-mods"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.nexusmods.com/about/vortex/",
+    "repo": "https://github.com/Nexus-Mods/Vortex",
+    "download": "https://www.nexusmods.com/about/vortex/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

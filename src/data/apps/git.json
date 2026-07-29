@@ -1,0 +1,25 @@
+{
+  "name": "Git",
+  "developer": "The Git project",
+  "logo": "simple-icons:git",
+  "summary": {
+    "en": "Distributed version control system that keeps a full project history in every working copy.",
+    "vi": "Hệ thống quản lý phiên bản phân tán, mỗi bản sao làm việc đều giữ toàn bộ lịch sử dự án."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["version-control", "cli", "branching", "distributed"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://git-scm.com",
+    "repo": "https://github.com/git/git",
+    "download": "https://git-scm.com/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

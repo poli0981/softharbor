@@ -1,0 +1,25 @@
+{
+  "name": "LibreOffice",
+  "developer": "The Document Foundation",
+  "logo": "simple-icons:libreoffice",
+  "summary": {
+    "en": "Office suite covering documents, spreadsheets, slides and databases, using the Open Document Format natively.",
+    "vi": "Bộ ứng dụng văn phòng gồm soạn thảo, bảng tính, trình chiếu và cơ sở dữ liệu, dùng định dạng ODF làm chuẩn gốc."
+  },
+  "categories": ["productivity"],
+  "tags": ["office-suite", "odf", "spreadsheet", "presentation"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://www.libreoffice.org",
+    "repo": "https://github.com/LibreOffice/core",
+    "download": "https://www.libreoffice.org/download/download-libreoffice/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

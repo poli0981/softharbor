@@ -1,0 +1,25 @@
+{
+  "name": "Floorp",
+  "developer": "Ablaze",
+  "logo": "simple-icons:floorp",
+  "summary": {
+    "en": "Firefox-based browser from a Japanese team, centred on interface layouts and workspace customisation.",
+    "vi": "Trình duyệt nền Firefox do nhóm phát triển Nhật Bản thực hiện, tập trung vào tuỳ biến bố cục và workspace."
+  },
+  "categories": ["browser", "productivity"],
+  "tags": ["firefox-fork", "customizable", "workspaces", "vertical-tabs"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://floorp.app",
+    "repo": "https://github.com/Floorp-Projects/Floorp",
+    "download": "https://floorp.app/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

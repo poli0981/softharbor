@@ -1,0 +1,25 @@
+{
+  "name": "Google Chrome",
+  "developer": "Google",
+  "logo": "simple-icons:googlechrome",
+  "summary": {
+    "en": "Google's Chromium-based browser, paired with the Chrome Web Store catalogue and profile sync across devices.",
+    "vi": "Trình duyệt nền Chromium của Google, đi kèm kho tiện ích Chrome Web Store và đồng bộ hồ sơ giữa các thiết bị."
+  },
+  "categories": ["browser"],
+  "tags": ["chromium", "extensions", "sync", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.google.com/chrome/",
+    "repo": null,
+    "download": "https://www.google.com/chrome/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

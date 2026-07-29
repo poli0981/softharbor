@@ -1,0 +1,25 @@
+{
+  "name": "restic",
+  "developer": "Alexander Neumann",
+  "logo": "monogram",
+  "summary": {
+    "en": "Command line backup program with encrypted, deduplicated snapshots and a verifiable repository format.",
+    "vi": "Chương trình sao lưu dòng lệnh với ảnh chụp đã mã hoá, khử trùng lặp và định dạng kho kiểm chứng được."
+  },
+  "categories": ["file-management", "developer-tools"],
+  "tags": ["backup", "cli", "snapshots", "deduplication"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-2-Clause",
+  "links": {
+    "homepage": "https://restic.net",
+    "repo": "https://github.com/restic/restic",
+    "download": "https://github.com/restic/restic/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

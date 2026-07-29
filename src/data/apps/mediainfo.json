@@ -1,0 +1,25 @@
+{
+  "name": "MediaInfo",
+  "developer": "MediaArea.net",
+  "logo": "monogram",
+  "summary": {
+    "en": "Reports codec, bitrate and container details for audio and video files without playing them.",
+    "vi": "Hiển thị codec, bitrate và thông tin container của tệp âm thanh, video mà không cần mở phát."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["metadata", "inspection", "codec", "cli"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-2-Clause",
+  "links": {
+    "homepage": "https://mediaarea.net/MediaInfo",
+    "repo": "https://github.com/MediaArea/MediaInfo",
+    "download": "https://mediaarea.net/en/MediaInfo/Download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

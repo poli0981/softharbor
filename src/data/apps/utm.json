@@ -1,0 +1,25 @@
+{
+  "name": "UTM",
+  "developer": "Turing Software, LLC",
+  "logo": "monogram",
+  "summary": {
+    "en": "Virtual machine host for macOS built on QEMU, running both emulated and native-speed guests.",
+    "vi": "Trình chạy máy ảo cho macOS dựng trên QEMU, hỗ trợ cả giả lập lẫn ảo hoá tốc độ gốc."
+  },
+  "categories": ["developer-tools", "system"],
+  "tags": ["virtualization", "qemu", "macos-native", "emulation"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://mac.getutm.app",
+    "repo": "https://github.com/utmapp/UTM",
+    "download": "https://mac.getutm.app"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

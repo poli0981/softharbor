@@ -1,0 +1,25 @@
+{
+  "name": "Bottles",
+  "developer": "Bottles contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Runs Windows software and games on Linux inside isolated Wine environments, each with its own settings and libraries.",
+    "vi": "Chạy phần mềm và game Windows trên Linux trong các môi trường Wine tách biệt, mỗi môi trường có thiết lập riêng."
+  },
+  "categories": ["gaming", "utilities"],
+  "tags": ["wine", "prefixes", "sandbox", "flatpak"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://usebottles.com",
+    "repo": "https://github.com/bottlesdevs/Bottles",
+    "download": "https://usebottles.com/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

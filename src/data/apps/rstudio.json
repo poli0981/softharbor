@@ -1,0 +1,25 @@
+{
+  "name": "RStudio",
+  "developer": "Posit",
+  "logo": "simple-icons:rstudio",
+  "summary": {
+    "en": "IDE for R and Python built around a console, plot pane and R Markdown authoring in one layout.",
+    "vi": "IDE cho R và Python, xoay quanh bảng console, khung đồ thị và trình soạn tài liệu R Markdown."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["r", "data-science", "notebooks", "python"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://posit.co/products/open-source/rstudio/",
+    "repo": "https://github.com/rstudio/rstudio",
+    "download": "https://posit.co/download/rstudio-desktop/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

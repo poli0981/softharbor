@@ -1,0 +1,25 @@
+{
+  "name": "HWiNFO",
+  "developer": "REALiX",
+  "logo": "monogram",
+  "summary": {
+    "en": "Deep hardware analysis and sensor monitoring, free for personal use with a Pro licence for commercial work.",
+    "vi": "Phân tích phần cứng và theo dõi cảm biến ở mức sâu, miễn phí cho cá nhân, bản Pro dành cho mục đích thương mại."
+  },
+  "categories": ["system"],
+  "tags": ["hardware-info", "sensors", "logging", "diagnostics"],
+  "platforms": ["windows"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.hwinfo.com",
+    "repo": null,
+    "download": "https://www.hwinfo.com/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Sublime Merge",
+  "developer": "Sublime HQ Pty Ltd",
+  "logo": "monogram",
+  "summary": {
+    "en": "Native Git client with a syntax-highlighted diff view and a searchable commit history.",
+    "vi": "Ứng dụng Git gốc với khung so sánh có tô màu cú pháp và lịch sử commit tìm kiếm được."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["git", "gui", "native", "diff"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.sublimemerge.com",
+    "repo": null,
+    "download": "https://www.sublimemerge.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

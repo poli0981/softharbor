@@ -1,0 +1,25 @@
+{
+  "name": "XYplorer",
+  "developer": "Donald Lessau",
+  "logo": "monogram",
+  "summary": {
+    "en": "Tabbed file manager that runs portable from a folder; the free edition stays usable after the trial ends.",
+    "vi": "Trình quản lý tệp dạng thẻ, chạy di động từ một thư mục; bản miễn phí vẫn dùng được sau khi hết hạn dùng thử."
+  },
+  "categories": ["file-management"],
+  "tags": ["tabs", "portable", "scripting", "bulk-rename"],
+  "platforms": ["windows"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.xyplorer.com",
+    "repo": null,
+    "download": "https://www.xyplorer.com/download.php"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

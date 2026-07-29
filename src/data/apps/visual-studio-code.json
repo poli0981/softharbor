@@ -1,0 +1,25 @@
+{
+  "name": "Visual Studio Code",
+  "developer": "Microsoft",
+  "logo": "simple-icons:visualstudiocode",
+  "summary": {
+    "en": "Extensible code editor with an integrated debugger, terminal and a large extension marketplace.",
+    "vi": "Trình soạn thảo mã có thể mở rộng, tích hợp sẵn trình gỡ lỗi, terminal và kho tiện ích lớn."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["extensions", "debugger", "lsp", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://code.visualstudio.com",
+    "repo": "https://github.com/microsoft/vscode",
+    "download": "https://code.visualstudio.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

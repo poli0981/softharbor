@@ -1,0 +1,25 @@
+{
+  "name": "Inkscape",
+  "developer": "Inkscape Project",
+  "logo": "simple-icons:inkscape",
+  "summary": {
+    "en": "Vector graphics editor that uses SVG as its native file format, with node and path editing tools.",
+    "vi": "Trình vẽ đồ hoạ vector dùng SVG làm định dạng gốc, kèm công cụ chỉnh node và đường path."
+  },
+  "categories": ["graphics"],
+  "tags": ["vector", "svg", "illustration", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://inkscape.org",
+    "repo": "https://gitlab.com/inkscape/inkscape",
+    "download": "https://inkscape.org/release/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

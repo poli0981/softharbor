@@ -1,0 +1,25 @@
+{
+  "name": "Super Productivity",
+  "developer": "Johannes Millan",
+  "logo": "monogram",
+  "summary": {
+    "en": "Task manager with a built-in time tracker, pulling issues from Jira, GitHub and GitLab into one list.",
+    "vi": "Ứng dụng quản lý việc kèm bấm giờ, kéo issue từ Jira, GitHub và GitLab về chung một danh sách."
+  },
+  "categories": ["productivity"],
+  "tags": ["tasks", "time-tracking", "pomodoro", "issue-sync"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://super-productivity.com",
+    "repo": "https://github.com/johannesjo/super-productivity",
+    "download": "https://github.com/johannesjo/super-productivity/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

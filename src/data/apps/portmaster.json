@@ -1,0 +1,25 @@
+{
+  "name": "Portmaster",
+  "developer": "Safing ICS Technologies GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Application firewall that names the app behind every connection and filters trackers at the DNS layer.",
+    "vi": "Tường lửa theo ứng dụng, chỉ rõ ứng dụng nào tạo ra mỗi kết nối và lọc trình theo dõi ngay ở tầng DNS."
+  },
+  "categories": ["security-privacy", "system"],
+  "tags": ["firewall", "dns-filtering", "tracker-blocking", "per-app-rules"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://safing.io",
+    "repo": "https://github.com/safing/portmaster",
+    "download": "https://safing.io/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

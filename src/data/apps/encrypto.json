@@ -1,0 +1,25 @@
+{
+  "name": "Encrypto",
+  "developer": "MacPaw",
+  "logo": "monogram",
+  "summary": {
+    "en": "Drag a file in, set a password, and get an AES-256 package that opens on either Windows or macOS.",
+    "vi": "Kéo tệp vào, đặt mật khẩu và nhận gói mã hoá AES-256 mở được trên cả Windows lẫn macOS."
+  },
+  "categories": ["security-privacy", "utilities"],
+  "tags": ["file-encryption", "aes-256", "drag-and-drop", "sharing"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://macpaw.com/encrypto",
+    "repo": null,
+    "download": "https://macpaw.com/encrypto"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

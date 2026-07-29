@@ -1,0 +1,25 @@
+{
+  "name": "Zim",
+  "developer": "Zim contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Desktop wiki that keeps each page as a plain text file in an ordinary folder tree you can browse yourself.",
+    "vi": "Wiki chạy trên máy tính, mỗi trang là một tệp văn bản thuần trong cây thư mục thông thường bạn tự duyệt được."
+  },
+  "categories": ["productivity"],
+  "tags": ["wiki", "plain-text", "lightweight", "note-taking"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://zim-wiki.org",
+    "repo": "https://github.com/zim-desktop-wiki/zim-desktop-wiki",
+    "download": "https://zim-wiki.org/downloads.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

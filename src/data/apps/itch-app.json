@@ -1,0 +1,25 @@
+{
+  "name": "itch.io app",
+  "developer": "itch corp",
+  "logo": "simple-icons:itchdotio",
+  "summary": {
+    "en": "Desktop client for the itch.io indie catalogue, handling installs, updates and offline launching of downloaded games.",
+    "vi": "Ứng dụng máy tính cho kho game indie itch.io, lo phần cài đặt, cập nhật và chạy game đã tải khi không có mạng."
+  },
+  "categories": ["gaming"],
+  "tags": ["indie", "game-store", "library", "sandbox"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://itch.io/app",
+    "repo": "https://github.com/itchio/itch",
+    "download": "https://itch.io/app"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

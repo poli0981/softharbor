@@ -1,0 +1,25 @@
+{
+  "name": "CudaText",
+  "developer": "Alexey Torgashin",
+  "logo": "monogram",
+  "summary": {
+    "en": "Cross-platform editor written in Free Pascal, with syntax highlighting for over 200 languages.",
+    "vi": "Trình soạn thảo đa nền tảng viết bằng Free Pascal, tô màu cú pháp cho hơn 200 ngôn ngữ."
+  },
+  "categories": ["ide-editor", "utilities"],
+  "tags": ["lightweight", "pascal", "plugins", "portable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://cudatext.github.io",
+    "repo": "https://github.com/Alexey-T/CudaText",
+    "download": "https://sourceforge.net/projects/cudatext/files/release/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

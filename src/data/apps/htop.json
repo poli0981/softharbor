@@ -1,0 +1,25 @@
+{
+  "name": "htop",
+  "developer": "htop dev team",
+  "logo": "simple-icons:htop",
+  "summary": {
+    "en": "Interactive terminal process viewer with scrolling, tree view and signals sent without typing a PID.",
+    "vi": "Trình xem tiến trình tương tác trong terminal, cuộn được, xem dạng cây và gửi tín hiệu mà không cần gõ PID."
+  },
+  "categories": ["system"],
+  "tags": ["process-manager", "terminal", "monitoring", "interactive"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://htop.dev",
+    "repo": "https://github.com/htop-dev/htop",
+    "download": "https://htop.dev/downloads.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

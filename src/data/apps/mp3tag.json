@@ -1,0 +1,25 @@
+{
+  "name": "Mp3tag",
+  "developer": "Florian Heidenreich",
+  "logo": "monogram",
+  "summary": {
+    "en": "Batch tag editor for audio files, able to pull metadata from online music databases.",
+    "vi": "Trình sửa thẻ hàng loạt cho tệp nhạc, có thể lấy metadata từ các cơ sở dữ liệu trực tuyến."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["tagging", "metadata", "batch-processing", "rename"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.mp3tag.de/en/",
+    "repo": null,
+    "download": "https://www.mp3tag.de/en/download.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

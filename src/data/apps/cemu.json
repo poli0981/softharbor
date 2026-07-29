@@ -1,0 +1,25 @@
+{
+  "name": "Cemu",
+  "developer": "Cemu Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Wii U emulator with Vulkan rendering and per-title graphics packs for resolution and frame-rate changes.",
+    "vi": "Trình giả lập Wii U dùng Vulkan, có gói đồ hoạ riêng từng game để đổi độ phân giải và tốc độ khung hình."
+  },
+  "categories": ["gaming"],
+  "tags": ["wii-u", "vulkan", "graphics-packs", "shader-cache"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://cemu.info",
+    "repo": "https://github.com/cemu-project/Cemu",
+    "download": "https://github.com/cemu-project/Cemu/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Min",
+  "developer": "Min contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Minimal browser built on Electron, with full-text search across browsing history and ad blocking.",
+    "vi": "Trình duyệt tối giản dựng trên Electron, có tìm kiếm toàn văn trong lịch sử duyệt web và chặn quảng cáo."
+  },
+  "categories": ["browser"],
+  "tags": ["minimal", "electron", "adblock", "distraction-free"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://minbrowser.org",
+    "repo": "https://github.com/minbrowser/min",
+    "download": "https://github.com/minbrowser/min/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

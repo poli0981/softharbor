@@ -1,0 +1,25 @@
+{
+  "name": "IntelliJ IDEA",
+  "developer": "JetBrains",
+  "logo": "simple-icons:intellijidea",
+  "summary": {
+    "en": "Java and Kotlin IDE whose free tier covers everyday development, with Ultimate sold as a subscription.",
+    "vi": "IDE cho Java và Kotlin, bậc miễn phí đủ dùng hằng ngày, bản Ultimate bán theo hình thức thuê bao."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["java", "kotlin", "refactoring", "debugger"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.jetbrains.com/idea/",
+    "repo": "https://github.com/JetBrains/intellij-community",
+    "download": "https://www.jetbrains.com/idea/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

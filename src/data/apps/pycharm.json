@@ -1,0 +1,25 @@
+{
+  "name": "PyCharm",
+  "developer": "JetBrains",
+  "logo": "simple-icons:pycharm",
+  "summary": {
+    "en": "Python IDE with a free tier covering core development, plus refactoring and test-runner integration.",
+    "vi": "IDE cho Python với bậc miễn phí đủ lập trình cơ bản, kèm công cụ refactor và chạy kiểm thử."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["python", "refactoring", "debugger", "virtualenv"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.jetbrains.com/pycharm/",
+    "repo": null,
+    "download": "https://www.jetbrains.com/pycharm/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

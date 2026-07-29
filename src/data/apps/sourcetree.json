@@ -1,0 +1,25 @@
+{
+  "name": "Sourcetree",
+  "developer": "Atlassian",
+  "logo": "simple-icons:sourcetree",
+  "summary": {
+    "en": "Git and Mercurial client with a visual branch graph and interactive rebase support.",
+    "vi": "Ứng dụng Git và Mercurial với biểu đồ nhánh trực quan và hỗ trợ rebase tương tác."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["git", "gui", "mercurial", "branch-graph"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.sourcetreeapp.com",
+    "repo": null,
+    "download": "https://www.sourcetreeapp.com"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

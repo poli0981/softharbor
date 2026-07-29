@@ -1,0 +1,25 @@
+{
+  "name": "PCSX2",
+  "developer": "PCSX2 Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "PlayStation 2 emulator with save states, texture upscaling and compatibility settings stored per game.",
+    "vi": "Trình giả lập PlayStation 2 với lưu trạng thái, nâng độ phân giải texture và thiết lập tương thích theo từng game."
+  },
+  "categories": ["gaming"],
+  "tags": ["playstation-2", "upscaling", "save-states", "widescreen"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://pcsx2.net",
+    "repo": "https://github.com/PCSX2/pcsx2",
+    "download": "https://pcsx2.net/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

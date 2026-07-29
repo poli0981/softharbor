@@ -1,0 +1,25 @@
+{
+  "name": "DB Browser for SQLite",
+  "developer": "DB Browser for SQLite team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Spreadsheet-style editor for SQLite files, letting you browse and edit tables without writing SQL.",
+    "vi": "Trình chỉnh sửa tệp SQLite theo kiểu bảng tính, xem và sửa dữ liệu mà không cần viết câu SQL."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["sqlite", "database", "gui", "lightweight"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://sqlitebrowser.org",
+    "repo": "https://github.com/sqlitebrowser/sqlitebrowser",
+    "download": "https://sqlitebrowser.org/dl/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}
