@@ -1,0 +1,25 @@
+{
+  "name": "Tuta Mail",
+  "developer": "Tutao GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Encrypted mail service with a desktop client that keeps mailbox contents and the search index encrypted on device.",
+    "vi": "Dịch vụ email mã hoá với ứng dụng máy tính giữ nội dung hộp thư và chỉ mục tìm kiếm ở dạng mã hoá ngay trên máy."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["e2ee", "encrypted-email", "calendar", "no-ads"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://tuta.com",
+    "repo": "https://github.com/tutao/tutanota",
+    "download": "https://tuta.com/#download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

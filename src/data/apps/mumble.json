@@ -1,0 +1,25 @@
+{
+  "name": "Mumble",
+  "developer": "The Mumble Developers",
+  "logo": "monogram",
+  "summary": {
+    "en": "Low-latency voice chat for gaming and teamwork, running on servers that anyone can host themselves.",
+    "vi": "Ứng dụng chat thoại độ trễ thấp cho chơi game và làm việc nhóm, chạy trên máy chủ mà ai cũng có thể tự dựng."
+  },
+  "categories": ["communication", "gaming"],
+  "tags": ["voice-chat", "low-latency", "positional-audio", "self-hosted"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-3-Clause",
+  "links": {
+    "homepage": "https://www.mumble.info",
+    "repo": "https://github.com/mumble-voip/mumble",
+    "download": "https://www.mumble.info/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

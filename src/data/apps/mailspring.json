@@ -1,0 +1,25 @@
+{
+  "name": "Mailspring",
+  "developer": "Foundry 376, LLC",
+  "logo": "monogram",
+  "summary": {
+    "en": "Email client with a native C++ sync engine and one unified inbox across IMAP, Gmail and Office 365 accounts.",
+    "vi": "Ứng dụng email với engine đồng bộ viết bằng C++, gộp hộp thư IMAP, Gmail và Office 365 vào một inbox chung."
+  },
+  "categories": ["communication"],
+  "tags": ["email", "unified-inbox", "imap", "search"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://getmailspring.com",
+    "repo": "https://github.com/Foundry376/Mailspring",
+    "download": "https://getmailspring.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

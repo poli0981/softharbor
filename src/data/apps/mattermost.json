@@ -1,0 +1,25 @@
+{
+  "name": "Mattermost",
+  "developer": "Mattermost, Inc.",
+  "logo": "simple-icons:mattermost",
+  "summary": {
+    "en": "Desktop client for Mattermost servers, letting a team run its own channel-based chat on its own infrastructure.",
+    "vi": "Ứng dụng máy tính cho máy chủ Mattermost, giúp một nhóm tự vận hành hệ thống chat theo kênh trên hạ tầng riêng."
+  },
+  "categories": ["communication", "developer-tools"],
+  "tags": ["self-hosted", "channels", "teams", "multi-server"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://mattermost.com",
+    "repo": "https://github.com/mattermost/desktop",
+    "download": "https://mattermost.com/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

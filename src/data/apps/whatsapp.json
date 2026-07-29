@@ -1,0 +1,25 @@
+{
+  "name": "WhatsApp",
+  "developer": "WhatsApp LLC",
+  "logo": "simple-icons:whatsapp",
+  "summary": {
+    "en": "Desktop build of the phone-number based messenger, running as a companion device linked to the mobile account.",
+    "vi": "Bản máy tính của ứng dụng nhắn tin theo số điện thoại, hoạt động như thiết bị đi kèm tài khoản trên di động."
+  },
+  "categories": ["communication"],
+  "tags": ["e2ee", "phone-number", "voice-calls", "multi-device"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.whatsapp.com",
+    "repo": null,
+    "download": "https://www.whatsapp.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

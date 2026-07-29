@@ -1,0 +1,25 @@
+{
+  "name": "Zoom Workplace",
+  "developer": "Zoom Communications",
+  "logo": "simple-icons:zoom",
+  "summary": {
+    "en": "Video meeting client whose free plan hosts up to 100 participants with a 40-minute limit per meeting.",
+    "vi": "Ứng dụng họp video, gói miễn phí cho tối đa 100 người tham gia và giới hạn 40 phút cho mỗi cuộc họp."
+  },
+  "categories": ["communication"],
+  "tags": ["meetings", "screen-share", "recording", "webinars"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.zoom.com",
+    "repo": null,
+    "download": "https://zoom.us/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

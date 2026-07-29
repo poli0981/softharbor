@@ -1,0 +1,25 @@
+{
+  "name": "Signal Desktop",
+  "developer": "Signal Messenger, LLC",
+  "logo": "simple-icons:signal",
+  "summary": {
+    "en": "End-to-end encrypted messenger whose desktop app links to a phone account and keeps message keys on the device.",
+    "vi": "Ứng dụng nhắn tin mã hoá đầu cuối, bản desktop liên kết với tài khoản điện thoại và giữ khoá mã hoá ngay trên máy."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["e2ee", "privacy", "linked-device", "no-ads"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://signal.org",
+    "repo": "https://github.com/signalapp/Signal-Desktop",
+    "download": "https://signal.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

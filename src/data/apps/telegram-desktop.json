@@ -1,0 +1,25 @@
+{
+  "name": "Telegram Desktop",
+  "developer": "Telegram FZ-LLC",
+  "logo": "simple-icons:telegram",
+  "summary": {
+    "en": "Native desktop client for Telegram, with cloud-stored chat history that appears on every signed-in device.",
+    "vi": "Ứng dụng Telegram gốc cho máy tính, lịch sử trò chuyện lưu trên đám mây và hiện trên mọi thiết bị đã đăng nhập."
+  },
+  "categories": ["communication"],
+  "tags": ["cloud-sync", "groups", "channels", "bots"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://desktop.telegram.org",
+    "repo": "https://github.com/telegramdesktop/tdesktop",
+    "download": "https://desktop.telegram.org"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

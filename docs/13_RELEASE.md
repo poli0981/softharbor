@@ -89,13 +89,15 @@ individually. `(1)` = onetime, `(f)` = free with C3 ruling noted.
 **Count — superseded 2026-07-29.** The table below was the original **32
 distinct apps** (7-Zip is listed twice, primary category `utilities` and also
 under `file-management`; counted once). The seed that actually shipped is
-**290 apps**, imported in one batch under D24. The table is kept as the
-record of what was originally proposed to H7, not as the current dataset —
-`src/data/apps/` is the only authority for that.
+**327 apps** — 290 in the first batch, then 37 more filling `communication`
+— imported under D24. The table is kept as the record of what was originally
+proposed to H7, not as the current dataset; `src/data/apps/` is the only
+authority for that.
 
-Of the 12 categories, **`communication` is now the only empty one**;
-Thunderbird from the table below is the obvious entry to add. Whatever the
-final number, it must be updated here and in §2's checklist together.
+**No category is empty.** `communication` was the last gap and is now the
+largest single-category batch in the set (37 entries, Thunderbird among
+them). Whatever the final number, it must be updated here and in §2's
+checklist together.
 
 | Category | Apps |
 |---|---|

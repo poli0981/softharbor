@@ -1,0 +1,25 @@
+{
+  "name": "eM Client",
+  "developer": "eM Client Inc.",
+  "logo": "monogram",
+  "summary": {
+    "en": "Email, calendar and contacts client whose free licence covers personal use on one device with two accounts.",
+    "vi": "Ứng dụng email, lịch và danh bạ, giấy phép miễn phí dùng cho cá nhân trên một máy với tối đa hai tài khoản."
+  },
+  "categories": ["communication", "productivity"],
+  "tags": ["email", "calendar", "pgp", "exchange"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.emclient.com",
+    "repo": null,
+    "download": "https://www.emclient.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

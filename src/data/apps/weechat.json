@@ -1,0 +1,25 @@
+{
+  "name": "WeeChat",
+  "developer": "WeeChat developers",
+  "logo": "monogram",
+  "summary": {
+    "en": "Terminal chat client built around IRC, extended with scripts in Python, Perl, Ruby and other languages.",
+    "vi": "Ứng dụng chat chạy trong terminal, xoay quanh IRC và mở rộng bằng script Python, Perl, Ruby cùng nhiều ngôn ngữ."
+  },
+  "categories": ["communication", "developer-tools"],
+  "tags": ["irc", "terminal", "plugins", "scriptable"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://weechat.org",
+    "repo": "https://github.com/weechat/weechat",
+    "download": "https://weechat.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

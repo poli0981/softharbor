@@ -1,0 +1,25 @@
+{
+  "name": "Mozilla Thunderbird",
+  "developer": "MZLA Technologies Corporation",
+  "logo": "simple-icons:thunderbird",
+  "summary": {
+    "en": "Desktop email client with a built-in calendar, address book and OpenPGP encryption for outgoing messages.",
+    "vi": "Ứng dụng email cho máy tính, tích hợp sẵn lịch, sổ địa chỉ và mã hoá OpenPGP cho thư gửi đi."
+  },
+  "categories": ["communication", "productivity"],
+  "tags": ["email", "calendar", "imap", "pgp"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://www.thunderbird.net",
+    "repo": null,
+    "download": "https://www.thunderbird.net/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

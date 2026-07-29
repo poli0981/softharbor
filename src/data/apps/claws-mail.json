@@ -1,0 +1,25 @@
+{
+  "name": "Claws Mail",
+  "developer": "The Claws Mail team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Lightweight GTK email client that stores mail as plain files and adds features through a large plugin set.",
+    "vi": "Ứng dụng email nhẹ trên nền GTK, lưu thư dưới dạng tệp thuần và mở rộng tính năng qua bộ plugin phong phú."
+  },
+  "categories": ["communication"],
+  "tags": ["email", "lightweight", "gtk", "plugins"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.claws-mail.org",
+    "repo": null,
+    "download": "https://www.claws-mail.org/download.php"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

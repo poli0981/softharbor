@@ -1,0 +1,25 @@
+{
+  "name": "Linphone",
+  "developer": "Belledonne Communications",
+  "logo": "simple-icons:linphone",
+  "summary": {
+    "en": "Open-source SIP softphone for voice, video and instant messaging with any standards-based VoIP provider.",
+    "vi": "Softphone SIP mã nguồn mở cho thoại, video và tin nhắn, dùng được với mọi nhà cung cấp VoIP theo chuẩn."
+  },
+  "categories": ["communication"],
+  "tags": ["sip", "voip", "video-calls", "encryption"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.linphone.org",
+    "repo": "https://gitlab.linphone.org/BC/public/linphone-desktop",
+    "download": "https://www.linphone.org/en/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

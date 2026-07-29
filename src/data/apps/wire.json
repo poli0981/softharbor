@@ -1,0 +1,25 @@
+{
+  "name": "Wire",
+  "developer": "Wire Swiss GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "End-to-end encrypted messenger with a free personal plan covering chats, calls and screen sharing on desktop.",
+    "vi": "Ứng dụng nhắn tin mã hoá đầu cuối, gói cá nhân miễn phí gồm trò chuyện, gọi điện và chia sẻ màn hình trên máy tính."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["e2ee", "multi-device", "teams", "swiss"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://wire.com",
+    "repo": "https://github.com/wireapp/wire-desktop",
+    "download": "https://wire.com/en/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

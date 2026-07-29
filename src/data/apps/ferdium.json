@@ -1,0 +1,25 @@
+{
+  "name": "Ferdium",
+  "developer": "Ferdium contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Container app that holds many web messengers in one window, each service kept in its own tab and session.",
+    "vi": "Ứng dụng gom nhiều dịch vụ nhắn tin nền web vào một cửa sổ, mỗi dịch vụ chạy trong tab và phiên đăng nhập riêng."
+  },
+  "categories": ["communication", "productivity"],
+  "tags": ["all-in-one", "workspaces", "services", "self-hosted"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://ferdium.org",
+    "repo": "https://github.com/ferdium/ferdium-app",
+    "download": "https://ferdium.org/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

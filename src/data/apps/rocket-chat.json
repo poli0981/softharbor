@@ -1,0 +1,25 @@
+{
+  "name": "Rocket.Chat",
+  "developer": "Rocket.Chat Technologies Corp.",
+  "logo": "simple-icons:rocketdotchat",
+  "summary": {
+    "en": "Desktop app for Rocket.Chat workspaces, able to hold several self-hosted or cloud servers in one window.",
+    "vi": "Ứng dụng máy tính cho không gian làm việc Rocket.Chat, gom nhiều máy chủ tự dựng hoặc đám mây vào một cửa sổ."
+  },
+  "categories": ["communication"],
+  "tags": ["self-hosted", "channels", "multi-server", "teams"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://www.rocket.chat",
+    "repo": "https://github.com/RocketChat/Rocket.Chat.Electron",
+    "download": "https://github.com/RocketChat/Rocket.Chat.Electron/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Delta Chat",
+  "developer": "Delta Chat contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Chat app that sends messages over ordinary email accounts, encrypting them end to end where both sides support it.",
+    "vi": "Ứng dụng chat gửi tin nhắn qua tài khoản email thông thường, mã hoá đầu cuối khi cả hai phía đều hỗ trợ."
+  },
+  "categories": ["communication"],
+  "tags": ["email", "pgp", "decentralized", "no-signup"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://delta.chat",
+    "repo": "https://github.com/deltachat/deltachat-desktop",
+    "download": "https://delta.chat/en/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Viber",
+  "developer": "Rakuten Viber",
+  "logo": "simple-icons:viber",
+  "summary": {
+    "en": "Messaging and calling app tied to a phone number, with a desktop client that mirrors chats from the mobile app.",
+    "vi": "Ứng dụng nhắn tin và gọi điện gắn với số điện thoại, bản máy tính đồng bộ lại các cuộc trò chuyện từ điện thoại."
+  },
+  "categories": ["communication"],
+  "tags": ["voice-calls", "groups", "stickers", "phone-number"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.viber.com",
+    "repo": null,
+    "download": "https://www.viber.com/en/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-07-28"
+  },
+  "addedAt": "2026-07-28"
+}
