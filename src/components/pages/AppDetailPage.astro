@@ -77,7 +77,15 @@ const meta: MetaRow[] = [
     }
   </nav>
 
-  <header class="mt-4 flex items-start gap-4" transition:name={app.id}>
+  {
+    /* No `transition:name` here. Astro generates a per-slug <style> for it and
+      does not add that style's hash to the page's own CSP, so the browser
+      refused it on every hard load and every ClientRouter swap — the one
+      console error left after D20. Nothing was lost by removing it: a morph
+      needs the same name on both sides and ShAppCard never carried one, so it
+      had never animated. See docs/06 §7. */
+  }
+  <header class="mt-4 flex items-start gap-4">
     <Fragment
       set:html={logoSvg(d.logo, d.name, {
         class: 'size-16 shrink-0',
