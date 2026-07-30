@@ -4,6 +4,14 @@ name: codeql
 on:
   push:
     branches: [main]
+  # `pull_request` is REQUIRED, not optional. Branch protection lists
+  # `codeql / Analyze (javascript-typescript)` as a required status check, and
+  # a required check that the workflow never produces on a PR is unsatisfiable
+  # — it deadlocks the repo: no PR can ever merge (hit 2026-07-30).
+  #
+  # It is also the point of the tool. Scanning only after the merge tells you
+  # about a vulnerability that is already on main.
+  pull_request:
   schedule:
     - cron: '31 3 * * 1'
 
