@@ -19,7 +19,11 @@ const countFor = (id: string) =>
   apps.filter((a) => a.data.categories.some((c) => c.id === id)).length;
 ---
 
-<Base title={`${t(locale, 'categories.title')} — ${t(locale, 'site.name')}`} {locale}>
+<Base
+  title={`${t(locale, 'categories.title')} — ${t(locale, 'site.name')}`}
+  description={t(locale, 'meta.categories')}
+  {locale}
+>
   <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'categories.title')}</h1>
   <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'categories.intro')}</p>
 

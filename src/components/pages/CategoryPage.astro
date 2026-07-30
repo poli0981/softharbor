@@ -23,7 +23,11 @@ const label = category.data.label[locale];
 const count = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB').format(apps.length);
 ---
 
-<Base title={`${label} — ${t(locale, 'site.name')}`} {locale}>
+<Base
+  title={`${label} — ${t(locale, 'site.name')}`}
+  description={t(locale, 'meta.category', { n: count, label })}
+  {locale}
+>
   <nav aria-label="Breadcrumb" class="text-sh-muted text-[var(--text-small)]">
     <a href={localePath(locale, '/categories')} class="hover:underline">
       {t(locale, 'categories.title')}
