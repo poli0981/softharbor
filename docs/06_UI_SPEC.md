@@ -100,6 +100,11 @@ The developer line sits *above* the link rail on purpose: a reader should be
 able to match "who makes this" against the domain they are about to click.
 It is plain text, never a link — we do not maintain vendor pages.
 
+**Legal `/legal/*`** — h1, "last updated" stamp, VI courtesy notice on the VI
+side, then the document. **No inter-document nav in the page body**: the
+footer already lists all six on every page, and repeating them a screen apart
+is noise.
+
 **Category `/categories/[id]`** — h1 = label, count, pre-filtered grid.
 
 **Error/offline pages** — same layout family: giant mono status code

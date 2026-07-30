@@ -11,7 +11,7 @@
 // links here, so gating them would dead-lock acceptance.
 import Base from '../../layouts/Base.astro';
 import { LEGAL_VERSION } from '../../lib/legal';
-import { localePath, t, type Locale } from '../../i18n';
+import { t, type Locale } from '../../i18n';
 
 interface Props {
   title: string;
@@ -23,14 +23,6 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   dateStyle: 'medium',
   timeZone: 'UTC',
 }).format(new Date(`${LEGAL_VERSION}T00:00:00Z`));
-
-const docs = [
-  ['/legal/disclaimer', 'footer.legal.disclaimer'],
-  ['/legal/privacy', 'footer.legal.privacy'],
-  ['/legal/terms', 'footer.legal.terms'],
-  ['/legal/trademarks', 'footer.legal.trademarks'],
-  ['/legal/third-party', 'footer.legal.thirdParty'],
-] as const;
 ---
 
 <Base {title} {locale}>
@@ -50,20 +42,12 @@ const docs = [
       )
     }
 
+    {
+      /* No inter-document nav here: ShFooter already lists all of them on
+        every page, and repeating the same six links a screen apart is just
+        noise. */
+    }
     <div class="mt-8 flex flex-col gap-4"><slot /></div>
-
-    <nav
-      aria-label={t(locale, 'footer.legal.heading')}
-      class="border-sh-border mt-12 flex flex-wrap gap-4 border-t-2 pt-6"
-    >
-      {
-        docs.map(([path, key]) => (
-          <a href={localePath(locale, path)} class="hover:underline">
-            {t(locale, key)}
-          </a>
-        ))
-      }
-    </nav>
   </article>
 </Base>
 

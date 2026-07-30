@@ -31,6 +31,7 @@
   "filters.show": "Show {n} apps",
   "footer.builtAt": "Built {date}",
   "footer.github": "Source on GitHub",
+  "footer.legal.aiDisclosure": "AI disclosure",
   "footer.legal.disclaimer": "Disclaimer",
   "footer.legal.heading": "Legal",
   "footer.legal.privacy": "Privacy",

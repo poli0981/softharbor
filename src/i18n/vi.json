@@ -31,6 +31,7 @@
   "filters.show": "Xem {n} ứng dụng",
   "footer.builtAt": "Dựng ngày {date}",
   "footer.github": "Mã nguồn trên GitHub",
+  "footer.legal.aiDisclosure": "Công bố AI",
   "footer.legal.disclaimer": "Tuyên bố miễn trừ",
   "footer.legal.heading": "Pháp lý",
   "footer.legal.privacy": "Quyền riêng tư",
