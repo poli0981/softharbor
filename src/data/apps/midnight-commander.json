@@ -17,9 +17,9 @@
     "download": "https://midnight-commander.org/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/575974b3423ab61fe826325f8270b58a9347b2f6ceb5f440940c06b23e2ba76f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

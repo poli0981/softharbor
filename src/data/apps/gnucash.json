@@ -17,9 +17,9 @@
     "download": "https://www.gnucash.org/download.phtml"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/1f70b0afb519e2866f544a075dec17583c506c7083d94b20a66182040dffc06b",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

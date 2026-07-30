@@ -17,9 +17,9 @@
     "download": "https://www.heidisql.com/download.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/135039c4b7dbde93b96c18891603c07f18ca2102fda3a91c48f8b01822ce804f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

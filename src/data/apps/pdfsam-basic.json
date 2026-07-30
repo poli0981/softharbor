@@ -17,9 +17,9 @@
     "download": "https://pdfsam.org/download-pdfsam-basic/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/16f526b64743c6565ea8a22f986a4ea8510db405b5cf8ff28160a92c4fe63365",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

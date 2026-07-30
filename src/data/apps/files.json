@@ -17,9 +17,9 @@
     "download": "https://files.community/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/16bcc41bd962f089cd43bca7962854ddd613af0baa0752a0a3d99dca26b8c2f9",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

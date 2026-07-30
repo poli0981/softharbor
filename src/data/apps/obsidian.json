@@ -17,9 +17,9 @@
     "download": "https://obsidian.md/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/59972361fe09b1f136c0a854ac44affe79d11a0879ed603283b8dcd80d67a5b0",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

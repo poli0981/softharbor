@@ -17,9 +17,9 @@
     "download": "https://onionshare.org"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/626559d4fb2c42ca632c70d2d8a7686a7766f71dbfcc8d9604a045a6aab36a3e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

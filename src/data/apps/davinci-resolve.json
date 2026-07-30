@@ -17,9 +17,9 @@
     "download": "https://www.blackmagicdesign.com/products/davinciresolve"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0ba1074a19f29fdef290241aa511b87e23e38638196f5d36678dc4e9b2ee3307",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

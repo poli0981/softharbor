@@ -17,9 +17,9 @@
     "download": "https://brew.sh"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/fea617439e19357bfe0e6404897583535935265b1301c5e3c5bdc8313fa7e697",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

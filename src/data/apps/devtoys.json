@@ -17,9 +17,9 @@
     "download": "https://devtoys.app/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b583d39856e8ccf6d06e97486cba5c4cf40cc04b18e5e48bdf2858db13058fd6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

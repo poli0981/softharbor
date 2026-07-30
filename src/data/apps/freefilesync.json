@@ -17,9 +17,9 @@
     "download": "https://freefilesync.org/download.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/69997fbd74b11ff51eadbda32006adf3b2d044f4ed1ac7b283d930e820937c13",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

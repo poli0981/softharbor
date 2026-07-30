@@ -17,9 +17,9 @@
     "download": "https://ferdium.org/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bb10435abd82a5ea04fa1a4a8ddf90ae3929a9aeb39a9e419eee1ff15d3b1b7a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

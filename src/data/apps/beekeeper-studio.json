@@ -17,9 +17,9 @@
     "download": "https://www.beekeeperstudio.io/get-community"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/689583aca9dc030696aba0ff22e50ddb04355000f478b9d5acdd484f2093fd60",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

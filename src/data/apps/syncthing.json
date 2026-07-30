@@ -17,9 +17,9 @@
     "download": "https://syncthing.net/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/37ab2a43a599bd36428452f8167b59ffbda9d8257380a5c99a9ee0a64d8c2237",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

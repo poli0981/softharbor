@@ -17,9 +17,9 @@
     "download": "https://typora.io/#download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e9b9a44f17129aa00267729ee24f4f98c17fde723034b7a1076dd03d5032484b",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://rclone.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5fabc5620e1090a011cb7fdb5d6a996f55a4e79da5128de29445ba498e9683f3",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

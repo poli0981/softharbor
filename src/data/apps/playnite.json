@@ -17,9 +17,9 @@
     "download": "https://github.com/JosefNemec/Playnite/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9d9e8747ee69a8e1e3f443ca0b99262ecfb17a1bdf1f6bc6c3d27561517e1808",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

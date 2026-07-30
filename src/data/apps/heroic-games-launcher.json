@@ -17,9 +17,9 @@
     "download": "https://heroicgameslauncher.com/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3606e3c2974268f19a19f54cbca6085faa08147773f3145259c64e9f5ad99996",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://github.com/cemu-project/Cemu/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/832c84732c515a4cbb07212e795e4443f5ab283c18520e6e23d9908ea7b5e918",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

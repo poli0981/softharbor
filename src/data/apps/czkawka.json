@@ -17,9 +17,9 @@
     "download": "https://github.com/qarmin/czkawka/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e7950e2a9fb58c2c7c3d8698586f6c58b13c7a397e7f88a462c5bf45a2c4dbe0",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

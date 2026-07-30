@@ -17,9 +17,9 @@
     "download": "https://ghostty.org/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0934cb3662eaa92632dca501c17e22520f5e1ff5d635123570d33327875d8fb2",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

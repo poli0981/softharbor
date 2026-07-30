@@ -17,9 +17,9 @@
     "download": "https://github.com/RocketChat/Rocket.Chat.Electron/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6bc07f430ba3d6ba159f8cb16edfab766edf4b26350c69c0c53b109f9d4b9eb9",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

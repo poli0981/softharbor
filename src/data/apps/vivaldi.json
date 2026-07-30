@@ -17,9 +17,9 @@
     "download": "https://vivaldi.com/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6045468030feeee7ec10d63594d7cecee40834ce1191c52bdbd4f2f5261c91ac",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.sourcetreeapp.com"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/95654ba920d451262506f772aefe71d8bac6f8f7d9c38f9323c7ac8dc4ac0fbc",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

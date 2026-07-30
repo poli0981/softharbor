@@ -17,9 +17,9 @@
     "download": "https://gitlab.com/CalcProgrammer1/OpenRGB/-/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/31b521adc0e1ab66ee89bfc2057ef97444217800df15bc42ac6c6fba14d7e6f8",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

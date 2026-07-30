@@ -17,9 +17,9 @@
     "download": "https://www.jetbrains.com/idea/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2a9031c422bf90eacf6af5909e3d9927a9c6e8497586d3f0f73b8540e9534e46",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

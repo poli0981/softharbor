@@ -17,9 +17,9 @@
     "download": "https://www.geany.org/download/releases/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/fa4a0338c6f6bebe5d0ff0d453b3d4582fb1282be02cdd2522f1184322f30b35",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

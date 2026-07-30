@@ -17,9 +17,9 @@
     "download": "https://www.jetbrains.com/pycharm/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2429b7300095fe9d78c8b9d478cde5c5cc6fec1e00ceaa55980752960bea2b72",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

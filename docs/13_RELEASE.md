@@ -53,8 +53,10 @@ Infra & correctness
 
 Content & legal
 
-- [ ] All seed apps merged (§4 — 32 as proposed), every entry vetted
-      (docs/09 §6), zero `flagged`, summaries proof-read in both locales
+- [x] All seed apps merged (§4 — **327**), every entry vetted (docs/09 §6)
+      with the scan permalink in `security.evidence`, zero `flagged`
+      — **done 2026-07-30**: 321 `clean`, 6 held at `unverified`
+- [ ] Summaries proof-read in both locales (L4, docs/03 §2 — still open)
 - [ ] Legal drafts reviewed by Kokone (H6), contact email live (H5),
       `LEGAL_VERSION` set; gate tested on a fresh profile in both locales
 - [ ] LICENSE (GPL-3.0) + LICENSE-DATA.md present; footer license line correct

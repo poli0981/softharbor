@@ -17,9 +17,9 @@
     "download": "https://www.viber.com/en/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7171b6ba5e0708999c00e41988f3e59cd703cc1709b8bededde0cb4a8d3038ce",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

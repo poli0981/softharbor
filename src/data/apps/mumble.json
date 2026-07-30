@@ -17,9 +17,9 @@
     "download": "https://www.mumble.info/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/49b901ac3ca6cf89fd7ff488da95bd5b47b740108a29446b8c9431c30385c8cc",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

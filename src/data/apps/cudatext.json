@@ -17,9 +17,9 @@
     "download": "https://sourceforge.net/projects/cudatext/files/release/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/21c4743258ac5b19db23daa29cf453e85c45dd3781eccab8294578093e1b9f83",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

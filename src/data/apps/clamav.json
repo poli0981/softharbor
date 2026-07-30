@@ -17,9 +17,9 @@
     "download": "https://www.clamav.net/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/afd577889efad8d69f20f5521d1cf365335391e25307ee412048be13e6c7b042",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://picard.musicbrainz.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d95f3f1ed70c6d22b79488dab9df873b0d524c67cdf40371ff770f570fa1925f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

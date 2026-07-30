@@ -17,9 +17,9 @@
     "download": "https://mac.getutm.app"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b25221464eaaab84770d270323f595171698d729ae2a094102a4ff4e20d3cc1c",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

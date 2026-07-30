@@ -17,9 +17,9 @@
     "download": "https://duplicati.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b56c578493348cd0d2c1585bc662322177012c60f4f8176ae97cabc3195874ec",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

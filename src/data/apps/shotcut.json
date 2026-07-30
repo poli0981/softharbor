@@ -17,9 +17,9 @@
     "download": "https://shotcut.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6c12f7a34e157ae145e8adf368b96b5757d334c45f0e5ea6a26319526eb8cb41",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

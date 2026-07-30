@@ -17,9 +17,9 @@
     "download": "https://www.falkon.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6136ac74eb70489678e4dbfcb8b3becb03c61f0730394a69a226d67acf02c465",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

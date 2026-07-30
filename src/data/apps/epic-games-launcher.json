@@ -17,9 +17,9 @@
     "download": "https://store.epicgames.com/en-US/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8f81817d4ef679cf98cf7741c634531648fa4b273ab32b6f22c37241a8a6e343",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

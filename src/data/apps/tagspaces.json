@@ -17,9 +17,9 @@
     "download": "https://www.tagspaces.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ccc9bdf5463d949110e391e6c7b9a485090e4efb40ae5ceac8d0de92f3f05598",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

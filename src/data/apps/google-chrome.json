@@ -17,9 +17,9 @@
     "download": "https://www.google.com/chrome/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f017c8050d1c5fcdb4511ba7fa11d3f363165748200d77db41845a647e6acfb6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

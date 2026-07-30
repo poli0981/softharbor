@@ -17,9 +17,9 @@
     "download": "https://posit.co/download/rstudio-desktop/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7282e9532f822d78e1de480ba2415b10e599759d94bf98771f74a6651a49ef3e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

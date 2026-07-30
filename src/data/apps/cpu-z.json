@@ -17,9 +17,9 @@
     "download": "https://www.cpuid.com/softwares/cpu-z.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/356e3659e5460601e1edfb44331f6c3df49a9bf345fd004c692ddf6843873a01",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

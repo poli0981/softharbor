@@ -17,9 +17,9 @@
     "download": "https://nomacs.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e41ea7d1e3fdacd6fcdcbb0da596a5ab8ef49b016903d3df1c17ffc32dca674e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

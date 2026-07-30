@@ -17,9 +17,9 @@
     "download": "https://www.virtualbox.org/wiki/Downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/55dfd5ac5b6711c63d4ee8e5243da586a537cac81de4160070310135422ae82e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

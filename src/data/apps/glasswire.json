@@ -17,9 +17,9 @@
     "download": "https://www.glasswire.com/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7fa11f231f3d97526df45ecf702ac8ddb8ee6c32dc4c7986fc56307120cfaa83",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.aimp.ru/?do=download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c39762ceea241e6b641ff617dc7aee2970ab2dcf0e95726119c87766ebbf9a2d",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://rpcs3.net/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b6febe832345cf07a6551be0d099adddde073499aa88e7ce428a6c966d96e9ba",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

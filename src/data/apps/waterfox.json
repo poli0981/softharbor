@@ -17,9 +17,9 @@
     "download": "https://www.waterfox.net/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/578c911ca32a0668fd346b578fc4e5f09111f239abbf322c9eee33786aa56595",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

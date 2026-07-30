@@ -17,9 +17,9 @@
     "download": "https://github.com/mifi/lossless-cut/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9d8a7f30c2bb74b09873d034ab6c84142a9b5c0f249f96f4f7986819f68db318",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

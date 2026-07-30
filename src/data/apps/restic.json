@@ -17,9 +17,9 @@
     "download": "https://github.com/restic/restic/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/43c608da232fc5d6201c06bff983f778d84072a13b9ab5e5fd88d396856f7b76",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

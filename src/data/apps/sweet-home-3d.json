@@ -17,9 +17,9 @@
     "download": "https://www.sweethome3d.com/download.jsp"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/68269bf041ce9b340f2a486aab1038b03cbab2c7e0f8536d3caca0513b62e03c",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://unity.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7280e6f75d646aacb7290e3f8b9b3ad60c627a0e614b148e001f19946f4f6578",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

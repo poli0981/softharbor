@@ -17,9 +17,9 @@
     "download": "https://getmusicbee.com/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ecf1c8205f81e04195b401c1088c5fdba8f560f64756c3f14fb8839910c39bc8",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

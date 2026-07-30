@@ -17,9 +17,9 @@
     "download": "https://mullvad.net/en/download/browser/windows"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c0ad385f05d49e9f55f3b9caf9b89c107ebd0b919a6ae7c9868a95760d6afecb",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

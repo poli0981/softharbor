@@ -17,9 +17,9 @@
     "download": "https://www.zotero.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2f60ddcff672dab33305cfdb241aced33db0a04abcc979e53669d9d5471ae627",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

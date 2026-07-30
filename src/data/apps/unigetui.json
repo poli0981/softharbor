@@ -17,9 +17,9 @@
     "download": "https://github.com/marticliment/UniGetUI/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c3965a32b612d45c25bd1971c6cff83e6be6fe4605ade2406cd9f7fbcebcafe2",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

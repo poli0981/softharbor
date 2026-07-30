@@ -17,9 +17,9 @@
     "download": "https://netbeans.apache.org/front/main/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9dd9b203e2dc4a0809a3a7754df010ceb698082e37d39b6d239db9659211973e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

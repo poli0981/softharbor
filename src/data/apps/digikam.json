@@ -17,9 +17,9 @@
     "download": "https://www.digikam.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/52a1ce5a6f5337439fd0989d371b9f2d2889ed68dd51923ef31761b138dd865c",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

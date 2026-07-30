@@ -17,9 +17,9 @@
     "download": "https://www.darktable.org/install/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/533e1e93038663a233b9fa3b5a8b17d74c31d09aad9b16e5b99feb369de90a33",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

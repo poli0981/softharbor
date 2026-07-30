@@ -17,9 +17,9 @@
     "download": "https://github.com/DavidoTek/ProtonUp-Qt/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/14430a0dad5701ed5bc6397f716e4cf9e9700241a2e563d0ad451751cdf7bea2",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

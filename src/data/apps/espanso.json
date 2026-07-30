@@ -17,9 +17,9 @@
     "download": "https://espanso.org/install/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7a415ad92b47ded010195681701691821142f56099dec875c92c19c0161dddf1",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://itch.io/app"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/20dfb1872095ef5234100b1d93eca2e5c03901c7902a844dcf4e5d5742024bc7",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://github.com/SubtitleEdit/subtitleedit/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9ddeea6c0df90941862c5e956fe44394dbfb3a4d43475f2bf80d49890d43382a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

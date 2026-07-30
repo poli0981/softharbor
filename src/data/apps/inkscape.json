@@ -17,9 +17,9 @@
     "download": "https://inkscape.org/release/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/17798d00f2345b3d76b97f93d01ea4ce57fc061dab40c04089ca15ab737b3966",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://bitwarden.com/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4553fde1aec58dd46467b305a544e01bb7e26acd72a6e8e3e04500085a06fcde",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

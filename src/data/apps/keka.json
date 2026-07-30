@@ -17,9 +17,9 @@
     "download": "https://www.keka.io"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4ba12d8b3e50404bab6894aeee588fa4237c2ee3b76f8bcf33f8418a02a91b11",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

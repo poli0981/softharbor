@@ -17,9 +17,9 @@
     "download": "https://github.com/zyedidia/micro/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ab8fabf2726658463a63988eef6eab06f3637315ae7abc211d1656b64d1fec6b",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

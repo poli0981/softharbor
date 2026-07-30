@@ -17,9 +17,9 @@
     "download": "https://github.com/Orama-Interactive/Pixelorama/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/947977b78db4bfe3886b5e83d98bffd02fd66eae192a7f1ccd26cef2443677c7",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

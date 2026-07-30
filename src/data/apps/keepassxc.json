@@ -16,6 +16,10 @@
     "repo": "https://github.com/keepassxreboot/keepassxc",
     "download": "https://keepassxc.org/download/"
   },
-  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4d2aed206303081787d07167298d5e6e385b96c0c5eba3c68fde1ea4aa57f483",
+    "checkedAt": "2026-07-30"
+  },
   "addedAt": "2026-07-28"
 }

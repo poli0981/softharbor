@@ -17,9 +17,9 @@
     "download": "https://code.visualstudio.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/04d8d5198df6cb5e40ca45e12b52d9601f5ff16aca687f3b4931851652a72d37",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

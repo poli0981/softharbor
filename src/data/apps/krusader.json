@@ -17,9 +17,9 @@
     "download": "https://krusader.org/get-krusader/index.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e46144d3d8ca0b3437ccd732828bfffce38b8735f00f129c2e0b3e70302d5c41",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

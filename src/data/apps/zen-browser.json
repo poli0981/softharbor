@@ -17,9 +17,9 @@
     "download": "https://zen-browser.app/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4e4c8c2d44cc7869b65e2057752b750f2ffb6333b82a6c3c2b32470fca85064e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

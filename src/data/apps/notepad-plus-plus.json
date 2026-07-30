@@ -17,9 +17,9 @@
     "download": "https://notepad-plus-plus.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b600af68936c26703892f6975e4a6137d729725f08f0f362b7e6059ac87027fa",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

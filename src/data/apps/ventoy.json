@@ -17,9 +17,9 @@
     "download": "https://www.ventoy.net/en/download.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6aada5a50e9afa0f8e15bf2ee5196d0daff8c5cf2f3ca4374da2351f674e9cd3",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

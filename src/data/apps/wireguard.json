@@ -17,9 +17,9 @@
     "download": "https://www.wireguard.com/install/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/69ae1f9baaa716e42df9bbcf441668a8679cf53807acf08b59368bbd9409d215",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

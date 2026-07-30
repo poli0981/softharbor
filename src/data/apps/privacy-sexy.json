@@ -17,9 +17,9 @@
     "download": "https://github.com/undergroundwires/privacy.sexy/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/49e23d6b35fd572dca6265df91014c49208f558bfd22a881c02e1f3e20d547de",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

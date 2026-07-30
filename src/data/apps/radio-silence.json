@@ -17,9 +17,9 @@
     "download": "https://radiosilenceapp.com"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/68d8e5a06e1313123439f1b2ce20b3ef5a7db84f181feaecd7e69728b9864b27",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

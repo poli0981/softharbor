@@ -17,9 +17,9 @@
     "download": "https://github.com/alacritty/alacritty/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e8ac3c3060a6fe5a0a32c2dec6ceafcd718755838f676c80bd22350f1e0eea36",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

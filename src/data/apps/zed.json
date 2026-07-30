@@ -17,9 +17,9 @@
     "download": "https://zed.dev/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c74d3df1a68ade97f18a664a3fcbbbb1f13e1b91bee12560cc9e360366036c37",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

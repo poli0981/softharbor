@@ -17,9 +17,9 @@
     "download": "https://melonds.kuribo64.net/downloads.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f03b17b34ab469f629a2c6b16138cade735148d228cb836b580a32664bd4678b",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

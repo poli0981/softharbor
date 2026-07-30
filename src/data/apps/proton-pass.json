@@ -17,9 +17,9 @@
     "download": "https://proton.me/pass/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4bf9c80851183d29750deb10bf8f8523ebc4907cb46372b6ae1048b8023c4ce0",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

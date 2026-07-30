@@ -17,9 +17,9 @@
     "download": "https://obsproject.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/edce208d9fa46eeedda2c7ee0697e84f4fb825fee43e76c665c5cc1cd18bbcc2",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

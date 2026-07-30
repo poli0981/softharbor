@@ -17,9 +17,9 @@
     "download": "https://line.me/en/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0f0c6987ed4f11b2edca72e77d129f0dd016ea44486d08cccf3fbf86d07a5096",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

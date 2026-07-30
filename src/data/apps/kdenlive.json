@@ -17,9 +17,9 @@
     "download": "https://kdenlive.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/580a11a1bf9191e4f8f8104a88f31f9265c4acf36acd6f0da2d39a82d11f0346",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

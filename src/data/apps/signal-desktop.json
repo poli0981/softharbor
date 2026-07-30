@@ -17,9 +17,9 @@
     "download": "https://signal.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/798d2596a97a9f1a3acc1ea34f50587aa072c7833336a94bc961456ad574930e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://winscp.net/eng/download.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f978c657fd1ae4b0aa15e3b1219453de3801c43ed27fac41fb893546c763f243",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

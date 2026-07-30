@@ -17,9 +17,9 @@
     "download": "https://meldmerge.org"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/33c6aee29c051b1b5376f30a6a8ed54dc4ff29e129d787478c181fa35a9bf49f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

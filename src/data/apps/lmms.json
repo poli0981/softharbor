@@ -17,9 +17,9 @@
     "download": "https://lmms.io/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2979e0a12d8f4dc6780837edafe5da97944a267a9bcdc183db48cfb42661ac9f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

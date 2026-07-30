@@ -17,9 +17,9 @@
     "download": "https://wire.com/en/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2f3baa70a0f1724e8538df9cb57ce6e2f93406d8261f0163d65d007cc16cfcb5",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

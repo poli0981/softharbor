@@ -17,9 +17,9 @@
     "download": "https://github.com/jitsi/jitsi-meet-electron/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c55c17807a00f96225b30f776b769b6e449d4cf8351d2fe21c71914ac009573c",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

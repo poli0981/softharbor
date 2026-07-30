@@ -17,9 +17,9 @@
     "download": "https://github.com/lite-xl/lite-xl/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d04bcc8330381e225b5f07844048e403a9b280ade8232c1a89447de74762bf8f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

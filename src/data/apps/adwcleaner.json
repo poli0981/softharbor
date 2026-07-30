@@ -17,9 +17,9 @@
     "download": "https://www.malwarebytes.com/adwcleaner"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bc01e3692d3c6f3f13c9d680dab0cc114507257ab7037cdc64901f822cab81ce",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

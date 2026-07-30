@@ -17,9 +17,9 @@
     "download": "https://www.yworks.com/products/yed/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/aaca42ec8a3e5221aaa333c740a9a4e827862a5104811e81878dff514b39457f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

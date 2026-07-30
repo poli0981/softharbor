@@ -17,9 +17,9 @@
     "download": "https://brave.com/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/50868231ac2c552c4bab241ffab0290c0124adb05b325fa1f7c5351b8a1b1708",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

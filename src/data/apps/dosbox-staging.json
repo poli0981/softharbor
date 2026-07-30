@@ -17,9 +17,9 @@
     "download": "https://www.dosbox-staging.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c975fb730474f9e956e4758765d50d9b8ca41c1ec5f2e2c1a118dc219f9a17f7",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

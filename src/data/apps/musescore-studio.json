@@ -17,9 +17,9 @@
     "download": "https://musescore.org/en/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2cd16ad820d11bf8e8111558dbb49e37e9bb32539365e43a067b423611ad2c13",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

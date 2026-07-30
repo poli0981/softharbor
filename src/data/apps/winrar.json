@@ -17,9 +17,9 @@
     "download": "https://www.win-rar.com/download.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/75c53dea0c41a141c79ada278278122cc252eee31687aefa8321490a16b731c0",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://github.com/xournalpp/xournalpp/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f3ec6dc4f0fa3b4fec598ebbd0f00a488ab646cd26967fceb1321e42e431cf86",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

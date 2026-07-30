@@ -17,9 +17,9 @@
     "download": "https://github.com/sxyazi/yazi/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2f711ac9f7243277748ae4115091d68af64f3485ce89bd3557884e65d5309c19",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

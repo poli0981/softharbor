@@ -17,9 +17,9 @@
     "download": "https://element.io/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e10658e1f4c09052812e11bc7c9a656a791d208c20b6689f4c0892757baece64",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

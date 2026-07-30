@@ -17,9 +17,9 @@
     "download": "https://www.claws-mail.org/download.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/dd1a69ae7548b62bd8b27ef551986a327d1c889d8867c86aaa902242ecb1e477",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

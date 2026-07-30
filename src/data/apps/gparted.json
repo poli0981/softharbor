@@ -17,9 +17,9 @@
     "download": "https://gparted.org/download.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b1c5919eaf9d07e5f1aef3dcfb65b85a66259104bd515ed2f875180c92cb21ff",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

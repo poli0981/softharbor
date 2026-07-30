@@ -17,9 +17,9 @@
     "download": "https://www.openshot.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/04a8a9f223d7f4f9a38fd51f3b9a006bc0866700d359692e4be67ffd934a3a70",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

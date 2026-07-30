@@ -17,9 +17,9 @@
     "download": "https://www.alfredapp.com/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f52da1e204a4b23dee3685b323e3c55d8f6c13555400f15f1d6cf1483c40813d",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

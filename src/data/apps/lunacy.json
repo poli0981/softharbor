@@ -17,9 +17,9 @@
     "download": "https://icons8.com/lunacy-download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9353b9ff006a60ab0c2e038b16798bfb33914bfe7ca3666e3205c7604ba25f82",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

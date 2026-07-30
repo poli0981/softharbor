@@ -17,9 +17,9 @@
     "download": "https://knowledge.broadcom.com/external/article/368667/download-and-license-vmware-desktop-hype.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ecb59138697edb223179a795354ddc593c240a97b043fb79407f58901f8fbf31",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://gottcode.org/focuswriter/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/66068e3f0e46cd8d7a5d513d980a423dd0f608206f1e1d31afb6ca7af1bc1a1d",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

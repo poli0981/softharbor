@@ -17,9 +17,9 @@
     "download": "https://www.ghisler.com/download.htm"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bc4f2f3df5d1160430702cdfe3ed7e2f42edca9fa0eab29ed685f4f671f88b4f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.opera.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a973fdbf0c96eebc085221fe0c054e6398cc2f97a43c04918b5eebc454f2ac50",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

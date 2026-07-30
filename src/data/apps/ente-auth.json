@@ -17,9 +17,9 @@
     "download": "https://ente.io/auth"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f96479429597127f9d486e216d368235f0ecd84b06378a4c3b420a0b6a03cd72",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

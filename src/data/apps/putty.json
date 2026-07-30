@@ -17,9 +17,9 @@
     "download": "https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a993b305c6fecadceaa68551a31ce220954ab035dcfcbe0e99335cee725762ae",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

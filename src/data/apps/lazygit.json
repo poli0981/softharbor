@@ -17,9 +17,9 @@
     "download": "https://github.com/jesseduffield/lazygit/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/05a06134bfd51291591167ea08282996912ff4244625b1875ddc40b835c52905",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

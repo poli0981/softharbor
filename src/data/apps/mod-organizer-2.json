@@ -17,9 +17,9 @@
     "download": "https://github.com/ModOrganizer2/modorganizer/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2fb7257c4a539ab1ce33faf4a96769adf484dfc276a5ddf25a8ea3b72aca78cd",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

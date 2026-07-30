@@ -17,9 +17,9 @@
     "download": "https://github.com/Ryochan7/DS4Windows/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/dbb62d88ba9a3e3241bb073f0427a729c64a583c3dfb5d15720931fd9517210e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

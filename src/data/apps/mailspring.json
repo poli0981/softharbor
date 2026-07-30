@@ -17,9 +17,9 @@
     "download": "https://getmailspring.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6588c79790b8cc5998e01885a8f1294b631cf43fa186da2e2a4911c1c5839aeb",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

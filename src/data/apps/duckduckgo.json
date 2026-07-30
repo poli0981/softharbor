@@ -17,9 +17,9 @@
     "download": "https://duckduckgo.com/app"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f5255006fc14283bb53b3d990c5c5fe23416268bec00f5bb431aee56b0023e04",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

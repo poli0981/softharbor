@@ -17,9 +17,9 @@
     "download": "https://threema.com/en/download/threema-private"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9d48dc1922be69197d36e6467387ce37d3345cf9b46118aaed1b0ae08d598883",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

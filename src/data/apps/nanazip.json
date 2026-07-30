@@ -17,9 +17,9 @@
     "download": "https://github.com/M2Team/NanaZip/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8e9d339aea79e58cbd62652f24906ddcb6cc1a53b46bf3d4e5507bfdefd63351",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

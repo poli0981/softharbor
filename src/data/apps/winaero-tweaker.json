@@ -17,9 +17,9 @@
     "download": "https://winaero.com/winaero-tweaker/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/af0741f35f72082bf467ab21e0e8d28ce8d4399e633c25e39d67d39ea0e054a6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

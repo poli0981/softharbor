@@ -17,9 +17,9 @@
     "download": "https://mpv.io/installation/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6717bf7e86cee15e3792516905297c63d811f0eea9858b85dab1aba7b9f1ac00",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://github.com/henrypp/simplewall/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/493474c4b67e2a682d0dcc4f045dc3e0a0fe758e9e56ce8be44282c453e49a0e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://mobaxterm.mobatek.net/download-home-edition.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/00070960181e09522f5c78d3971d85168acb5c07e3428cb5605d76ba14a2a39b",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

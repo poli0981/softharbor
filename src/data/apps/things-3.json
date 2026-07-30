@@ -17,9 +17,9 @@
     "download": "https://culturedcode.com/things/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3f2eb2d3cf305ab5c786579dfda3ebac690c670933553192960a076cdf3fded1",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.microsoft.com/edge/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e8206c70c9b947a17239894163a479f3206c722b4afc54a6b599296f18fdb08b",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

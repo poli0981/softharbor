@@ -17,9 +17,9 @@
     "download": "https://www.microsoft.com/microsoft-teams/download-app"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0d1435be37212b9777f9566315f826b9b670ca90a4b826df6f16b5c0591377ed",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

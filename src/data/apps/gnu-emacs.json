@@ -17,9 +17,9 @@
     "download": "https://www.gnu.org/software/emacs/download.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/83974f245ccd5e91eedcc51e0685671ca6e907693b0e8e4cf452c582ceed7ada",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

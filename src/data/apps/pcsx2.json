@@ -17,9 +17,9 @@
     "download": "https://pcsx2.net/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/797b86c3aeecdbcb05c383bd81d6929c3c626492cc4a08040b2b4bdc2a4cacbe",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

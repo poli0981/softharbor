@@ -17,9 +17,9 @@
     "download": "https://zealdocs.org/download.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4ff00a4d62984534db4210f85f4bfd27f57726fa0dbe357f309cf261dd33fb19",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

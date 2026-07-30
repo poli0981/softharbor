@@ -89,6 +89,13 @@ platforms · tags · security line · added/updated dates; footer note: "Links
 go to the official site. SoftHarbor hosts no downloads." + "Report an issue
 with this entry".
 
+The **security line carries a "View scan ↗" link** whenever
+`security.evidence` is set, at any status. Hard rule 4 caps what the copy may
+claim at "no known warnings as of &lt;date&gt;", so the claim is worth much
+more when the reader can open the scan and judge it. It matters most on an
+entry held at `unverified` *because* something was found: the link is how a
+reader sees what, instead of being told only that we were unsure.
+
 The developer line sits *above* the link rail on purpose: a reader should be
 able to match "who makes this" against the domain they are about to click.
 It is plain text, never a link — we do not maintain vendor pages.

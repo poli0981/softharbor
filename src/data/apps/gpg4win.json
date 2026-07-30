@@ -17,9 +17,9 @@
     "download": "https://www.gpg4win.org/download.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/75296b5b84deb8cd77bda0c4603c37d6e46e10bc3181dfbdd3a616db40e5de8a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

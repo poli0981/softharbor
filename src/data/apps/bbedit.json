@@ -17,9 +17,9 @@
     "download": "https://www.barebones.com/products/bbedit/download.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/27c34905dd276033ae0d70e61740ac45d534ac58735defbe73b02edf0f0d8910",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

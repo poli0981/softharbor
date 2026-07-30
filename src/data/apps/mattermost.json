@@ -17,9 +17,9 @@
     "download": "https://mattermost.com/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d35afc561b21f36a37d4a70ecfa9d76af8d7d2c92c006bd7ecb5452aeee22ec6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

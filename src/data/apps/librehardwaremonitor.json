@@ -17,9 +17,9 @@
     "download": "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e564d8fc59730bb536279bcc7b53ad418c390ff7f26c4b44af47f2da63c130e1",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

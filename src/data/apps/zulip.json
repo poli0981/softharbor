@@ -17,9 +17,9 @@
     "download": "https://zulip.com/apps/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b6823271b23eb7d90fb4f94d3987429ca61908d050ff9ca843e6cf51a72741cf",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

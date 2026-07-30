@@ -17,9 +17,9 @@
     "download": "https://safing.io/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5767bc647255abb46f49aaed3dd19e6d76ab6dab8e6c00c29567e277edcc31aa",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

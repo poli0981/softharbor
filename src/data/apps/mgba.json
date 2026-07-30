@@ -17,9 +17,9 @@
     "download": "https://mgba.io/downloads.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ef561bbf16eac336cc55fa1fcd262ce075cd9a176082109507c82eb680d10340",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

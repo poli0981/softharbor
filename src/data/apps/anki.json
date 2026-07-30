@@ -17,9 +17,9 @@
     "download": "https://apps.ankiweb.net"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c6db457a817f75f282787953b476e1f0d7f3d6e134191996e8e155c8a14625c8",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

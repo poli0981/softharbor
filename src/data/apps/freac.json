@@ -17,9 +17,9 @@
     "download": "https://github.com/enzo1982/freac/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/cabcbd3c7298beac028a84baf200b92f5f8f835795f704cd9d5cf4cc66ec8f2f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

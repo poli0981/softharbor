@@ -17,9 +17,9 @@
     "download": "https://github.com/flightlessmango/MangoHud/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/aa60e525e1697e7a664e41864b45e02bed213cd35f44836ea3eefe28a00aca4c",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

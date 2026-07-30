@@ -17,9 +17,9 @@
     "download": "https://www.sumatrapdfreader.org/download-free-pdf-viewer"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/98205cd7e99b2f8417b27a42eb3e9bc06341faa0a695de5d8ea15a1a81330a82",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

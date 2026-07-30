@@ -17,9 +17,9 @@
     "download": "https://github.com/neovim/neovim/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4b85e5db018ae6c08686d7921491069df658fc5d18ebbcfa28e1faf55861653a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

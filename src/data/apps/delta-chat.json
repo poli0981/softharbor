@@ -17,9 +17,9 @@
     "download": "https://delta.chat/en/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/eab6dcec250204d4085638f4611366311b3e5b286a6ac14278b8c6841cffe3dc",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.usebruno.com/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6f8b24a7f8f02f7939fd74b024f4649bb1e750cac9f80b6b402b88498ce8c1fa",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

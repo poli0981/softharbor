@@ -17,9 +17,9 @@
     "download": "https://activitywatch.net/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/66ec73178edf83ac3561f6754f04cb1a3e2d4067740fa6458b21edfec1fe1379",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

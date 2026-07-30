@@ -17,9 +17,9 @@
     "download": "https://diskanalyzer.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f03fecaa79f021b0b8955584b5c015edbe624da42626ee7b2914636d1ea3192c",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

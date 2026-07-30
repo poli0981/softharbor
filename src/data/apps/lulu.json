@@ -17,9 +17,9 @@
     "download": "https://objective-see.org/products/lulu.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/1bfc2472d3111070abdec4ee78e343c41768682de5ff0de8e93d5355a5bf4701",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

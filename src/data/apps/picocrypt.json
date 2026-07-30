@@ -17,9 +17,9 @@
     "download": "https://github.com/Picocrypt/Picocrypt/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c9753fcf41d18009fbc61c0756132025a277e12e5ec858513aedc473f9b0ccfd",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

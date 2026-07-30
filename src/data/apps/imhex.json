@@ -17,9 +17,9 @@
     "download": "https://github.com/WerWolv/ImHex/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/42738cfa1de6c923b14973ff8292c5fc81c5c0dc79e92b3477588654f2ce8986",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

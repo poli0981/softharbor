@@ -17,9 +17,9 @@
     "download": "https://github.com/squidowl/halloy/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/694a37fd936c2c54643d0fcc9548acc824591183e68ff018ff5695cd5f591ea9",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

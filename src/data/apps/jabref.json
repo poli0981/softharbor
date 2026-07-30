@@ -17,9 +17,9 @@
     "download": "https://www.jabref.org/#downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c4946ef5f49f21fab4d0b9cbf6080dd483f8ee37411b598f7cde2388205eb3c4",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

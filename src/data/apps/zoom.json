@@ -17,9 +17,9 @@
     "download": "https://zoom.us/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0f849765756cf76166ee7f7440ea3d64ae4c3e02309be81ae7a81de3a93832d3",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

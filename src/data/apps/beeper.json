@@ -17,9 +17,9 @@
     "download": "https://beeper.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b9a84f215ad793f52e2e863e6e0200704271feac9b0f32bcc79a87f27a5529e8",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.codeblocks.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/90031cb764026785fccfd5d2f98d942f8238392c6bceafbf0f6ffdf76e93516e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

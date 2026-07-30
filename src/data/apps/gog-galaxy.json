@@ -17,9 +17,9 @@
     "download": "https://www.gog.com/galaxy"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/738d4456b5b3687a4dc01d73ddbc1f1f1e8f492039c77929ab9fab735b7f89ab",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

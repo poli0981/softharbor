@@ -17,9 +17,9 @@
     "download": "https://www.spyder-ide.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8642ec779e5afd0ced677f47bc608a6311927923d1f1ad7918b66512b1e82323",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

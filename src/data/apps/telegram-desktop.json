@@ -17,9 +17,9 @@
     "download": "https://desktop.telegram.org"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8502b637ba47583ede4ec9f7efec2c2733f7b51d7f49e6d89fdab61547464cb9",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

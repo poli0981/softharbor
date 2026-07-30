@@ -17,9 +17,9 @@
     "download": "https://developer.apple.com/xcode/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b4896d3c28e9c69feca2f9fdcaaf63947eb2ccb4244a8848679e8b73ed3da0cd",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

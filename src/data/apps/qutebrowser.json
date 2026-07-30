@@ -17,9 +17,9 @@
     "download": "https://qutebrowser.org/doc/install.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/81a392d6e15f5b52b589d942ed342a9ecbfc3290f926a8f12d2ac10b992a5c7f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

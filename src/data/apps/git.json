@@ -17,9 +17,9 @@
     "download": "https://git-scm.com/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b80773b161390054bbca075d0a6438241bbf33f229e1b7b2ef0a7ffb32f48cbd",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

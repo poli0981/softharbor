@@ -17,9 +17,9 @@
     "download": "https://chocolatey.org/install"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/1edf829f6532d73daeea02edaae8abcfd55aa25d1b998ab598f1f26c64c6ecf1",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://costales.github.io/projects/gufw/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/89b2d889d605745056932285044287b703d49b2ef9fd0d4265152c14f541b84e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

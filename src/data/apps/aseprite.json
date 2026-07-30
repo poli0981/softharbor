@@ -17,9 +17,9 @@
     "download": "https://www.aseprite.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c4f781cf3889cd389fffb7a931d135abad474f9be17725d2945e198d741baaf6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

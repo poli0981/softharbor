@@ -17,9 +17,9 @@
     "download": "https://okular.kde.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/43d4223c7620e78b269bc32dda29ac91f87ad4793181237675ee9c7ebb59cede",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

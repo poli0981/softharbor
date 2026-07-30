@@ -17,9 +17,9 @@
     "download": "https://sonic-pi.net"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9618e45da4c46de02a47fc32cbd62768c735d0093ea1c40ebd0cc8b5931b18f5",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

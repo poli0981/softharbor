@@ -17,9 +17,9 @@
     "download": "https://github.com/johannesjo/super-productivity/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d542ca8f299a5f222b095950139f9a18cbca880c64cfdd531a5393d4ba127a59",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

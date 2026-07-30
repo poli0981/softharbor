@@ -17,9 +17,9 @@
     "download": "https://www.affinity.studio/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/cf2f2f966e3ecac21fe37bbec5ce773e243b9257f3d2c02f08ccc82bfc7a52c0",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

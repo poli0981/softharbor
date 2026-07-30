@@ -17,9 +17,9 @@
     "download": "https://www.thunderbird.net/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e51909e558fd1375383d0c50574d2f10432ad9ca268e7f46720a91dade1564b4",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.eclipse.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0c6bb04e44477a9b46cbecaa1c00100406ba6f5d490716b97c41d9c2610d34ac",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

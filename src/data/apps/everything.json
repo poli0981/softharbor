@@ -17,9 +17,9 @@
     "download": "https://www.voidtools.com/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5df60af1342cdc4cdf29c75e753d78fba3ed1c93397d21ed2723af4091aabd93",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

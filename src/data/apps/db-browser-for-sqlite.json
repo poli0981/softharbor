@@ -17,9 +17,9 @@
     "download": "https://sqlitebrowser.org/dl/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/21654a97f861e37fdf6c0e5bd7462186f25eba1f599688e54048dc7202c5907a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

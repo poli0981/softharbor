@@ -17,9 +17,9 @@
     "download": "https://www.techpowerup.com/download/techpowerup-gpu-z/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/07342581a726204ce3d811ca187821bbc256edc9c8c39057934314ea5ba9565a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

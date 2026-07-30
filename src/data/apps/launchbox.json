@@ -17,9 +17,9 @@
     "download": "https://www.launchbox-app.com"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c85bc93f57ad6d1a8ab014b3aa387c46cfff2387dfb02aae7d7c4962105f0250",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

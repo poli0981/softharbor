@@ -17,9 +17,9 @@
     "download": "https://notesnook.com/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f812a6ced6a006fa752bbed919fe1dbdaa5d2945d8bd19bc635245124693bbbf",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://github.com/szTheory/exifcleaner/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b020c38f686a168c5e6710b4949462079e1d66eff8ac7327f703613ab70357a6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

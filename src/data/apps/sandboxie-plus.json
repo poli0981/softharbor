@@ -17,9 +17,9 @@
     "download": "https://sandboxie-plus.com/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f4f1eaf0376b2f1e3dda1df10e8546cf80bbee56c5b4185e027dd12daed01c7d",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

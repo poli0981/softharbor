@@ -17,9 +17,9 @@
     "download": "https://obdev.at/products/microsnitch/index.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e9ac4d7e4bdaa8af6292f1e8f3c71cc0d5bb21c3bb99420e0f782b0f6a4b9fff",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://opentoonz.github.io/e/index.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8fa08436655973e0ad1531e1f4c8328407eef839f005a6c7621ba53b16580503",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

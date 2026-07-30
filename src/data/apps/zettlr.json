@@ -17,9 +17,9 @@
     "download": "https://www.zettlr.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6c5f684e051fdeead4945671dad344eb63fa25794e6530a92c1eb36a23075309",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

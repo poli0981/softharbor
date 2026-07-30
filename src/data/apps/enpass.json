@@ -17,9 +17,9 @@
     "download": "https://www.enpass.io/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ede6e64720d0913b0f078848130c0466bd52d2798a9f3a615d1e11d3e309d6cc",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

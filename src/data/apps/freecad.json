@@ -17,9 +17,9 @@
     "download": "https://www.freecad.org/downloads.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0d8a9cd994b6255e3ce155d028a9dc192d6c0a59666e6bba95857b9db96f963f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

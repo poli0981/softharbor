@@ -17,9 +17,9 @@
     "download": "https://github.com/freeplane/freeplane/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bb71d55ade3fc6b1d6a312c006af6f78b9f4eb5ee0ecbb5fff8ed93e4c648d8f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

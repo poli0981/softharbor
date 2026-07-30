@@ -17,9 +17,9 @@
     "download": "https://www.arduino.cc/en/software"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/974c9b4b405696a503b0643760f29a8b29106418bcceb5c38d260d548cd2b46e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

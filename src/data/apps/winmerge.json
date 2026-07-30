@@ -17,9 +17,9 @@
     "download": "https://winmerge.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/04eda53d9eb8df1e3e294e7ff00c35bbae04a48dd52bd1353077a083650966ac",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

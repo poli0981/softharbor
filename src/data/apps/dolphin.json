@@ -17,9 +17,9 @@
     "download": "https://dolphin-emu.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/49293940f156c980b1f8bee9de449f6f36ded7a7ae2c76f8ade447f610ff1016",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

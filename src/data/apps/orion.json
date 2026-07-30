@@ -17,9 +17,9 @@
     "download": "https://orionbrowser.com/platforms/macos"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bd9e0d23a0d81645efe065cd0d117faf251b4f7033bce223f944b6615c60c599",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

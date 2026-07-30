@@ -17,9 +17,9 @@
     "download": "https://www.winehq.org/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5a2be55207bd0c1b2e6088af347a09709c628ffb33600ee3d30680b05c13c9ef",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

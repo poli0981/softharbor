@@ -17,9 +17,9 @@
     "download": "https://nextcloud.com/install/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/fe4d23618b6a5c71bafd149b0629402acefc52dfecebb50a377f0b77f808437e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

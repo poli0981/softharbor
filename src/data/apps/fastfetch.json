@@ -17,9 +17,9 @@
     "download": "https://github.com/fastfetch-cli/fastfetch/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bd9f90f2ead3f991f6ae7d65dd722575abbe15f5c77e2b65a6723ec0cdedad9f",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

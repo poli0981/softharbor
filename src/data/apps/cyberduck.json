@@ -17,9 +17,9 @@
     "download": "https://cyberduck.io/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5521c46e54043e2ba7558fe014f698b85fc8613d3c3458b6436016a6ea12b82a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

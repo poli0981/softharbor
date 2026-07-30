@@ -17,9 +17,9 @@
     "download": "https://www.foobar2000.org/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/14783903641246939ecf000fc01c63a35ec442160b54feaf64b34bd11822fe02",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

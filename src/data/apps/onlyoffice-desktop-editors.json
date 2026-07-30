@@ -17,9 +17,9 @@
     "download": "https://www.onlyoffice.com/download-desktop.aspx"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5d7f46e55d71f25f51f03ba0a029d3d0d1831fea0796901a80d16d5e4870d8c6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

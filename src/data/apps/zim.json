@@ -17,9 +17,9 @@
     "download": "https://zim-wiki.org/downloads.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ce6123c3b82647bf8f6ff1ec6fe72c02f0652b474608ea2ba1fd58bee8f1eca4",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

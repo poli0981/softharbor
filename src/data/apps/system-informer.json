@@ -17,9 +17,9 @@
     "download": "https://systeminformer.sourceforge.io/downloads.php"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ff63f39edfeb54fe4095f57d1558d2b6765393d51349fd49c6f90d91aebec12d",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

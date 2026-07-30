@@ -17,9 +17,9 @@
     "download": "https://www.rawtherapee.com/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b287fd59bb9c0d770c4b13087c7b456da413630b645f45b91b2c66b0102cd3e0",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

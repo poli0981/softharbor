@@ -17,9 +17,9 @@
     "download": "https://podman-desktop.io/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9b4d99742d207eb424ff107b8dad405d53d64af6cebe67b42005a11d5858be9d",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

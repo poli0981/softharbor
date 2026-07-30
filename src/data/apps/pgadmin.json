@@ -17,9 +17,9 @@
     "download": "https://www.pgadmin.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0e7df8f830b54640721682bb373cac06f621e746b7ba44b3460f0e8081dc1784",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

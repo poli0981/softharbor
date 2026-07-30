@@ -17,9 +17,9 @@
     "download": "https://binarynights.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ac8a274fb39632eeaa5779d73019e2284afc9fd4bb8ebd79d3265d242c72ba6e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

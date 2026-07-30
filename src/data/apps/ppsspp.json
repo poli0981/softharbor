@@ -17,9 +17,9 @@
     "download": "https://www.ppsspp.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4bd54f150bcf018fd2582e3ea9e5b0d4e7033971d6d9873f6adb41886ae934b3",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

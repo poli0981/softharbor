@@ -17,9 +17,9 @@
     "download": "https://kate-editor.org/get-it/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/58d8355b40239e5ef7ef029bcc19951946f811f5245fbc64f44b8ce1c919509a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

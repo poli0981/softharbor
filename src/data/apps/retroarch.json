@@ -17,9 +17,9 @@
     "download": "https://www.retroarch.com/?page=platforms"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3c2928978fd6c5e7a64df181c742188488b32ad35b61d54fc719681eebbaf4e2",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

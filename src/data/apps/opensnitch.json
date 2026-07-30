@@ -17,9 +17,9 @@
     "download": "https://github.com/evilsocket/opensnitch/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/11f8ad51f021689e38882d1d3a87283a58f3103fece3e9e6c67d16983ea8cd25",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

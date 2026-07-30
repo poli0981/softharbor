@@ -17,9 +17,9 @@
     "download": "https://github.com/aristocratos/btop/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/adae9b1a7df45ddf18d40a242165875b1372b9eb9e384f85a466eceeaecb73b5",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

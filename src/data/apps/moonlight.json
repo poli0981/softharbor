@@ -17,9 +17,9 @@
     "download": "https://github.com/moonlight-stream/moonlight-qt/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/05167a318b9644472cdf11ac78af1f2816174aa037f0dc8555d207972b3473ec",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

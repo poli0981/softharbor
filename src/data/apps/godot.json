@@ -17,9 +17,9 @@
     "download": "https://godotengine.org/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/68fb2901c7267659631bbc5149d7c16c879fdbfa9b3151197833a07f27fec439",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

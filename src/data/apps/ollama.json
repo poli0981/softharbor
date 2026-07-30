@@ -17,9 +17,9 @@
     "download": "https://ollama.com/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9e4573e4becec354dd735eb36a5a78d7cea87e067a07dc5e247fd55160901cad",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

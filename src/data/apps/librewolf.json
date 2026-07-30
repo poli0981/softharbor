@@ -17,9 +17,9 @@
     "download": "https://librewolf.net/installation/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4820079aa703e6e0ffda88ded0070061abfd61c02a9c1693f2c148f87bd5e093",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

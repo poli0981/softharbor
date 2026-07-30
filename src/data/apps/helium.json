@@ -17,9 +17,9 @@
     "download": "https://helium.computer"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a25c2cf1aba9368a2cba36ebfd6c3acc01987e0889991f69d0d895a40f22c76e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

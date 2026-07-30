@@ -17,9 +17,9 @@
     "download": "https://tortoisegit.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/cf3fba77666c2ef193d81637c513de8223bcfbcf19c768afb98c8b2a32e4d933",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

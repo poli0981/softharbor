@@ -17,9 +17,9 @@
     "download": "https://slack.com/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6b23188b68ee045439c92232f8299379f6ef9d064992df381c709c4c68979cf7",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

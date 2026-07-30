@@ -17,9 +17,9 @@
     "download": "https://mediaarea.net/en/MediaInfo/Download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b18da15280bffa092feeba190dc58aad6d9625556d59c1583f63f1dd97820bba",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

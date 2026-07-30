@@ -17,9 +17,9 @@
     "download": "https://github.com/LizardByte/Sunshine/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7096535bf005fe3eaf05a256dc8b93dd0368c44175adabedefc12d8040c8f268",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

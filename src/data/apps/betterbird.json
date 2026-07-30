@@ -17,9 +17,9 @@
     "download": "https://www.betterbird.eu/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7a53258ce835dd5464591e90ba0c61d41ed39d407de55e996d43b92e3e8f8110",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

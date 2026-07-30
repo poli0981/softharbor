@@ -17,9 +17,9 @@
     "download": "https://logseq.com/downloads"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5db07e196ac1b4e2287fa633f39bf7f3ec71adeaf997b4aafc2d0fb0fabd20d9",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

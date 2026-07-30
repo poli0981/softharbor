@@ -17,9 +17,9 @@
     "download": "https://www.oo-software.com/en/shutup10"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e1829409bb7e542207c862476174325f531ec4ece59fd481fe440dec16d38ff8",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

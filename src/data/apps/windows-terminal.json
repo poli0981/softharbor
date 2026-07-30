@@ -17,9 +17,9 @@
     "download": "https://github.com/microsoft/terminal/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/43203155c8938dbc698c3093f4e5f8fb194054c0436ada78ee97b96049ecaa98",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

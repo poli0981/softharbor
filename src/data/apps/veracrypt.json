@@ -17,9 +17,9 @@
     "download": "https://veracrypt.jp/en/Downloads.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/953d77964e99c87d18c8a36f03d0c80f4425b68823afe8c73d22a3b7c3f79a2a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

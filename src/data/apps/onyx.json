@@ -17,9 +17,9 @@
     "download": "https://titanium-software.fr/en/onyx.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0187ae0da567b11e385d7b933088ab6df2dc53893c6153c0d6d4537625b27f47",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

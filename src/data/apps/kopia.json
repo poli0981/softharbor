@@ -17,9 +17,9 @@
     "download": "https://kopia.io/docs/installation/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/cbcbe700a928cc4e69b87168b10a20c94872a93767225cb97126bcac2d2e469a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

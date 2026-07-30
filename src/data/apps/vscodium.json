@@ -17,9 +17,9 @@
     "download": "https://github.com/VSCodium/vscodium/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0f460f5b6220092a8f378b0ad71922d549d99331e352143c1ef9e2ed4f83f0a5",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

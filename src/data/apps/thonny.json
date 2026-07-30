@@ -17,9 +17,9 @@
     "download": "https://thonny.org"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2a5df0adf0251d760954ea8786a2c21571f7be2ff47068e40dabb7730927a84a",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.pencil2d.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/12e839bda473bf14479d76c4e82a5c2ae815b276076e88101445fafcb161db1e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

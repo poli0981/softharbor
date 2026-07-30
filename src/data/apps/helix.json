@@ -17,9 +17,9 @@
     "download": "https://github.com/helix-editor/helix/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/244131fe9fd8150fcba473ef6814a1706b5585294f66a90370db603114fc131c",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

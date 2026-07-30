@@ -18,8 +18,8 @@
   },
   "security": {
     "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "evidence": "https://www.virustotal.com/gui/url/9377cb6815b2adee1f3f876adea647ba40075877203a1e6355691d9c894cc514",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

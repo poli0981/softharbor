@@ -17,9 +17,9 @@
     "download": "https://dbeaver.io/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4501ec70bd4de7a1496fa573fe3e2dd94d9caa526c3fba937085acdb2595f362",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

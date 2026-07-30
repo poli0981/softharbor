@@ -17,9 +17,9 @@
     "download": "https://tuta.com/#download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c8863f82ed982f4edc70223b48c2c9f61a9ab3495f1a96217dbc53115a417fbe",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

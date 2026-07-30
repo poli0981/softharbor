@@ -17,9 +17,9 @@
     "download": "https://github.com/Open-Shell/Open-Shell-Menu/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2f45cf28c47c8cb3c0507754e08e5f6e1562fd165a677f5ec901c86364d06711",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

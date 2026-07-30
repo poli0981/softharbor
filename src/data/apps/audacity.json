@@ -17,9 +17,9 @@
     "download": "https://www.audacityteam.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d2c5670ffca8f7043b3346757dc388534244efec995d58894440a85c3fb837a7",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

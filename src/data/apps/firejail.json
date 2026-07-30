@@ -17,9 +17,9 @@
     "download": "https://github.com/netblue30/firejail/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9e88876459679d601b7ec588868217bb7c62335ae0cd72cd0140a7cac2f5cb81",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

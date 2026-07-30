@@ -17,9 +17,9 @@
     "download": "https://www.mp3tag.de/en/download.html"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/947b1f342636fa1de9bf989a3771ed9a9d057a4b656e845117b10beb833afcc3",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

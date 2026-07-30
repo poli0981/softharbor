@@ -17,9 +17,9 @@
     "download": "https://macpaw.com/encrypto"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/27fd859dc6f6796a4bd7846fbad6606b4b234ea2881446e928cf9b741d2084c7",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

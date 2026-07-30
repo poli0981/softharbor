@@ -17,9 +17,9 @@
     "download": "https://github.com/windirstat/windirstat/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d70184d1cb10d3bbfa513d37cd5c5482744e717db7fbed1ea645852b8614d0c6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

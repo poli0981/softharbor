@@ -17,9 +17,9 @@
     "download": "https://www.literatureandlatte.com/scrivener/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/41063441172c0fbeae79443163721e3df4299e227e5c98ad48c758a46fff39ba",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

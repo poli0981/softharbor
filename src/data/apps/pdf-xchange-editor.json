@@ -17,9 +17,9 @@
     "download": "https://www.pdf-xchange.com/product/pdf-xchange-editor/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/73b363ca2df0f1bb11ebee796708aed94f4261e95ff639b481e2b1bde718da4e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

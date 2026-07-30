@@ -17,9 +17,9 @@
     "download": "https://github.com/clsid2/mpc-hc/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ebb8a016cb929f90b8f42d33c0ba4bb82dd881a0de6dc18f9675422682413197",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

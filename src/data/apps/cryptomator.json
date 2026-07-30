@@ -17,9 +17,9 @@
     "download": "https://cryptomator.org/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/91fbde4df664dbd64c1d434811fc65b850a8908a4c8f58217565c866aa63763e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://freecommander.com/en/downloads/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/33f3af50ef7db3a94ace906b4cd6580189a120022cbf8a7b18a1fa3d29ad87e6",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://rectangleapp.com"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9719bc91bbb300167c94c57ecb3fee56d9e4b9fe6537118c4ffbc3e22164eacb",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

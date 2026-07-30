@@ -17,9 +17,9 @@
     "download": "https://www.bleachbit.org/download"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/78f86bc3a8c4f304fe74919979072c98f28607051c22a7bffb2cffa8c18fa616",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }

@@ -17,9 +17,9 @@
     "download": "https://www.msi.com/Landing/afterburner/graphics-cards"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
-    "checkedAt": "2026-07-28"
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3254cf35b611f3e9629cf046a2c56e747c75cca2e12e251b8f46f16eca1b286e",
+    "checkedAt": "2026-07-30"
   },
   "addedAt": "2026-07-28"
 }
