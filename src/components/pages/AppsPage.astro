@@ -35,7 +35,11 @@ const facetOptions = {
 };
 ---
 
-<Base title={`${t(locale, 'apps.title')} — ${t(locale, 'site.name')}`} {locale}>
+<Base
+  title={`${t(locale, 'apps.title')} — ${t(locale, 'site.name')}`}
+  description={t(locale, 'meta.apps', { n: nf.format(apps.length) })}
+  {locale}
+>
   <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'apps.title')}</h1>
   <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'apps.intro')}</p>
 

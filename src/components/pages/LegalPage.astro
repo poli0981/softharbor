@@ -25,7 +25,16 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
 }).format(new Date(`${LEGAL_VERSION}T00:00:00Z`));
 ---
 
-<Base {title} {locale}>
+{
+  /* Suffixed like every other page: an unbranded <title> in a SERP reads as
+    someone else's document. The description names the document too, so the
+    six legal pages are not six copies of the site tagline. */
+}
+<Base
+  title={`${title} — ${t(locale, 'site.name')}`}
+  description={t(locale, 'meta.legal', { title })}
+  {locale}
+>
   <article class="sh-prose max-w-2xl">
     <h1 class="text-[length:var(--text-h1)] font-semibold">{title}</h1>
 

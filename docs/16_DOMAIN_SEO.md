@@ -181,6 +181,15 @@ the same PR — the current policy would junk such mail by design.
 - **OG/meta:** `og:site_name`, `og:title`, `og:description` (locale
   summary), `og:url` (canonical), `og:locale` + `og:locale:alternate`,
   `twitter:card=summary`. Per-app OG images stay post-v1 (docs/15 §2).
+- **Every indexable page needs its OWN description.** App pages get the
+  locale summary for free, but `/apps`, `/categories`, the 24 category pages
+  and the legal pages all fell through to `site.tagline` — 47 pages sharing
+  one string, which Google treats as a quality signal and usually rewrites.
+  They now build from `meta.apps`, `meta.categories`, `meta.category` and
+  `meta.legal`, so 694 of 699 pages are unique; the remainder are the home
+  page (where the tagline *is* the description) and the noindex error pages.
+  Legal pages also carry the `— SoftHarbor` title suffix now: an unbranded
+  `<title>` in a SERP reads as somebody else's document.
 
 ## 8. Search-engine plumbing
 
