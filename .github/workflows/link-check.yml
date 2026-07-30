@@ -26,8 +26,7 @@ jobs:
           # (~1 150 URLs), so a false-positive rate that looks tolerable per-PR
           # turns into an unreadable issue every Monday.
           args: >-
-            --max-concurrency 4 --retry-wait-time 2 --max-retries 3 --timeout 30
-            --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+            --max-concurrency 4 --retry-wait-time 2 --max-retries 3 --timeout 45
             --accept '200..=299,403,429'
             /tmp/urls.txt
           # Link rot is triage, not a build break — it opens an issue instead.
