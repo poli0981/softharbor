@@ -12,7 +12,7 @@
   "pricing": "free",
   "license": "GPL-3.0-only",
   "links": {
-    "homepage": "https://www.henrypp.org/product/simplewall",
+    "homepage": "https://github.com/henrypp/simplewall",
     "repo": "https://github.com/henrypp/simplewall",
     "download": "https://github.com/henrypp/simplewall/releases"
   },

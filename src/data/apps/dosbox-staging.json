@@ -14,7 +14,7 @@
   "links": {
     "homepage": "https://www.dosbox-staging.org",
     "repo": "https://github.com/dosbox-staging/dosbox-staging",
-    "download": "https://www.dosbox-staging.org/downloads/"
+    "download": "https://github.com/dosbox-staging/dosbox-staging/releases"
   },
   "security": {
     "status": "clean",

@@ -14,7 +14,7 @@
   "links": {
     "homepage": "https://nomacs.org",
     "repo": "https://github.com/nomacs/nomacs",
-    "download": "https://nomacs.org/downloads/"
+    "download": "https://github.com/nomacs/nomacs/releases"
   },
   "security": {
     "status": "clean",

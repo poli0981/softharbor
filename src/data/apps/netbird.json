@@ -14,7 +14,7 @@
   "links": {
     "homepage": "https://netbird.io",
     "repo": "https://github.com/netbirdio/netbird",
-    "download": "https://netbird.io/download"
+    "download": "https://github.com/netbirdio/netbird/releases"
   },
   "security": {
     "status": "clean",

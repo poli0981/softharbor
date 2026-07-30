@@ -53,9 +53,9 @@ Infra & correctness
 
 Content & legal
 
-- [x] All seed apps merged (§4 — **327**), every entry vetted (docs/09 §6)
+- [x] All seed apps merged (§4 — **326**), every entry vetted (docs/09 §6)
       with the scan permalink in `security.evidence`, zero `flagged`
-      — **done 2026-07-30**: 321 `clean`, 6 held at `unverified`
+      — **done 2026-07-30**: 320 `clean`, 6 held at `unverified`
 - [ ] Summaries proof-read in both locales (L4, docs/03 §2 — still open)
 - [ ] Legal drafts reviewed by Kokone (H6), contact email live (H5),
       `LEGAL_VERSION` set; gate tested on a fresh profile in both locales
@@ -91,7 +91,7 @@ individually. `(1)` = onetime, `(f)` = free with C3 ruling noted.
 **Count — superseded 2026-07-29.** The table below was the original **32
 distinct apps** (7-Zip is listed twice, primary category `utilities` and also
 under `file-management`; counted once). The seed that actually shipped is
-**327 apps** — 290 in the first batch, then 37 more filling `communication`
+**326 apps** — 290 in the first batch, then 37 more filling `communication`, less one dropped at L3
 — imported under D24. The table is kept as the record of what was originally
 proposed to H7, not as the current dataset; `src/data/apps/` is the only
 authority for that.

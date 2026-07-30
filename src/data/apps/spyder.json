@@ -14,7 +14,7 @@
   "links": {
     "homepage": "https://www.spyder-ide.org",
     "repo": "https://github.com/spyder-ide/spyder",
-    "download": "https://www.spyder-ide.org/download/"
+    "download": "https://www.spyder-ide.org/download"
   },
   "security": {
     "status": "clean",
