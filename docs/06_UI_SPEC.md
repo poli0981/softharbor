@@ -161,10 +161,19 @@ connection to load new pages."
 
 Durations 150 ms (hover/focus) · 250 ms (sheet, dialog, view transitions);
 easing `cubic-bezier(.2,.8,.2,1)`. Grid entrance: stagger opacity+4 px rise,
-30 ms apart, **first 12 cards only**. View Transitions: card logo/title
-morphs into detail header. `@media (prefers-reduced-motion: reduce)` — all
-of the above collapse to instant; ClientRouter falls back to plain
-navigation.
+30 ms apart, **first 12 cards only**. View Transitions: a cross-page fade.
+`@media (prefers-reduced-motion: reduce)` — all of the above collapse to
+instant; ClientRouter falls back to plain navigation.
+
+**The card→detail morph is withdrawn (2026-07-30) — it is not implementable
+under this CSP.** `transition:name` makes Astro emit a per-slug `<style>`, and
+Astro does not put that style's hash into the page's own CSP, so the browser
+refuses it on hard loads and on swaps alike. Allow-listing all 326 hashes
+would add ~17 KB to every page head (~12 MB across the build) for a 180 ms
+effect, and a nonce needs a Worker (hard rule 1). It had never animated in any
+case: a morph needs the same `view-transition-name` on both sides, and the
+card never carried one. Revisit only if Astro starts hashing transition
+styles. The fade is unaffected — that style *is* hashed correctly.
 
 ## 8. Responsive
 
