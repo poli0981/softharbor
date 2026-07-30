@@ -1,0 +1,25 @@
+{
+  "name": "GPU-Z",
+  "developer": "TechPowerUp",
+  "logo": "monogram",
+  "summary": {
+    "en": "Graphics card inspector showing clocks, sensors and BIOS details, with a check for fake or relabelled cards.",
+    "vi": "Công cụ kiểm tra card đồ hoạ, hiện xung nhịp, cảm biến và thông tin BIOS, có tính năng phát hiện card giả mạo."
+  },
+  "categories": ["system"],
+  "tags": ["hardware-info", "gpu", "sensors", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.techpowerup.com/gpuz/",
+    "repo": null,
+    "download": "https://www.techpowerup.com/download/techpowerup-gpu-z/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/07342581a726204ce3d811ca187821bbc256edc9c8c39057934314ea5ba9565a",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -135,7 +135,7 @@ See `CLAUDE.md` for the full table. Reading order for a new contributor:
 | H4 | Enable GitHub *Private vulnerability reporting* + *Issues* on the repo | P6 |
 | H5 | Set up Email Routing → `contact@softharbor.net` + DMARC record, then fill `<contact-email>` in docs/14 drafts and security.txt (docs/16 §6) | P6 |
 | H6 | Review & approve all legal drafts in docs/14 before first public deploy | P6 |
-| H7 | Approve the 30-app seed list (docs/13 §4) | P6 |
+| H7 | Approve the seed list — **326 apps imported 2026-07-29** (docs/13 §4, D24) | P6 |
 | H8 | Create the GSC **Domain property** for `softharbor.net` (DNS TXT verify) + enable Crawler Hints; submit sitemap & import to Bing at launch (docs/16 §8) | P6 |
 | H9 | Decide on HSTS phase P3 (`preload` submission — semi-irreversible, docs/16 §5) | post-launch |
 | H10 | Enable *Settings → Actions → General → **Allow GitHub Actions to create and approve pull requests*** — without it the nightly quarantine sweep cannot open its PR and hard rule 5 stops being enforced mechanically (docs/12 §4) | P6 |

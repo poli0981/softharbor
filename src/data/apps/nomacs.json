@@ -1,0 +1,25 @@
+{
+  "name": "nomacs",
+  "developer": "nomacs team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Image viewer with a synchronised multi-window mode for comparing pictures side by side.",
+    "vi": "Trình xem ảnh có chế độ đồng bộ nhiều cửa sổ để so sánh các bức ảnh cạnh nhau."
+  },
+  "categories": ["graphics", "utilities"],
+  "tags": ["image-viewer", "raw", "comparison", "lightweight"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://nomacs.org",
+    "repo": "https://github.com/nomacs/nomacs",
+    "download": "https://github.com/nomacs/nomacs/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e41ea7d1e3fdacd6fcdcbb0da596a5ab8ef49b016903d3df1c17ffc32dca674e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Helium",
+  "developer": "imput",
+  "logo": "monogram",
+  "summary": {
+    "en": "Chromium build derived from ungoogled-chromium, shipping uBlock Origin as a native component.",
+    "vi": "Bản dựng Chromium phát triển từ ungoogled-chromium, tích hợp sẵn uBlock Origin như một thành phần gốc."
+  },
+  "categories": ["browser", "security-privacy"],
+  "tags": ["chromium", "ungoogled", "adblock", "beta"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://helium.computer",
+    "repo": "https://github.com/imputnet/helium",
+    "download": "https://helium.computer"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a25c2cf1aba9368a2cba36ebfd6c3acc01987e0889991f69d0d895a40f22c76e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Alacritty",
+  "developer": "Alacritty contributors",
+  "logo": "simple-icons:alacritty",
+  "summary": {
+    "en": "Minimal GPU-rendered terminal with no tabs or splits, configured entirely through a text file.",
+    "vi": "Terminal tối giản dựng hình bằng GPU, không có tab hay chia khung, cấu hình qua một tệp văn bản."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["terminal", "gpu-accelerated", "minimal", "rust"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://alacritty.org",
+    "repo": "https://github.com/alacritty/alacritty",
+    "download": "https://github.com/alacritty/alacritty/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e8ac3c3060a6fe5a0a32c2dec6ceafcd718755838f676c80bd22350f1e0eea36",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

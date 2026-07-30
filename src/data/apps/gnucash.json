@@ -1,0 +1,25 @@
+{
+  "name": "GnuCash",
+  "developer": "GnuCash contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Personal and small business accounting built on double-entry bookkeeping, with reports and scheduled entries.",
+    "vi": "Phần mềm kế toán cá nhân và hộ kinh doanh theo nguyên tắc bút toán kép, có báo cáo và bút toán định kỳ."
+  },
+  "categories": ["productivity"],
+  "tags": ["accounting", "double-entry", "invoicing", "reports"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.gnucash.org",
+    "repo": "https://github.com/Gnucash/gnucash",
+    "download": "https://www.gnucash.org/download.phtml"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/1f70b0afb519e2866f544a075dec17583c506c7083d94b20a66182040dffc06b",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

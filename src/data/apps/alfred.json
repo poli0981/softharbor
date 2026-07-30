@@ -1,0 +1,25 @@
+{
+  "name": "Alfred",
+  "developer": "Running with Crayons Ltd",
+  "logo": "simple-icons:alfred",
+  "summary": {
+    "en": "macOS launcher for apps, files and web searches; a one-time Powerpack adds workflows and clipboard history.",
+    "vi": "Trình khởi chạy ứng dụng, tệp và tìm kiếm web cho macOS; gói Powerpack mua một lần thêm workflow và lịch sử clipboard."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["launcher", "workflows", "clipboard", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.alfredapp.com",
+    "repo": null,
+    "download": "https://www.alfredapp.com/#download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f52da1e204a4b23dee3685b323e3c55d8f6c13555400f15f1d6cf1483c40813d",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Sunshine",
+  "developer": "LizardByte",
+  "logo": "monogram",
+  "summary": {
+    "en": "Self-hosted game streaming server that pairs with Moonlight clients to play PC games on another device.",
+    "vi": "Máy chủ phát game tự dựng, ghép với ứng dụng Moonlight để chơi game PC từ một thiết bị khác."
+  },
+  "categories": ["gaming"],
+  "tags": ["game-streaming", "host", "self-hosted", "low-latency"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://github.com/LizardByte/Sunshine",
+    "repo": "https://github.com/LizardByte/Sunshine",
+    "download": "https://github.com/LizardByte/Sunshine/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7096535bf005fe3eaf05a256dc8b93dd0368c44175adabedefc12d8040c8f268",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

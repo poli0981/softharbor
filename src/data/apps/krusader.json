@@ -1,0 +1,25 @@
+{
+  "name": "Krusader",
+  "developer": "KDE",
+  "logo": "monogram",
+  "summary": {
+    "en": "Dual-pane manager for Linux desktops, handling archives, mounts and remote shares as ordinary folders.",
+    "vi": "Trình quản lý hai khung cho Linux, xử lý tệp nén, ổ gắn kết và chia sẻ mạng như thư mục thường."
+  },
+  "categories": ["file-management"],
+  "tags": ["dual-pane", "kde", "archives", "remote-shares"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://krusader.org",
+    "repo": "https://github.com/KDE/krusader",
+    "download": "https://krusader.org/get-krusader/index.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e46144d3d8ca0b3437ccd732828bfffce38b8735f00f129c2e0b3e70302d5c41",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

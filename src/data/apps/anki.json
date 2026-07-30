@@ -1,0 +1,25 @@
+{
+  "name": "Anki",
+  "developer": "Ankitects",
+  "logo": "simple-icons:anki",
+  "summary": {
+    "en": "Flashcard tool with a spaced repetition scheduler that shows each card again just before you would forget it.",
+    "vi": "Ứng dụng thẻ ghi nhớ với thuật toán lặp lại ngắt quãng, hiện lại mỗi thẻ ngay trước lúc bạn sắp quên."
+  },
+  "categories": ["productivity"],
+  "tags": ["flashcards", "spaced-repetition", "study", "sync"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://apps.ankiweb.net",
+    "repo": "https://github.com/ankitects/anki",
+    "download": "https://apps.ankiweb.net"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c6db457a817f75f282787953b476e1f0d7f3d6e134191996e8e155c8a14625c8",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

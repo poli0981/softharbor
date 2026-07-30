@@ -1,0 +1,25 @@
+{
+  "name": "Scribus",
+  "developer": "The Scribus Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Desktop publishing tool for print layouts, with CMYK colour handling and PDF/X export.",
+    "vi": "Công cụ dàn trang cho ấn phẩm in, xử lý hệ màu CMYK và xuất tệp PDF/X phục vụ nhà in."
+  },
+  "categories": ["graphics", "productivity"],
+  "tags": ["dtp", "layout", "cmyk", "pdf"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.scribus.net",
+    "repo": "https://github.com/scribusproject/scribus",
+    "download": "https://www.scribus.net/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/532457e89cffbea97f9f17903bcc8c9ec554c198cdfda64a633d214838b42213",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

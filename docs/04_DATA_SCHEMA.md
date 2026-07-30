@@ -28,7 +28,7 @@ export const apps = defineCollection({
   schema: z.object({
     name: z.string().min(1).max(60),
     developer: z.string().min(1).max(80),         // who publishes it — docs/06 §5
-    logo: z.string().regex(/^(simple-icons:[a-z0-9]+|local:[a-z0-9-]+\.(svg|webp))$/),
+    logo: z.string().regex(/^(simple-icons:[a-z0-9]+|local:[a-z0-9-]+\.svg|monogram)$/),
     summary: z.object({
       en: z.string().min(20).max(160),
       vi: z.string().min(20).max(160),
@@ -65,7 +65,7 @@ contract (docs/03 §6) never silently grows.
 |---|---|---|
 | *(slug)* | filename | `^[a-z0-9]+(-[a-z0-9]+)*$`, ≤ 40 chars, permanent once shipped (it is the URL and the RSS guid). Renaming = new file + `_redirects` entry. |
 | `name` | string | Official product name, original casing ("7-Zip", "paint.net"). |
-| `logo` | string | `simple-icons:<slug>` preferred (build-time SVG, inherits `currentColor`); else `local:<file>` in `src/assets/logos/` — SVG preferred, else WebP ≤ 512 px, ≤ 50 KB, transparent bg. Usage rules: docs/14 §3d. |
+| `logo` | string | `simple-icons:<slug>` preferred (build-time SVG, inherits `currentColor`); else `local:<file>.svg` in `src/assets/logos/`, from the vendor's own brand assets; else `monogram`, which renders the app's initials because no mark is available (D23). Usage rules: docs/14 §3d. |
 | `developer` | string 1–80 | **Required.** The person, company, or project that publishes the software, as *they* write it ("Igor Pavlov", "Serif (Europe) Ltd", "VSCodium contributors"). Rendered on the detail page (docs/06 §5). This is a trust signal, not decoration: it lets a reader confirm the entry names the real vendor before following `links.download`. Not a legal-entity lookup — use the name on the official homepage. The field is singular; there is no separate `publisher`. |
 | `summary.en/.vi` | string 20–160 | Original wording (hard rule 8). Pattern: *what it is* + *one differentiator*. No superlatives, no emoji. |
 | `categories` | ref[] 1–3 | Ids from §4; first entry = primary (drives detail-page breadcrumb). |
@@ -168,7 +168,11 @@ taxonomy from sprawling).
 }
 ```
 
-`src/data/apps/vscodium.json` — local logo fallback example:
+`src/data/apps/vscodium.json` — logo fallback example. `local:` is for a
+vendor-official asset committed to `src/assets/logos/`; when neither Simple
+Icons nor the vendor gives us a usable mark, the value is `monogram` instead
+and the renderer draws the initials (D23). VSCodium itself now resolves to
+`simple-icons:vscodium` — the `local:` value below is illustrative only:
 
 ```json
 {

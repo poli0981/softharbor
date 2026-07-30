@@ -1,0 +1,25 @@
+{
+  "name": "ForkLift",
+  "developer": "BinaryNights, LLC",
+  "logo": "monogram",
+  "summary": {
+    "en": "macOS dual-pane manager that doubles as an SFTP and cloud client, sold with a perpetual licence.",
+    "vi": "Trình quản lý hai khung cho macOS kiêm luôn ứng dụng SFTP và đám mây, bán theo giấy phép vĩnh viễn."
+  },
+  "categories": ["file-management"],
+  "tags": ["dual-pane", "sftp", "sync", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://binarynights.com",
+    "repo": null,
+    "download": "https://binarynights.com/forklift/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ac8a274fb39632eeaa5779d73019e2284afc9fd4bb8ebd79d3265d242c72ba6e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

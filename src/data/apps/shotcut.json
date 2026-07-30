@@ -1,0 +1,25 @@
+{
+  "name": "Shotcut",
+  "developer": "Meltytech, LLC",
+  "logo": "simple-icons:shotcut",
+  "summary": {
+    "en": "Video editor built on the MLT framework, with a wide codec list and no import step before editing.",
+    "vi": "Trình dựng phim trên nền MLT, hỗ trợ nhiều codec và không cần bước nhập tệp trước khi dựng."
+  },
+  "categories": ["media"],
+  "tags": ["video-editing", "mlt", "filters", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://shotcut.org",
+    "repo": "https://github.com/mltframework/shotcut",
+    "download": "https://shotcut.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6c12f7a34e157ae145e8adf368b96b5757d334c45f0e5ea6a26319526eb8cb41",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

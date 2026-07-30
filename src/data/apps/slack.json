@@ -1,0 +1,25 @@
+{
+  "name": "Slack",
+  "developer": "Slack Technologies, LLC",
+  "logo": "simple-icons:slack",
+  "summary": {
+    "en": "Team chat organised into channels and threads, with a free tier that keeps the most recent 90 days of history.",
+    "vi": "Ứng dụng chat nhóm theo kênh và luồng thảo luận, bậc miễn phí chỉ giữ lại lịch sử tin nhắn trong 90 ngày gần nhất."
+  },
+  "categories": ["communication", "productivity"],
+  "tags": ["channels", "threads", "integrations", "huddles"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://slack.com",
+    "repo": null,
+    "download": "https://slack.com/downloads"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6b23188b68ee045439c92232f8299379f6ef9d064992df381c709c4c68979cf7",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

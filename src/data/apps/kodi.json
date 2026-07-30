@@ -1,0 +1,25 @@
+{
+  "name": "Kodi",
+  "developer": "XBMC Foundation",
+  "logo": "simple-icons:kodi",
+  "summary": {
+    "en": "Media centre that organises local video and music libraries for playback on a TV screen.",
+    "vi": "Trung tâm giải trí sắp xếp thư viện phim và nhạc trên máy để phát trên màn hình TV."
+  },
+  "categories": ["media"],
+  "tags": ["media-center", "htpc", "library", "remote-control"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://kodi.tv",
+    "repo": "https://github.com/xbmc/xbmc",
+    "download": "https://kodi.tv/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/48cb3fecdc84c45b208f71a97360ff2c7a0c8352c9622c90cf64f09c9e2e8529",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

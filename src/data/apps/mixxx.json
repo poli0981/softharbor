@@ -1,0 +1,25 @@
+{
+  "name": "Mixxx",
+  "developer": "Mixxx Development Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "DJ software with beat detection, four-deck mixing and support for common DJ controllers.",
+    "vi": "Phần mềm DJ có nhận diện nhịp, mix bốn deck và hỗ trợ các bộ điều khiển DJ phổ biến."
+  },
+  "categories": ["media"],
+  "tags": ["dj", "mixing", "beatmatching", "midi-controller"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://mixxx.org",
+    "repo": "https://github.com/mixxxdj/mixxx",
+    "download": "https://mixxx.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/75390d0cfd88a22d9263674aae927952a1a0f1540a57de9356eb798c526055ac",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "AntiMicroX",
+  "developer": "AntiMicroX contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Maps gamepad buttons and sticks to keyboard and mouse input, so a controller can drive games with no pad support.",
+    "vi": "Ánh xạ nút và cần tay cầm thành thao tác bàn phím, chuột để chơi được cả những game không hỗ trợ tay cầm."
+  },
+  "categories": ["gaming", "utilities"],
+  "tags": ["gamepad", "key-mapping", "profiles", "accessibility"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://github.com/AntiMicroX/antimicrox",
+    "repo": "https://github.com/AntiMicroX/antimicrox",
+    "download": "https://github.com/AntiMicroX/antimicrox/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/620bae05d58f680547377f88dc9f9313d2a462af3410270025257c4151b6ed1d",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

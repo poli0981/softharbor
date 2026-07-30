@@ -1,0 +1,25 @@
+{
+  "name": "LibreSprite",
+  "developer": "LibreSprite contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Community fork of the last open-source Aseprite release, kept under the original GPL terms.",
+    "vi": "Bản fork cộng đồng từ phiên bản mã nguồn mở cuối của Aseprite, giữ nguyên giấy phép GPL ban đầu."
+  },
+  "categories": ["graphics", "gaming"],
+  "tags": ["pixel-art", "animation", "fork", "game-assets"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://libresprite.github.io",
+    "repo": "https://github.com/LibreSprite/LibreSprite",
+    "download": "https://github.com/LibreSprite/LibreSprite/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5315d33f4517bc8cc8d3e4de0bcf4d079d60a5adc0f47029a68a4b6596ef7f65",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

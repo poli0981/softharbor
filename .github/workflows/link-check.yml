@@ -21,7 +21,14 @@ jobs:
       - id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          args: '--max-concurrency 4 --retry-wait-time 2 /tmp/urls.txt'
+          # Kept in step with ci.yml's PR sweep — see the note there for why
+          # 403/429 are accepted. The weekly run covers the whole catalogue
+          # (~1 150 URLs), so a false-positive rate that looks tolerable per-PR
+          # turns into an unreadable issue every Monday.
+          args: >-
+            --max-concurrency 4 --retry-wait-time 2 --max-retries 3 --timeout 45
+            --accept '200..=299,403,429'
+            /tmp/urls.txt
           # Link rot is triage, not a build break — it opens an issue instead.
           fail: false
 

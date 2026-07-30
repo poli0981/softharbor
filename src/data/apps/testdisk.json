@@ -1,0 +1,25 @@
+{
+  "name": "TestDisk & PhotoRec",
+  "developer": "Christophe Grenier",
+  "logo": "monogram",
+  "summary": {
+    "en": "Recovers lost partitions and carves deleted files back off a disk by reading their signatures.",
+    "vi": "Khôi phục phân vùng bị mất và lấy lại tệp đã xoá từ ổ đĩa bằng cách đọc chữ ký định dạng."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["recovery", "partitions", "undelete", "cli"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.cgsecurity.org/wiki/TestDisk",
+    "repo": null,
+    "download": "https://www.cgsecurity.org/wiki/TestDisk_Download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3cd39eb3a6d4e5940c494df64fd6d8d008e71729d2684c4a6fc452e7cb0d2f2f",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

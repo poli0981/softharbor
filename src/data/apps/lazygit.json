@@ -1,0 +1,25 @@
+{
+  "name": "lazygit",
+  "developer": "Jesse Duffield",
+  "logo": "monogram",
+  "summary": {
+    "en": "Terminal interface for Git that turns staging, rebasing and stashing into single keystrokes.",
+    "vi": "Giao diện Git trong terminal, biến thao tác stage, rebase và stash thành từng phím bấm đơn lẻ."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["git", "terminal", "tui", "keyboard-driven"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/jesseduffield/lazygit",
+    "repo": "https://github.com/jesseduffield/lazygit",
+    "download": "https://github.com/jesseduffield/lazygit/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/05a06134bfd51291591167ea08282996912ff4244625b1875ddc40b835c52905",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

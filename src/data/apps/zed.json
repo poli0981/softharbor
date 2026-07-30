@@ -1,0 +1,25 @@
+{
+  "name": "Zed",
+  "developer": "Zed Industries",
+  "logo": "monogram",
+  "summary": {
+    "en": "Rust code editor with GPU rendering and built-in multiplayer editing, from the team behind Atom.",
+    "vi": "Trình soạn thảo viết bằng Rust, dựng hình bằng GPU và có sẵn chế độ nhiều người cùng chỉnh sửa."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["rust", "gpu-accelerated", "collaboration", "lsp"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://zed.dev",
+    "repo": "https://github.com/zed-industries/zed",
+    "download": "https://zed.dev/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c74d3df1a68ade97f18a664a3fcbbbb1f13e1b91bee12560cc9e360366036c37",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

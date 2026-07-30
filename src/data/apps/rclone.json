@@ -1,0 +1,25 @@
+{
+  "name": "rclone",
+  "developer": "Nick Craig-Wood",
+  "logo": "simple-icons:rclone",
+  "summary": {
+    "en": "Command line tool that copies and syncs between more than seventy cloud storage services and local disks.",
+    "vi": "Công cụ dòng lệnh sao chép và đồng bộ giữa hơn bảy mươi dịch vụ lưu trữ đám mây với ổ đĩa nội bộ."
+  },
+  "categories": ["file-management", "developer-tools"],
+  "tags": ["cli", "cloud-storage", "sync", "mount"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://rclone.org",
+    "repo": "https://github.com/rclone/rclone",
+    "download": "https://rclone.org/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5fabc5620e1090a011cb7fdb5d6a996f55a4e79da5128de29445ba498e9683f3",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

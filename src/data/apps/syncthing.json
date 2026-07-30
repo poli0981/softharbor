@@ -1,0 +1,25 @@
+{
+  "name": "Syncthing",
+  "developer": "The Syncthing Foundation",
+  "logo": "simple-icons:syncthing",
+  "summary": {
+    "en": "Syncs folders directly between your own devices, with no central server holding a copy of the files.",
+    "vi": "Đồng bộ thư mục trực tiếp giữa các thiết bị của bạn, không có máy chủ trung tâm nào giữ bản sao tệp."
+  },
+  "categories": ["file-management"],
+  "tags": ["peer-to-peer", "sync", "self-hosted", "versioning"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://syncthing.net",
+    "repo": "https://github.com/syncthing/syncthing",
+    "download": "https://syncthing.net/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/37ab2a43a599bd36428452f8167b59ffbda9d8257380a5c99a9ee0a64d8c2237",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

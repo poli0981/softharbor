@@ -1,0 +1,25 @@
+{
+  "name": "Gpg4win",
+  "developer": "Intevation GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "Packages GnuPG for Windows together with Kleopatra, a graphical manager for OpenPGP and S/MIME keys.",
+    "vi": "Đóng gói GnuPG cho Windows kèm Kleopatra, giao diện đồ hoạ quản lý khoá OpenPGP và S/MIME."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["openpgp", "gnupg", "key-management", "signing"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.gpg4win.org",
+    "repo": null,
+    "download": "https://www.gpg4win.org/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/75296b5b84deb8cd77bda0c4603c37d6e46e10bc3181dfbdd3a616db40e5de8a",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

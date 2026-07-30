@@ -1,0 +1,25 @@
+{
+  "name": "AdwCleaner",
+  "developer": "Malwarebytes Inc.",
+  "logo": "monogram",
+  "summary": {
+    "en": "Single-purpose cleaner for adware, toolbars and bundled junk, run from one portable file with no install.",
+    "vi": "Công cụ chuyên dọn adware, thanh công cụ và phần mềm cài kèm, chạy từ một tệp di động không cần cài đặt."
+  },
+  "categories": ["security-privacy", "utilities"],
+  "tags": ["adware", "pup-removal", "portable", "cleanup"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.malwarebytes.com/adwcleaner",
+    "repo": null,
+    "download": "https://www.malwarebytes.com/adwcleaner"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bc01e3692d3c6f3f13c9d680dab0cc114507257ab7037cdc64901f822cab81ce",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

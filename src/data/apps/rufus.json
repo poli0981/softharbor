@@ -1,0 +1,25 @@
+{
+  "name": "Rufus",
+  "developer": "Pete Batard",
+  "logo": "monogram",
+  "summary": {
+    "en": "Writes bootable USB drives from ISO images, and can strip the online account requirement from Windows installers.",
+    "vi": "Tạo USB khởi động từ tệp ISO, có thể loại bỏ yêu cầu đăng nhập tài khoản trực tuyến khi cài Windows."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["bootable-usb", "iso", "portable", "installer"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://rufus.ie",
+    "repo": "https://github.com/pbatard/rufus",
+    "download": "https://rufus.ie"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/0d45b71891848130fb69168abce307994fc2822a032f807e288b274bc61bc191",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

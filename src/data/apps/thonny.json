@@ -1,0 +1,25 @@
+{
+  "name": "Thonny",
+  "developer": "Aivar Annamaa",
+  "logo": "monogram",
+  "summary": {
+    "en": "Python IDE for beginners that steps through expression evaluation and shows variable state visually.",
+    "vi": "IDE Python cho người mới, chạy từng bước biểu thức và hiển thị trạng thái biến một cách trực quan."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["python", "beginners", "education", "debugger"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://thonny.org",
+    "repo": "https://github.com/thonny/thonny",
+    "download": "https://thonny.org"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2a5df0adf0251d760954ea8786a2c21571f7be2ff47068e40dabb7730927a84a",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

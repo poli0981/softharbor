@@ -1,0 +1,25 @@
+{
+  "name": "mGBA",
+  "developer": "endrift",
+  "logo": "monogram",
+  "summary": {
+    "en": "Game Boy Advance emulator with accurate timing, link cable emulation and a debugger for homebrew work.",
+    "vi": "Trình giả lập Game Boy Advance với định thời chính xác, mô phỏng cáp link và trình gỡ lỗi cho người viết homebrew."
+  },
+  "categories": ["gaming"],
+  "tags": ["game-boy-advance", "accuracy", "link-cable", "debugger"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://mgba.io",
+    "repo": "https://github.com/mgba-emu/mgba",
+    "download": "https://mgba.io/downloads.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ef561bbf16eac336cc55fa1fcd262ce075cd9a176082109507c82eb680d10340",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Homebrew",
+  "developer": "Homebrew contributors",
+  "logo": "simple-icons:homebrew",
+  "summary": {
+    "en": "Package manager for macOS and Linux that installs command-line tools and desktop apps from the terminal.",
+    "vi": "Trình quản lý gói cho macOS và Linux, cài công cụ dòng lệnh lẫn ứng dụng desktop ngay từ terminal."
+  },
+  "categories": ["system", "developer-tools"],
+  "tags": ["package-manager", "cli", "formulae", "casks"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-2-Clause",
+  "links": {
+    "homepage": "https://brew.sh",
+    "repo": "https://github.com/Homebrew/brew",
+    "download": "https://brew.sh"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/fea617439e19357bfe0e6404897583535935265b1301c5e3c5bdc8313fa7e697",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

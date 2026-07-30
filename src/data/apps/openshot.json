@@ -1,0 +1,25 @@
+{
+  "name": "OpenShot",
+  "developer": "OpenShot Studios, LLC",
+  "logo": "monogram",
+  "summary": {
+    "en": "Video editor aimed at beginners, with drag-and-drop tracks and ready-made title templates.",
+    "vi": "Trình dựng phim hướng tới người mới, kéo thả track và có sẵn các mẫu tiêu đề dựng sẵn."
+  },
+  "categories": ["media"],
+  "tags": ["video-editing", "beginners", "titles", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.openshot.org",
+    "repo": "https://github.com/OpenShot/openshot-qt",
+    "download": "https://www.openshot.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/04a8a9f223d7f4f9a38fd51f3b9a006bc0866700d359692e4be67ffd934a3a70",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

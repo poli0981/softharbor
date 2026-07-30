@@ -1,0 +1,25 @@
+{
+  "name": "JabRef",
+  "developer": "JabRef e.V.",
+  "logo": "monogram",
+  "summary": {
+    "en": "Reference manager built directly on BibTeX files, aimed at LaTeX workflows and shared library files.",
+    "vi": "Trình quản lý tài liệu tham khảo làm việc trực tiếp trên tệp BibTeX, hướng tới quy trình LaTeX và thư viện dùng chung."
+  },
+  "categories": ["productivity"],
+  "tags": ["bibtex", "latex", "research", "citations"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://www.jabref.org",
+    "repo": "https://github.com/JabRef/jabref",
+    "download": "https://www.jabref.org/#downloads"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c4946ef5f49f21fab4d0b9cbf6080dd483f8ee37411b598f7cde2388205eb3c4",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

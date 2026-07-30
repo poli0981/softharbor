@@ -1,0 +1,25 @@
+{
+  "name": "Upscayl",
+  "developer": "Upscayl",
+  "logo": "monogram",
+  "summary": {
+    "en": "Image upscaler that runs open-source AI models locally, without uploading files to a server.",
+    "vi": "Công cụ phóng to ảnh chạy mô hình AI mã nguồn mở ngay trên máy, không tải tệp lên máy chủ."
+  },
+  "categories": ["graphics", "utilities"],
+  "tags": ["upscaling", "offline-ai", "batch-processing", "photography"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://upscayl.org",
+    "repo": "https://github.com/upscayl/upscayl",
+    "download": "https://github.com/upscayl/upscayl/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/cf6758cf481912ca77857c5c19ab754d5a286bda9b6dd62e2bd5c7de15cce849",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

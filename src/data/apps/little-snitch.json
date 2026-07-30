@@ -1,0 +1,25 @@
+{
+  "name": "Little Snitch",
+  "developer": "Objective Development Software GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "macOS application firewall with a rule editor and live traffic map, sold as a perpetual licence.",
+    "vi": "Tường lửa theo ứng dụng cho macOS, có trình soạn luật và bản đồ lưu lượng, bán theo giấy phép vĩnh viễn."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["firewall", "network-monitor", "macos-native", "no-subscription"],
+  "platforms": ["macos"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://obdev.at/products/littlesnitch/index.html",
+    "repo": null,
+    "download": "https://obdev.at/products/littlesnitch/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5ff5cb7d6d7bb4d70111825b1855c1020e4692b932537832a881229f301a503b",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

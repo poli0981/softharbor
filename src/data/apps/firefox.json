@@ -1,21 +1,25 @@
 {
   "name": "Firefox",
   "developer": "Mozilla",
-  "logo": "simple-icons:firefox",
+  "logo": "simple-icons:firefoxbrowser",
   "summary": {
-    "en": "Web browser with an independent rendering engine and tracking protection enabled by default.",
-    "vi": "Trình duyệt web dùng engine dựng trang độc lập, bật sẵn tính năng chặn theo dõi."
+    "en": "Independent browser on Mozilla's Gecko engine, with container tabs that keep separate logins isolated from each other.",
+    "vi": "Trình duyệt độc lập chạy engine Gecko của Mozilla, có tab container giúp tách biệt các phiên đăng nhập khác nhau."
   },
-  "categories": ["browser"],
-  "tags": ["browser", "privacy"],
+  "categories": ["browser", "security-privacy"],
+  "tags": ["gecko", "privacy", "extensions", "cross-platform"],
   "platforms": ["windows", "macos", "linux"],
   "pricing": "free",
   "license": "MPL-2.0",
   "links": {
-    "homepage": "https://www.mozilla.org/firefox/",
-    "repo": "https://hg.mozilla.org/mozilla-central",
-    "download": "https://www.mozilla.org/firefox/new/"
+    "homepage": "https://www.mozilla.org/en-US/firefox/",
+    "repo": "https://github.com/mozilla-firefox/firefox",
+    "download": "https://www.mozilla.org/en-US/firefox/new/"
   },
-  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/49c6bfcd46b2cc8b901edd8611348c5cfd625c8176e5f95e969e197ad4ba078a",
+    "checkedAt": "2026-07-30"
+  },
   "addedAt": "2026-07-28"
 }

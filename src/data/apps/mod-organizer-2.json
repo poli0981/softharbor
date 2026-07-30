@@ -1,0 +1,25 @@
+{
+  "name": "Mod Organizer 2",
+  "developer": "Mod Organizer 2 Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Mod manager that keeps each mod in its own folder and merges them through a virtual file system, leaving the game untouched.",
+    "vi": "Trình quản lý mod giữ mỗi mod trong thư mục riêng rồi ghép lại bằng hệ tệp ảo, không đụng đến thư mục game gốc."
+  },
+  "categories": ["gaming"],
+  "tags": ["mod-manager", "virtual-filesystem", "profiles", "load-order"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.modorganizer.org",
+    "repo": "https://github.com/ModOrganizer2/modorganizer",
+    "download": "https://github.com/ModOrganizer2/modorganizer/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2fb7257c4a539ab1ce33faf4a96769adf484dfc276a5ddf25a8ea3b72aca78cd",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

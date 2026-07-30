@@ -1,0 +1,25 @@
+{
+  "name": "ImageGlass",
+  "developer": "Duong Dieu Phap",
+  "logo": "monogram",
+  "summary": {
+    "en": "Windows image viewer that opens large files quickly and reads formats the built-in viewer skips.",
+    "vi": "Trình xem ảnh cho Windows, mở tệp lớn nhanh và đọc được nhiều định dạng mà trình mặc định bỏ qua."
+  },
+  "categories": ["graphics", "utilities"],
+  "tags": ["image-viewer", "lightweight", "webp", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://imageglass.org",
+    "repo": "https://github.com/d2phap/ImageGlass",
+    "download": "https://imageglass.org/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9e32caae83a42c595729b4587ee4bf61f6196ced4eac81157f7f189d8e0378b2",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

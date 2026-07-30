@@ -1,0 +1,25 @@
+{
+  "name": "FocusWriter",
+  "developer": "Graeme Gott",
+  "logo": "monogram",
+  "summary": {
+    "en": "Full-screen writing tool that hides its own interface until you move the mouse, with daily word-count goals.",
+    "vi": "Công cụ viết toàn màn hình, ẩn hết giao diện cho tới khi bạn di chuột, kèm mục tiêu số chữ mỗi ngày."
+  },
+  "categories": ["productivity"],
+  "tags": ["distraction-free", "writing", "word-count", "themes"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://gottcode.org/focuswriter/",
+    "repo": "https://github.com/gottcode/focuswriter",
+    "download": "https://gottcode.org/focuswriter/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/66068e3f0e46cd8d7a5d513d980a423dd0f608206f1e1d31afb6ca7af1bc1a1d",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

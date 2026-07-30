@@ -1,0 +1,25 @@
+{
+  "name": "Avidemux",
+  "developer": "Avidemux team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Simple tool for cutting, filtering and re-encoding video without a full editing timeline.",
+    "vi": "Công cụ đơn giản để cắt, lọc và mã hoá lại video mà không cần dòng thời gian dựng đầy đủ."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["video-cutting", "transcoding", "filters", "lightweight"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://avidemux.sourceforge.net",
+    "repo": "https://github.com/mean00/avidemux2",
+    "download": "https://avidemux.sourceforge.net/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/01ec7e7dd88f4831f53c687f23072cdf1f7d216eb5a52784b0418492f553e407",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

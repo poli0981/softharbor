@@ -1,0 +1,25 @@
+{
+  "name": "Directory Opus",
+  "developer": "GPSoftware",
+  "logo": "monogram",
+  "summary": {
+    "en": "Explorer replacement that can take over every Windows folder window, with scripting and custom toolbars.",
+    "vi": "Bản thay thế Explorer, có thể tiếp quản mọi cửa sổ thư mục Windows, kèm scripting và thanh công cụ tuỳ biến."
+  },
+  "categories": ["file-management"],
+  "tags": ["explorer-replacement", "dual-pane", "scripting", "customization"],
+  "platforms": ["windows"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.gpsoft.com.au",
+    "repo": null,
+    "download": "https://www.gpsoft.com.au/#Download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3d935b1b200525731c67e81f7c191cbd91f72b8926cba64dd7d86088b6016d17",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

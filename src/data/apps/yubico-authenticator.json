@@ -1,0 +1,25 @@
+{
+  "name": "Yubico Authenticator",
+  "developer": "Yubico",
+  "logo": "simple-icons:yubico",
+  "summary": {
+    "en": "Desktop app that reads one-time codes off a YubiKey, so the secrets never sit on the computer itself.",
+    "vi": "Ứng dụng đọc mã dùng một lần trực tiếp từ YubiKey, nhờ vậy khoá bí mật không nằm trên máy tính."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["two-factor", "totp", "hardware-key", "smartcard"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://www.yubico.com/products/yubico-authenticator/",
+    "repo": "https://github.com/Yubico/yubioath-flutter",
+    "download": "https://www.yubico.com/products/yubico-authenticator/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/787fd6522ca63648f7f5bfa031b57e14f871dd7fa5c09727cf3a2b71c04044fd",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

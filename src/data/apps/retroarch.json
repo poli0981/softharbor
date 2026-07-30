@@ -1,0 +1,25 @@
+{
+  "name": "RetroArch",
+  "developer": "Libretro",
+  "logo": "simple-icons:retroarch",
+  "summary": {
+    "en": "Front end that runs many emulator cores behind one interface, sharing shader, netplay and rewind features.",
+    "vi": "Giao diện chung chạy nhiều lõi giả lập khác nhau, dùng chung tính năng shader, chơi qua mạng và tua ngược."
+  },
+  "categories": ["gaming"],
+  "tags": ["emulation", "frontend", "shaders", "netplay"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.retroarch.com",
+    "repo": "https://github.com/libretro/RetroArch",
+    "download": "https://www.retroarch.com/?page=platforms"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3c2928978fd6c5e7a64df181c742188488b32ad35b61d54fc719681eebbaf4e2",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Podman Desktop",
+  "developer": "Red Hat",
+  "logo": "simple-icons:podman",
+  "summary": {
+    "en": "Container manager that runs images without a background daemon or root privileges.",
+    "vi": "Trình quản lý container chạy image mà không cần daemon nền hay quyền root."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["containers", "kubernetes", "rootless", "daemonless"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://podman-desktop.io",
+    "repo": "https://github.com/podman-desktop/podman-desktop",
+    "download": "https://podman-desktop.io/downloads"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9b4d99742d207eb424ff107b8dad405d53d64af6cebe67b42005a11d5858be9d",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

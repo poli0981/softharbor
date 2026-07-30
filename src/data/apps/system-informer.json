@@ -1,0 +1,25 @@
+{
+  "name": "System Informer",
+  "developer": "Winsider Seminars & Solutions Inc.",
+  "logo": "monogram",
+  "summary": {
+    "en": "Task manager replacement showing process trees, open handles, loaded modules and live network activity.",
+    "vi": "Bản thay thế Task Manager, hiện cây tiến trình, handle đang mở, module đã nạp và hoạt động mạng theo thời gian thực."
+  },
+  "categories": ["system"],
+  "tags": ["process-manager", "task-manager", "handles", "troubleshooting"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://systeminformer.sourceforge.io",
+    "repo": "https://github.com/winsiderss/systeminformer",
+    "download": "https://systeminformer.sourceforge.io/downloads.php"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ff63f39edfeb54fe4095f57d1558d2b6765393d51349fd49c6f90d91aebec12d",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

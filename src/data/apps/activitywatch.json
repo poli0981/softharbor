@@ -1,0 +1,25 @@
+{
+  "name": "ActivityWatch",
+  "developer": "ActivityWatch contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Automatic time tracker that records which apps and sites you use, keeping all the data on your own machine.",
+    "vi": "Công cụ tự động ghi lại thời gian dùng ứng dụng và trang web, toàn bộ dữ liệu nằm trên máy của bạn."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["time-tracking", "local-first", "statistics", "privacy"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://activitywatch.net",
+    "repo": "https://github.com/ActivityWatch/activitywatch",
+    "download": "https://activitywatch.net/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/66ec73178edf83ac3561f6754f04cb1a3e2d4067740fa6458b21edfec1fe1379",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

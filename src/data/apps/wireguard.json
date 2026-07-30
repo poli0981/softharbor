@@ -1,0 +1,25 @@
+{
+  "name": "WireGuard",
+  "developer": "Jason A. Donenfeld",
+  "logo": "simple-icons:wireguard",
+  "summary": {
+    "en": "VPN tunnel built on a small modern codebase, configured through short key-based files instead of a GUI wizard.",
+    "vi": "Đường hầm VPN dựng trên mã nguồn nhỏ gọn hiện đại, cấu hình bằng tệp khoá ngắn thay vì trình hướng dẫn."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["vpn", "tunnel", "self-hosted", "cryptography"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://www.wireguard.com",
+    "repo": null,
+    "download": "https://www.wireguard.com/install/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/69ae1f9baaa716e42df9bbcf441668a8679cf53807acf08b59368bbd9409d215",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

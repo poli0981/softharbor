@@ -1,0 +1,25 @@
+{
+  "name": "PDFsam Basic",
+  "developer": "Sober Lemur",
+  "logo": "monogram",
+  "summary": {
+    "en": "Splits, merges, rotates and extracts pages from PDF files locally, without uploading anything to a server.",
+    "vi": "Tách, ghép, xoay và trích trang từ tệp PDF ngay trên máy, không cần tải tệp lên bất kỳ máy chủ nào."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["pdf", "split-merge", "offline", "batch-processing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://pdfsam.org",
+    "repo": "https://github.com/torakiki/pdfsam",
+    "download": "https://pdfsam.org/download-pdfsam-basic/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/16f526b64743c6565ea8a22f986a4ea8510db405b5cf8ff28160a92c4fe63365",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

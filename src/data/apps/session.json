@@ -1,0 +1,25 @@
+{
+  "name": "Session",
+  "developer": "Session Technology Foundation",
+  "logo": "monogram",
+  "summary": {
+    "en": "Encrypted messenger that identifies accounts by a random ID instead of a phone number, routed over a node network.",
+    "vi": "Ứng dụng nhắn tin mã hoá dùng ID ngẫu nhiên thay cho số điện thoại, định tuyến qua mạng lưới node phân tán."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["no-phone-number", "onion-routing", "e2ee", "decentralized"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://getsession.org",
+    "repo": "https://github.com/session-foundation/session-desktop",
+    "download": "https://getsession.org/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c079f68c268425c334897c23e54e352d097da2813fc2a41440760dba2a18d7d2",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

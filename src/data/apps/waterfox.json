@@ -1,0 +1,25 @@
+{
+  "name": "Waterfox",
+  "developer": "BrowserWorks",
+  "logo": "monogram",
+  "summary": {
+    "en": "Independent Firefox fork that keeps telemetry off and retains support for some older extension types.",
+    "vi": "Bản fork Firefox độc lập, tắt telemetry và giữ khả năng chạy một số loại tiện ích mở rộng đời cũ."
+  },
+  "categories": ["browser", "security-privacy"],
+  "tags": ["firefox-fork", "no-telemetry", "legacy-extensions", "privacy"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://www.waterfox.net",
+    "repo": "https://github.com/BrowserWorks/Waterfox",
+    "download": "https://www.waterfox.net/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/578c911ca32a0668fd346b578fc4e5f09111f239abbf322c9eee33786aa56595",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

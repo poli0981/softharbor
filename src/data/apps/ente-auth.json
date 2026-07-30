@@ -1,0 +1,25 @@
+{
+  "name": "Ente Auth",
+  "developer": "Ente",
+  "logo": "monogram",
+  "summary": {
+    "en": "Two-factor code generator that backs up its TOTP secrets end-to-end encrypted across devices.",
+    "vi": "Ứng dụng sinh mã xác thực hai lớp, sao lưu khoá TOTP theo mã hoá đầu cuối và đồng bộ nhiều thiết bị."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["two-factor", "totp", "end-to-end-encryption", "backup"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://ente.io/auth",
+    "repo": "https://github.com/ente-io/ente",
+    "download": "https://ente.io/auth"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f96479429597127f9d486e216d368235f0ecd84b06378a4c3b420a0b6a03cd72",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

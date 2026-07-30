@@ -1,0 +1,25 @@
+{
+  "name": "FreeCAD",
+  "developer": "The FreeCAD Team",
+  "logo": "simple-icons:freecad",
+  "summary": {
+    "en": "Parametric 3D CAD modeller where models are driven by a history of editable constraints.",
+    "vi": "Phần mềm CAD 3D tham số, mô hình được điều khiển bằng lịch sử các ràng buộc có thể sửa lại."
+  },
+  "categories": ["graphics", "productivity"],
+  "tags": ["cad", "3d", "parametric", "engineering"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "LGPL-2.1-or-later",
+  "links": {
+    "homepage": "https://www.freecad.org",
+    "repo": "https://github.com/FreeCAD/FreeCAD",
+    "download": "https://www.freecad.org/downloads.php"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0d8a9cd994b6255e3ce155d028a9dc192d6c0a59666e6bba95857b9db96f963f",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

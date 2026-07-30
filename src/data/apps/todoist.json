@@ -1,0 +1,25 @@
+{
+  "name": "Todoist",
+  "developer": "Doist",
+  "logo": "simple-icons:todoist",
+  "summary": {
+    "en": "Task manager built around typed natural-language due dates, with projects, labels and recurring tasks.",
+    "vi": "Ứng dụng quản lý công việc nhận hạn chót gõ bằng ngôn ngữ tự nhiên, có dự án, nhãn và việc lặp lại."
+  },
+  "categories": ["productivity"],
+  "tags": ["tasks", "natural-language", "reminders", "sync"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.todoist.com",
+    "repo": null,
+    "download": "https://www.todoist.com/downloads"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/67f82a15a6ecebeb887e05ea5b16bd2e9105f68e2631a6e9a065eb76d97d434a",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

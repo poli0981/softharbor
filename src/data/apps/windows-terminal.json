@@ -1,0 +1,25 @@
+{
+  "name": "Windows Terminal",
+  "developer": "Microsoft",
+  "logo": "simple-icons:windowsterminal",
+  "summary": {
+    "en": "Tabbed terminal for Windows that hosts Command Prompt, PowerShell and WSL in one window.",
+    "vi": "Terminal dạng tab cho Windows, chạy Command Prompt, PowerShell và WSL trong cùng một cửa sổ."
+  },
+  "categories": ["developer-tools", "system"],
+  "tags": ["terminal", "windows", "wsl", "tabs"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/microsoft/terminal",
+    "repo": "https://github.com/microsoft/terminal",
+    "download": "https://github.com/microsoft/terminal/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/43203155c8938dbc698c3093f4e5f8fb194054c0436ada78ee97b96049ecaa98",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

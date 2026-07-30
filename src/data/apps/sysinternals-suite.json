@@ -1,0 +1,25 @@
+{
+  "name": "Sysinternals Suite",
+  "developer": "Microsoft",
+  "logo": "monogram",
+  "summary": {
+    "en": "Microsoft's bundle of Windows troubleshooting tools, including Process Explorer, Autoruns and Process Monitor.",
+    "vi": "Bộ công cụ chẩn đoán Windows của Microsoft, gồm Process Explorer, Autoruns và Process Monitor."
+  },
+  "categories": ["system"],
+  "tags": ["troubleshooting", "autoruns", "process-monitor", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://learn.microsoft.com/sysinternals/",
+    "repo": null,
+    "download": "https://learn.microsoft.com/sysinternals/downloads/sysinternals-suite"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d56f1db533fb9fcfd9def43ebc24fc9a474228141cad606c25a2802782087ae2",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

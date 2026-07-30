@@ -6,7 +6,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ShJsonLd from '../ShJsonLd.astro';
-import { iconSvg } from '../../lib/icon';
+import { logoSvg } from '../../lib/logo';
 import { localePath, t, type Locale } from '../../i18n';
 
 interface Props {
@@ -32,16 +32,29 @@ const security =
     ? `${t(locale, 'card.security.clean')} · ${t(locale, 'card.checked', { date: fmt(d.security.checkedAt) })}`
     : `${t(locale, 'card.security.unverified')} · ${t(locale, 'card.listed', { date: fmt(d.addedAt) })}`;
 
-const meta: Array<[string, string]> = [
-  [t(locale, 'detail.platforms'), d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · ')],
-  ...(d.tags.length
-    ? ([[t(locale, 'detail.tags'), d.tags.join(' · ')]] as Array<[string, string]>)
-    : []),
-  [t(locale, 'detail.security'), security],
-  [t(locale, 'detail.added'), fmt(d.addedAt)],
-  ...(d.updatedAt
-    ? ([[t(locale, 'detail.updated'), fmt(d.updatedAt)]] as Array<[string, string]>)
-    : []),
+interface MetaRow {
+  label: string;
+  value: string;
+  /** Outbound link for the row. Only the security row uses it, to reach the
+   *  scan behind `security.evidence` — hard rule 4 lets us say "no known
+   *  warnings as of <date>" and nothing stronger, so the claim is worth much
+   *  more when the reader can go and check it. */
+  href?: string;
+}
+
+const meta: MetaRow[] = [
+  {
+    label: t(locale, 'detail.platforms'),
+    value: d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · '),
+  },
+  ...(d.tags.length ? [{ label: t(locale, 'detail.tags'), value: d.tags.join(' · ') }] : []),
+  {
+    label: t(locale, 'detail.security'),
+    value: security,
+    ...(d.security.evidence ? { href: d.security.evidence } : {}),
+  },
+  { label: t(locale, 'detail.added'), value: fmt(d.addedAt) },
+  ...(d.updatedAt ? [{ label: t(locale, 'detail.updated'), value: fmt(d.updatedAt) }] : []),
 ];
 ---
 
@@ -66,7 +79,7 @@ const meta: Array<[string, string]> = [
 
   <header class="mt-4 flex items-start gap-4" transition:name={app.id}>
     <Fragment
-      set:html={iconSvg(d.logo, {
+      set:html={logoSvg(d.logo, d.name, {
         class: 'size-16 shrink-0',
         'aria-hidden': 'true',
         fill: 'currentColor',
@@ -116,10 +129,20 @@ const meta: Array<[string, string]> = [
 
   <dl class="sh-panel mt-8 grid max-w-2xl gap-2 p-5 font-mono text-[var(--text-badge)]">
     {
-      meta.map(([label, value]) => (
+      meta.map((row) => (
         <div class="flex flex-wrap gap-x-3">
-          <dt class="text-sh-muted min-w-28">{label}</dt>
-          <dd>{value}</dd>
+          <dt class="text-sh-muted min-w-28">{row.label}</dt>
+          <dd>
+            {row.value}
+            {row.href && (
+              <>
+                {' · '}
+                <a href={row.href} rel="noopener" class="underline">
+                  {t(locale, 'detail.evidence')} ↗
+                </a>
+              </>
+            )}
+          </dd>
         </div>
       ))
     }

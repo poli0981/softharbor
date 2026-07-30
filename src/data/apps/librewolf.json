@@ -1,0 +1,25 @@
+{
+  "name": "LibreWolf",
+  "developer": "LibreWolf Community",
+  "logo": "simple-icons:librewolf",
+  "summary": {
+    "en": "Firefox build with telemetry removed and privacy settings hardened before first launch.",
+    "vi": "Bản dựng Firefox đã gỡ telemetry và siết sẵn các thiết lập riêng tư ngay từ lần chạy đầu tiên."
+  },
+  "categories": ["browser", "security-privacy"],
+  "tags": ["firefox-fork", "no-telemetry", "hardened", "privacy"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://librewolf.net",
+    "repo": "https://codeberg.org/librewolf",
+    "download": "https://librewolf.net/installation/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4820079aa703e6e0ffda88ded0070061abfd61c02a9c1693f2c148f87bd5e093",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

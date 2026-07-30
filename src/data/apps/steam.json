@@ -1,0 +1,25 @@
+{
+  "name": "Steam",
+  "developer": "Valve",
+  "logo": "simple-icons:steam",
+  "summary": {
+    "en": "Game store and library client with cloud saves, controller configuration and an overlay that works inside games.",
+    "vi": "Ứng dụng cửa hàng và thư viện game, có lưu trữ đám mây, cấu hình tay cầm và lớp overlay hoạt động ngay trong game."
+  },
+  "categories": ["gaming"],
+  "tags": ["game-store", "library", "cloud-saves", "controller-support"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://store.steampowered.com",
+    "repo": null,
+    "download": "https://store.steampowered.com/about/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/33f90e7f03f43ac38b266cc2b19f6321a442535ca006de129a7e92d2e1ea8e99",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

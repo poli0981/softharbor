@@ -16,6 +16,10 @@
     "repo": null,
     "download": "https://www.7-zip.org/download.html"
   },
-  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/273d0beedb411e020dd6ce34a46330b626a4ed56df427f806c4c552ea5c287e7",
+    "checkedAt": "2026-07-30"
+  },
   "addedAt": "2026-07-28"
 }

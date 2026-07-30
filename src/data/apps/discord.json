@@ -1,0 +1,25 @@
+{
+  "name": "Discord",
+  "developer": "Discord Inc.",
+  "logo": "simple-icons:discord",
+  "summary": {
+    "en": "Voice, video and text chat organised into servers and channels, with persistent rooms that stay open between sessions.",
+    "vi": "Ứng dụng chat thoại, video và văn bản tổ chức theo server và kênh, các phòng luôn mở sẵn giữa những lần trò chuyện."
+  },
+  "categories": ["communication", "gaming"],
+  "tags": ["voice-chat", "communities", "screen-share", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://discord.com",
+    "repo": null,
+    "download": "https://discord.com/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/903f001bc99f5017af8c8fd2826d9e84a0b19d9b1aa420bc5ddb6257c27bb000",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Halloy",
+  "developer": "Squidowl",
+  "logo": "monogram",
+  "summary": {
+    "en": "IRC client written in Rust with a modern interface, configured through a single TOML file.",
+    "vi": "Ứng dụng IRC viết bằng Rust với giao diện hiện đại, cấu hình toàn bộ qua một tệp TOML duy nhất."
+  },
+  "categories": ["communication"],
+  "tags": ["irc", "rust", "ircv3", "minimal"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://halloy.chat",
+    "repo": "https://github.com/squidowl/halloy",
+    "download": "https://github.com/squidowl/halloy/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/694a37fd936c2c54643d0fcc9548acc824591183e68ff018ff5695cd5f591ea9",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

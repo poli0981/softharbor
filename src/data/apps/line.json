@@ -1,0 +1,25 @@
+{
+  "name": "LINE",
+  "developer": "LY Corporation",
+  "logo": "simple-icons:line",
+  "summary": {
+    "en": "Messenger widely used in Japan and Southeast Asia, with a desktop client for chats, calls and sticker shops.",
+    "vi": "Ứng dụng nhắn tin phổ biến ở Nhật Bản và Đông Nam Á, bản máy tính hỗ trợ trò chuyện, gọi điện và kho nhãn dán."
+  },
+  "categories": ["communication"],
+  "tags": ["stickers", "groups", "voice-calls", "phone-number"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://line.me/en/",
+    "repo": null,
+    "download": "https://line.me/en/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0f0c6987ed4f11b2edca72e77d129f0dd016ea44486d08cccf3fbf86d07a5096",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

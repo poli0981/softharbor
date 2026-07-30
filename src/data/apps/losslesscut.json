@@ -1,0 +1,25 @@
+{
+  "name": "LosslessCut",
+  "developer": "Mikael Finstad",
+  "logo": "monogram",
+  "summary": {
+    "en": "Trims and merges video without re-encoding, so cuts finish in seconds and quality is unchanged.",
+    "vi": "Cắt và ghép video không mã hoá lại, thao tác xong trong vài giây và giữ nguyên chất lượng gốc."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["lossless", "video-cutting", "fast", "batch-processing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://mifi.no/losslesscut/",
+    "repo": "https://github.com/mifi/lossless-cut",
+    "download": "https://github.com/mifi/lossless-cut/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9d8a7f30c2bb74b09873d034ab6c84142a9b5c0f249f96f4f7986819f68db318",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

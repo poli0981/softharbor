@@ -1,0 +1,25 @@
+{
+  "name": "GNU Emacs",
+  "developer": "GNU Project",
+  "logo": "simple-icons:gnuemacs",
+  "summary": {
+    "en": "Extensible editor with a built-in Lisp interpreter, letting users reprogram the editor while it runs.",
+    "vi": "Trình soạn thảo mở rộng được nhờ trình thông dịch Lisp tích hợp, cho phép lập trình lại ngay khi chạy."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["extensible", "lisp", "terminal", "scriptable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.gnu.org/software/emacs/",
+    "repo": null,
+    "download": "https://www.gnu.org/software/emacs/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/83974f245ccd5e91eedcc51e0685671ca6e907693b0e8e4cf452c582ceed7ada",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

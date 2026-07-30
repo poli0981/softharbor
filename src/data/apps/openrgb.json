@@ -1,0 +1,25 @@
+{
+  "name": "OpenRGB",
+  "developer": "Adam Honse",
+  "logo": "monogram",
+  "summary": {
+    "en": "Controls RGB lighting on boards, memory and peripherals from one app, without vendor software running in the background.",
+    "vi": "Điều khiển đèn RGB trên bo mạch, RAM và thiết bị ngoại vi từ một ứng dụng, không cần phần mềm hãng chạy nền."
+  },
+  "categories": ["gaming", "system"],
+  "tags": ["rgb", "peripherals", "vendor-free", "profiles"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://openrgb.org",
+    "repo": "https://gitlab.com/CalcProgrammer1/OpenRGB",
+    "download": "https://gitlab.com/CalcProgrammer1/OpenRGB/-/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/31b521adc0e1ab66ee89bfc2057ef97444217800df15bc42ac6c6fba14d7e6f8",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

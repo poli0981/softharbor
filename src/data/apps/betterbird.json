@@ -1,0 +1,25 @@
+{
+  "name": "Betterbird",
+  "developer": "Betterbird contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Thunderbird fork that ships extra fixes and features which have not been merged into the upstream release.",
+    "vi": "Bản fork của Thunderbird, bổ sung các bản vá và tính năng chưa được đưa vào bản phát hành gốc."
+  },
+  "categories": ["communication"],
+  "tags": ["email", "thunderbird-fork", "patches", "imap"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://www.betterbird.eu",
+    "repo": "https://github.com/Betterbird/thunderbird-patches",
+    "download": "https://www.betterbird.eu/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7a53258ce835dd5464591e90ba0c61d41ed39d407de55e996d43b92e3e8f8110",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

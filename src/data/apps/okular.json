@@ -1,0 +1,25 @@
+{
+  "name": "Okular",
+  "developer": "KDE",
+  "logo": "monogram",
+  "summary": {
+    "en": "Document viewer that reads PDF, ePub, comics and more, with annotations kept separate from the original file.",
+    "vi": "Trình xem tài liệu đọc được PDF, ePub, truyện tranh và nhiều định dạng khác, ghi chú lưu tách khỏi tệp gốc."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["pdf", "annotations", "ebook", "kde"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://okular.kde.org",
+    "repo": "https://invent.kde.org/graphics/okular",
+    "download": "https://okular.kde.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/43d4223c7620e78b269bc32dda29ac91f87ad4793181237675ee9c7ebb59cede",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

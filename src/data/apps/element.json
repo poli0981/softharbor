@@ -1,0 +1,25 @@
+{
+  "name": "Element",
+  "developer": "Element",
+  "logo": "simple-icons:element",
+  "summary": {
+    "en": "Matrix client for chat and calls, able to connect to any homeserver including one you run yourself.",
+    "vi": "Ứng dụng Matrix để nhắn tin và gọi điện, kết nối được tới bất kỳ homeserver nào, kể cả máy chủ bạn tự vận hành."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["matrix", "e2ee", "federation", "self-hosted"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://element.io",
+    "repo": "https://github.com/element-hq/element-desktop",
+    "download": "https://element.io/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e10658e1f4c09052812e11bc7c9a656a791d208c20b6689f4c0892757baece64",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

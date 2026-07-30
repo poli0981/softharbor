@@ -1,0 +1,25 @@
+{
+  "name": "Picocrypt",
+  "developer": "Evan Su",
+  "logo": "monogram",
+  "summary": {
+    "en": "Very small file encryption tool built around XChaCha20, with optional Reed-Solomon corruption recovery.",
+    "vi": "Công cụ mã hoá tệp rất nhẹ dựa trên XChaCha20, kèm tuỳ chọn phục hồi dữ liệu hỏng bằng Reed-Solomon."
+  },
+  "categories": ["security-privacy", "utilities"],
+  "tags": ["file-encryption", "portable", "xchacha20", "reed-solomon"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://github.com/Picocrypt/Picocrypt",
+    "repo": "https://github.com/Picocrypt/Picocrypt",
+    "download": "https://github.com/Picocrypt/Picocrypt/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c9753fcf41d18009fbc61c0756132025a277e12e5ec858513aedc473f9b0ccfd",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

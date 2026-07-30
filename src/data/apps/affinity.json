@@ -1,0 +1,25 @@
+{
+  "name": "Affinity",
+  "developer": "Canva",
+  "logo": "simple-icons:affinity",
+  "summary": {
+    "en": "Vector, pixel and layout tools in a single application, free to use with a Canva account.",
+    "vi": "Gộp công cụ vector, ảnh bitmap và dàn trang vào một ứng dụng, dùng miễn phí kèm tài khoản Canva."
+  },
+  "categories": ["graphics"],
+  "tags": ["vector", "photo-editing", "layout", "account-required"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.affinity.studio",
+    "repo": null,
+    "download": "https://www.affinity.studio/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/cf2f2f966e3ecac21fe37bbec5ce773e243b9257f3d2c02f08ccc82bfc7a52c0",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

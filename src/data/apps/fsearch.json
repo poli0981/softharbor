@@ -1,0 +1,25 @@
+{
+  "name": "FSearch",
+  "developer": "Christian Boxdörfer",
+  "logo": "monogram",
+  "summary": {
+    "en": "Instant filename search for Linux, keeping its own index so results appear without scanning the disk.",
+    "vi": "Tìm tên tệp tức thì cho Linux, tự giữ chỉ mục riêng nên kết quả hiện ra mà không cần quét lại ổ đĩa."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["search", "linux", "regex", "instant"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://github.com/cboxdoerfer/fsearch",
+    "repo": "https://github.com/cboxdoerfer/fsearch",
+    "download": "https://github.com/cboxdoerfer/fsearch/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8aa06573a41d5182b7f39eed0504e6fdac443b7da8a590a95de3b30dbf85fd74",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

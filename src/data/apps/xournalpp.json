@@ -1,0 +1,25 @@
+{
+  "name": "Xournal++",
+  "developer": "Xournal++ contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Handwriting notebook with stylus pressure support, able to write and draw directly on top of PDF pages.",
+    "vi": "Sổ tay viết tay hỗ trợ lực nhấn của bút cảm ứng, viết và vẽ trực tiếp lên các trang PDF có sẵn."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["handwriting", "pdf", "stylus", "note-taking"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://xournalpp.github.io",
+    "repo": "https://github.com/xournalpp/xournalpp",
+    "download": "https://github.com/xournalpp/xournalpp/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f3ec6dc4f0fa3b4fec598ebbd0f00a488ab646cd26967fceb1321e42e431cf86",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

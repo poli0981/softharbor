@@ -3,7 +3,7 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/06 §6 — card anatomy.
 import type { CollectionEntry } from 'astro:content';
-import { iconSvg } from '../lib/icon';
+import { logoSvg } from '../lib/logo';
 import { localePath, t, type Locale } from '../i18n';
 
 interface Props {
@@ -48,11 +48,12 @@ const security =
 >
   <div class="flex items-start gap-3">
     {
-      /* Build-time SVG from a vendored icon set, never user input. The
-        set:html carve-out is scoped to this file in eslint.config.js. */
+      /* Build-time SVG from a vendored icon set, a vendored asset, or a
+        generated monogram — never user input. The set:html carve-out is
+        scoped to this file in eslint.config.js. */
     }
     <Fragment
-      set:html={iconSvg(d.logo, {
+      set:html={logoSvg(d.logo, d.name, {
         class: 'mt-0.5 size-10 shrink-0',
         'aria-hidden': 'true',
         fill: 'currentColor',

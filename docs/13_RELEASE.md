@@ -53,8 +53,10 @@ Infra & correctness
 
 Content & legal
 
-- [ ] All seed apps merged (§4 — 32 as proposed), every entry vetted
-      (docs/09 §6), zero `flagged`, summaries proof-read in both locales
+- [x] All seed apps merged (§4 — **326**), every entry vetted (docs/09 §6)
+      with the scan permalink in `security.evidence`, zero `flagged`
+      — **done 2026-07-30**: 320 `clean`, 6 held at `unverified`
+- [ ] Summaries proof-read in both locales (L4, docs/03 §2 — still open)
 - [ ] Legal drafts reviewed by Kokone (H6), contact email live (H5),
       `LEGAL_VERSION` set; gate tested on a fresh profile in both locales
 - [ ] LICENSE (GPL-3.0) + LICENSE-DATA.md present; footer license line correct
@@ -86,13 +88,18 @@ Quality bar
 Balanced across the 12 categories; every entry must still pass vetting
 individually. `(1)` = onetime, `(f)` = free with C3 ruling noted.
 
-**Count.** The table below holds **32 distinct apps**, not the "30" earlier
-drafts claimed — 7-Zip is listed twice (primary category `utilities`, also
-shown under `file-management`) and is counted once. Two categories carry a
-single genuine entry each (`communication`: Thunderbird; `file-management`:
-FreeFileSync) — thin but acceptable for v1, and worth noting to H7 as the
-first place to add if the list is trimmed elsewhere. Whatever H7 approves,
-the number here and in §2's checklist must be updated together.
+**Count — superseded 2026-07-29.** The table below was the original **32
+distinct apps** (7-Zip is listed twice, primary category `utilities` and also
+under `file-management`; counted once). The seed that actually shipped is
+**326 apps** — 290 in the first batch, then 37 more filling `communication`, less one dropped at L3
+— imported under D24. The table is kept as the record of what was originally
+proposed to H7, not as the current dataset; `src/data/apps/` is the only
+authority for that.
+
+**No category is empty.** `communication` was the last gap and is now the
+largest single-category batch in the set (37 entries, Thunderbird among
+them). Whatever the final number, it must be updated here and in §2's
+checklist together.
 
 | Category | Apps |
 |---|---|

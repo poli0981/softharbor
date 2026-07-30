@@ -1,0 +1,25 @@
+{
+  "name": "AppCleaner",
+  "developer": "FreeMacSoft",
+  "logo": "monogram",
+  "summary": {
+    "en": "Uninstalls macOS applications together with the preference and support files they leave scattered around.",
+    "vi": "Gỡ ứng dụng macOS kèm theo các tệp cấu hình và dữ liệu hỗ trợ mà chúng để lại rải rác trong hệ thống."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["uninstaller", "cleanup", "macos-native", "leftovers"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://freemacsoft.net/appcleaner/",
+    "repo": null,
+    "download": "https://freemacsoft.net/appcleaner/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a4b78ab9b0242f031669d08601ffda2fca95c9c18d7ac01e2506e7a66b79a939",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

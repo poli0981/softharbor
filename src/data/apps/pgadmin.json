@@ -1,0 +1,25 @@
+{
+  "name": "pgAdmin",
+  "developer": "The pgAdmin Development Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Administration tool for PostgreSQL, covering query editing, server monitoring and backups.",
+    "vi": "Công cụ quản trị PostgreSQL, gồm soạn truy vấn, theo dõi máy chủ và sao lưu dữ liệu."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["postgresql", "database", "administration", "query-tool"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "PostgreSQL",
+  "links": {
+    "homepage": "https://www.pgadmin.org",
+    "repo": "https://github.com/pgadmin-org/pgadmin4",
+    "download": "https://www.pgadmin.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0e7df8f830b54640721682bb373cac06f621e746b7ba44b3460f0e8081dc1784",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

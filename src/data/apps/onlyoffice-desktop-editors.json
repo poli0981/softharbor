@@ -1,0 +1,25 @@
+{
+  "name": "ONLYOFFICE Desktop Editors",
+  "developer": "Ascensio System SIA",
+  "logo": "simple-icons:onlyoffice",
+  "summary": {
+    "en": "Office suite built around close compatibility with the Microsoft Office file formats, working offline by default.",
+    "vi": "Bộ ứng dụng văn phòng chú trọng tương thích sát định dạng tệp Microsoft Office, mặc định làm việc ngoại tuyến."
+  },
+  "categories": ["productivity"],
+  "tags": ["office-suite", "ooxml", "spreadsheet", "collaboration"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://www.onlyoffice.com",
+    "repo": "https://github.com/ONLYOFFICE/DesktopEditors",
+    "download": "https://www.onlyoffice.com/download-desktop.aspx"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5d7f46e55d71f25f51f03ba0a029d3d0d1831fea0796901a80d16d5e4870d8c6",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

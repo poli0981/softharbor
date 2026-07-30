@@ -1,0 +1,25 @@
+{
+  "name": "Pidgin",
+  "developer": "The Pidgin developers",
+  "logo": "monogram",
+  "summary": {
+    "en": "Multi-protocol chat client that keeps XMPP, IRC and other accounts in one buddy list, extended through plugins.",
+    "vi": "Ứng dụng chat đa giao thức, gom tài khoản XMPP, IRC và nhiều mạng khác vào một danh sách, mở rộng bằng plugin."
+  },
+  "categories": ["communication"],
+  "tags": ["xmpp", "irc", "multi-protocol", "plugins"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://pidgin.im",
+    "repo": null,
+    "download": "https://pidgin.im/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a8b7c48defd94e0eb27497bc559997f2c5f185716629806666c400dbfb65d8c1",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

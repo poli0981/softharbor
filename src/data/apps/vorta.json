@@ -1,0 +1,25 @@
+{
+  "name": "Vorta",
+  "developer": "Manuel Riel",
+  "logo": "monogram",
+  "summary": {
+    "en": "Desktop front end for BorgBackup, turning repository setup and scheduling into a settings window.",
+    "vi": "Giao diện máy tính cho BorgBackup, biến việc tạo kho và lên lịch thành một cửa sổ thiết lập."
+  },
+  "categories": ["file-management"],
+  "tags": ["backup", "borg", "scheduling", "gui"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://vorta.borgbase.com",
+    "repo": "https://github.com/borgbase/vorta",
+    "download": "https://vorta.borgbase.com"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/32f4befd5b8f96e770fb95d4b75e1e869ff05c8720da3a1484192a592e512d85",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "TeamSpeak",
+  "developer": "TeamSpeak Systems GmbH",
+  "logo": "simple-icons:teamspeak",
+  "summary": {
+    "en": "Voice chat client for hosted servers, with a permission system that controls who may speak in each channel.",
+    "vi": "Ứng dụng chat thoại kết nối tới máy chủ riêng, có hệ thống phân quyền quy định ai được nói trong từng kênh."
+  },
+  "categories": ["communication", "gaming"],
+  "tags": ["voice-chat", "permissions", "servers", "low-latency"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.teamspeak.com",
+    "repo": null,
+    "download": "https://www.teamspeak.com/en/downloads"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9ff847827860e97b44ed28e5aaffedb820eaa004a292e4c9fa0823da62bdb4a4",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

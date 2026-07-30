@@ -1,0 +1,25 @@
+{
+  "name": "REAPER",
+  "developer": "Cockos Incorporated",
+  "logo": "monogram",
+  "summary": {
+    "en": "Digital audio workstation with deep routing and scripting, sold under a low-cost personal licence.",
+    "vi": "Digital audio workstation với định tuyến và scripting sâu, bán kèm giấy phép cá nhân giá thấp."
+  },
+  "categories": ["media"],
+  "tags": ["daw", "recording", "mixing", "scriptable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.reaper.fm",
+    "repo": null,
+    "download": "https://www.reaper.fm/download.php"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ae92a0a6ef7c1c9855986b96e4abe144324f9922d64dab96ac2e94fb722e55d8",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

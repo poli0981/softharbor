@@ -1,0 +1,25 @@
+{
+  "name": "Unity",
+  "developer": "Unity Technologies",
+  "logo": "simple-icons:unity",
+  "summary": {
+    "en": "Game engine with a visual editor and C# scripting, free on the Personal plan for teams under a revenue threshold.",
+    "vi": "Engine làm game với trình soạn thảo trực quan và lập trình C#, gói Personal miễn phí cho nhóm dưới ngưỡng doanh thu."
+  },
+  "categories": ["gaming", "developer-tools"],
+  "tags": ["game-engine", "3d", "csharp", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://unity.com",
+    "repo": null,
+    "download": "https://unity.com/releases/editor/archive"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7280e6f75d646aacb7290e3f8b9b3ad60c627a0e614b148e001f19946f4f6578",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

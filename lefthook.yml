@@ -8,7 +8,17 @@ pre-commit:
   jobs:
     - name: format
       glob: '*.{ts,js,mjs,astro,svelte,css,json,jsonc,yml,yaml,md}'
+      exclude:
+        - 'src/data/apps/*.json'
       run: pnpm prettier --write {staged_files}
+      stage_fixed: true
+    # App data is formatted by directory rather than by file list. A bulk
+    # data change interpolates one path per app into {staged_files}, and the
+    # 286-app seed overran the Windows 8 KB command-line limit — the commit
+    # aborted with "The command line is too long."
+    - name: format-data
+      glob: 'src/data/apps/*.json'
+      run: pnpm prettier --write src/data/apps
       stage_fixed: true
     - name: lint
       glob: '*.{ts,js,mjs,astro,svelte}'

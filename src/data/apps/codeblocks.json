@@ -1,0 +1,25 @@
+{
+  "name": "Code::Blocks",
+  "developer": "The Code::Blocks Team",
+  "logo": "simple-icons:codeblocks",
+  "summary": {
+    "en": "C, C++ and Fortran IDE that works with several compilers through a plugin-based build system.",
+    "vi": "IDE cho C, C++ và Fortran, làm việc với nhiều trình biên dịch qua hệ thống build dạng plugin."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["cpp", "fortran", "compiler", "plugins"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.codeblocks.org",
+    "repo": null,
+    "download": "https://www.codeblocks.org/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/90031cb764026785fccfd5d2f98d942f8238392c6bceafbf0f6ffdf76e93516e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

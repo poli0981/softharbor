@@ -1,0 +1,25 @@
+{
+  "name": "Microsoft Teams",
+  "developer": "Microsoft",
+  "logo": "simple-icons:microsoftteams",
+  "summary": {
+    "en": "Chat and meeting app from Microsoft, with a free tier covering group calls of up to 60 minutes.",
+    "vi": "Ứng dụng chat và họp trực tuyến của Microsoft, bậc miễn phí cho phép cuộc gọi nhóm kéo dài tối đa 60 phút."
+  },
+  "categories": ["communication", "productivity"],
+  "tags": ["meetings", "screen-share", "chat", "office"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.microsoft.com/microsoft-teams",
+    "repo": null,
+    "download": "https://www.microsoft.com/microsoft-teams/download-app"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/0d1435be37212b9777f9566315f826b9b670ca90a4b826df6f16b5c0591377ed",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

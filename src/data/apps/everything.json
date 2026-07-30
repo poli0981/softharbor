@@ -1,0 +1,25 @@
+{
+  "name": "Everything",
+  "developer": "voidtools",
+  "logo": "monogram",
+  "summary": {
+    "en": "Reads the NTFS index directly, so filename searches across a whole drive return as you type.",
+    "vi": "Đọc thẳng chỉ mục NTFS, nhờ vậy tìm tên tệp trên cả ổ đĩa cho kết quả ngay khi bạn đang gõ."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["search", "ntfs", "instant", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.voidtools.com",
+    "repo": null,
+    "download": "https://www.voidtools.com/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5df60af1342cdc4cdf29c75e753d78fba3ed1c93397d21ed2723af4091aabd93",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

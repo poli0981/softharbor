@@ -1,0 +1,25 @@
+{
+  "name": "Synfig Studio",
+  "developer": "Synfig contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "2D animation tool built around vector tweening, generating in-between frames automatically.",
+    "vi": "Công cụ hoạt hình 2D dựa trên tweening vector, tự sinh các khung hình trung gian giữa hai điểm."
+  },
+  "categories": ["graphics", "media"],
+  "tags": ["2d-animation", "vector", "tweening", "cutout"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.synfig.org",
+    "repo": "https://github.com/synfig/synfig",
+    "download": "https://www.synfig.org/download-stable/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/dfad57020846df7a58650582db5f4b0c2cd8f6ea052c0ad07de9c639d5d89c40",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

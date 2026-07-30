@@ -1,0 +1,25 @@
+{
+  "name": "Irssi",
+  "developer": "The Irssi project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Terminal IRC client with a split-window layout and a Perl scripting interface for automating channel tasks.",
+    "vi": "Ứng dụng IRC trong terminal với bố cục chia khung và giao diện script Perl để tự động hoá thao tác trong kênh."
+  },
+  "categories": ["communication", "developer-tools"],
+  "tags": ["irc", "terminal", "perl", "lightweight"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://irssi.org",
+    "repo": "https://github.com/irssi/irssi",
+    "download": "https://irssi.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/116cb644eee5bf4e4a61a5cd227d4fc6e190e5b82d8f631b5b887dad60a539b2",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

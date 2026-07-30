@@ -1,0 +1,25 @@
+{
+  "name": "Joplin",
+  "developer": "Laurent Cozic",
+  "logo": "simple-icons:joplin",
+  "summary": {
+    "en": "Markdown notebook that syncs through your own storage account and encrypts notes end to end before upload.",
+    "vi": "Sổ ghi chú Markdown đồng bộ qua tài khoản lưu trữ của bạn, mã hoá đầu cuối ghi chú trước khi tải lên."
+  },
+  "categories": ["productivity", "security-privacy"],
+  "tags": ["markdown", "e2ee", "sync", "web-clipper"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-or-later",
+  "links": {
+    "homepage": "https://joplinapp.org",
+    "repo": "https://github.com/laurent22/joplin",
+    "download": "https://joplinapp.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/72a83636d232a0040510f249bb3b3d018572468cc7e5eafa2ea35d6cda8f5e53",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

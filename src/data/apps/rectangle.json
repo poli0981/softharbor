@@ -1,0 +1,25 @@
+{
+  "name": "Rectangle",
+  "developer": "Ryan Hanson",
+  "logo": "monogram",
+  "summary": {
+    "en": "Window manager for macOS that snaps windows into halves, quarters and thirds using keyboard shortcuts.",
+    "vi": "Công cụ sắp xếp cửa sổ trên macOS, chia màn hình theo nửa, một phần tư hay một phần ba bằng phím tắt."
+  },
+  "categories": ["system", "productivity"],
+  "tags": ["window-management", "snapping", "keyboard-shortcuts", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://rectangleapp.com",
+    "repo": "https://github.com/rxhanson/Rectangle",
+    "download": "https://rectangleapp.com"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9719bc91bbb300167c94c57ecb3fee56d9e4b9fe6537118c4ffbc3e22164eacb",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Audacity",
+  "developer": "Muse Group",
+  "logo": "simple-icons:audacity",
+  "summary": {
+    "en": "Multi-track audio editor for recording, cutting and applying effects to waveform files.",
+    "vi": "Trình biên tập âm thanh đa track để thu âm, cắt ghép và áp hiệu ứng lên tệp dạng sóng."
+  },
+  "categories": ["media"],
+  "tags": ["audio-editing", "recording", "effects", "multi-track"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.audacityteam.org",
+    "repo": "https://github.com/audacity/audacity",
+    "download": "https://www.audacityteam.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d2c5670ffca8f7043b3346757dc388534244efec995d58894440a85c3fb837a7",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

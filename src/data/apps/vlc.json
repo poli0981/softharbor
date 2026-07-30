@@ -16,6 +16,10 @@
     "repo": "https://code.videolan.org/videolan/vlc",
     "download": "https://www.videolan.org/vlc/#download"
   },
-  "security": { "status": "unverified", "evidence": null, "checkedAt": "2026-07-28" },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e98b3e47d9bb5cbeda3fe89ac56db1983e089ed6e7957cc62e567771f0ddacaf",
+    "checkedAt": "2026-07-30"
+  },
   "addedAt": "2026-07-28"
 }

@@ -1,0 +1,25 @@
+{
+  "name": "Playnite",
+  "developer": "Josef Nemec",
+  "logo": "monogram",
+  "summary": {
+    "en": "Open-source game library that merges Steam, GOG, Epic and emulator collections into one browsable interface.",
+    "vi": "Thư viện game mã nguồn mở, gộp bộ sưu tập Steam, GOG, Epic và các trình giả lập vào chung một giao diện."
+  },
+  "categories": ["gaming"],
+  "tags": ["library", "multi-store", "emulators", "plugins"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://playnite.link",
+    "repo": "https://github.com/JosefNemec/Playnite",
+    "download": "https://github.com/JosefNemec/Playnite/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9d9e8747ee69a8e1e3f443ca0b99262ecfb17a1bdf1f6bc6c3d27561517e1808",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

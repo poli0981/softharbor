@@ -1,0 +1,25 @@
+{
+  "name": "Jitsi Meet",
+  "developer": "Jitsi",
+  "logo": "simple-icons:jitsi",
+  "summary": {
+    "en": "Desktop app for Jitsi Meet video calls, working with the public service or any self-hosted Jitsi server.",
+    "vi": "Ứng dụng máy tính cho các cuộc gọi video Jitsi Meet, dùng được với dịch vụ công cộng hoặc máy chủ Jitsi tự dựng."
+  },
+  "categories": ["communication"],
+  "tags": ["video-conferencing", "no-account", "webrtc", "self-hosted"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://jitsi.org",
+    "repo": "https://github.com/jitsi/jitsi-meet-electron",
+    "download": "https://github.com/jitsi/jitsi-meet-electron/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c55c17807a00f96225b30f776b769b6e449d4cf8351d2fe21c71914ac009573c",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Proton VPN",
+  "developer": "Proton AG",
+  "logo": "simple-icons:protonvpn",
+  "summary": {
+    "en": "VPN client whose free plan carries no data cap, funded by the paid tiers rather than by advertising.",
+    "vi": "Ứng dụng VPN có gói miễn phí không giới hạn dung lượng, được nuôi bằng gói trả phí chứ không phải quảng cáo."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["vpn", "no-data-cap", "open-source", "audited"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://protonvpn.com",
+    "repo": "https://github.com/ProtonVPN",
+    "download": "https://protonvpn.com/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/f46133d861234d15585b0c86ac537e80582d184ad4bb9516d3c1ae16215176ea",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

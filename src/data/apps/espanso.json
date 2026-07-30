@@ -1,0 +1,25 @@
+{
+  "name": "Espanso",
+  "developer": "Federico Terzi",
+  "logo": "monogram",
+  "summary": {
+    "en": "Text expander that watches for trigger words in any application and replaces them with longer snippets.",
+    "vi": "Công cụ gõ tắt, theo dõi từ khoá kích hoạt trong mọi ứng dụng và thay bằng đoạn văn bản dài hơn."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["text-expansion", "snippets", "cross-platform", "scriptable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://espanso.org",
+    "repo": "https://github.com/espanso/espanso",
+    "download": "https://espanso.org/install/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/7a415ad92b47ded010195681701691821142f56099dec875c92c19c0161dddf1",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

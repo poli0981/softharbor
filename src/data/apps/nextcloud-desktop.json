@@ -1,0 +1,25 @@
+{
+  "name": "Nextcloud Desktop",
+  "developer": "Nextcloud GmbH",
+  "logo": "simple-icons:nextcloud",
+  "summary": {
+    "en": "Sync client for a Nextcloud server, with selective sync and virtual files that download on demand.",
+    "vi": "Ứng dụng đồng bộ cho máy chủ Nextcloud, có đồng bộ chọn lọc và tệp ảo chỉ tải về khi cần."
+  },
+  "categories": ["file-management"],
+  "tags": ["sync", "self-hosted", "virtual-files", "sharing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://nextcloud.com",
+    "repo": "https://github.com/nextcloud/desktop",
+    "download": "https://nextcloud.com/install/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/fe4d23618b6a5c71bafd149b0629402acefc52dfecebb50a377f0b77f808437e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

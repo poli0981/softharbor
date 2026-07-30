@@ -1,0 +1,25 @@
+{
+  "name": "OnionShare",
+  "developer": "Micah Lee",
+  "logo": "monogram",
+  "summary": {
+    "en": "Shares files, hosts a site or runs a chat room straight from your machine over a temporary Tor address.",
+    "vi": "Chia sẻ tệp, dựng trang web hoặc mở phòng chat ngay từ máy bạn qua một địa chỉ Tor tạm thời."
+  },
+  "categories": ["security-privacy", "file-management"],
+  "tags": ["tor", "anonymous-sharing", "onion-service", "chat"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://onionshare.org",
+    "repo": "https://github.com/onionshare/onionshare",
+    "download": "https://onionshare.org"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/626559d4fb2c42ca632c70d2d8a7686a7766f71dbfcc8d9604a045a6aab36a3e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

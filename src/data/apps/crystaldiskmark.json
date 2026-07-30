@@ -1,0 +1,25 @@
+{
+  "name": "CrystalDiskMark",
+  "developer": "Crystal Dew World",
+  "logo": "monogram",
+  "summary": {
+    "en": "Storage benchmark measuring sequential and random read and write speeds at several queue depths.",
+    "vi": "Công cụ đo tốc độ ổ lưu trữ, kiểm tra đọc ghi tuần tự và ngẫu nhiên ở nhiều mức độ sâu hàng đợi."
+  },
+  "categories": ["system"],
+  "tags": ["benchmark", "storage", "ssd", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://crystalmark.info/en/software/crystaldiskmark/",
+    "repo": "https://github.com/hiyohiyo/CrystalDiskMark",
+    "download": "https://crystalmark.info/en/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6c99ce42f436b0d8b09be05c3fb7a114c50d47b4b06c576ef0ed8ff81e92f203",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "qutebrowser",
+  "developer": "Florian Bruhin",
+  "logo": "monogram",
+  "summary": {
+    "en": "Keyboard-driven browser with Vim-style bindings and a minimal interface, configured in Python.",
+    "vi": "Trình duyệt điều khiển bằng bàn phím theo phong cách Vim, giao diện tối giản, cấu hình bằng Python."
+  },
+  "categories": ["browser", "developer-tools"],
+  "tags": ["keyboard-driven", "vim", "minimal", "python"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://qutebrowser.org",
+    "repo": "https://github.com/qutebrowser/qutebrowser",
+    "download": "https://qutebrowser.org/doc/install.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/81a392d6e15f5b52b589d942ed342a9ecbfc3290f926a8f12d2ac10b992a5c7f",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "VeraCrypt",
+  "developer": "IDRIX",
+  "logo": "monogram",
+  "summary": {
+    "en": "Disk encryption that mounts encrypted containers as drives and can hide a second volume inside the first.",
+    "vi": "Công cụ mã hoá ổ đĩa, gắn tệp chứa mã hoá thành ổ ảo và có thể giấu một ổ thứ hai bên trong ổ thứ nhất."
+  },
+  "categories": ["security-privacy", "file-management"],
+  "tags": ["disk-encryption", "container", "hidden-volume", "truecrypt-fork"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://veracrypt.jp",
+    "repo": "https://github.com/veracrypt/VeraCrypt",
+    "download": "https://veracrypt.jp/en/Downloads.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/953d77964e99c87d18c8a36f03d0c80f4425b68823afe8c73d22a3b7c3f79a2a",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

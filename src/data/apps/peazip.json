@@ -1,0 +1,25 @@
+{
+  "name": "PeaZip",
+  "developer": "Giorgio Tani",
+  "logo": "monogram",
+  "summary": {
+    "en": "Archive manager reading over two hundred formats, with a two-pane browser and archive integrity checks.",
+    "vi": "Trình quản lý tệp nén đọc hơn hai trăm định dạng, có trình duyệt hai khung và kiểm tra toàn vẹn kho nén."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["archiver", "compression", "portable", "encryption"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "LGPL-3.0-only",
+  "links": {
+    "homepage": "https://peazip.github.io",
+    "repo": "https://github.com/peazip/PeaZip",
+    "download": "https://peazip.github.io/peazip-64bit.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/650bd36089edfe582f792b2cce4b1fdf46c43abdaad83038152db4cf4253f539",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

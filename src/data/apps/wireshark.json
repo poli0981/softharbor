@@ -1,0 +1,25 @@
+{
+  "name": "Wireshark",
+  "developer": "The Wireshark team",
+  "logo": "simple-icons:wireshark",
+  "summary": {
+    "en": "Network protocol analyser that captures live traffic and decodes it packet by packet.",
+    "vi": "Công cụ phân tích giao thức mạng, bắt lưu lượng trực tiếp và giải mã theo từng gói tin."
+  },
+  "categories": ["developer-tools", "security-privacy"],
+  "tags": ["packet-capture", "network", "protocol-analysis", "troubleshooting"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://www.wireshark.org",
+    "repo": "https://gitlab.com/wireshark/wireshark",
+    "download": "https://www.wireshark.org/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2d4b958c8cbd51aedbe73b49cd229601d3b3d3cf5639770c6da132ecd9374cca",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

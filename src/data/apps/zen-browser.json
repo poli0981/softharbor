@@ -1,0 +1,25 @@
+{
+  "name": "Zen Browser",
+  "developer": "Zen Browser Team",
+  "logo": "simple-icons:zenbrowser",
+  "summary": {
+    "en": "Firefox fork with vertical tabs, workspaces and split view for people who group work by context.",
+    "vi": "Bản fork của Firefox với tab dọc, workspace và chế độ chia đôi cửa sổ để sắp xếp công việc theo ngữ cảnh."
+  },
+  "categories": ["browser", "productivity"],
+  "tags": ["firefox-fork", "vertical-tabs", "workspaces", "split-view"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://zen-browser.app",
+    "repo": "https://github.com/zen-browser/desktop",
+    "download": "https://zen-browser.app/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4e4c8c2d44cc7869b65e2057752b750f2ffb6333b82a6c3c2b32470fca85064e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

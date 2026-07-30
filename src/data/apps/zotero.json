@@ -1,0 +1,25 @@
+{
+  "name": "Zotero",
+  "developer": "Corporation for Digital Scholarship",
+  "logo": "simple-icons:zotero",
+  "summary": {
+    "en": "Reference manager that captures sources from the browser and inserts formatted citations into a word processor.",
+    "vi": "Trình quản lý tài liệu tham khảo, thu thập nguồn từ trình duyệt và chèn trích dẫn đã định dạng vào trình soạn thảo."
+  },
+  "categories": ["productivity"],
+  "tags": ["citations", "research", "bibliography", "pdf"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://www.zotero.org",
+    "repo": "https://github.com/zotero/zotero",
+    "download": "https://www.zotero.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2f60ddcff672dab33305cfdb241aced33db0a04abcc979e53669d9d5471ae627",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

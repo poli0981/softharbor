@@ -1,0 +1,25 @@
+{
+  "name": "Konversation",
+  "developer": "KDE",
+  "logo": "monogram",
+  "summary": {
+    "en": "KDE IRC client with per-channel settings, nickname watch lists and automatic reconnection to saved networks.",
+    "vi": "Ứng dụng IRC của KDE với thiết lập riêng cho từng kênh, theo dõi nickname và tự kết nối lại các mạng đã lưu."
+  },
+  "categories": ["communication"],
+  "tags": ["irc", "kde", "qt", "scriptable"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://konversation.kde.org",
+    "repo": "https://invent.kde.org/network/konversation",
+    "download": "https://apps.kde.org/konversation/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6e75a50abbdb9e0fe74c32d9ea732b083aef9ddbd76acbb1d097cb32b48dca78",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

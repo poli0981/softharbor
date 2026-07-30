@@ -1,0 +1,25 @@
+{
+  "name": "Enpass",
+  "developer": "Sinew Software Systems",
+  "logo": "simple-icons:enpass",
+  "summary": {
+    "en": "Password manager that keeps the vault on your device and syncs it through cloud storage you already own.",
+    "vi": "Trình quản lý mật khẩu giữ kho dữ liệu trên máy bạn, đồng bộ qua dịch vụ đám mây do bạn tự chọn."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["password-manager", "local-vault", "own-cloud-sync", "no-subscription"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.enpass.io",
+    "repo": null,
+    "download": "https://www.enpass.io/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ede6e64720d0913b0f078848130c0466bd52d2798a9f3a615d1e11d3e309d6cc",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

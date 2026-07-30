@@ -1,0 +1,25 @@
+{
+  "name": "FFmpeg",
+  "developer": "FFmpeg team",
+  "logo": "simple-icons:ffmpeg",
+  "summary": {
+    "en": "Command-line toolkit for decoding, converting and streaming nearly any audio or video format.",
+    "vi": "Bộ công cụ dòng lệnh để giải mã, chuyển đổi và truyền phát gần như mọi định dạng âm thanh, video."
+  },
+  "categories": ["media", "developer-tools"],
+  "tags": ["cli", "transcoding", "streaming", "scriptable"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "LGPL-2.1-or-later",
+  "links": {
+    "homepage": "https://ffmpeg.org",
+    "repo": "https://github.com/FFmpeg/FFmpeg",
+    "download": "https://ffmpeg.org/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a72b971f1e345351fff5690fab41d149e8d48f937e2bf6b0b5c1117e697800ef",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

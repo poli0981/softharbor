@@ -1,0 +1,25 @@
+{
+  "name": "Brave",
+  "developer": "Brave Software, Inc.",
+  "logo": "simple-icons:brave",
+  "summary": {
+    "en": "Chromium-based browser that blocks ads and trackers by default, without installing an extension first.",
+    "vi": "Trình duyệt nền Chromium chặn quảng cáo và trình theo dõi ngay từ mặc định, không cần cài thêm tiện ích."
+  },
+  "categories": ["browser", "security-privacy"],
+  "tags": ["chromium", "adblock", "privacy", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://brave.com",
+    "repo": "https://github.com/brave/brave-browser",
+    "download": "https://brave.com/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/50868231ac2c552c4bab241ffab0290c0124adb05b325fa1f7c5351b8a1b1708",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

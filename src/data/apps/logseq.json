@@ -1,0 +1,25 @@
+{
+  "name": "Logseq",
+  "developer": "Logseq",
+  "logo": "simple-icons:logseq",
+  "summary": {
+    "en": "Outliner that builds notes from bullet blocks, with a daily journal as the default entry point.",
+    "vi": "Ứng dụng ghi chú dạng phân cấp theo từng khối gạch đầu dòng, lấy nhật ký hằng ngày làm điểm bắt đầu."
+  },
+  "categories": ["productivity"],
+  "tags": ["outliner", "markdown", "local-first", "daily-notes"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://logseq.com",
+    "repo": "https://github.com/logseq/logseq",
+    "download": "https://logseq.com/downloads"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5db07e196ac1b4e2287fa633f39bf7f3ec71adeaf997b4aafc2d0fb0fabd20d9",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

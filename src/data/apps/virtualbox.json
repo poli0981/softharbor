@@ -1,0 +1,25 @@
+{
+  "name": "VirtualBox",
+  "developer": "Oracle",
+  "logo": "simple-icons:virtualbox",
+  "summary": {
+    "en": "Virtualisation tool that runs guest operating systems in windows on the host desktop.",
+    "vi": "Công cụ ảo hoá, chạy hệ điều hành khách trong cửa sổ ngay trên màn hình máy thật."
+  },
+  "categories": ["developer-tools", "system"],
+  "tags": ["virtualization", "vm", "snapshots", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.virtualbox.org",
+    "repo": null,
+    "download": "https://www.virtualbox.org/wiki/Downloads"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/55dfd5ac5b6711c63d4ee8e5243da586a537cac81de4160070310135422ae82e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "DOSBox Staging",
+  "developer": "DOSBox Staging contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Maintained DOSBox fork for running MS-DOS games, with reworked audio emulation and CRT-style shaders.",
+    "vi": "Bản fork DOSBox được duy trì để chạy game MS-DOS, có mô phỏng âm thanh viết lại và shader kiểu màn hình CRT."
+  },
+  "categories": ["gaming", "utilities"],
+  "tags": ["dos", "retro", "shaders", "audio-emulation"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.dosbox-staging.org",
+    "repo": "https://github.com/dosbox-staging/dosbox-staging",
+    "download": "https://github.com/dosbox-staging/dosbox-staging/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c975fb730474f9e956e4758765d50d9b8ca41c1ec5f2e2c1a118dc219f9a17f7",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

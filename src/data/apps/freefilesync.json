@@ -1,0 +1,25 @@
+{
+  "name": "FreeFileSync",
+  "developer": "Zenju",
+  "logo": "monogram",
+  "summary": {
+    "en": "Folder comparison and sync tool that transfers only the differences it finds between two locations.",
+    "vi": "Công cụ so sánh và đồng bộ thư mục, chỉ chuyển đúng phần khác biệt tìm thấy giữa hai vị trí."
+  },
+  "categories": ["file-management"],
+  "tags": ["sync", "backup", "folder-compare", "scheduling"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free-onetime",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://freefilesync.org",
+    "repo": null,
+    "download": "https://freefilesync.org/download.php"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/69997fbd74b11ff51eadbda32006adf3b2d044f4ed1ac7b283d930e820937c13",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

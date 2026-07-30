@@ -1,0 +1,25 @@
+{
+  "name": "Sublime Text",
+  "developer": "Sublime HQ Pty Ltd",
+  "logo": "simple-icons:sublimetext",
+  "summary": {
+    "en": "Native code editor known for fast startup, multiple cursors and project-wide Goto Anything search.",
+    "vi": "Trình soạn thảo mã gốc, khởi động nhanh, hỗ trợ nhiều con trỏ và tìm kiếm Goto Anything toàn dự án."
+  },
+  "categories": ["ide-editor", "developer-tools"],
+  "tags": ["native", "multiple-cursors", "plugins", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.sublimetext.com",
+    "repo": null,
+    "download": "https://www.sublimetext.com/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/50dc606906fd62b2283cc55dde1d5f1d85407d0a38a1883ef35c81ede28f0c49",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

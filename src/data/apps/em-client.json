@@ -1,0 +1,25 @@
+{
+  "name": "eM Client",
+  "developer": "eM Client Inc.",
+  "logo": "monogram",
+  "summary": {
+    "en": "Email, calendar and contacts client whose free licence covers personal use on one device with two accounts.",
+    "vi": "Ứng dụng email, lịch và danh bạ, giấy phép miễn phí dùng cho cá nhân trên một máy với tối đa hai tài khoản."
+  },
+  "categories": ["communication", "productivity"],
+  "tags": ["email", "calendar", "pgp", "exchange"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.emclient.com",
+    "repo": null,
+    "download": "https://www.emclient.com/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/84d67cd423534c46d1dbcbba287d20ab59a315c35e1e3dca2782e69fe04c8d6c",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

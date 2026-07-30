@@ -31,7 +31,11 @@ const apps = defineCollection({
     .object({
       name: z.string().min(1).max(60),
       developer: z.string().min(1).max(80),
-      logo: z.string().regex(/^(simple-icons:[a-z0-9]+|local:[a-z0-9-]+\.(svg|webp))$/),
+      // `monogram` = no brand mark is available for this app (D23). The
+      // `webp` alternative is gone: the render path inlines SVG, so a raster
+      // logo would need an `<img>` and Astro asset handling that nothing asks
+      // for yet — better absent than declared-but-unimplemented.
+      logo: z.string().regex(/^(simple-icons:[a-z0-9]+|local:[a-z0-9-]+\.svg|monogram)$/),
       summary: z.object({
         en: z.string().min(20).max(160),
         vi: z.string().min(20).max(160),

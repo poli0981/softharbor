@@ -1,0 +1,25 @@
+{
+  "name": "DuckDuckGo",
+  "developer": "DuckDuckGo, Inc.",
+  "logo": "simple-icons:duckduckgo",
+  "summary": {
+    "en": "Privacy browser built on the system web engine, blocking trackers and answering cookie pop-ups for you.",
+    "vi": "Trình duyệt riêng tư dùng engine web của hệ điều hành, chặn trình theo dõi và tự trả lời pop-up cookie."
+  },
+  "categories": ["security-privacy", "browser"],
+  "tags": ["privacy", "tracker-blocking", "lightweight", "no-extensions"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://duckduckgo.com",
+    "repo": "https://github.com/duckduckgo/apple-browsers",
+    "download": "https://duckduckgo.com/app"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f5255006fc14283bb53b3d990c5c5fe23416268bec00f5bb431aee56b0023e04",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

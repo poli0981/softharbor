@@ -1,0 +1,25 @@
+{
+  "name": "Beeper",
+  "developer": "Automattic",
+  "logo": "monogram",
+  "summary": {
+    "en": "Single inbox that bridges WhatsApp, Telegram, Signal, Slack and other networks into one desktop chat list.",
+    "vi": "Hộp thư hợp nhất, gộp WhatsApp, Telegram, Signal, Slack và nhiều mạng khác vào chung một danh sách trò chuyện."
+  },
+  "categories": ["communication", "productivity"],
+  "tags": ["unified-inbox", "bridges", "matrix", "multi-network"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://beeper.com",
+    "repo": null,
+    "download": "https://beeper.com/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b9a84f215ad793f52e2e863e6e0200704271feac9b0f32bcc79a87f27a5529e8",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

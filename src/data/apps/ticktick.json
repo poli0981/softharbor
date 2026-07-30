@@ -1,0 +1,25 @@
+{
+  "name": "TickTick",
+  "developer": "Appest",
+  "logo": "simple-icons:ticktick",
+  "summary": {
+    "en": "Task manager pairing to-do lists with a calendar view, habit tracking and a built-in Pomodoro timer.",
+    "vi": "Ứng dụng quản lý việc kết hợp danh sách việc cần làm với lịch, theo dõi thói quen và đồng hồ Pomodoro."
+  },
+  "categories": ["productivity"],
+  "tags": ["tasks", "calendar", "habits", "pomodoro"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://ticktick.com",
+    "repo": null,
+    "download": "https://ticktick.com/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/27390f9040ca4d3598ff0fbcb69e0e990d8912efaa04aba9a4dfc8152de26003",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

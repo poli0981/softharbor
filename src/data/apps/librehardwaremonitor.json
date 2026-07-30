@@ -1,0 +1,25 @@
+{
+  "name": "Libre Hardware Monitor",
+  "developer": "Libre Hardware Monitor contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Open-source sensor monitor for temperatures, fan speeds and voltages, continuing the Open Hardware Monitor project.",
+    "vi": "Trình theo dõi cảm biến mã nguồn mở cho nhiệt độ, tốc độ quạt và điện áp, kế thừa dự án Open Hardware Monitor."
+  },
+  "categories": ["system"],
+  "tags": ["sensors", "monitoring", "temperatures", "open-source"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MPL-2.0",
+  "links": {
+    "homepage": "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
+    "repo": "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
+    "download": "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/e564d8fc59730bb536279bcc7b53ad418c390ff7f26c4b44af47f2da63c130e1",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

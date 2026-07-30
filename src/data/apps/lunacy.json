@@ -1,0 +1,25 @@
+{
+  "name": "Lunacy",
+  "developer": "Icons8",
+  "logo": "simple-icons:lunacy",
+  "summary": {
+    "en": "UI design tool that opens and saves Sketch files, with built-in assets and offline operation.",
+    "vi": "Công cụ thiết kế giao diện mở và lưu được tệp Sketch, có sẵn kho tài nguyên và chạy ngoại tuyến."
+  },
+  "categories": ["graphics", "productivity"],
+  "tags": ["ui-design", "vector", "sketch-files", "offline"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://icons8.com/lunacy",
+    "repo": null,
+    "download": "https://icons8.com/lunacy-download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9353b9ff006a60ab0c2e038b16798bfb33914bfe7ca3666e3205c7604ba25f82",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

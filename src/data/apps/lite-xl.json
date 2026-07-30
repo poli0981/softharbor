@@ -1,0 +1,25 @@
+{
+  "name": "Lite XL",
+  "developer": "Lite XL contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Editor written in C and Lua with a binary of a few megabytes, extended entirely through Lua plugins.",
+    "vi": "Trình soạn thảo viết bằng C và Lua, tệp chạy chỉ vài megabyte, mở rộng hoàn toàn qua plugin Lua."
+  },
+  "categories": ["ide-editor", "utilities"],
+  "tags": ["lightweight", "lua", "portable", "minimal"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://lite-xl.com",
+    "repo": "https://github.com/lite-xl/lite-xl",
+    "download": "https://github.com/lite-xl/lite-xl/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d04bcc8330381e225b5f07844048e403a9b280ade8232c1a89447de74762bf8f",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

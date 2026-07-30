@@ -1,0 +1,25 @@
+{
+  "name": "LMMS",
+  "developer": "LMMS developers",
+  "logo": "simple-icons:lmms",
+  "summary": {
+    "en": "Music production tool for pattern-based composition, with built-in synths and a beat editor.",
+    "vi": "Công cụ sản xuất nhạc theo mẫu pattern, có sẵn synth và trình soạn nhịp trống."
+  },
+  "categories": ["media"],
+  "tags": ["daw", "synth", "midi", "beat-making"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://lmms.io",
+    "repo": "https://github.com/LMMS/lmms",
+    "download": "https://lmms.io/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2979e0a12d8f4dc6780837edafe5da97944a267a9bcdc183db48cfb42661ac9f",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

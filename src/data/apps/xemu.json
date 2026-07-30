@@ -1,0 +1,25 @@
+{
+  "name": "xemu",
+  "developer": "xemu Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Original Xbox emulator working at hardware level, able to render games above the console's output resolution.",
+    "vi": "Trình giả lập Xbox đời đầu mô phỏng ở mức phần cứng, kết xuất game ở độ phân giải cao hơn máy gốc."
+  },
+  "categories": ["gaming"],
+  "tags": ["xbox", "low-level", "save-states", "networking"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://xemu.app",
+    "repo": "https://github.com/xemu-project/xemu",
+    "download": "https://github.com/xemu-project/xemu/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/01c18e2040d4618402a74e135d92f0da3d63fb488db52a0fe755f977f7ef6ef6",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

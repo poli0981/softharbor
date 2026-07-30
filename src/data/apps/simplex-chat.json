@@ -1,0 +1,25 @@
+{
+  "name": "SimpleX Chat",
+  "developer": "SimpleX Chat Ltd",
+  "logo": "monogram",
+  "summary": {
+    "en": "Messenger with no account identifiers at all: contacts are added through one-time invitation links or QR codes.",
+    "vi": "Ứng dụng nhắn tin không có mã định danh tài khoản, kết bạn bằng liên kết mời dùng một lần hoặc mã QR."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["no-user-ids", "e2ee", "self-hosted", "metadata-privacy"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://simplex.chat",
+    "repo": "https://github.com/simplex-chat/simplex-chat",
+    "download": "https://simplex.chat/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a69ea4a457c77a1a5ab4fa53c58537760b32dd78cc745769d5deaf630ebd491e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

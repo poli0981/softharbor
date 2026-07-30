@@ -1,0 +1,25 @@
+{
+  "name": "calibre",
+  "developer": "Kovid Goyal",
+  "logo": "monogram",
+  "summary": {
+    "en": "Ebook library manager that converts between formats and sends books straight to a connected reader.",
+    "vi": "Trình quản lý thư viện ebook, chuyển đổi định dạng và gửi sách thẳng sang máy đọc đang kết nối."
+  },
+  "categories": ["file-management", "productivity"],
+  "tags": ["ebooks", "conversion", "metadata", "library"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://calibre-ebook.com",
+    "repo": "https://github.com/kovidgoyal/calibre",
+    "download": "https://calibre-ebook.com/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/91be0f575bd0ba3a9d7eb80b18036b410adae59e890447a3a868121d0bf6ec6b",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "MangoHud",
+  "developer": "flightlessmango",
+  "logo": "monogram",
+  "summary": {
+    "en": "Vulkan and OpenGL overlay for Linux showing frame times, GPU load and temperatures while a game runs.",
+    "vi": "Lớp overlay Vulkan và OpenGL trên Linux, hiển thị frame time, tải GPU và nhiệt độ ngay trong lúc chơi."
+  },
+  "categories": ["gaming", "system"],
+  "tags": ["overlay", "vulkan", "opengl", "benchmark"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/flightlessmango/MangoHud",
+    "repo": "https://github.com/flightlessmango/MangoHud",
+    "download": "https://github.com/flightlessmango/MangoHud/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/aa60e525e1697e7a664e41864b45e02bed213cd35f44836ea3eefe28a00aca4c",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

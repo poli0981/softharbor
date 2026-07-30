@@ -1,0 +1,25 @@
+{
+  "name": "Cryptomator",
+  "developer": "Skymatic GmbH",
+  "logo": "simple-icons:cryptomator",
+  "summary": {
+    "en": "Encrypts a folder file by file before it reaches cloud storage, so sync keeps working per changed file.",
+    "vi": "Mã hoá thư mục theo từng tệp trước khi đưa lên đám mây, nhờ đó việc đồng bộ vẫn chạy theo từng tệp thay đổi."
+  },
+  "categories": ["security-privacy", "file-management"],
+  "tags": ["encryption", "cloud-storage", "virtual-drive", "zero-knowledge"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://cryptomator.org",
+    "repo": "https://github.com/cryptomator/cryptomator",
+    "download": "https://cryptomator.org/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/91fbde4df664dbd64c1d434811fc65b850a8908a4c8f58217565c866aa63763e",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

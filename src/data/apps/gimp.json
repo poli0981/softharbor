@@ -1,0 +1,25 @@
+{
+  "name": "GIMP",
+  "developer": "The GIMP Team",
+  "logo": "simple-icons:gimp",
+  "summary": {
+    "en": "Raster image editor with layers, masks and a Script-Fu console for automating repetitive edits.",
+    "vi": "Trình chỉnh sửa ảnh raster có lớp, mặt nạ và console Script-Fu để tự động hoá thao tác lặp lại."
+  },
+  "categories": ["graphics"],
+  "tags": ["photo-editing", "raster", "scripting", "plugins"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.gimp.org",
+    "repo": "https://gitlab.gnome.org/GNOME/gimp",
+    "download": "https://www.gimp.org/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f3d002ad86cdb1334cf38aea8ac34d3e966315b0b765f266fdd2f959df5be247",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

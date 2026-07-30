@@ -1,0 +1,25 @@
+{
+  "name": "melonDS",
+  "developer": "Arisotura",
+  "logo": "monogram",
+  "summary": {
+    "en": "Nintendo DS emulator focused on accuracy, including local wireless play between two running instances.",
+    "vi": "Trình giả lập Nintendo DS chú trọng độ chính xác, hỗ trợ chơi mạng nội bộ giữa hai phiên đang chạy."
+  },
+  "categories": ["gaming"],
+  "tags": ["nintendo-ds", "accuracy", "local-multiplayer", "save-states"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://melonds.kuribo64.net",
+    "repo": "https://github.com/melonDS-emu/melonDS",
+    "download": "https://melonds.kuribo64.net/downloads.php"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f03b17b34ab469f629a2c6b16138cade735148d228cb836b580a32664bd4678b",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

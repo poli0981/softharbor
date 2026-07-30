@@ -1,0 +1,25 @@
+{
+  "name": "WinRAR",
+  "developer": "win.rar GmbH",
+  "logo": "monogram",
+  "summary": {
+    "en": "The reference tool for creating RAR archives, with recovery records and multi-volume splitting.",
+    "vi": "Công cụ chuẩn để tạo kho nén RAR, có bản ghi phục hồi và chia kho thành nhiều phần."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["archiver", "rar", "recovery-record", "encryption"],
+  "platforms": ["windows"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.win-rar.com",
+    "repo": null,
+    "download": "https://www.win-rar.com/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/75c53dea0c41a141c79ada278278122cc252eee31687aefa8321490a16b731c0",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

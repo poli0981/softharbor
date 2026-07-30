@@ -1,0 +1,25 @@
+{
+  "name": "Aseprite",
+  "developer": "Igara Studio S.A.",
+  "logo": "simple-icons:aseprite",
+  "summary": {
+    "en": "Pixel art editor with frame-by-frame animation, onion skinning and sprite sheet export.",
+    "vi": "Trình vẽ pixel art với hoạt hình theo từng khung hình, onion skinning và xuất sprite sheet."
+  },
+  "categories": ["graphics", "gaming"],
+  "tags": ["pixel-art", "animation", "sprite-sheet", "game-assets"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.aseprite.org",
+    "repo": "https://github.com/aseprite/aseprite",
+    "download": "https://www.aseprite.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c4f781cf3889cd389fffb7a931d135abad474f9be17725d2945e198d741baaf6",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

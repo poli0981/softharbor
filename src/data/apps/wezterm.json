@@ -1,0 +1,25 @@
+{
+  "name": "WezTerm",
+  "developer": "Wez Furlong",
+  "logo": "simple-icons:wezterm",
+  "summary": {
+    "en": "Terminal emulator and multiplexer configured in Lua, with built-in panes and SSH sessions.",
+    "vi": "Trình giả lập terminal kèm multiplexer, cấu hình bằng Lua, có sẵn chia khung và phiên SSH."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["terminal", "multiplexer", "lua", "gpu-accelerated"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://wezterm.org",
+    "repo": "https://github.com/wezterm/wezterm",
+    "download": "https://wezterm.org/installation.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b3909bdf2e9ade545232da97d82cb979b8680e6a5a5cd638f42f2ea840a1bbf5",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

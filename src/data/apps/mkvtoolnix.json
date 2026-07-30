@@ -1,0 +1,25 @@
+{
+  "name": "MKVToolNix",
+  "developer": "Moritz Bunkus",
+  "logo": "monogram",
+  "summary": {
+    "en": "Tools for creating and inspecting Matroska files, including merging video, audio and subtitles.",
+    "vi": "Bộ công cụ tạo và kiểm tra tệp Matroska, gồm ghép track hình, tiếng và phụ đề."
+  },
+  "categories": ["media", "utilities"],
+  "tags": ["matroska", "mkv", "muxing", "subtitles"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://mkvtoolnix.download",
+    "repo": "https://gitlab.com/mbunkus/mkvtoolnix",
+    "download": "https://mkvtoolnix.download/downloads.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/79b72948be750eb397b85beba1ca04c4c386679076a88c6208df23add5470868",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

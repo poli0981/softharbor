@@ -1,0 +1,25 @@
+{
+  "name": "LaunchBox",
+  "developer": "Unbroken Software, LLC",
+  "logo": "monogram",
+  "summary": {
+    "en": "Box-art game frontend for emulators and PC titles, with a paid Big Box mode built for arcade cabinets and TVs.",
+    "vi": "Giao diện quản lý game theo ảnh bìa cho trình giả lập và game PC, chế độ Big Box trả phí dành cho tủ arcade và TV."
+  },
+  "categories": ["gaming"],
+  "tags": ["frontend", "emulators", "box-art", "arcade"],
+  "platforms": ["windows"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.launchbox-app.com",
+    "repo": null,
+    "download": "https://www.launchbox-app.com"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c85bc93f57ad6d1a8ab014b3aa387c46cfff2387dfb02aae7d7c4962105f0250",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

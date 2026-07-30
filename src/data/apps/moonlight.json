@@ -1,0 +1,25 @@
+{
+  "name": "Moonlight",
+  "developer": "Moonlight Game Streaming Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Client for streaming PC games over a local network, working with Sunshine or NVIDIA GameStream hosts.",
+    "vi": "Ứng dụng nhận luồng game PC qua mạng nội bộ, hoạt động với máy chủ Sunshine hoặc NVIDIA GameStream."
+  },
+  "categories": ["gaming"],
+  "tags": ["game-streaming", "client", "remote-play", "low-latency"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://moonlight-stream.org",
+    "repo": "https://github.com/moonlight-stream/moonlight-qt",
+    "download": "https://github.com/moonlight-stream/moonlight-qt/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/05167a318b9644472cdf11ac78af1f2816174aa037f0dc8555d207972b3473ec",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

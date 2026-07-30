@@ -1,0 +1,25 @@
+{
+  "name": "VMware Workstation Pro",
+  "developer": "Broadcom",
+  "logo": "monogram",
+  "summary": {
+    "en": "Desktop hypervisor for running virtual machines, free for personal and commercial use since 2024.",
+    "vi": "Hypervisor chạy máy ảo trên desktop, miễn phí cho cả mục đích cá nhân lẫn thương mại từ 2024."
+  },
+  "categories": ["developer-tools", "system"],
+  "tags": ["virtualization", "vm", "snapshots", "account-required"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.vmware.com",
+    "repo": null,
+    "download": "https://knowledge.broadcom.com/external/article/368667/download-and-license-vmware-desktop-hype.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ecb59138697edb223179a795354ddc593c240a97b043fb79407f58901f8fbf31",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

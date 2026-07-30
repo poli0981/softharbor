@@ -1,0 +1,25 @@
+{
+  "name": "Yazi",
+  "developer": "sxyazi",
+  "logo": "monogram",
+  "summary": {
+    "en": "Terminal file manager written in Rust, doing image previews and file operations without blocking the UI.",
+    "vi": "Trình quản lý tệp trong terminal viết bằng Rust, xem trước ảnh và thao tác tệp mà không làm treo giao diện."
+  },
+  "categories": ["file-management", "developer-tools"],
+  "tags": ["terminal", "rust", "async", "vim-keys"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://yazi-rs.github.io",
+    "repo": "https://github.com/sxyazi/yazi",
+    "download": "https://github.com/sxyazi/yazi/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2f711ac9f7243277748ae4115091d68af64f3485ce89bd3557884e65d5309c19",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

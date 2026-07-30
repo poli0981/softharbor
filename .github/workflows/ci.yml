@@ -95,8 +95,25 @@ jobs:
       - name: Collect changed official links
         if: github.event_name == 'pull_request'
         run: node scripts/extract-urls.mjs --changed > /tmp/urls.txt
+      # Accepting 403/429 is about bot mitigation, not about being lenient.
+      # Seeding the catalogue put ~1 150 vendor URLs through here and 14 came
+      # back 403 from sites that are plainly alive (winehq.org, dolphin-emu.org,
+      # rpcs3.net, gitlab.com, MSI, Nexus Mods, Epic, Enpass). A checker that
+      # cries wolf on a seventh of the catalogue teaches everyone to ignore it,
+      # which costs more than the 403 it would one day be right about.
+      # 404/500/connection failures — the codes that actually mean "gone" —
+      # still fail the build.
+      #
+      # Do NOT add `--user-agent`. Spoofing a browser was tried and made things
+      # worse, not better: it cleared the 403s but gitlab.gnome.org started
+      # answering 406 and whatsapp.com 400, both of which pass fine on lychee's
+      # default agent. There is no single UA every vendor is happy with, so the
+      # status-code accepts carry this on their own.
       - name: Link check
         if: github.event_name == 'pull_request'
         uses: lycheeverse/lychee-action@v2
         with:
-          args: '--max-concurrency 4 --retry-wait-time 2 /tmp/urls.txt'
+          args: >-
+            --max-concurrency 4 --retry-wait-time 2 --max-retries 3 --timeout 45
+            --accept '200..=299,403,429'
+            /tmp/urls.txt

@@ -1,0 +1,25 @@
+{
+  "name": "Threema",
+  "developer": "Threema AG",
+  "logo": "simple-icons:threema",
+  "summary": {
+    "en": "Swiss encrypted messenger paid for once rather than by subscription, with accounts that need no phone number.",
+    "vi": "Ứng dụng nhắn tin mã hoá của Thuỵ Sĩ, trả tiền một lần thay vì thuê bao, tài khoản không cần số điện thoại."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["e2ee", "no-phone-number", "swiss", "companion-app"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "onetime",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://threema.com",
+    "repo": "https://github.com/threema-ch/threema-desktop",
+    "download": "https://threema.com/en/download/threema-private"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9d48dc1922be69197d36e6467387ce37d3345cf9b46118aaed1b0ae08d598883",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

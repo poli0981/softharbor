@@ -1,0 +1,25 @@
+{
+  "name": "WinDirStat",
+  "developer": "WinDirStat contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Shows disk usage as a coloured treemap where each rectangle is a file sized by how much space it takes.",
+    "vi": "Hiển thị dung lượng đĩa dưới dạng bản đồ ô màu, mỗi ô là một tệp với kích thước tỉ lệ theo chỗ nó chiếm."
+  },
+  "categories": ["system", "file-management"],
+  "tags": ["disk-usage", "treemap", "cleanup", "open-source"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://windirstat.net",
+    "repo": "https://github.com/windirstat/windirstat",
+    "download": "https://github.com/windirstat/windirstat/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d70184d1cb10d3bbfa513d37cd5c5482744e717db7fbed1ea645852b8614d0c6",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

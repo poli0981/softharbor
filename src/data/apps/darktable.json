@@ -1,0 +1,25 @@
+{
+  "name": "darktable",
+  "developer": "darktable team",
+  "logo": "monogram",
+  "summary": {
+    "en": "Non-destructive RAW developer that keeps edits in a sidecar file and leaves the original untouched.",
+    "vi": "Trình xử lý ảnh RAW không phá huỷ, lưu chỉnh sửa vào tệp sidecar và giữ nguyên ảnh gốc."
+  },
+  "categories": ["graphics"],
+  "tags": ["raw", "photography", "non-destructive", "color-management"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.darktable.org",
+    "repo": "https://github.com/darktable-org/darktable",
+    "download": "https://www.darktable.org/install/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/533e1e93038663a233b9fa3b5a8b17d74c31d09aad9b16e5b99feb369de90a33",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

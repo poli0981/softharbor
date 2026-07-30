@@ -1,0 +1,25 @@
+{
+  "name": "OBS Studio",
+  "developer": "OBS Project",
+  "logo": "simple-icons:obsstudio",
+  "summary": {
+    "en": "Screen recording and live streaming tool built around scenes and switchable input sources.",
+    "vi": "Công cụ quay màn hình và phát trực tiếp, hoạt động theo scene và nguồn đầu vào chuyển đổi được."
+  },
+  "categories": ["media"],
+  "tags": ["screen-recording", "streaming", "scenes", "plugins"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://obsproject.com",
+    "repo": "https://github.com/obsproject/obs-studio",
+    "download": "https://obsproject.com/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/edce208d9fa46eeedda2c7ee0697e84f4fb825fee43e76c665c5cc1cd18bbcc2",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

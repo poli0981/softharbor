@@ -1,0 +1,25 @@
+{
+  "name": "balenaEtcher",
+  "developer": "Balena",
+  "logo": "monogram",
+  "summary": {
+    "en": "Flashes disk images to USB sticks and SD cards, validating the write afterwards to catch corrupted media.",
+    "vi": "Ghi ảnh đĩa ra USB và thẻ nhớ, kiểm tra lại sau khi ghi để phát hiện thiết bị lưu trữ bị lỗi."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["disk-image", "sd-card", "validation", "cross-platform"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://etcher.balena.io",
+    "repo": "https://github.com/balena-io/etcher",
+    "download": "https://etcher.balena.io"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/ed82f0b2e9786baf3d815edf6c95efe9adc6c2616628cc8f04099acab72c9145",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

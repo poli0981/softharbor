@@ -1,0 +1,25 @@
+{
+  "name": "Jami",
+  "developer": "Savoir-faire Linux",
+  "logo": "monogram",
+  "summary": {
+    "en": "Peer-to-peer calling and messaging app that connects clients directly, with no central account server in between.",
+    "vi": "Ứng dụng gọi điện và nhắn tin ngang hàng, kết nối trực tiếp giữa các máy mà không cần máy chủ tài khoản trung gian."
+  },
+  "categories": ["communication", "security-privacy"],
+  "tags": ["peer-to-peer", "no-server", "video-calls", "sip"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://jami.net",
+    "repo": null,
+    "download": "https://jami.net/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/5dcbbd145cc16413981b2fb176403fa06b3c6f283305380ac2a7fb501a4c97d6",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

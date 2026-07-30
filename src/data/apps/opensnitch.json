@@ -1,0 +1,25 @@
+{
+  "name": "OpenSnitch",
+  "developer": "Simone Margaritelli",
+  "logo": "monogram",
+  "summary": {
+    "en": "Interactive outbound firewall for Linux, asking about each new connection and keeping a searchable log.",
+    "vi": "Tường lửa chặn kết nối ra tương tác cho Linux, hỏi từng kết nối mới và lưu nhật ký tra cứu được."
+  },
+  "categories": ["security-privacy"],
+  "tags": ["firewall", "outbound", "linux", "per-app-rules"],
+  "platforms": ["linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://github.com/evilsocket/opensnitch",
+    "repo": "https://github.com/evilsocket/opensnitch",
+    "download": "https://github.com/evilsocket/opensnitch/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/11f8ad51f021689e38882d1d3a87283a58f3103fece3e9e6c67d16983ea8cd25",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

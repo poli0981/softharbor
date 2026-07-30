@@ -1,0 +1,25 @@
+{
+  "name": "Things 3",
+  "developer": "Cultured Code",
+  "logo": "monogram",
+  "summary": {
+    "en": "Native macOS task manager sold once per platform, organising work into areas, projects and a daily Today list.",
+    "vi": "Ứng dụng quản lý việc gốc cho macOS, mua đứt theo từng nền tảng, sắp xếp theo khu vực, dự án và danh sách Hôm nay."
+  },
+  "categories": ["productivity"],
+  "tags": ["tasks", "gtd", "macos-native", "no-subscription"],
+  "platforms": ["macos"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://culturedcode.com/things/",
+    "repo": null,
+    "download": "https://culturedcode.com/things/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3f2eb2d3cf305ab5c786579dfda3ebac690c670933553192960a076cdf3fded1",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Zalo",
+  "developer": "VNG",
+  "logo": "simple-icons:zalo",
+  "summary": {
+    "en": "Vietnamese messaging app whose desktop build adds large file transfers, screen capture and task assignment.",
+    "vi": "Ứng dụng nhắn tin của Việt Nam, bản máy tính bổ sung gửi tệp dung lượng lớn, chụp màn hình và giao việc."
+  },
+  "categories": ["communication"],
+  "tags": ["vietnam", "file-transfer", "groups", "video-call"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://zalo.me",
+    "repo": null,
+    "download": "https://zalo.me/pc"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a7a43c10f479832920059fc59867d63e415c692ab6242337a36f45d603fc708c",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

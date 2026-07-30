@@ -1,0 +1,25 @@
+{
+  "name": "Notion",
+  "developer": "Notion Labs",
+  "logo": "simple-icons:notion",
+  "summary": {
+    "en": "Workspace combining documents, databases and boards, where any page can be turned into a structured table.",
+    "vi": "Không gian làm việc gộp tài liệu, cơ sở dữ liệu và bảng kanban, mọi trang đều có thể chuyển thành bảng dữ liệu."
+  },
+  "categories": ["productivity"],
+  "tags": ["workspace", "databases", "wiki", "collaboration"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.notion.com",
+    "repo": null,
+    "download": "https://www.notion.com/desktop"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/cbeab9e68bf4fc5c856d4728625ef8502bd36db3e3037306bd75bf63f3cca726",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

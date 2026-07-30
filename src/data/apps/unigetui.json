@@ -1,0 +1,25 @@
+{
+  "name": "UniGetUI",
+  "developer": "Martí Climent",
+  "logo": "monogram",
+  "summary": {
+    "en": "Graphical front end for WinGet, Scoop, Chocolatey and other package managers, with bulk update handling.",
+    "vi": "Giao diện đồ hoạ cho WinGet, Scoop, Chocolatey và các trình quản lý gói khác, hỗ trợ cập nhật hàng loạt."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["package-manager", "winget", "updates", "gui"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://www.marticliment.com/unigetui/",
+    "repo": "https://github.com/marticliment/UniGetUI",
+    "download": "https://github.com/marticliment/UniGetUI/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c3965a32b612d45c25bd1971c6cff83e6be6fe4605ade2406cd9f7fbcebcafe2",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

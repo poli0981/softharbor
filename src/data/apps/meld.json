@@ -1,0 +1,25 @@
+{
+  "name": "Meld",
+  "developer": "Meld contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Visual diff and merge tool that compares two or three files and whole directory trees.",
+    "vi": "Công cụ so sánh và trộn trực quan, đối chiếu được hai đến ba tệp và cả cây thư mục."
+  },
+  "categories": ["developer-tools", "utilities"],
+  "tags": ["diff", "merge", "three-way", "directory-compare"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://meldmerge.org",
+    "repo": "https://gitlab.gnome.org/GNOME/meld",
+    "download": "https://meldmerge.org"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/33c6aee29c051b1b5376f30a6a8ed54dc4ff29e129d787478c181fa35a9bf49f",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

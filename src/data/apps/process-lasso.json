@@ -1,0 +1,25 @@
+{
+  "name": "Process Lasso",
+  "developer": "Bitsum",
+  "logo": "monogram",
+  "summary": {
+    "en": "Adjusts process priorities and CPU affinity in the background to keep the system responsive under load.",
+    "vi": "Tự điều chỉnh mức ưu tiên và phân bổ nhân CPU cho tiến trình để máy không bị đứng khi tải nặng."
+  },
+  "categories": ["system"],
+  "tags": ["process-priority", "cpu-affinity", "automation", "performance"],
+  "platforms": ["windows"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://bitsum.com",
+    "repo": null,
+    "download": "https://bitsum.com/download-process-lasso/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/632fa98222d378916df58f7e6b7cc8210f59f5c0c3b29b0991b87f128f922c10",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}

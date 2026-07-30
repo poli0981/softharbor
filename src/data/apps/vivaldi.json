@@ -1,0 +1,25 @@
+{
+  "name": "Vivaldi",
+  "developer": "Vivaldi Technologies",
+  "logo": "simple-icons:vivaldi",
+  "summary": {
+    "en": "Chromium browser aimed at heavy tab users, with tab stacking, tiling and a mail client built in.",
+    "vi": "Trình duyệt nền Chromium dành cho người mở nhiều tab, hỗ trợ gộp tab, chia đôi màn hình và có sẵn ứng dụng mail."
+  },
+  "categories": ["browser", "productivity"],
+  "tags": ["chromium", "tab-management", "customizable", "built-in-mail"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://vivaldi.com",
+    "repo": null,
+    "download": "https://vivaldi.com/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/6045468030feeee7ec10d63594d7cecee40834ce1191c52bdbd4f2f5261c91ac",
+    "checkedAt": "2026-07-30"
+  },
+  "addedAt": "2026-07-28"
+}
