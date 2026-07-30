@@ -120,9 +120,22 @@ AstroPWA({
     // '_astro/*.woff2', NOT 'fonts/*.woff2' — Astro hashes fonts into _astro/,
     // so the old glob matched nothing and the offline page would have rendered
     // unstyled (found in M1, 2026-07-27).
-    globPatterns: ['offline/**', '_astro/*.woff2', 'favicon.svg'], // shell only
-    navigateFallback: '/offline',
-    navigateFallbackDenylist: [/^\/api\//, /^\/rss\.xml$/],
+    // 'offline.html', NOT 'offline/**' — the glob is coupled to build.format
+    // ('file'), so the directory pattern matched nothing (M1/S5).
+    globPatterns: ['offline.html', '_astro/*.woff2', 'favicon.svg'], // shell only
+    // MUST be the empty string, and must be present. Omitting the key does
+    // NOT disable it: vite-plugin-pwa's `defaultWorkbox` sets
+    // navigateFallback: 'index.html', which emitted
+    // `NavigationRoute(createHandlerBoundToURL('/'))`. '/' was never
+    // precached, so every SW-handled navigation threw
+    // `non-precached-url :: [{"url":"/"}]` — what a visitor saw on returning
+    // from an external link (2026-07-30).
+    //
+    // Had '/' been precached it would have been worse and quieter: that route
+    // serves its bound URL for EVERY navigation, so the home page would have
+    // answered every request. That is the S5 bug again. The exception was the
+    // only thing making it visible.
+    navigateFallback: '',
     runtimeCaching: [{
       urlPattern: ({ request }) => request.mode === 'navigate',
       handler: 'NetworkOnly',
@@ -134,7 +147,11 @@ AstroPWA({
 
 Behavior: online navigation always hits the network (content freshness >
 offline cleverness); when a navigation fails, the precached `/offline` page
-renders. Spike S5 verifies: SW registers under the production origin
+renders. **`pnpm check:sw` asserts this against the emitted `dist/sw.js`** —
+no `NavigationRoute`, a `NetworkOnly` navigation handler, `/offline` and the
+fonts actually precached, and `registerSW.js` referenced by a page. Every one
+of the four service-worker bugs this project has had was silent at build time,
+so the config being right is not evidence that the output is. Spike S5 verifies: SW registers under the production origin
 (`softharbor.net` — a preview URL is acceptable for early iterations, but
 the final pass runs on the real origin), fallback fires in airplane mode,
 `autoUpdate` swaps SW without a stale lockout, and the legal gate behaves
