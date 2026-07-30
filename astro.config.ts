@@ -31,7 +31,24 @@ export default defineConfig({
   // html_handling: "drop-trailing-slash" in wrangler.jsonc, /apps/ redirects
   // to /apps and the canonical URL is the one that serves.
   trailingSlash: 'never',
-  build: { format: 'file' },
+  // `inlineStylesheets: 'never'` is a CSP decision, not a perf one.
+  //
+  // Astro's default inlines small stylesheets, and its CSP hashes them into
+  // the meta tag of the page that carries them. That is fine on a hard load
+  // and broken under `<ClientRouter />`: a soft navigation never re-applies
+  // the meta CSP, so the policy in force stays the one from the page you
+  // STARTED on. Arriving at a page with a style the origin page lacked means
+  // the browser refuses it.
+  //
+  // That is exactly what happened to `/apps`. It alone carried ShAppCard's
+  // scoped CSS — the stretched-link `::after{inset:0}` and `.sr-only` — so
+  // navigating there from any detail page silently dropped the whole-card
+  // click target and unhid screen-reader-only text.
+  //
+  // External stylesheets are covered by `style-src 'self'` with no hash at
+  // all, so every page's policy accepts them and the class of bug disappears.
+  // They also cache once across ~700 pages instead of shipping per page.
+  build: { format: 'file', inlineStylesheets: 'never' },
 
   // OFF because the platform refuses it, not because it is unwanted.
   // `<ClientRouter />` turns prefetching on by default and hovering a link

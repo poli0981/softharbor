@@ -41,6 +41,10 @@ function walk(dir) {
 const offenders = [];
 /** `<style>` elements whose hash is absent from their own page's CSP. */
 const unhashed = [];
+/** hash -> a page that emits it; and every page's allowed set, for the
+ *  cross-page check below. */
+const emittedBy = new Map();
+const allowedBy = new Map();
 
 for (const file of walk(DIST)) {
   const html = readFileSync(file, 'utf8');
@@ -57,13 +61,28 @@ for (const file of walk(DIST)) {
   // policy that governs them.
   const csp = CSP_META.exec(html)?.[1];
   if (!csp) continue;
+  const rel = relative(process.cwd(), file);
+  allowedBy.set(rel, new Set(csp.match(/'sha256-[^']+'/g)?.map((h) => h.slice(1, -1)) ?? []));
   for (const m of html.matchAll(STYLE_EL)) {
     const hash = sha256(m[1]);
-    if (!csp.includes(hash)) {
-      unhashed.push({ file: relative(process.cwd(), file), hash, head: m[1].slice(0, 70) });
-    }
+    if (!emittedBy.has(hash)) emittedBy.set(hash, { file: rel, head: m[1].slice(0, 70) });
+    if (!csp.includes(hash)) unhashed.push({ file: rel, hash, head: m[1].slice(0, 70) });
   }
 }
+
+// A meta CSP is applied when the document PARSES. `<ClientRouter />` swaps
+// without reparsing, so the policy in force stays the one from the page the
+// visitor started on. A style that only some pages carry is therefore refused
+// on arrival from any page that lacked it — invisible to the per-page check
+// above, because on a hard load that page allows its own style just fine.
+//
+// `/apps` hit this: it alone carried ShAppCard's scoped CSS, so soft-navigating
+// there from a detail page silently dropped the stretched-link `::after` (the
+// whole-card click target) and unhid `.sr-only` text.
+const universal = [...emittedBy.keys()].filter((h) =>
+  [...allowedBy.values()].every((s) => s.has(h)),
+);
+const pageSpecific = [...emittedBy.keys()].filter((h) => !universal.includes(h));
 
 if (offenders.length > 0) {
   console.error(
@@ -96,6 +115,26 @@ if (unhashed.length > 0) {
   process.exitCode = 1;
 }
 
-if (offenders.length === 0 && unhashed.length === 0) {
-  console.log('check-no-inline-styles — OK (no inline style attributes, every <style> hashed)');
+if (pageSpecific.length > 0) {
+  console.error(
+    `check-no-inline-styles — ${pageSpecific.length} <style> element(s) that only SOME`,
+  );
+  console.error("pages allow. A ClientRouter swap keeps the origin page's policy, so arriving");
+  console.error('at the page carrying these from a page without them gets them refused:\n');
+  for (const hash of pageSpecific) {
+    const { file, head } = emittedBy.get(hash) ?? {};
+    const short = [...allowedBy].filter(([, s]) => !s.has(hash)).length;
+    console.error(`  ✗ ${file}\n      ${hash}\n      ${JSON.stringify(head)}`);
+    console.error(`      refused when arriving from ${short} of ${allowedBy.size} pages`);
+  }
+  console.error("\n  Emit the CSS as an external stylesheet instead — style-src 'self' covers it");
+  console.error("  on every page with no hash at all (build.inlineStylesheets: 'never').");
+  process.exitCode = 1;
+}
+
+if (offenders.length === 0 && unhashed.length === 0 && pageSpecific.length === 0) {
+  console.log(
+    `check-no-inline-styles — OK (no style attributes; ${universal.length} <style> hash(es), ` +
+      `allowed on all ${allowedBy.size} pages)`,
+  );
 }
