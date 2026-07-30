@@ -58,6 +58,10 @@ jobs:
       # style attributes silently, so this is the only thing that catches them.
       - name: No inline style attributes
         run: pnpm check:styles
+      # Also post-build, and for the same reason: every service-worker failure
+      # this project has had was silent (docs/08 Part D).
+      - name: Service worker shape
+        run: pnpm check:sw
       - name: Dead code
         run: pnpm knip
 

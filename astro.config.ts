@@ -146,15 +146,27 @@ export default defineConfig({
         // session gets the browser's error page instead of ours (S5).
         clientsClaim: true,
 
-        // NO `navigateFallback` here. On its own it registers a NavigationRoute
-        // that serves the precached fallback for EVERY navigation — verified in
-        // S5: an online request for /apps returned the offline page. Content
-        // freshness beats offline cleverness (docs/08 Part D), so navigations
-        // are NetworkOnly and the offline page is strictly a failure path.
+        // `navigateFallback: ''` DISABLES it. Leaving the key out does not:
+        // vite-plugin-pwa's `defaultWorkbox` sets `navigateFallback:
+        // 'index.html'`, so omitting it still emitted
+        // `registerRoute(new NavigationRoute(createHandlerBoundToURL('/')))`.
+        // Since `index.html` is not in `globPatterns`, every navigation the SW
+        // handled threw `non-precached-url :: [{"url":"/"}]` — which is what a
+        // visitor saw on returning from an external link.
+        //
+        // The throw was doing us a favour. Had `/` been precached, that route
+        // would have served the HOME PAGE for every navigation — the same
+        // class of bug S5 caught when an online request for /apps returned the
+        // offline page. Content freshness beats offline cleverness (docs/08
+        // Part D), so navigations are NetworkOnly and the offline page is
+        // strictly a failure path. Empty string, not `undefined`, because
+        // `exactOptionalPropertyTypes` rejects an explicit undefined and the
+        // plugin only tests the value for truthiness.
         //
         // The glob matches the FILE (offline.html); Workbox normalises the
         // precache key to the extensionless '/offline', which is what
         // fallbackURL must name. Confirmed against the emitted manifest.
+        navigateFallback: '',
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.mode === 'navigate',
