@@ -33,6 +33,21 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
 
+  // OFF because the platform refuses it, not because it is unwanted.
+  // `<ClientRouter />` turns prefetching on by default and hovering a link
+  // then issues a speculative GET carrying `Sec-Purpose: prefetch`. Cloudflare
+  // answers those with a bare **503** and the header
+  // `Cf-Speculation-Refused: prefetch refused: disabled for worker requests` —
+  // reproducible on demand, and nothing to do with rate limiting:
+  //
+  //   curl -I -H 'Sec-Purpose: prefetch' https://softharbor.net/apps   → 503
+  //   curl -I                            https://softharbor.net/apps   → 200
+  //
+  // So every hover cost a failed request and a red console line while
+  // delivering no prefetch at all. Real navigations were never affected.
+  // Revisit if Cloudflare ever allows speculation on Worker routes.
+  prefetch: false,
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'vi'],

@@ -93,8 +93,13 @@ jobs:
       # PR-time link check over changed data files only; link-check.yml owns
       # the weekly full sweep (docs/12 §5).
       - name: Collect changed official links
+        id: urls
         if: github.event_name == 'pull_request'
-        run: node scripts/extract-urls.mjs --changed > /tmp/urls.txt
+        run: |
+          node scripts/extract-urls.mjs --changed > /tmp/urls.txt
+          count=$(grep -c . /tmp/urls.txt || true)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "$count changed URL(s) to check"
       # Accepting 403/429 is about bot mitigation, not about being lenient.
       # Seeding the catalogue put ~1 150 vendor URLs through here and 14 came
       # back 403 from sites that are plainly alive (winehq.org, dolphin-emu.org,
@@ -109,8 +114,16 @@ jobs:
       # answering 406 and whatsapp.com 400, both of which pass fine on lychee's
       # default agent. There is no single UA every vendor is happy with, so the
       # status-code accepts carry this on their own.
+      #
+      # Skipped when the PR changes no app data — lychee treats an empty input
+      # as a configuration error and fails. A code-only PR legitimately has
+      # zero URLs to check, and this gate had failed every one of them since it
+      # was written; nothing noticed because every PR until now touched data.
+      # Skipping rather than `failIfEmpty: false` keeps the zero visible: a
+      # skipped step is obvious in the checks list, whereas a green "0 links"
+      # is exactly the kind of quiet pass this repo keeps getting caught by.
       - name: Link check
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.urls.outputs.count != '0'
         uses: lycheeverse/lychee-action@v2
         with:
           args: >-

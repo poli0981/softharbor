@@ -227,6 +227,32 @@ appendix regenerated each release (`pnpm licenses list` → build step).
 liệt kê thành phần và giấy phép; danh sách đầy đủ được tạo tự động mỗi bản
 phát hành.
 
+### 3f. AI Disclosure — `/legal/ai-disclosure`
+
+Added 2026-07-30. **Provenance, not disclaimer.** The site asks a reader to
+trust a set of links and a dated security note; that request is worth less if
+they cannot see how the list was assembled. It also backs Part 1: the dataset
+can only carry CC BY-SA 4.0 because the summaries are the project's own words
+(hard rule 8), and saying so plainly is stronger than leaving it implied.
+
+Must name the **model, its version identifier, and its developer** — currently
+Claude Opus 5 (`claude-opus-5`), Anthropic, used through Claude Code.
+
+| Area | Position |
+|---|---|
+| Source code | AI-assisted, maintainer-reviewed, same automated gates as any change |
+| Tests | AI-drafted, kept only once seen to fail on the bug they claim to cover |
+| Finding the software | Candidate list AI-assisted; **inclusion is a human decision** against docs/00 §3, links machine-checked per PR and weekly |
+| Summaries | Written from scratch in both locales, never pasted; VI reviewed by a native speaker, not machine-translated |
+| Security status | **Not AI-decided** — maintainer runs docs/09 §6, and the scan is linked from the app page |
+
+Closes with the limits being unchanged: AI assistance is neither a warranty
+nor an excuse, and a mistake here belongs to the maintainer, not a tool.
+
+**Not part of the accepted set.** The legal gate asks acceptance of the
+Disclaimer, Terms and Privacy only; this page is informational and is reached
+from the footer. It is still gate-exempt like every other `/legal/*` route.
+
 ## Part 4 — Review checklist for Kokone (H6)
 
 - [ ] Confirm `contact@softharbor.net` is live (Email Routing, docs/16 §6)

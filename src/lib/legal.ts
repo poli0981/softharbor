@@ -5,12 +5,15 @@
 /**
  * Bump when ANY legal document changes; re-opens the gate for everyone.
  *
- * Set to the H6 approval date — 2026-07-28, the day Kokone signed off on the
- * docs/14 drafts (docs/14 Part 4). Anyone who accepted the pre-approval
- * wording sees the gate once more, which is the intended behaviour: they
- * agreed to different text.
+ * Was the H6 approval date 2026-07-28, when Kokone signed off on the docs/14
+ * drafts (docs/14 Part 4). Bumped to 2026-07-30 when the AI Disclosure was
+ * added: the accepted set — Disclaimer, Terms, Privacy — did not itself
+ * change, but this constant also stamps "last updated" on every legal page,
+ * and leaving it would have dated a brand-new document three days before it
+ * existed. Re-opening the gate is the cheaper error of the two, and pre-launch
+ * it costs nobody anything.
  */
-export const LEGAL_VERSION = '2026-07-28';
+export const LEGAL_VERSION = '2026-07-30';
 
 const KEY = 'sh:legal';
 

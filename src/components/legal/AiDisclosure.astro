@@ -1,0 +1,117 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+//
+// docs/14 §3f — how AI was used to build this site and assemble its data.
+//
+// The point of this page is provenance, not disclaimer. Hard rule 8 lets the
+// project grant CC BY-SA 4.0 on the dataset only if the words in it are its
+// own, and the site's whole proposition is that a reader can check what they
+// are told. Both of those are worth less if the reader does not know how the
+// thing was made.
+import type { Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const en = locale === 'en';
+
+/** Kept as data so the two locales cannot drift apart in the table. */
+const rows = [
+  {
+    area: { en: 'Source code', vi: 'Mã nguồn' },
+    how: {
+      en: 'Written with AI assistance, then reviewed and run by the maintainer. Every change passes the same automated gates as any other: lint, type-check, unit tests, schema validation, EN/VI parity, a build, and a CSP guard.',
+      vi: 'Viết với sự hỗ trợ của AI, sau đó người bảo trì đọc lại và chạy thử. Mọi thay đổi đều qua đúng bộ kiểm tra tự động như bình thường: lint, kiểm tra kiểu, unit test, kiểm tra schema, đối chiếu EN/VI, build và kiểm tra CSP.',
+    },
+  },
+  {
+    area: { en: 'Tests', vi: 'Kiểm thử' },
+    how: {
+      en: 'Test cases were drafted with AI assistance and are checked against the behaviour they describe — a test is only kept once it has been seen to fail on the bug it claims to cover.',
+      vi: 'Các ca kiểm thử được soạn với hỗ trợ của AI và được đối chiếu với hành vi mà chúng mô tả — một bài kiểm thử chỉ được giữ lại sau khi đã thấy nó thất bại đúng với lỗi mà nó tuyên bố phát hiện.',
+    },
+  },
+  {
+    area: { en: 'Finding the software', vi: 'Tìm danh sách phần mềm' },
+    how: {
+      en: 'The candidate list was assembled with AI assistance. Inclusion is a human decision against the published criteria, and every homepage, repository and download link is machine-checked on each pull request and again weekly.',
+      vi: 'Danh sách ứng viên được tập hợp với hỗ trợ của AI. Việc đưa vào danh sách là quyết định của con người theo bộ tiêu chí đã công bố, và mọi liên kết trang chủ, kho mã nguồn và tải về đều được máy kiểm tra ở mỗi pull request và hàng tuần.',
+    },
+  },
+  {
+    area: { en: 'Summaries', vi: 'Mô tả ứng dụng' },
+    how: {
+      en: 'Written from scratch in both languages, never pasted from vendor marketing or an encyclopaedia. That is what allows the dataset to carry CC BY-SA 4.0 at all. Vietnamese is reviewed by a native speaker rather than machine-translated.',
+      vi: 'Được viết mới hoàn toàn ở cả hai ngôn ngữ, không sao chép từ quảng cáo của nhà phát triển hay bách khoa toàn thư. Chính điều đó cho phép dữ liệu mang giấy phép CC BY-SA 4.0. Phần tiếng Việt do người bản ngữ đọc duyệt chứ không dịch máy.',
+    },
+  },
+  {
+    area: { en: 'Security status', vi: 'Trạng thái bảo mật' },
+    how: {
+      en: 'Not AI-decided. Each entry is checked by the maintainer against the published vetting checklist, and the scan behind every status is linked from the app page so you can read it yourself.',
+      vi: 'Không do AI quyết định. Mỗi mục được người bảo trì kiểm tra theo quy trình đã công bố, và kết quả quét đứng sau mỗi trạng thái đều có liên kết ngay trên trang ứng dụng để bạn tự đọc.',
+    },
+  },
+];
+---
+
+<p>
+  {
+    en
+      ? 'SoftHarbor is built with AI assistance, and this page says where and how. It is published because the site asks you to trust a set of links and a dated security note — and that request is worth less if you do not know how the list was put together.'
+      : 'SoftHarbor được xây dựng với sự hỗ trợ của AI, và trang này nói rõ ở đâu và như thế nào. Chúng tôi công bố điều đó vì trang web đang đề nghị bạn tin vào một tập liên kết và một ghi chú bảo mật có ghi ngày — lời đề nghị ấy sẽ kém giá trị nếu bạn không biết danh sách được tạo ra ra sao.'
+  }
+</p>
+
+<h2>{en ? 'Tools used' : 'Công cụ đã dùng'}</h2>
+
+<p>
+  {
+    en
+      ? 'Claude Opus 5 (model identifier claude-opus-5), developed by Anthropic, used through Claude Code — Anthropic’s command-line coding tool. Earlier work on the project used Claude models through the same tool. No other AI system contributed to this site.'
+      : 'Claude Opus 5 (mã định danh mô hình claude-opus-5) do Anthropic phát triển, sử dụng thông qua Claude Code — công cụ lập trình dòng lệnh của Anthropic. Các giai đoạn trước của dự án cũng dùng mô hình Claude qua chính công cụ này. Không có hệ thống AI nào khác tham gia vào trang web này.'
+  }
+</p>
+
+<h2>{en ? 'Where it was used' : 'Đã dùng ở đâu'}</h2>
+
+<div class="-mx-4 overflow-x-auto px-4">
+  <table class="w-full border-collapse text-[var(--text-small)]">
+    <thead>
+      <tr class="border-sh-border border-b-2 text-left">
+        <th class="w-1/4 py-2 pr-4">{en ? 'Area' : 'Hạng mục'}</th>
+        <th class="py-2">{en ? 'How' : 'Cách làm'}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => (
+          <tr class="border-sh-border border-b opacity-95">
+            <td class="py-2 pr-4 align-top">{r.area[locale]}</td>
+            <td class="text-sh-muted py-2 align-top">{r.how[locale]}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<h2>{en ? 'What this does not mean' : 'Điều này không có nghĩa là'}</h2>
+
+<p>
+  {
+    en
+      ? 'AI assistance is not a warranty and not an excuse. Nothing here is checked less carefully because a model helped write it, and a mistake on this site is the maintainer’s, not a tool’s. The limits already stated in the Disclaimer apply unchanged: SoftHarbor hosts no downloads, cannot guarantee third-party software, and reports a security status only as of the date shown.'
+      : 'Việc dùng AI không phải là bảo đảm, cũng không phải là cái cớ. Không có thứ gì ở đây được kiểm tra qua loa hơn chỉ vì có mô hình tham gia viết, và mọi sai sót trên trang này thuộc về người bảo trì chứ không phải công cụ. Các giới hạn đã nêu trong Tuyên bố miễn trừ vẫn giữ nguyên: SoftHarbor không lưu trữ tệp cài đặt, không thể bảo đảm cho phần mềm của bên thứ ba, và chỉ nêu trạng thái bảo mật tính đến ngày được hiển thị.'
+  }
+</p>
+
+<p class="text-sh-muted">
+  {
+    en
+      ? 'Found something wrong? Every app page has a "Report a bug" link, and the full history of how each entry got here is public in the repository.'
+      : 'Phát hiện điều gì chưa đúng? Mỗi trang ứng dụng đều có liên kết "Báo lỗi", và toàn bộ lịch sử hình thành của từng mục đều công khai trong kho mã nguồn.'
+  }
+</p>
