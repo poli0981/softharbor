@@ -1,11 +1,17 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// Spike S4 — docs/11 §3, docs/14 Part 2.
+// docs/11 §3, docs/14 Part 2.
 //
 // Drives the real component through Svelte's mount() in happy-dom. Covers the
-// interaction contract (blocks pre-accept, Esc intercepted, exemptions, no
-// re-flash across a simulated ClientRouter swap). Real top-layer stacking and
-// "no visual flash" are NOT covered here — see the manual note in docs/11 §3.
+// interaction contract: blocks before acceptance, Esc cannot dismiss it, a
+// premature close is undone, acceptance persists, and the copy is the
+// dictionary's. Real top-layer stacking, the native `closedby` behaviour and
+// "no visual flash" need a real browser — they are covered by the Playwright
+// suite (e2e/gate.spec.ts), not here.
+//
+// Route exemptions are no longer the island's job: exempt pages (legal
+// documents, error and offline pages) never render it (Base.astro
+// `gateExempt`), so there is nothing to assert about them at this level.
 
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, beforeEach, describe, expect, it, vi as vitestVi } from 'vitest';
@@ -15,7 +21,7 @@ import vi from '../../i18n/vi.json';
 
 /**
  * Real dictionary strings, so these tests break if a gate key is renamed or
- * dropped — the point of moving the copy out of the island in M4.
+ * dropped — the point of keeping the copy out of the island.
  */
 const STRINGS = {
   en: {
@@ -25,6 +31,7 @@ const STRINGS = {
     disclaimer: en['gate.link.disclaimer'],
     terms: en['gate.link.terms'],
     privacy: en['gate.link.privacy'],
+    and: en['gate.and'],
     base: '/legal',
   },
   vi: {
@@ -34,13 +41,14 @@ const STRINGS = {
     disclaimer: vi['gate.link.disclaimer'],
     terms: vi['gate.link.terms'],
     privacy: vi['gate.link.privacy'],
+    and: vi['gate.and'],
     base: '/vi/legal',
   },
 };
 
 /** mount() schedules effects in a microtask; flush so assertions see onMount. */
-function mountGate(target: HTMLElement) {
-  const instance = mount(ShLegalGate, { target, props: { strings: STRINGS } });
+function mountGate(target: HTMLElement, locale: 'en' | 'vi' = 'en') {
+  const instance = mount(ShLegalGate, { target, props: { strings: STRINGS[locale] } });
   flushSync();
   return instance;
 }
@@ -58,16 +66,8 @@ function stubStorage(seed?: string) {
   return map;
 }
 
-function goto(pathname: string) {
-  // happy-dom allows navigation via history without a real load.
-  history.replaceState({}, '', pathname);
-}
-
-/** Simulate what ClientRouter does to a `transition:persist`ed island. */
-function clientRouterSwapTo(pathname: string) {
-  goto(pathname);
-  document.dispatchEvent(new Event('astro:after-swap'));
-}
+/** Lets queued microtasks (the gate's re-open) run. */
+const tick = () => new Promise<void>((resolve) => queueMicrotask(resolve));
 
 let target: HTMLElement;
 let app: Record<string, unknown> | undefined;
@@ -78,6 +78,7 @@ const acceptBtn = () =>
 
 beforeEach(() => {
   document.body.innerHTML = '';
+  delete document.body.dataset['shGate'];
   target = document.createElement('div');
   document.body.appendChild(target);
 });
@@ -91,17 +92,21 @@ afterEach(async () => {
 });
 
 describe('ShLegalGate — blocks before acceptance', () => {
-  it('opens modally on a gated route for a first-time visitor', () => {
+  it('opens modally for a first-time visitor', () => {
     stubStorage();
-    goto('/apps');
     app = mountGate(target);
     expect(gate().open).toBe(true);
     expect(document.body.dataset['shGate']).toBe('open');
   });
 
+  it('declares closedby="none" so the platform offers no dismissal', () => {
+    stubStorage();
+    app = mountGate(target);
+    expect(gate().getAttribute('closedby')).toBe('none');
+  });
+
   it('intercepts Esc — the cancel event is prevented pre-accept', () => {
     stubStorage();
-    goto('/apps');
     app = mountGate(target);
     const cancel = new Event('cancel', { cancelable: true });
     gate().dispatchEvent(cancel);
@@ -109,107 +114,61 @@ describe('ShLegalGate — blocks before acceptance', () => {
     expect(gate().open).toBe(true);
   });
 
-  it('closes and persists on accept', () => {
+  it('re-opens itself if something closes it before acceptance', async () => {
+    // Chromium can close a modal dialog on Esc despite preventDefault() when
+    // there was no recent user activation. The close handler must undo that.
+    stubStorage();
+    app = mountGate(target);
+    gate().close();
+    await tick();
+    flushSync();
+    expect(gate().open).toBe(true);
+    expect(document.body.dataset['shGate']).toBe('open');
+  });
+});
+
+describe('ShLegalGate — acceptance', () => {
+  it('closes and persists on accept', async () => {
     const store = stubStorage();
-    goto('/apps');
     app = mountGate(target);
     acceptBtn().click();
+    await tick();
     flushSync();
     expect(gate().open).toBe(false);
     expect(document.body.dataset['shGate']).toBe('closed');
     expect(store.get('sh:legal')).toBeDefined();
   });
-});
 
-describe('ShLegalGate — exemptions (docs/14 Part 2)', () => {
-  it('never opens on a legal page, even unaccepted — the gate links there', () => {
-    stubStorage();
-    goto('/legal/disclaimer');
+  it('stays closed for a visitor who accepted the current version', async () => {
+    const { LEGAL_VERSION } = await import('../../lib/legal');
+    stubStorage(LEGAL_VERSION);
     app = mountGate(target);
     expect(gate().open).toBe(false);
-  });
-
-  it('never opens on /offline — an error state must not dead-lock', () => {
-    stubStorage();
-    goto('/offline');
-    app = mountGate(target);
-    expect(gate().open).toBe(false);
-  });
-});
-
-describe('ShLegalGate — across ClientRouter navigations (the S4 question)', () => {
-  it('does NOT re-flash after acceptance', () => {
-    stubStorage();
-    goto('/');
-    app = mountGate(target);
-    acceptBtn().click();
-    flushSync();
-    expect(gate().open).toBe(false);
-
-    clientRouterSwapTo('/apps');
-    flushSync();
-    expect(gate().open).toBe(false);
-    clientRouterSwapTo('/apps/7-zip');
-    flushSync();
-    expect(gate().open).toBe(false);
-  });
-
-  it('re-asserts the modal if a swap leaves the persisted dialog closed', () => {
-    stubStorage();
-    goto('/');
-    app = mountGate(target);
-    expect(gate().open).toBe(true);
-
-    // Reproduce the hazard S4 exists to catch: a persisted <dialog> coming out
-    // of a document swap with `open` cleared. Without the re-assert in
-    // evaluate(), the site would be usable without accepting.
-    gate().close();
-    clientRouterSwapTo('/apps');
-    flushSync();
-    expect(gate().open).toBe(true);
-  });
-
-  it('closes when navigating from a gated route ONTO an exempt one', () => {
-    stubStorage();
-    goto('/apps');
-    app = mountGate(target);
-    expect(gate().open).toBe(true);
-
-    clientRouterSwapTo('/legal/terms');
-    flushSync();
-    expect(gate().open).toBe(false);
-  });
-
-  it('re-opens when navigating back off an exempt route unaccepted', () => {
-    stubStorage();
-    goto('/legal/terms');
-    app = mountGate(target);
-    expect(gate().open).toBe(false);
-
-    clientRouterSwapTo('/apps');
-    flushSync();
-    expect(gate().open).toBe(true);
+    expect(document.body.dataset['shGate']).toBe('closed');
   });
 
   it('re-opens for everyone when LEGAL_VERSION moves on', () => {
     stubStorage('2020-01-01'); // accepted an older draft
-    goto('/apps');
     app = mountGate(target);
     expect(gate().open).toBe(true);
   });
+});
 
-  it('follows the locale across a swap, not the prop it first rendered with', () => {
-    // transition:persist keeps this island alive across /apps -> /vi/apps.
-    // The `locale` prop is frozen at the first render, so without deriving
-    // from the URL a Vietnamese page would show the English gate.
+describe('ShLegalGate — copy', () => {
+  it('links all three documents under the locale base, joined with "and"', () => {
     stubStorage();
-    goto('/apps');
-    app = mountGate(target);
-    expect(gate().textContent).toContain('Before you continue');
-
-    clientRouterSwapTo('/vi/apps');
-    flushSync();
+    app = mountGate(target, 'vi');
+    const links = [...gate().querySelectorAll('a')].map((a) => a.getAttribute('href'));
+    expect(links).toEqual(['/vi/legal/disclaimer', '/vi/legal/terms', '/vi/legal/privacy']);
     expect(gate().textContent).toContain('Trước khi tiếp tục');
-    expect(gate().querySelector('a')?.getAttribute('href')).toBe('/vi/legal/disclaimer');
+    expect(gate().textContent).toMatch(/Điều khoản sử dụng\s+và\s+Chính sách quyền riêng tư/);
+  });
+
+  it('describes itself with the body text for assistive tech', () => {
+    stubStorage();
+    app = mountGate(target);
+    const describedBy = gate().getAttribute('aria-describedby');
+    expect(describedBy).toBeTruthy();
+    expect(document.getElementById(describedBy!)?.textContent).toContain(en['gate.body']);
   });
 });

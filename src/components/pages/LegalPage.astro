@@ -32,6 +32,7 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   title={`${title} — ${t(locale, 'site.name')}`}
   description={t(locale, 'meta.legal', { title })}
   {locale}
+  gateExempt
 >
   <article class="sh-prose max-w-2xl">
     <h1 class="text-[length:var(--text-h1)] font-semibold">{title}</h1>

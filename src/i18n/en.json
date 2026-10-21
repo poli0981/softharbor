@@ -40,6 +40,7 @@
   "footer.legal.trademarks": "Trademarks",
   "footer.license": "Code GPL-3.0 · Data CC BY-SA 4.0",
   "gate.accept": "I understand and accept",
+  "gate.and": "and",
   "gate.body": "SoftHarbor is a link directory. We don't host downloads, and we can't guarantee third-party software. Statuses like \"no known warnings\" reflect checks on the date shown — verify anything you install. By continuing you accept the",
   "gate.link.disclaimer": "Disclaimer",
   "gate.link.privacy": "Privacy Policy",

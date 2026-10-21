@@ -4,7 +4,7 @@
 // docs/06 §4 — sticky header.
 import ShLangSwitch from './islands/ShLangSwitch.svelte';
 import ShThemeToggle from './islands/ShThemeToggle.svelte';
-import { localePath, t, type Locale } from '../i18n';
+import { localePair, localePath, t, type Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -12,6 +12,8 @@ interface Props {
 const { locale } = Astro.props;
 const home = localePath(locale, '/');
 const apps = localePath(locale, '/apps');
+// Same source as Base.astro's hreflang alternates (docs/07 §5).
+const pair = localePair(Astro.url.pathname);
 
 const themeLabels = {
   system: t(locale, 'theme.system'),
@@ -54,6 +56,8 @@ const themeLabels = {
     */}
       <ShLangSwitch
         client:idle
+        {locale}
+        {pair}
         label={t(locale, 'lang.label')}
         suggestText={t('vi', 'lang.suggest.text')}
         suggestAccept={t('vi', 'lang.suggest.accept')}

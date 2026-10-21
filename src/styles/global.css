@@ -195,6 +195,19 @@
   }
 }
 
+/* Cross-document View Transitions (v1.1). This replaced <ClientRouter />,
+   which Astro documents as unsupported together with security.csp: a soft
+   navigation kept the FIRST page's meta CSP, wiped <html data-theme>, and kept
+   module state alive while islands reset. Native MPA transitions keep every
+   page a real document load — its own CSP, a fresh island tree — and still
+   cross-fade in browsers that support them. Opt-in only without reduced
+   motion; browsers without support simply navigate. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
 /* docs/06 §7 — everything collapses to instant, including View Transitions. */
 @media (prefers-reduced-motion: reduce) {
   *,

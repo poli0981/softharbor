@@ -89,19 +89,12 @@ for (const file of walk(DIST)) {
   }
 }
 
-// A meta CSP is applied when the document PARSES. `<ClientRouter />` swaps
-// without reparsing, so the policy in force stays the one from the page the
-// visitor started on. A style that only some pages carry is therefore refused
-// on arrival from any page that lacked it — invisible to the per-page check
-// above, because on a hard load that page allows its own style just fine.
-//
-// `/apps` hit this: it alone carried ShAppCard's scoped CSS, so soft-navigating
-// there from a detail page silently dropped the stretched-link `::after` (the
-// whole-card click target) and unhid `.sr-only` text.
-const universal = [...emittedBy.keys()].filter((h) =>
-  [...allowedBy.values()].every((s) => s.has(h)),
-);
-const pageSpecific = [...emittedBy.keys()].filter((h) => !universal.includes(h));
+// Before v1.1 this also failed on <style> hashes that only SOME pages allowed:
+// <ClientRouter /> kept the first page's meta CSP across soft navigations, so
+// a page-specific style was refused on arrival. Every navigation is a full
+// document load now, each page enforcing its own policy, so the per-page
+// check above is the whole story.
+const distinctHashes = emittedBy.size;
 
 if (offenders.length > 0) {
   console.error(
@@ -134,23 +127,6 @@ if (unhashed.length > 0) {
   process.exitCode = 1;
 }
 
-if (pageSpecific.length > 0) {
-  console.error(
-    `check-no-inline-styles — ${pageSpecific.length} <style> element(s) that only SOME`,
-  );
-  console.error("pages allow. A ClientRouter swap keeps the origin page's policy, so arriving");
-  console.error('at the page carrying these from a page without them gets them refused:\n');
-  for (const hash of pageSpecific) {
-    const { file, head } = emittedBy.get(hash) ?? {};
-    const short = [...allowedBy].filter(([, s]) => !s.has(hash)).length;
-    console.error(`  ✗ ${file}\n      ${hash}\n      ${JSON.stringify(head)}`);
-    console.error(`      refused when arriving from ${short} of ${allowedBy.size} pages`);
-  }
-  console.error("\n  Emit the CSS as an external stylesheet instead — style-src 'self' covers it");
-  console.error("  on every page with no hash at all (build.inlineStylesheets: 'never').");
-  process.exitCode = 1;
-}
-
 if (missingCsp.length > 0) {
   console.error(`check-no-inline-styles — ${missingCsp.length} page(s) carry no CSP meta tag:\n`);
   for (const f of missingCsp.slice(0, 10)) console.error(`  ✗ ${f}`);
@@ -172,12 +148,11 @@ if (allowedBy.size === 0) {
 if (
   offenders.length === 0 &&
   unhashed.length === 0 &&
-  pageSpecific.length === 0 &&
   missingCsp.length === 0 &&
   allowedBy.size > 0
 ) {
   console.log(
-    `check-no-inline-styles — OK (no style attributes; ${universal.length} <style> hash(es), ` +
-      `allowed on all ${allowedBy.size} pages)`,
+    `check-no-inline-styles — OK (no style attributes; ${distinctHashes} distinct <style> hash(es), ` +
+      `each allowed by its own page across ${allowedBy.size} pages)`,
   );
 }

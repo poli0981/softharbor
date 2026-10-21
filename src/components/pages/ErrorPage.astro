@@ -21,7 +21,7 @@ interface Props {
 const { code, titleEn, titleVi, bodyEn, bodyVi, noindex = true } = Astro.props;
 ---
 
-<Base title={`${titleEn} — SoftHarbor`} locale="en" {noindex}>
+<Base title={`${titleEn} — SoftHarbor`} locale="en" {noindex} gateExempt>
   <div class="relative">
     {/* Giant clipped status code at 40% opacity, behind the text (docs/06 §5). */}
     <span

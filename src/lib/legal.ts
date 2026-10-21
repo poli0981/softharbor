@@ -1,6 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/05 §A7 + docs/14 Part 2 — legal-gate version check and route exemptions.
+// docs/05 §A7 + docs/14 Part 2 — legal-gate version check.
+//
+// Route exemptions used to live here as a path regex (/legal, /404, /offline,
+// /errors). That never matched the cases that matter: Workers serves 404.html
+// at whatever URL was requested, and the service worker serves the offline
+// page at the URL that failed, so both showed the gate. Exempt pages now
+// declare it themselves (`<Base gateExempt>`), and the island is simply not
+// rendered there.
 
 /**
  * Bump when ANY legal document changes; re-opens the gate for everyone.
@@ -52,15 +59,4 @@ export function acceptLegal(): void {
   } catch {
     // Storage unavailable — memoryAccepted carries this session.
   }
-}
-
-/**
- * Routes where the gate must never appear (docs/14 Part 2): the legal pages
- * themselves — so the gate can link to the documents it asks you to accept —
- * plus error/offline states, which would otherwise dead-lock.
- */
-const EXEMPT = /^\/(?:vi\/)?(?:legal(?:\/|$)|404(?:\/|$)|offline(?:\/|$)|errors(?:\/|$))/;
-
-export function isExempt(pathname: string): boolean {
-  return EXEMPT.test(pathname);
 }

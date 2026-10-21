@@ -1,9 +1,9 @@
 <!-- SPDX-License-Identifier: GPL-3.0-only
      Copyright (C) 2026 poli0981 (SkullMute)
-     docs/14 Part 2 — first-visit legal gate. Spike S4. -->
+     docs/14 Part 2 — first-visit legal gate. -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { acceptLegal, isAccepted, isExempt } from '../../lib/legal';
+  import { acceptLegal, isAccepted } from '../../lib/legal';
 
   interface GateStrings {
     title: string;
@@ -12,134 +12,138 @@
     disclaimer: string;
     terms: string;
     privacy: string;
+    /** Joins the last two document links: "and" / "và". */
+    and: string;
+    /** Locale-prefixed base of the legal routes, e.g. `/legal` or `/vi/legal`. */
     base: string;
   }
 
   interface Props {
-    /** Locale of the page that first rendered the island (SSR correctness). */
-    locale?: 'en' | 'vi';
     /**
-     * BOTH locales' strings, resolved server-side from src/i18n.
-     *
-     * Passed as a prop rather than importing `t` here on purpose: the gate is
-     * persisted across navigations and must be able to switch language without
-     * a reload, but importing the dictionaries would bundle all ~65 keys into
-     * this island. Props ship only the seven strings it actually renders.
+     * The page's own locale only. Before v1.1 the gate was `transition:persist`ed
+     * across <ClientRouter /> swaps and had to carry BOTH locales to follow the
+     * URL; with plain cross-document navigation every page mounts its own gate,
+     * so it ships just the strings it renders.
      */
-    strings: Record<'en' | 'vi', GateStrings>;
+    strings: GateStrings;
   }
-  const { locale: initialLocale = 'en', strings }: Props = $props();
+  const { strings }: Props = $props();
 
   let dialogEl: HTMLDialogElement | undefined = $state();
-  let shouldShow = $state(false);
 
-  /**
-   * Locale is tracked from the URL, not just the prop.
-   *
-   * `transition:persist` keeps this island across navigations — including
-   * /apps → /vi/apps. The prop is only ever the value from the page that
-   * FIRST rendered it, so a persisted gate would keep showing English copy on
-   * a Vietnamese page. Re-deriving on every swap is what makes the gate
-   * bilingual in practice (found in spike S4).
-   */
-  // svelte-ignore state_referenced_locally
-  // Capturing only the initial value is the intent: this is a seed for the
-  // first paint, and evaluate() re-derives it from the URL on every swap.
-  let locale = $state<'en' | 'vi'>(initialLocale);
+  /** Whether the gate must currently be shown. */
+  const required = (): boolean => !isAccepted();
 
-  function localeFromPath(pathname: string): 'en' | 'vi' {
-    return pathname === '/vi' || pathname.startsWith('/vi/') ? 'vi' : 'en';
-  }
-
-  /**
-   * Re-assert the dialog's state against the CURRENT route.
-   *
-   * This runs on mount and after every ClientRouter swap. Both halves matter:
-   * the route changes under a persisted island (so an exempt page must close
-   * the gate), and a <dialog> that was in the top layer can come out of a
-   * document swap with `open` cleared — re-calling showModal() is what makes
-   * `transition:persist` actually persist the *modal* state, not just the DOM.
-   */
-  function evaluate(): void {
-    locale = localeFromPath(location.pathname);
-    shouldShow = !isExempt(location.pathname) && !isAccepted();
-    if (!dialogEl) return;
-    if (shouldShow) {
-      if (!dialogEl.open) dialogEl.showModal();
-    } else if (dialogEl.open) {
-      dialogEl.close();
-    }
-    // Hook for global shortcuts: `/` must not reach the search box while the
-    // gate is up (docs/06 §9). Exposed on <body> so non-island code can read it.
-    document.body.dataset.shGate = shouldShow ? 'open' : 'closed';
+  function open(): void {
+    if (dialogEl && !dialogEl.open) dialogEl.showModal();
+    // Global shortcuts read this: `/` must not reach content behind an
+    // un-accepted modal (docs/06 §9).
+    document.body.dataset['shGate'] = 'open';
   }
 
   function onCancel(event: Event): void {
     // Esc must not dismiss the gate before acceptance (docs/14 Part 2).
-    if (shouldShow) event.preventDefault();
+    // `closedby="none"` is the primary guard; this covers browsers without it.
+    if (required()) event.preventDefault();
+  }
+
+  function onClose(): void {
+    // Chromium's close-watcher rules only honour preventDefault() on `cancel`
+    // after a recent user activation, so a dialog opened from onMount can still
+    // be closed by Esc. If it closed while acceptance is still outstanding,
+    // put it straight back.
+    if (required()) queueMicrotask(open);
+    else document.body.dataset['shGate'] = 'closed';
   }
 
   function onAccept(): void {
     acceptLegal();
-    evaluate();
+    dialogEl?.close();
   }
 
   onMount(() => {
-    evaluate();
-    document.addEventListener('astro:after-swap', evaluate);
-    document.addEventListener('astro:page-load', evaluate);
-    return () => {
-      document.removeEventListener('astro:after-swap', evaluate);
-      document.removeEventListener('astro:page-load', evaluate);
-    };
+    if (required()) open();
+    else document.body.dataset['shGate'] = 'closed';
   });
-
-  const copy = $derived(strings[locale]);
 </script>
 
 <!-- No decline button by design: leaving the site is the alternative, and the
-     copy says so (docs/14 Part 2). -->
+     copy says so (docs/14 Part 2). Exempt pages (legal documents, error and
+     offline pages) never render this island at all — see Base.astro. -->
 <dialog
   bind:this={dialogEl}
+  closedby="none"
   oncancel={onCancel}
+  onclose={onClose}
   aria-labelledby="sh-gate-title"
+  aria-describedby="sh-gate-body"
   data-testid="sh-legal-gate"
+  class="sh-gate"
 >
-  <h2 id="sh-gate-title">{copy.title}</h2>
-  <p>
-    {copy.body}
-    <a href="{copy.base}/disclaimer">{copy.disclaimer}</a>,
-    <a href="{copy.base}/terms">{copy.terms}</a>,
-    <a href="{copy.base}/privacy">{copy.privacy}</a>.
+  <!-- Focus lands on the heading, not on the first link or the accept button:
+       a screen reader then reads the notice before any control. Autofocus is
+       the dialog's own focusing step here, not a page-load focus grab. -->
+  <h2 id="sh-gate-title" tabindex="-1" autofocus>{strings.title}</h2>
+  <p id="sh-gate-body">
+    {strings.body}
+    <a href="{strings.base}/disclaimer">{strings.disclaimer}</a>,
+    <a href="{strings.base}/terms">{strings.terms}</a>
+    {strings.and}
+    <a href="{strings.base}/privacy">{strings.privacy}</a>.
   </p>
   <button type="button" onclick={onAccept} data-testid="sh-legal-accept">
-    {copy.accept}
+    {strings.accept}
   </button>
 </dialog>
 
 <style>
-  dialog {
+  .sh-gate {
     /* Tailwind's preflight zeroes margins globally, which kills the UA
-       stylesheet's `margin: auto` that centres a modal <dialog>. Without this
-       the gate renders in the top-left corner. */
+       stylesheet's `margin: auto` that centres a modal <dialog>. */
     margin: auto;
     max-width: 32rem;
-    border: 2px solid var(--sh-border);
-    border-radius: 10px;
+    border: 1px solid var(--sh-border);
+    border-radius: var(--radius-card);
     background: var(--sh-surface);
     color: var(--sh-ink);
     padding: 1.5rem;
   }
-  dialog::backdrop {
-    background: rgb(0 0 0 / 0.5);
+  .sh-gate::backdrop {
+    background: rgb(0 0 0 / 0.55);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    outline: none;
+  }
+  /* Preflight strips link colour and underline; in running text a link must
+     not rely on colour alone (WCAG 1.4.1), so the underline comes back. */
+  a {
+    color: var(--sh-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
   button {
     margin-top: 1rem;
-    border: 2px solid var(--sh-border);
-    border-radius: 999px;
+    border: 1px solid var(--sh-border);
+    border-radius: var(--radius-pill);
     background: var(--sh-accent);
-    color: var(--sh-accent-ink, #fff);
-    padding: 0.5rem 1rem;
+    color: var(--sh-accent-ink);
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
     min-height: 44px;
+  }
+
+  /* Phones: a bottom sheet is reachable with one thumb and does not cover
+     the content it is asking about. */
+  @media (width < 40rem) {
+    .sh-gate {
+      margin: auto 0 0;
+      width: 100%;
+      max-width: none;
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+    }
   }
 </style>

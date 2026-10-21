@@ -31,38 +31,31 @@ export default defineConfig({
   // html_handling: "drop-trailing-slash" in wrangler.jsonc, /apps/ redirects
   // to /apps and the canonical URL is the one that serves.
   trailingSlash: 'never',
-  // `inlineStylesheets: 'never'` is a CSP decision, not a perf one.
+  // `inlineStylesheets: 'never'` began as a CSP fix and stays as a cache one.
   //
-  // Astro's default inlines small stylesheets, and its CSP hashes them into
-  // the meta tag of the page that carries them. That is fine on a hard load
-  // and broken under `<ClientRouter />`: a soft navigation never re-applies
-  // the meta CSP, so the policy in force stays the one from the page you
-  // STARTED on. Arriving at a page with a style the origin page lacked means
-  // the browser refuses it.
-  //
-  // That is exactly what happened to `/apps`. It alone carried ShAppCard's
-  // scoped CSS — the stretched-link `::after{inset:0}` and `.sr-only` — so
-  // navigating there from any detail page silently dropped the whole-card
-  // click target and unhid screen-reader-only text.
-  //
-  // External stylesheets are covered by `style-src 'self'` with no hash at
-  // all, so every page's policy accepts them and the class of bug disappears.
-  // They also cache once across ~700 pages instead of shipping per page.
+  // Under the former `<ClientRouter />`, a soft navigation never re-applied
+  // the meta CSP, so a small stylesheet Astro had inlined (and hashed into ONE
+  // page's policy) was refused on arrival from any page that lacked it — which
+  // silently dropped ShAppCard's stretched link and `.sr-only` on /apps.
+  // ClientRouter is gone since v1.1 (every navigation is a real document load
+  // with its own policy), but external stylesheets are still the better
+  // shape: covered by `style-src 'self'` with no hash at all, and cached once
+  // across ~700 pages instead of shipping inside each one.
   build: { format: 'file', inlineStylesheets: 'never' },
 
-  // OFF because the platform refuses it, not because it is unwanted.
-  // `<ClientRouter />` turns prefetching on by default and hovering a link
-  // then issues a speculative GET carrying `Sec-Purpose: prefetch`. Cloudflare
-  // answers those with a bare **503** and the header
-  // `Cf-Speculation-Refused: prefetch refused: disabled for worker requests` —
-  // reproducible on demand, and nothing to do with rate limiting:
+  // OFF because the platform refuses it, not because it is unwanted. A
+  // speculative GET carrying `Sec-Purpose: prefetch` is answered by Cloudflare
+  // with a bare **503** and `Cf-Speculation-Refused: prefetch refused:
+  // disabled for worker requests` — reproducible on demand, and nothing to do
+  // with rate limiting:
   //
   //   curl -I -H 'Sec-Purpose: prefetch' https://softharbor.net/apps   → 503
   //   curl -I                            https://softharbor.net/apps   → 200
   //
-  // So every hover cost a failed request and a red console line while
-  // delivering no prefetch at all. Real navigations were never affected.
-  // Revisit if Cloudflare ever allows speculation on Worker routes.
+  // So prefetching would cost a failed request and a red console line per
+  // hover while delivering nothing. (The zone's Speed Brain feature hits the
+  // same refusal and should be off — docs/16 §9.) Revisit if Cloudflare ever
+  // allows speculation on Worker routes.
   prefetch: false,
 
   i18n: {

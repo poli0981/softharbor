@@ -85,39 +85,3 @@ describe('legal gate — hostile storage fails OPEN per session', () => {
     expect(m.isAccepted()).toBe(true);
   });
 });
-
-describe('legal gate — route exemptions (docs/14 Part 2)', () => {
-  it.each([
-    '/legal',
-    '/legal/disclaimer',
-    '/legal/privacy',
-    '/legal/ai-disclosure',
-    '/vi/legal',
-    '/vi/legal/terms',
-    '/vi/legal/ai-disclosure',
-    '/404',
-    '/offline',
-    '/errors/403',
-    '/errors/429',
-  ])('exempt: %s', async (path) => {
-    const m = await import('./legal');
-    expect(m.isExempt(path)).toBe(true);
-  });
-
-  it.each([
-    '/',
-    '/apps',
-    '/apps/7-zip',
-    '/categories/browser',
-    '/vi/',
-    '/vi/apps',
-    '/vi/apps/7-zip',
-    // Guard against a sloppy prefix match letting real pages through.
-    '/legalish',
-    '/apps/legal-notes',
-    '/offlinely',
-  ])('gated: %s', async (path) => {
-    const m = await import('./legal');
-    expect(m.isExempt(path)).toBe(false);
-  });
-});
