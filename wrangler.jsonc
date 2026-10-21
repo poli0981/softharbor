@@ -1,11 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "softharbor",
-  "compatibility_date": "2026-07-15",
-  // No "main" — pure static assets, requests are unbilled. Adding one flips
-  // billing and the error model: decision-log entry required (docs/02 §7).
+  // D25 (docs/15): ONE small Worker, for POST /api/verify (the legal gate's
+  // Turnstile check) and nothing else. Pages, assets and feeds are still
+  // served by the asset server without invoking it, so they stay unbilled;
+  // see `run_worker_first` below and worker/index.ts.
+  "main": "./worker/index.ts",
+  // ≥ 2025-04-01 matters: from that date a NAVIGATION request that matches no
+  // asset gets dist/404.html straight from the asset server instead of
+  // invoking the Worker. (Other misses — a missing image or JSON — do reach
+  // the Worker, which hands them to ASSETS.fetch() for the same 404.)
+  "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "not_found_handling": "404-page", // serves dist/404.html with HTTP 404
     // Pairs with astro's trailingSlash:'never' + build.format:'file'.
     // Measured in S1 on a real deploy: "auto-trailing-slash" 307s /apps to
@@ -13,6 +21,24 @@
     // alternate we emit. "drop-trailing-slash" makes the no-slash URL the one
     // that serves 200 and redirects the slashed variant to it.
     "html_handling": "drop-trailing-slash",
+    // The only path that runs the Worker before the asset server. Add to it
+    // only with a decision-log entry: every match is a billed invocation.
+    "run_worker_first": ["/api/verify"],
+  },
+  // Workers Rate Limiting for /api/verify: 20 verifications per minute per
+  // IPv4 address or IPv6 /64, per Cloudflare location. Generous on purpose —
+  // a school or office behind one NAT address is many people. namespace_id is
+  // account-wide; 4101 is not used by any other Worker on this account.
+  "ratelimits": [
+    { "name": "VERIFY_LIMITER", "namespace_id": "4101", "simple": { "limit": 20, "period": 60 } },
+  ],
+  // Workers Logs keep the Worker's own one-line JSON events (outcome and
+  // duration, never an IP or token — worker/verify.ts). Invocation logs are
+  // off: they would add per-request metadata the Privacy Policy does not
+  // need us to hold.
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "invocation_logs": false },
   },
   // No `routes` here — on purpose since commit 66c6255 (2026-07-28).
   //
