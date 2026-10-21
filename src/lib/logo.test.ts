@@ -66,7 +66,7 @@ describe('logoSvg', () => {
   });
 
   it('emits no style attribute — CSP style-src would silently drop it (D20)', () => {
-    // This is the check:styles rule, enforced here too so the failure lands
+    // This is the check:csp rule, enforced here too so the failure lands
     // in the unit suite instead of after a full build.
     for (const name of ['7-Zip', 'O&O ShutUp10', 'btop']) {
       expect(logoSvg('monogram', name, attrs)).not.toMatch(/\sstyle="/);

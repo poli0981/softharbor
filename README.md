@@ -56,9 +56,9 @@ pnpm i18n:check    # EN/VI key parity
 pnpm validate:data # cross-file data rules the schema cannot see
 pnpm test          # vitest
 pnpm check         # astro check
-pnpm build
-pnpm check:styles  # every emitted style is allowed by the page CSP
-pnpm check:sw      # the service worker matches its spec
+pnpm build         # includes the dist/ gates: CSP, assets, service worker, feed
+pnpm coverage      # unit, island, build-script and Worker tests, with thresholds
+pnpm e2e           # Playwright + axe against the built site
 pnpm knip          # dead code and unused deps
 ```
 

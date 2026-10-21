@@ -65,8 +65,8 @@ export function initials(name: string): string {
  *
  * Everything is `currentColor` and plain SVG presentation attributes — no
  * `style=` anywhere, because CSP `style-src` has neither `unsafe-inline` nor
- * `unsafe-hashes`, so a browser would silently drop it (see D20 and
- * `pnpm check:styles`).
+ * `unsafe-hashes`, so a browser would silently drop it (see D20; the
+ * check:csp build gate fails on any `style=`).
  */
 function monogramSvg(name: string, attrs: Record<string, string>): string {
   return (

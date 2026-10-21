@@ -3,41 +3,61 @@
 ## 1. Overview
 
 ```
-PR ──▶ ci (build + gates, both local) ──▶ review ──▶ squash to main
+PR ──▶ ci (build + gates) + codeql ──▶ review ──▶ squash (signed) to main
                                                        │
                      ┌─────────────────────────────────┤
                      ▼                                 ▼
       Cloudflare Workers Builds            quarantine.yml (paths)
       (git integration — NOT a workflow)
-cron ─▶ link-check.yml (weekly) · quarantine.yml (nightly) · codeql · renovate
+      queued ─▶ build ─▶ deploy ─▶ verify production (docs/13 §3)
+cron ─▶ link-check (weekly) · quarantine (nightly) · codeql (weekly)
+        · Dependabot (weekly, Mon)
+release published ─▶ notify.yml ─▶ Discord
 ```
 
 **Deployment is not a GitHub workflow.** The repository is connected to
-Cloudflare via the Workers dashboard git integration, which builds and deploys
-on every push to `main` and produces PR previews itself. `deploy.yml` and
-`preview.yml` were removed on 2026-07-28: they duplicated that pipeline, and
-they failed anyway — the API token they used carries Workers scopes but not
-**Zone → Workers Routes → Edit** / **Zone → DNS → Edit**, which
-`wrangler deploy` needs the moment `wrangler.jsonc` declares a `custom_domain`
-(`Authentication error [code: 10000]`). The dashboard integration deploys with
-account-level credentials and has no such gap.
+Cloudflare via the Workers dashboard git integration (Workers Builds), which
+builds with `pnpm run build` and deploys with `npx wrangler deploy` on every
+push to `main`, and builds PR previews with `wrangler versions upload`.
+`deploy.yml` and `preview.yml` were removed on 2026-07-28: they duplicated
+that pipeline, and they failed anyway — the API token they used carries
+Workers scopes but not **Zone → Workers Routes → Edit** / **Zone → DNS →
+Edit**, which `wrangler deploy` needed while `wrangler.jsonc` declared a
+`custom_domain` (`Authentication error [code: 10000]`). The dashboard
+integration deploys with account-level credentials and has no such gap.
 
 Consequences worth knowing:
 
-- `wrangler.jsonc` is still the source of truth for routes and asset handling —
-  Workers Builds runs `wrangler deploy` against it, so the two custom domains
-  (§16 §3) and `html_handling` still apply.
-- The **build environment is now Cloudflare's**, not a GitHub runner. It must
-  match `.nvmrc` (Node 24) and use pnpm, or the deployed output can differ from
-  what CI validated. Verify after any toolchain bump (docs/13 §2).
+- `wrangler.jsonc` is still the source of truth for the Worker, its bindings
+  and asset handling — Workers Builds runs `wrangler deploy` against it. It
+  declares **no routes** since 2026-07-28: the two custom domains are
+  attached in the dashboard (docs/16 §3), and a deploy leaves them alone.
+- **Workers Builds runs one build at a time.** After a burst of PR pushes a
+  `main` merge can wait ~20 minutes before its build starts; superseded
+  queued builds of `main` may be skipped (observed 2026-10-21: `ff95578`
+  never deployed, `3743cfb` did). The "Workers Builds" check run appears on
+  a `main` commit only once its build starts. Hence the release step: wait
+  for that check to go green, *then* verify production (§3, docs/13 §3).
+- The **build environment is Cloudflare's**, not a GitHub runner. It must
+  match `.nvmrc` (Node 24) and `packageManager` (pnpm 11), or the deployed
+  output can differ from what CI validated. CI runs the same `pnpm build`
+  composite, so the gates are identical; verify after any toolchain bump
+  (docs/13 §2).
 - `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repo secrets (action item
   H3) are **no longer used by any workflow**. They can be deleted, and should
   be if nothing else claims them — an unused deploy credential is pure risk.
-- A local `wrangler deploy` still works for the maintainer and is the fastest
-  way to ship a hotfix, but it bypasses `ci`. Prefer pushing.
+- A local `pnpm deploy` (build + `wrangler deploy`) still works for the
+  maintainer, but it bypasses `ci` — and **must never run while Workers
+  Builds builds are queued**: a queued older build would land after it and
+  roll production back. Prefer merging.
 
 Everything else uses the default `GITHUB_TOKEN` with **explicit least
-`permissions:` blocks in every caller** — the Phase-5 lesson: a caller stub
+`permissions:` blocks in every workflow** — the repository's default
+workflow token is read-WRITE (Settings → Actions → Workflow permissions), so
+a workflow without the block would get far more than it needs. Workflows
+declare `contents: read` at the top and grant more per job only where
+needed (quarantine). Checkouts use `persist-credentials: false`. The
+Phase-5 lesson still applies to callers of reusable workflows: a caller stub
 without its own `permissions:` block silently defaults to `none` and the
 reusable workflow fails.
 
@@ -51,22 +71,28 @@ Pages-deploy job (`pages: write`, `id-token: write`) even with
 `deploy-pages: false`. When a caller dies at startup, read the *reusable*
 workflow's job-level `permissions:` blocks first.
 
-**`CLOUDFLARE_API_TOKEN` needs zone scopes, not just Workers.** The "Edit
-Cloudflare Workers" template alone fails with `Authentication error
-[code: 10000]` on `/zones/…/workers/routes` as soon as `wrangler.jsonc`
-declares a `custom_domain`. Add **Zone → Workers Routes → Edit** and
-**Zone → DNS → Edit**. A local `wrangler deploy` will not reveal this: local
-wrangler uses OAuth with full rights, so CI is the only place the gap shows.
+**`CLOUDFLARE_API_TOKEN` needs zone scopes, not just Workers** (moot while
+no workflow deploys — kept for the day one does). The "Edit Cloudflare
+Workers" template alone fails with `Authentication error [code: 10000]` on
+`/zones/…/workers/routes` whenever `wrangler.jsonc` declares a
+`custom_domain`. Add **Zone → Workers Routes → Edit** and **Zone → DNS →
+Edit**. A local `wrangler deploy` will not reveal this: local wrangler uses
+OAuth with full rights, so CI is the only place the gap shows.
 
 All third-party actions **in this repository's own workflows** are pinned to
-commit SHAs (`@<sha> # vX.Y.Z` comment); Renovate maintains the pins. The rule
-is scoped deliberately: the `poli0981/.github` reusable workflows pin their
-internal actions by **major tag** (`actions/checkout@v7`, `setup-node@v6`), and
-that is the ops repo's call, not ours — do not file it as a defect here.
+full commit SHAs with the release in a comment (`@<sha> # vX.Y.Z`,
+SonarCloud `githubactions:S7637`); Dependabot's `github-actions` ecosystem
+bumps the SHA and the comment together (§6). The rule is scoped
+deliberately: first-party org workflows (`poli0981/.github`) are tracked at
+`@main` so org-wide fixes land everywhere at once, and how *they* pin their
+internal actions is the ops repo's call — do not file it as a defect here.
 
-**Action major versions** below reflect the ops repo's verified-2026-07-06
-baseline: `checkout@v7`, `setup-node@v6`, `pnpm/action-setup@v6`. Confirm the
-current majors when the pins are first resolved to SHAs.
+Pinned as of 2026-10-21: `actions/checkout` v7.0.1 · `pnpm/action-setup`
+v6.1.0 (no `version:` — it reads `packageManager`) · `actions/setup-node`
+v7.1.0 (`node-version-file: .nvmrc`) · `actions/cache` v6.1.0 ·
+`actions/upload-artifact` v7.0.2 · `google/osv-scanner-action` v2.7.0 ·
+`lycheeverse/lychee-action` v2.9.0 · `peter-evans/create-pull-request`
+v8.1.1.
 
 ## 2. Callers to `poli0981/.github` reusable workflows
 
@@ -96,18 +122,32 @@ independent reasons:
    matching nothing, an unregistered service worker, CSP-dropped inline
    styles). A quietly-skipping CI is the wrong tool here.
 
-The duplicated "logic" is six `pnpm` invocations — a fair price for a gate that
-fails loudly. Jobs:
+The duplicated "logic" is a handful of `pnpm` invocations — a fair price for a
+gate that fails loudly. Triggers: `pull_request`, `push` to `main`, and
+`workflow_dispatch` (so `quarantine.yml` can run the required checks on the
+PR it opens — §4). Top-level `permissions: contents: read`; concurrency
+cancels superseded runs except on `main`. Jobs:
 
-- **`build`** — `pnpm lint`, `check`, `test`, `build`, then **`check:styles`**
-  (must run after `build`; it inspects `dist/`) and `knip`.
-- **`gates`** — `validate:data`, `i18n:check`, `osv-scanner`, `pnpm audit
-  --prod`, and on PRs the changed-files lychee sweep.
+- **`build`** (25 min cap) — install (frozen lockfile) → `pnpm lint`
+  (ESLint + Prettier) → `pnpm check` (types) → **`pnpm coverage`** (the unit
+  run itself, failing below the thresholds in `vitest.config.ts`) →
+  **`pnpm build`** — the *same* command Workers Builds runs, carrying its own
+  gates: `validate:data → i18n:check → astro build → postbuild:html →
+  check:csp → check:assets → check:sw → check:feed` → **`wrangler deploy
+  --dry-run`** (bundles `worker/` and validates `wrangler.jsonc` — bindings,
+  assets, `run_worker_first` — without credentials) → `pnpm knip` →
+  **Playwright e2e** on that build (docs/11 §5): the Chromium download is
+  cached per Playwright version (on a hit only the OS libraries are
+  installed), and the HTML report is uploaded as an artifact (7 days) when
+  the job fails.
+- **`gates`** (15 min cap) — `validate:data`, `i18n:check`, `osv-scanner`
+  (lockfile mode), `pnpm audit --prod`, and on PRs the changed-files lychee
+  sweep (§5).
 
 Two action references that do not work the obvious way: the OSV scanner lives
 in a **subdirectory** of its repo and publishes **no rolling major tag**, so it
-is `google/osv-scanner-action/osv-scanner-action@v2.3.8` — `@v2` does not
-resolve at all.
+is `google/osv-scanner-action/osv-scanner-action@<sha> # v2.7.0` — `@v2` does
+not resolve at all.
 
 `.github/workflows/codeql.yml` — `reusable-codeql.yml` **does** exist (verified
 2026-07-27). Two things it is easy to get wrong, both fatal at startup:
@@ -121,7 +161,9 @@ resolve at all.
 name: codeql
 on:
   push: { branches: [main] }
+  pull_request:           # REQUIRED — its check is a required status check
   schedule: [{ cron: '31 3 * * 1' }]
+  workflow_dispatch:      # quarantine.yml runs it on the PR it opens
 permissions:
   actions: read
   contents: read
@@ -133,7 +175,13 @@ jobs:
     with: { languages: '["javascript-typescript"]' }
 ```
 
-`.github/workflows/notify.yml` (tagged release → Discord announcement):
+`pull_request` is not optional: the ruleset lists `codeql / Analyze
+(javascript-typescript)` as a required check, and a required check the
+workflow never produces on a PR deadlocks the repository — no PR can merge
+(hit 2026-07-30). It is also the point of the tool: scanning only after the
+merge reports a vulnerability that is already on `main`.
+
+`.github/workflows/notify.yml` (published release → Discord announcement):
 
 ```yaml
 name: notify
@@ -141,14 +189,25 @@ on:
   release: { types: [published] }
   workflow_dispatch:
     inputs:
-      tag: { required: true, type: string }
+      tag: { description: Release tag to (re-)announce, required: true, type: string }
 permissions:
   contents: read
 jobs:
   announce:
     uses: poli0981/.github/.github/workflows/announce-release.yml@main
-    secrets: inherit   # DISCORD_RELEASES_WEBHOOK / _REPO_WEBHOOK / _PING_ROLE_ID
+    with:
+      # The reusable workflow reads `tag_override`, falling back to the
+      # release event's tag. Without it every manual re-run died with
+      # "No release tag available."
+      tag_override: ${{ inputs.tag || '' }}
+    secrets:
+      DISCORD_RELEASES_WEBHOOK: ${{ secrets.DISCORD_RELEASES_WEBHOOK }}
 ```
+
+Only the one secret the announcement needs is passed — not `secrets:
+inherit`, which would hand every repository secret to code tracked at
+`@main`. Publishing a release fires this, so release notes must be accurate
+before they are published (docs/13 §3).
 
 **Scope note.** This fires once per *tagged release* and reaches **Discord
 only** — that is all `announce-release.yml` does. The multi-platform
@@ -164,15 +223,31 @@ Builds is connected to the GitHub repository and owns both:
 
 | Trigger | What happens |
 |---|---|
-| push to `main` | Cloudflare builds and deploys to `softharbor.net` |
-| pull request | Cloudflare builds a preview and reports it on the PR |
+| push to `main` | Cloudflare queues a build (`pnpm run build`), then deploys (`npx wrangler deploy`) to `softharbor.net` — assets **and** the `/api/verify` Worker |
+| pull request push | Cloudflare builds a preview version (`wrangler versions upload`) and reports its URL on the PR |
+
+**Builds are serialized.** One build at a time across PRs and `main`; a
+`main` merge after a burst of PR pushes can wait ~20 minutes, and a
+superseded queued `main` build can be skipped (only the newest lands). The
+"Workers Builds" check (check run `Workers Builds: softharbor`) appears on a
+`main` commit only once its build starts — an absent check means "queued",
+and a quiet stretch in `wrangler deployments list --name softharbor` only
+means nothing reached `main`.
+
+**After every merge** (release step, docs/13 §3): wait until the merge
+commit's "Workers Builds" check is green, then verify production — new
+`/_astro/` asset hashes served, the response headers, `/api/verify`
+answering JSON from the Worker, `/rss.xml`. **Never run `wrangler deploy` by
+hand while builds are queued**: the queued older build would land after it.
 
 Rollback stays where it was: dashboard → the Worker → **Deployments** → promote
-a previous version, or `wrangler rollback` locally.
+a previous version, or `wrangler rollback` locally (same caution about a
+queue).
 
-Preview URLs remain unlisted, short-lived and carry no sitemap; the indexing
-risk is accepted, and a static `_headers` file cannot vary `X-Robots-Tag` by
-host (docs/16 §3). Never link one publicly.
+Preview URLs remain unlisted, short-lived and carry no sitemap, and since
+v1.1 `_headers` marks them `X-Robots-Tag: noindex` with an absolute-URL host
+pattern (`https://:version.:subdomain.workers.dev/*`) that the production
+domain never matches (docs/16 §3). Never link one publicly.
 
 **Do not re-add a `deploy.yml`.** Two pipelines racing on the same Worker is
 worse than either alone, and the token a workflow would need carries zone-level
@@ -189,47 +264,69 @@ on:
   schedule: [{ cron: '17 2 * * *' }]
   workflow_dispatch:
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
+concurrency: { group: quarantine, cancel-in-progress: false }
 jobs:
   sweep:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write        # create-pull-request commits to quarantine/auto
+      pull-requests: write   # …and opens the PR
+      issues: write          # one tracking issue per slug
+      actions: write         # dispatch the required checks onto the PR branch
     steps:
-      - uses: actions/checkout@<pinned-sha> # v4
-      - uses: actions/setup-node@<pinned-sha> # v4
-        with: { node-version: 24 }
+      - uses: actions/checkout@<sha> # v7.0.1
+        with: { persist-credentials: false }   # no token while repo code runs
+      - uses: actions/setup-node@<sha> # v7.1.0
+        with: { node-version-file: .nvmrc }
       - id: sweep
-        run: node scripts/quarantine.mjs   # moves flagged files, writes summary
-      - if: steps.sweep.outputs.moved != ''
-        uses: peter-evans/create-pull-request@<pinned-sha> # v7
+        run: node scripts/quarantine.mjs   # moves flagged files, writes `moved`
+      - id: cpr
+        if: steps.sweep.outputs.moved != ''
+        uses: peter-evans/create-pull-request@<sha> # v8.1.1
         with:
           branch: quarantine/auto
+          sign-commits: true               # the ruleset requires signed commits
           title: 'data: quarantine flagged entries'
           commit-message: 'data: quarantine ${{ steps.sweep.outputs.moved }}'
           labels: security, quarantine
-          body: |
-            Automated sweep: entries with `security.status: "flagged"` moved
-            to `data/quarantine/`. Evidence & discussion in the linked issue.
+      - if: steps.cpr.outputs.pull-request-branch != ''
+        env: { GH_TOKEN: '${{ github.token }}', BRANCH: '${{ steps.cpr.outputs.pull-request-branch }}' }
+        run: |                             # a GITHUB_TOKEN PR triggers no workflows
+          gh workflow run ci.yml     --ref "$BRANCH"
+          gh workflow run codeql.yml --ref "$BRANCH"
       - if: steps.sweep.outputs.moved != ''
-        uses: actions/github-script@<pinned-sha> # v7
-        with:
-          script: | # open one tracking issue per moved slug (title: [quarantine] <slug>)
-            …
+        env: { GH_TOKEN: '${{ github.token }}', MOVED: '${{ steps.sweep.outputs.moved }}' }
+        run: …   # per slug (validated against the slug regex): open
+                 # "[quarantine] <slug>" only if no such issue is open
 ```
 
-`scripts/quarantine.mjs`: scans `src/data/apps/*.json`, for each
-`status === 'flagged'` performs `git mv` to `data/quarantine/`, emits
-`moved` output (space-separated slugs). Idempotent; exits 0 when nothing to
-do. The PR (not direct push) keeps a human in the loop on `main` while the
-nightly cron guarantees a flagged entry never survives more than 24 h even
-if a PR reviewer missed it.
+`scripts/quarantine.mjs` (also `pnpm quarantine`, for the maintainer): scans
+`src/data/apps/*.json`, and for each `status === 'flagged'` **moves** the
+file to `data/quarantine/` (a plain filesystem rename — git records it as a
+rename when committed; the directory is created on first use). It skips
+unparseable files (L1/L2's job), refuses a non-slug filename (it would reach
+a workflow output, a commit message and an issue title) and never
+overwrites an existing quarantined copy. Emits the `moved` output
+(space-separated slugs). Idempotent; exits 0 when nothing is flagged. The
+PR (not a direct push) keeps a human in the loop on `main` while the nightly
+cron guarantees a flagged entry never survives more than 24 h even if a PR
+reviewer missed it. Normally it never fires: `validate:data` fails a PR
+that flags an entry without moving it.
 
-**Repo setting required (action item H10).** `peter-evans/create-pull-request`
-fails — even with the correct `permissions:` block — unless *Settings → Actions
-→ General → **Allow GitHub Actions to create and approve pull requests*** is
-enabled. Without it the nightly sweep silently cannot open its PR, which
-defeats hard rule 5.
+Hardened 2026-10-21: a PR opened with `GITHUB_TOKEN` triggers no
+`pull_request` workflows, so its required checks never ran and it could not
+merge — the job now dispatches `ci.yml` and `codeql.yml` on the PR branch
+(`workflow_dispatch` is the documented exception). The commit is **signed**
+via the API (`sign-commits`). Issues are created only when none is open
+(every nightly run used to re-open them). Step outputs reach shell bodies
+only through `env:`, never `${{ }}` inside `run:` (expression injection).
+
+**Repo setting required (action item H10 — enabled).**
+`peter-evans/create-pull-request` fails — even with the correct
+`permissions:` block — unless *Settings → Actions → General → **Allow GitHub
+Actions to create and approve pull requests*** is enabled. Without it the
+nightly sweep silently cannot open its PR, which defeats hard rule 5.
 
 ## 5. Link check (repo-local)
 
@@ -243,46 +340,77 @@ on:
 permissions:
   contents: read
   issues: write
+concurrency: { group: link-check, cancel-in-progress: false }
 jobs:
   lychee:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@<pinned-sha> # v7
-      - run: node scripts/extract-urls.mjs > /tmp/urls.txt   # all links.* from data
-      - uses: lycheeverse/lychee-action@<pinned-sha> # v2
+      - uses: actions/checkout@<sha> # v7.0.1
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@<sha> # v7.1.0
+        with: { node-version-file: .nvmrc }
+      - run: node scripts/extract-urls.mjs > /tmp/urls.txt   # links.* + evidence
+      - id: lychee
+        uses: lycheeverse/lychee-action@<sha> # v2.9.0
         with:
-          args: --max-concurrency 4 --retry-wait-time 2 /tmp/urls.txt
-          fail: false
-      - uses: peter-evans/create-issue-from-file@<pinned-sha> # v5
-        if: env.lychee_exit_code != 0
-        with: { title: 'link-check: broken official links', path: ./lychee/out.md, labels: 'link-rot' }
+          args: >-
+            --max-concurrency 4 --retry-wait-time 10 --max-retries 5 --timeout 45
+            --accept '200..=299,403,429'
+            /tmp/urls.txt
+          output: ./lychee/out.md
+          fail: false            # link rot is triage, not a build break
+      - name: Refresh the tracking issue
+        run: …   # gh: edit + comment on the ONE open "link-check: broken
+                 # official links" issue (label link-rot), or create it;
+                 # close it the first week the sweep is clean
 ```
 
-PR-time link checking covers only files changed in the PR. It runs as the last
-two steps of `ci.yml`'s **`gates` job** (§2) — *not* inside the reusable-workflow
-call, which cannot accept extra steps. The weekly job above owns the full sweep.
+**One tracking issue, not one per week.** The previous version opened a
+fresh issue on every red run and left 12 duplicates open (#7–#20) — the
+latest for a single transient 502. Now the open issue's body is replaced
+with the new report and a comment links the run; a clean sweep closes it.
+Retries are longer than the PR sweep's because vendor sites blip and a
+weekly job has time to ride it out.
+
+**403 and 429 count as reachable** in both sweeps (decision of 2026-07-30,
+docs/15 §4): 14 of the first 26 failures were bot mitigation on plainly
+live vendor sites. 404/5xx/connection failures still fail. Do **not** add
+`--user-agent`: spoofing a browser cleared the 403s but made other vendors
+answer 406/400.
+
+PR-time link checking covers only the data files the PR changed. It runs as
+the last two steps of `ci.yml`'s **`gates` job** (§2): `git diff` runs in
+the workflow under `set -euo pipefail` and pipes the changed paths into
+`extract-urls.mjs --changed` (a failed diff stops the job rather than
+silently widening the sweep), and lychee is **skipped** when the PR changes
+no app data — an empty input is a configuration error to lychee, and a
+skipped step stays visible where a green "0 links" would not.
 
 ## 6. Dependency & scanning automation
 
-`renovate.json`:
+**Dependabot** — `.github/dependabot.yml`. It replaced `renovate.json` on
+2026-10-21: Renovate was never installed on this repository (no
+`renovate/*` branch, Dependency Dashboard or PR ever appeared), so for three
+months nothing kept versions or action pins current, while Dependabot
+*security* updates — already enabled in Settings — quietly failed on
+transitive packages. One bot, configured here, instead of two.
 
-```jsonc
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", ":pinAllExceptPeerDependencies",
-              "helpers:pinGitHubActionDigests"],
-  "schedule": ["before 6am on monday"],
-  "packageRules": [
-    { "groupName": "minor+patch", "matchUpdateTypes": ["minor", "patch"] },
-    { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": true }
-  ]
-}
-```
+| Ecosystem | Schedule | Policy |
+|---|---|---|
+| `npm` | weekly, Monday 05:00 Asia/Ho_Chi_Minh | **2-day cooldown**; `minor` + `patch` grouped (`minor-and-patch`); up to 10 open PRs; `versioning-strategy: increase`; **ignores TypeScript majors** (D21 — TS 7 breaks `astro check`) and **`@types/node` majors** (the typings track the Node major in `.nvmrc`, docs/01 §4); commit prefixes `fix(deps)` / `chore(deps)` (dev) |
+| `github-actions` | same | 2-day cooldown; all actions in one group; bumps the pinned SHA and its `# vX.Y.Z` comment together; prefix `ci` |
+
+**Why the cooldown:** pnpm 11 refuses any release younger than its default
+24 h `minimumReleaseAge`, and CI installs with `--frozen-lockfile` under that
+policy — a PR opened on release day failed before a single test ran (#14,
+#15). Two days keeps every update PR installable.
 
 Plus `osv-scanner` (`google/osv-scanner-action`, lockfile mode) and
-`pnpm audit --prod`, both as steps of `ci.yml`'s **`gates` job** (§2) — again,
-not inside the reusable-workflow call. Critical findings fail the PR
-(policy docs/01 §5).
+`pnpm audit --prod`, both steps of `ci.yml`'s **`gates` job** (§2), on every
+PR and push to `main`; a finding fails the job (policy docs/01 §5).
+CodeQL (§2) and SonarCloud's automatic analysis (`.sonarcloud.properties` —
+sources rooted at the repo so `.github/` workflows are analysed too; the
+dataset, docs and build output excluded) complete the scanning.
 
 ## 7. Issue forms
 
@@ -324,7 +452,9 @@ body:
     validations: { required: true }
   - type: input
     id: homepage
-    attributes: { label: Official homepage (https) }
+    attributes:
+      label: Official homepage (https)
+      description: The developer's own domain or official repository — not a download portal.
     validations: { required: true }
   - type: dropdown
     id: pricing
@@ -345,15 +475,36 @@ body:
         - { label: 'Actively maintained or stable-and-finished', required: true }
 ```
 
-`.github/ISSUE_TEMPLATE/config.yml`: `blank_issues_enabled: false`, contact
-link → Discussions (or the gaming Discord) for general questions.
+`.github/ISSUE_TEMPLATE/config.yml`: `blank_issues_enabled: false`; contact
+links → GitHub Discussions for questions, and **Report a security issue** →
+the repository's private vulnerability reporting
+(`/security/advisories/new`) — never a public issue.
 
-## 8. Branch protection (repo settings — H1 follow-up)
+## 8. Branch protection (ruleset "Run" on `main`)
 
-`main`: require PR, require linear history, dismiss stale approvals on push.
-Required status checks — name **both** `ci` jobs, not the workflow: `ci / build`,
-`ci / gates`, plus `codeql`. Naming only the workflow leaves the `gates` job
-(validate:data, i18n parity, osv-scanner, link check) unenforced.
+`main` is protected by a repository **ruleset** ("Run"), not classic branch
+protection:
 
-CODEOWNERS: `* @poli0981` with explicit entries for `.github/**`, `scripts/**`,
-`src/data/**` (T6).
+- **PR required**; **0 required approvals** and code-owner review off
+  (single-maintainer repository — CODEOWNERS only *requests* the review).
+- **Signed commits required.** Commits are GPG-signed locally; the
+  quarantine bot signs through the API (§4).
+- **Linear history.**
+- **Required status checks:** `build` and `gates` — the two `ci.yml` jobs,
+  shown in the UI as `ci / build`, `ci / gates` — and
+  `codeql / Analyze (javascript-typescript)`. Name **both** `ci` jobs, not
+  the workflow: naming only the workflow leaves the `gates` job
+  (validate:data, i18n parity, osv-scanner, audit, link check) unenforced.
+  A required check must be produced on PRs, or nothing can merge (§2).
+- Auto-merge is disabled (⚠ verify in Settings if this matters).
+
+**Merge method: squash, and only squash.** GitHub refuses a rebase merge
+under the signed-commits rule ("Rebase merges cannot be automatically signed
+by GitHub"), and a merge commit breaks linear history. The squash title must
+be a valid conventional commit, and the body should carry every commit
+subject from the branch (docs/10 §5). Older history shows rebase merges only
+because they predate the signature rule. A branch stacked on a squashed one
+must be replayed with `git rebase --onto origin/main <old-branch>`.
+
+CODEOWNERS: `* @poli0981` with explicit entries for `/.github/**`,
+`/scripts/**`, `/src/data/**` and `/worker/**` (T6).

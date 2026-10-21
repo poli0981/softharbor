@@ -10,27 +10,37 @@
 | **M3 — Find things** | search index route, ShSearch, ShFilterSheet, sort, nanostores (05) | S2 vectors pass in-app; filters compose; no-JS grid intact | 3 d | ✅ |
 | **M4 — Trust layer** | legal gate, legal pages ×2 locales, security lines, ShLangSwitch, ShThemeToggle (07, 14) | gate passes S4 checks; parity CI green | 3 d | ✅ |
 | **M5 — Resilience & pipes** | 404/offline/PWA, dormant errors, /api/apps.json, rss, bug-report button, _headers (08, 09) | launch-checklist infra section fully green | 2–3 d | ✅ |
-| **M6 — Ship** | CI/CD wiring, branch protection, 30 seed apps, checklist, v1.0.0 (12, 13) | public announcement sent | 3–4 d | ◐ infra done; data + tag + announcement open |
+| **M6 — Ship** | CI/CD wiring, branch protection, 30 seed apps, checklist, v1.0.0 (12, 13) | public announcement sent | 3–4 d | ✅ 2026-07-30 — v1.0.0 tagged and released with 326 apps |
+| **M7 — v1.1 review** | post-launch audit: native view transitions, CSP-first head, Harbor UI, display menu, search/URL state, data rules, Playwright e2e, Dependabot; Turnstile + `/api/verify` Worker (D25), Web Analytics (D26), contacts (D27), legal rewrite (all docs) | every gate green in CI; production verified after merge (docs/13 §3) | — | ✅ 2026-10-21 — PRs #23–#25 merged and deployed; v1.1.0 released |
 
 Total ≈ 17–20 focused days, **plus ~1 day for the `softharbor.net` domain
 package** (docs/16 §10) slotted between M5 and M6. Data entry (M6)
 parallelizes with earlier milestones once M2 lands.
 
-**Where it stands (2026-07-28).** `https://softharbor.net` is live and every
-automated gate is green — `lint · i18n:check · validate:data · test · check ·
-build · check:styles · knip`, 55 pages from 5 entries, CI and CodeQL passing,
-deploys handled by Cloudflare Workers Builds on push to `main` (docs/12 §3).
-**M6 is not closed**: the dataset is 5 of the ~32 seed entries and every one is
-`security.status: "unverified"`, so **v1.0.0 is deliberately untagged** — see
-§5. The remaining work is curation and repo settings, not code.
+**Where it stands (2026-10-21).** v1.0.0 shipped on 2026-07-30: 326 apps in
+12 categories, 320 `clean` and 6 held at `unverified`, every one with its
+scan linked. v1.1.0 (`package.json` 1.1.0, CHANGELOG.md), released on
+2026-10-21, is the post-launch review recorded in §4's 2026-10-21 rows.
+Every automated gate is green in
+CI: `lint · check · coverage (ratchet) · build` — which itself runs
+`validate:data · i18n:check · astro build · postbuild:html · check:csp ·
+check:assets · check:sw · check:feed` over 701 pages — `· wrangler deploy
+--dry-run · knip · e2e (Playwright + axe)`, plus the `gates` job and
+CodeQL. Deploys are Cloudflare Workers Builds (docs/12 §3): serialized, so
+a merge is verified in production only after its build check is green
+(docs/13 §3). What remains is settings and sign-offs (§5), not code.
+
+*Where it stood (2026-07-28), for the record:* live, gates green, 55 pages
+from 5 entries, all `unverified` — v1.0.0 deliberately untagged until the
+data was seeded and vetted.
 
 ## 2. Post-v1 backlog (ordered by current intent)
 
 1. **Zone upgrades on evidence, not by default** — revisit the
    deliberately-OFF trio (rate limiting, Bot Fight Mode, Pro-zone Custom
    Errors) only if abuse or 403/429 UX ever becomes real (docs/16 §9);
-   plus the `?q=` search deep-link that would unlock a `SearchAction`
-   JSON-LD node (docs/16 §7).
+   plus a `SearchAction` JSON-LD node (docs/16 §7) — its prerequisite, the
+   `/apps?q=` deep link, **shipped in v1.1** (`src/lib/urlstate.ts`).
 2. **VirusTotal automation** — scheduled workflow scanning `links.download`
    via VT API, writing `evidence` + opening flag issues on detections
    (turns docs/09 §6.5 from manual to assisted).
@@ -42,7 +52,11 @@ deploys handled by Cloudflare Workers Builds on push to `main` (docs/12 §3).
    EN/VI/JP baseline of PhantomMAC/IconForge.
 7. **Community data automation** — app_request issues auto-drafting data
    PRs for maintainer review.
-8. Playwright smoke pack if island count grows past six.
+8. ~~Playwright smoke pack if island count grows past six.~~ **Done in
+   v1.1** without the island count changing — the bugs that shipped were
+   CSP refusals, dialogs and overflow only a real browser shows (docs/11
+   §5). Still open from the quality bar: Lighthouse CI and a `size-limit`
+   budget (docs/13 §2).
 9. **Grid pagination — triggered by size, not by date.** `/apps` server-renders
    every card and filters by toggling `hidden` (docs/05 §A3), which is what
    keeps the no-JS experience whole. That trade stops paying somewhere around
@@ -51,7 +65,10 @@ deploys handled by Cloudflare Workers Builds on push to `main` (docs/12 §3).
    (docs/00 §2.5). **Trigger:** when the dataset passes 250 apps, or `/apps`
    HTML passes 200 KB gzip, paginate or virtualize — and keep a full
    unpaginated listing reachable for no-JS users. Revisit before the count
-   gets there, not after.
+   gets there, not after. *Re-measured 2026-10-21 on a local v1.1 build:
+   `/apps` 119.0 KB gzip (~1.24 MB raw), `/vi/apps` 125.3 KB — up from
+   112.2 / 116.9 KB on 2026-07-29, still inside the 200 KB budget; cards
+   use `content-visibility: auto` so off-screen ones cost no layout.*
 
 ## 3. Explicitly rejected (for the record)
 
@@ -76,7 +93,7 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-15 | Fonts: **Bricolage Grotesque** chosen over Space Grotesk for display | ⚠ review (D9) |
 | 2026-07-15 | Added **nanostores** as the one cross-island state dep | ⚠ review (D15) |
 | 2026-07-15 | Legal drafts embedded in docs/14; split into `/legal/*` pages at implementation | ⚠ review |
-| 2026-07-15 | No analytics in v1 | ✅ from spec session |
+| 2026-07-15 | No analytics in v1 | ⛔ superseded 2026-10-21 (D26) |
 | 2026-07-15 | Category taxonomy fixed at 12 ids (docs/04 §4) | ⚠ review |
 | 2026-07-20 | **`softharbor.net` purchased**; docs suite → v1.1; new docs/16 owns domain/SEO ops | ✅ Kokone |
 | 2026-07-20 | Canonical = apex `https://softharbor.net`; `www` 301 via zone Redirect Rule; **no auto-anything else** | ⚠ review (N1–N2) |
@@ -84,16 +101,16 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-20 | Zone plan **Free**; Custom Errors therefore unavailable; `/errors/*` stay dormant | ✅ (plan-gating re-verified) |
 | 2026-07-20 | Rate limiting + Bot Fight Mode deliberately OFF at launch (recipes in docs/16 §9) | ⚠ review (N6) |
 | 2026-07-20 | HSTS zone-level, phased P1→P2→optional P3 preload (H9 = Kokone's call) | ⚠ review (N5) |
-| 2026-07-20 | Contact = `contact@softharbor.net` via Email Routing; SPF + DMARC quarantine→reject | ⚠ review (N7) |
+| 2026-07-20 | Contact = `contact@softharbor.net` via Email Routing; SPF + DMARC quarantine→reject | ⛔ superseded 2026-10-21 (D27) |
 | 2026-07-20 | SEO additions: GSC Domain property, Bing import, Crawler Hints/IndexNow ON, JSON-LD `SoftwareApplication` + `BreadcrumbList` (price only for `free`) | ⚠ review (N8) |
 | 2026-07-27 | **Suite audit → v1.2.** Six build/deploy blockers fixed before any code was written (below) | ✅ |
-| 2026-07-27 | CI called `reusable-node-ci.yml` and `reusable-notify.yml` — **neither exists** in `poli0981/.github`. Rewired to `reusable-web-react.yml` (generic Node, accepts pnpm) + a local `gates` job, and `announce-release.yml` (Discord-only) | ✅ (verified via `gh`) |
+| 2026-07-27 | CI called `reusable-node-ci.yml` and `reusable-notify.yml` — **neither exists** in `poli0981/.github`. Rewired to `reusable-web-react.yml` (generic Node, accepts pnpm) + a local `gates` job, and `announce-release.yml` (Discord-only) | ⛔ superseded 2026-07-28 (self-contained `ci.yml`) |
 | 2026-07-27 | **D16** `developer` required in schema + rendered (docs/04 §2 documented a field the `.strict()` schema rejected) | ⚠ review |
-| 2026-07-27 | **D18** CSP: zero inline scripts, `script-src 'self'`, no hash pipeline; theme → `public/theme.js` | ⚠ review — **S1 must confirm ClientRouter survives** |
+| 2026-07-27 | **D18** CSP: zero inline scripts, `script-src 'self'`, no hash pipeline; theme → `public/theme.js` | ⛔ superseded 2026-07-27 (D20) |
 | 2026-07-27 | Card markup: wrapping `<a>` with nested chip links replaced by the stretched-link pattern (nested anchors are invalid HTML) | ✅ |
 | 2026-07-27 | VI glossary moved out of `vi.json` into docs/07 §9 — a `_glossary` key would fail the strict parity check it was meant to serve | ✅ |
 | 2026-07-27 | Search index stores **raw** fields; `processTerm` normalizes both sides. No `*Norm` copies, no `storeFields` | ✅ |
-| 2026-07-27 | `fuzzy: 0.15` marked provisional — the declared `gmip → GIMP` vector needs ~2 edits and cannot pass. **S2 owns the final value** | ⚠ open |
+| 2026-07-27 | `fuzzy: 0.15` marked provisional — the declared `gmip → GIMP` vector needs ~2 edits and cannot pass. **S2 owns the final value** | ⛔ superseded 2026-07-27 (D22) |
 | 2026-07-27 | **D17** pnpm 10 kept despite npm siblings | ✅ |
 | 2026-07-27 | Toolchain majors corrected against `poli0981-dev`: TypeScript 6, ESLint 10, lefthook 2, knip 6 | ✅ (verified) |
 | 2026-07-27 | Action pins bumped to `checkout@v7` / `setup-node@v6` / `pnpm/action-setup@v6`; SHA-pinning rule scoped to repo-local workflows | ✅ |
@@ -103,13 +120,13 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-27 | **P1/M0 executed.** Scaffold builds; S1 and S2 passed; findings below | ✅ |
 | 2026-07-27 | **B7 / D15 amended** — `@nanostores/svelte` **does not exist** (registry 404). Not needed: nanostores atoms satisfy Svelte's store contract natively | ✅ (verified) |
 | 2026-07-27 | **D20 supersedes D18** — Astro island hydration emits inline scripts, so "nothing inline" is unachievable. CSP split: Astro `security.csp` meta owns script-src/style-src with generated hashes; `_headers` owns only `frame-ancestors` | ✅ (S1, hashes re-verified) |
-| 2026-07-27 | ClientRouter is an **external** script — View Transitions survive. The M1 fallback risk is closed | ✅ (S1) |
+| 2026-07-27 | ClientRouter is an **external** script — View Transitions survive. The M1 fallback risk is closed | ⛔ superseded 2026-10-21 (ClientRouter removed — native view transitions) |
 | 2026-07-27 | **D21** hold TypeScript at 6.x — TS 7's native compiler breaks `astro check` | ✅ (S1, reproduced) |
 | 2026-07-27 | **D22** `FUZZY = 0.25`; `gmip → GIMP` vector retired as not worth its false positives | ✅ (S2, measured) |
 | 2026-07-27 | `ignore-scripts=true` removed — pnpm ≥ 10 blocks dep scripts by default; the flag also suppresses the `allowBuilds` allowlist and stops the build entirely. pnpm line corrected 10.x → 11.x | ✅ (S1) |
 | 2026-07-27 | Prettier ignores `docs/` + `CLAUDE.md` — the suite is hand-wrapped, and reformatting would bury every future docs diff | ✅ |
-| 2026-07-27 | **S4 passed**, catching two design bugs: a `transition:persist`ed `<dialog>` loses top-layer state across a swap (fixed by re-asserting `showModal()` on `astro:after-swap`), and a persisted island keeps its first `locale` prop, so EN copy leaked onto `/vi/` pages (fixed by deriving locale from the path) | ✅ |
-| 2026-07-27 | Island tests added in **happy-dom** (`vitest.config.ts`, two projects). Does **not** reopen the no-Playwright decision — asserts island state machines only; layout/top-layer/visual stay manual (docs/11 §1) | ⚠ review |
+| 2026-07-27 | **S4 passed**, catching two design bugs: a `transition:persist`ed `<dialog>` loses top-layer state across a swap (fixed by re-asserting `showModal()` on `astro:after-swap`), and a persisted island keeps its first `locale` prop, so EN copy leaked onto `/vi/` pages (fixed by deriving locale from the path) | ⛔ superseded 2026-10-21 (no ClientRouter; the gate mounts per page) |
+| 2026-07-27 | Island tests added in **happy-dom** (`vitest.config.ts`, two projects). Does **not** reopen the no-Playwright decision — asserts island state machines only; layout/top-layer/visual stay manual (docs/11 §1) | ⛔ superseded 2026-10-21 (Playwright e2e added) |
 | 2026-07-27 | Legal-gate session fallback moved from a module-local `let` to a `globalThis` key — its scope really is the session, and a module-local silently leaked acceptance between tests | ✅ |
 | 2026-07-27 | **M1 skeleton done** — tokens, self-hosted fonts, Base/header/footer, Welcome + empty grid in **both** locales, i18n helper + parity gate | ✅ |
 | 2026-07-27 | `_headers` had a dead `/fonts/*` rule and the PWA a dead `fonts/*.woff2` glob: Astro hashes fonts into `/_astro/`, so the offline shell would have shipped **unstyled**. Both corrected (docs/08 D, docs/09 §4) | ✅ (found by inspecting `dist/`) |
@@ -133,43 +150,43 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-07-30 | Link check now accepts **403/429**. 14 of the 26 CI failures were bot mitigation on plainly-live sites (winehq, dolphin-emu, rpcs3, gitlab, MSI, Nexus, Epic, Enpass). A checker wrong about a seventh of the catalogue gets ignored, which costs more than the 403 it would eventually be right about. 404/500/connection failures still break the build. **Spoofing a browser `--user-agent` was tried first and is explicitly rejected**: it cleared the 403s but made gitlab.gnome.org answer 406 and whatsapp.com 400, both of which pass on lychee's default agent — no single UA suits every vendor, so it trades one false-positive set for another | ✅ |
 | 2026-07-30 | `security.evidence` was collected by the schema and demanded by docs/09 §6 but **rendered nowhere** — it had always been `null`, so the gap was invisible until 327 permalinks landed. The detail page's security line now links it (docs/06 §5, `detail.evidence`) | ✅ |
 | 2026-07-30 | **C3 rulings approved by H7** — the freemium entries below are confirmed acceptable as `free` | ✅ |
-| 2026-07-29 | **C3 rulings pending for the freemium communication entries** — Slack (90-day history), Zoom (40-min meetings), Microsoft Teams (60-min calls), Discord, Beeper, and eM Client (`free-onetime`, one device / two accounts) all enter as `free` on the grounds that the free tier is self-sufficient for desktop use. Each summary states its limit rather than hiding it. Hard rule 3 is satisfied — none is subscription-*only* — but docs/04 §3 wants the rulings logged, and these are H7's to confirm | ⚠ Kokone |
+| 2026-07-29 | **C3 rulings pending for the freemium communication entries** — Slack (90-day history), Zoom (40-min meetings), Microsoft Teams (60-min calls), Discord, Beeper, and eM Client (`free-onetime`, one device / two accounts) all enter as `free` on the grounds that the free tier is self-sufficient for desktop use. Each summary states its limit rather than hiding it. Hard rule 3 is satisfied — none is subscription-*only* — but docs/04 §3 wants the rulings logged, and these are H7's to confirm | ⛔ superseded 2026-07-30 (approved by H7) |
 | 2026-07-29 | Logo remaps refuse any Simple Icons name that is also a common word (`session`, `wire`, `mumble`, `element`, `line`, `signal`, `zoom`, and the earlier `shell`/`helium`/`dolphin`/`files`/`helix`/`wine`) unless the brand is confirmed against its upstream `source` URL. A wrong match ships another company's trademark, and docs/14 §3d has no room for that. Monogram is the safe default | ✅ |
 | 2026-07-27 | Page bodies live in `src/components/pages/*.astro`; `src/pages/**` are thin locale wrappers. Implements the docs/07 §2 no-duplication rule for whole pages, not just `getStaticPaths` | ✅ |
 | 2026-07-27 | i18n parity script also enforces **alphabetical key order** — a 200-key dictionary is unreviewable otherwise | ✅ |
 | 2026-07-27 | **S1 closed on a real deploy**: `build.format: 'file'` + `html_handling: 'drop-trailing-slash'`. The default pairing 307'd every canonical URL we advertise | ✅ (measured) |
 | 2026-07-27 | **S5 software passed**, 4 bugs: SW never registered (`@vite-pwa/astro` emits but never references `registerSW.js`); `navigateFallback` served the offline page to *online* visitors; `clientsClaim` false; workbox globs coupled to `build.format`. Device airplane-mode pass still outstanding | ✅ / ⚠ |
 | 2026-07-27 | **S3 partial**: `BUDGET = 5000`. GitHub 500s between ~7 160 and ~7 960 rather than degrading to 414, so 80 %-of-hard-limit would have landed inside the 500 band. Field-mapping check still needs the template on `main` | ✅ / ⚠ |
-| 2026-07-27 | Pre-launch `X-Robots-Tag: noindex` in `_headers` while the dataset is empty; removal is a launch-checklist item (docs/13 §2) | ✅ |
+| 2026-07-27 | Pre-launch `X-Robots-Tag: noindex` in `_headers` while the dataset is empty; removal is a launch-checklist item (docs/13 §2) | ⛔ superseded 2026-07-28 (header removed) |
 | 2026-07-27 | **`softharbor.net` is LIVE** — apex deployed, DNS + cert provisioned by `wrangler deploy`, M1 skeleton serving. **M0 and M1 complete** | ✅ |
 | 2026-07-27 | S5 re-verified on the production origin (SW controlling, 15 precache entries, no console errors). Airplane-mode device pass still outstanding | ✅ / ⚠ |
 | 2026-07-27 | `main` fast-forwarded to the feature branch so `bug_report.yml` reaches the default branch — GitHub reads issue templates only from there | ✅ |
 | 2026-07-28 | **M2 complete** — Zod schema (L1), `validate-data.mjs` (L2), `extract-urls.mjs` (L3), 12-category registry, 5 seed apps, card/grid/detail/category pages in both locales. 43 pages, deployed | ✅ |
 | 2026-07-28 | **The T4 `set:html` ban had never worked** — the hand-rolled selector targeted `JSXAttribute`, which astro-eslint-parser does not emit for template directives. Replaced with `astro/no-set-html-directive` and negative-controlled | ✅ |
 | 2026-07-28 | `unplugin-icons` is static-import-only and cannot resolve a data-driven `logo`. `src/lib/icon.ts` inlines from the same vendored Iconify JSON at build time; the T4 ban carries one carve-out scoped to three named files | ⚠ review |
-| 2026-07-28 | Seed entries enter as `security.status: "unverified"` — `clean` requires the docs/09 §6 checklist, and hard rule 4 forbids clean-by-default. Licenses/developers still need the L4 pass | ⚠ Kokone |
+| 2026-07-28 | Seed entries enter as `security.status: "unverified"` — `clean` requires the docs/09 §6 checklist, and hard rule 4 forbids clean-by-default. Licenses/developers still need the L4 pass | ⛔ superseded 2026-07-30 (vetting run) |
 | 2026-07-28 | Post-deploy edge propagation makes brand-new routes 404 intermittently for a minute or two; documented in docs/16 §10 so it is not mistaken for a config bug | ✅ |
 | 2026-07-28 | **M3 complete** — `/search-index.json`, nanostores, pure filter/sort in `src/lib/filter.ts`, `ShSearch` + `ShFilterSheet`. S2 vectors verified **in-app**; facets compose; no-JS grid intact | ✅ |
 | 2026-07-28 | **nanostores' `$name` convention is incompatible with Svelte** — `$` is reserved for auto-subscription, so atoms are exported unprefixed and referenced as `$name` in components (docs/05 §A3) | ✅ |
-| 2026-07-28 | Grid controller lives in `src/lib/grid.ts`, not a 7th island — docs/02 §5 caps islands at six. Reordering uses CSS `order`, never DOM moves | ✅ |
+| 2026-07-28 | Grid controller lives in `src/lib/grid.ts`, not a 7th island — docs/02 §5 caps islands at six. Reordering uses CSS `order`, never DOM moves | ✅ / ⛔ CSS-`order` part superseded 2026-07-30 (DOM moves) |
 | 2026-07-28 | All 5 seed entries share `addedAt`, so the "Newest" sort currently falls through to the name tiebreak. Correct, but it means sort order is only exercised by unit tests until entries land on different days | ⚠ note |
 | 2026-07-28 | **M4 complete** — legal gate copy moved into the dictionaries, 5 legal documents ×2 locales, `ShLangSwitch` + `ShThemeToggle`, `LICENSE-DATA.md`. Five of six islands now exist (`ShBugReport` is M5) | ✅ |
 | 2026-07-28 | **Regression caught in M4, introduced by the S1 trailing-slash fix**: `build.format: 'file'` makes `Astro.url.pathname` the emitted FILE name, so all 52 pages shipped `.html` canonicals and hreflangs that disagreed with the sitemap. Fixed via `canonicalPath()` (docs/07 §6) and pinned by tests | ✅ |
 | 2026-07-28 | Gate strings are passed to the island as props rather than importing `t` — the gate must switch locale without a reload, but importing the dictionaries would bundle all 78 keys into it | ✅ |
 | 2026-07-28 | Locale ROUTING split into `src/lib/locale.ts` (no dictionary import) so islands can use `localePair` without pulling in every string | ✅ |
-| 2026-07-28 | Legal drafts are published as written in docs/14. **H6 (Kokone's review) is still outstanding**, and `LEGAL_VERSION` should be reset to the approval date when it happens — bumping it re-opens the gate for everyone, which is the intended behaviour | ⚠ Kokone |
+| 2026-07-28 | Legal drafts are published as written in docs/14. **H6 (Kokone's review) is still outstanding**, and `LEGAL_VERSION` should be reset to the approval date when it happens — bumping it re-opens the gate for everyone, which is the intended behaviour | ⛔ superseded 2026-07-28 (H6 approved) |
 | 2026-07-28 | **M5 complete** — `/api/apps.json`, `/rss.xml`, `ShBugReport` (the 6th and final island), dormant `/errors/*`, 404/offline, `security.txt`, `SECURITY.md`, JSON-LD, favicon. **All six islands now exist**; a seventh needs a decision-log entry | ✅ |
 | 2026-07-28 | Feed determinism **verified by building twice and comparing hashes** — `/rss.xml` byte-identical, so notify.py cannot double-fire. `@astrojs/rss` has no `guid` option, so the slug guid is injected via `customData` (docs/05 §A4) | ✅ |
 | 2026-07-28 | Ring-buffer listeners moved OUT of `ShBugReport` into `public/errors.js`: the island is `client:visible` in the footer, so hydration-time listeners would have missed every error before the user scrolled (docs/05 §A5) | ✅ |
 | 2026-07-28 | `public/*.js` is now linted with browser globals rather than ignored — `theme.js` had been exempt | ✅ |
-| 2026-07-28 | **PNG PWA icons (192/512/maskable) still missing.** ⛔ superseded — Kokone chose to ship the existing SVG: manifest now uses `favicon.svg`, `sizes: "any"`, `purpose: "any maskable"`. Raster PNGs remain an optional upgrade | ✅ |
+| 2026-07-28 | **PNG PWA icons (192/512/maskable) still missing.** ⛔ superseded — Kokone chose to ship the existing SVG: manifest now uses `favicon.svg`, `sizes: "any"`, `purpose: "any maskable"`. Raster PNGs remain an optional upgrade | ⛔ superseded 2026-10-21 (PNG icons shipped) |
 | 2026-07-28 | **M6 complete** — CI/CD workflows, `quarantine.mjs`, renovate, CODEOWNERS, issue templates. Infra section of the launch checklist verified green against production | ✅ |
 | 2026-07-28 | **H6 approved.** `LEGAL_VERSION` set to 2026-07-28; everyone who accepted the pre-approval wording sees the gate once more, as intended | ✅ Kokone |
 | 2026-07-28 | **`X-Robots-Tag: noindex` removed.** It guarded against indexing an EMPTY site; with real entries, legal pages and a sitemap live that objection no longer holds | ✅ |
-| 2026-07-28 | **`www` was being deleted by `wrangler deploy`** — a hand-added DNS record is not in the Worker's trigger list, so deploys reconciled it away and the redirect died silently. Fixed by declaring `www.softharbor.net` as a second `custom_domain` so wrangler owns the record. **Redirect Rule R1 is now a hard prerequisite**: without it www would serve a duplicate of the site | ✅ (verified across a deploy) |
+| 2026-07-28 | **`www` was being deleted by `wrangler deploy`** — a hand-added DNS record is not in the Worker's trigger list, so deploys reconciled it away and the redirect died silently. Fixed by declaring `www.softharbor.net` as a second `custom_domain` so wrangler owns the record. **Redirect Rule R1 is now a hard prerequisite**: without it www would serve a duplicate of the site | ⛔ superseded 2026-07-28 (routes removed, commit 66c6255 — docs/16 §3) |
 | 2026-07-28 | Quarantine sweep tested end-to-end: a flagged entry vanishes from the detail page, grid, API export, RSS feed **and** search index — all five surfaces | ✅ |
 | 2026-07-28 | Dead-code sweep: `ShProbe.svelte` (a dead S1 leftover sitting in `islands/`, where docs/02 §5 caps the count at six), 5 unused exports, 2 `exactOptionalPropertyTypes` violations. `knip` now passes clean so the next one is visible | ✅ |
-| 2026-07-28 | **v1.0.0 NOT tagged.** Infra is green but the dataset is 5 of 32 entries and all are `unverified` — the docs/09 §6 checklist has not been run. Tagging now would rest hard rule 4's honesty claim on unchecked data | ⚠ Kokone |
+| 2026-07-28 | **v1.0.0 NOT tagged.** Infra is green but the dataset is 5 of 32 entries and all are `unverified` — the docs/09 §6 checklist has not been run. Tagging now would rest hard rule 4's honesty claim on unchecked data | ⛔ superseded 2026-07-30 (v1.0.0 tagged) |
 | 2026-07-28 | **CSP `style-src` was silently dropping every inline `style` attribute** — 49 of them. The sticky header rendered transparent and content bled through. Tokens are now Tailwind utilities and `check:styles` fails the build on any `style=` in dist (docs/09 §4) | ✅ |
 | 2026-07-28 | `ci.yml` made **self-contained**, superseding the reusable-workflow caller: `reusable-web-react.yml`'s Pages job declares `pages: write` + `id-token: write`, and a caller cannot grant less, so every run died at `startup_failure` — and its steps run only "if the script exists", which silently green-lights a renamed gate | ✅ |
 | 2026-07-28 | `reusable-codeql.yml` takes `languages` as a **JSON array string** (`'["javascript-typescript"]'`); a bare value throws in `fromJSON` and kills the run at startup | ✅ |
@@ -180,63 +197,117 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-10-21 | **D26 — Cloudflare Web Analytics, honouring Global Privacy Control** (supersedes "No analytics in v1"; amends hard rule 7). Cookieless beacon injected by `src/scripts/analytics.js` only when `navigator.globalPrivacyControl` is not set and the host is `softharbor.net` (never previews, localhost or e2e). CSP gains exactly `static.cloudflareinsights.com` (script), `cloudflareinsights.com` (connect) and `challenges.cloudflare.com` (script + frame, for D25) — nothing else third-party | ✅ (user, 2026-10-21) |
 | 2026-10-21 | **D27 — one contact address per purpose** at `poli0981.dev` (supersedes the `contact@softharbor.net` row of 2026-07-20): security, privacy, legal, dmca, takedown, copyright, code (CoC), press, collab — `src/lib/contacts.ts`. `sponsor@` deliberately unused: a neutral directory takes no paid placement. Mail is hosted by Google (MX), which the Privacy Policy now says | ✅ (user, 2026-10-21) |
 | 2026-10-21 | **`LEGAL_VERSION` → 2026-10-21** with per-document "Last updated" dates (`LEGAL_UPDATED`): Privacy covers D25/D26 and names the operator; Terms gain the operator and a copyright-complaint procedure (`dmca@`); nine EN/VI wording gaps and two false AI-Disclosure claims fixed. A test now fails if an accepted document is dated after the version | ✅ |
+| 2026-10-21 | **`<ClientRouter />` removed → native cross-document View Transitions.** Astro does not support ClientRouter together with `security.csp`, and in practice a soft navigation kept the *first* page's meta CSP, wiped `<html data-theme>` (theme flicker) and kept module state alive while islands reset (a stale sort). Every navigation is now a full document load. The opt-in is an inline, hashed `<style>` (`src/lib/inlineCss.ts`, hash supplied in `astro.config.ts`) because Chromium settles it when `<body>` is inserted; no `transition:persist`, no `astro:after-swap`; the URL holds the `/apps` view state (`src/lib/urlstate.ts`). Supersedes the S1 "View Transitions survive" and S4 rows (docs/02 §6) | ✅ |
+| 2026-10-21 | **Playwright + axe end-to-end, enforced in CI — reverses "No Playwright in v1"** (docs/11 §1). Desktop Chrome + Pixel 7 against `astro preview`; a test fails on any console error, uncaught exception, CSP violation or sideways overflow, and on serious/critical axe findings in light and dark; Turnstile is stubbed with `page.route`. Vitest grew to four projects (unit, islands, scripts — the real build scripts in temp trees — and worker) with a coverage ratchet of 93/78/90/93 | ✅ |
+| 2026-10-21 | **CSP-first head.** Head scripts moved from `public/` to `src/scripts/*.js`, imported with `?url&no-inline` (content-hashed, immutable `/_astro/` files); `errors.js` loads first and blocking — `defer` had made it miss early failures — and now also records CSP violations and hydration errors; `scripts/postbuild.mjs` moves the CSP meta right after `<meta charset>`. `check:styles` became **`check:csp`** (also fails on a missing meta, a script before it, an unhashed inline script); new `check:assets` catches `data:` scripts and missing assets | ✅ |
+| 2026-10-21 | **`_headers` Cache-Control repaired.** Cloudflare comma-JOINS a header set by several matching rules, so hashed assets were served `public, max-age=0, must-revalidate, public, max-age=31536000, immutable` — revalidated on every load — and the JSON feeds were never cached. `/*` now sets no Cache-Control and each specific rule detaches with `! Cache-Control`. PR preview hosts get `X-Robots-Tag: noindex` from an absolute-URL rule (docs/09 §4) | ✅ (verified live) |
+| 2026-10-21 | **Dependabot replaces Renovate**, which was never installed (no branch, dashboard or PR ever appeared). Weekly npm + github-actions, 2-day cooldown (pnpm 11's 24 h `minimumReleaseAge` failed same-day PRs #14/#15), minor+patch grouped, TypeScript (D21) and `@types/node` majors ignored. Every action pinned to a commit SHA with a version comment (docs/12 §6) | ✅ |
+| 2026-10-21 | **Squash is the only merge method.** The `main` ruleset ("Run") requires signed commits and linear history, and GitHub cannot sign a rebase merge. Required checks: `build`, `gates` and `codeql / Analyze (javascript-typescript)` — so CodeQL runs on PRs; a required check that never appears deadlocks merging (docs/12 §8) | ✅ |
+| 2026-10-21 | **Quarantine workflow hardened**: a PR opened with `GITHUB_TOKEN` triggers no workflows, so it dispatches `ci.yml` + `codeql.yml` on its branch; commits signed via the API; one tracking issue per slug, only if none is open; step outputs pass through `env:`. `pnpm quarantine` plus the `flagged-in-main-tree` rule make flag-and-move one PR (docs/12 §4) | ✅ |
+| 2026-10-21 | **`ShPrefs` display menu replaces `ShThemeToggle`** — theme, scrollbar (`sh:scrollbar`) and motion (`sh:motion`), all applied pre-paint by `theme.js`, plus the global `/` shortcut. A one-for-one swap: still six islands (docs/05 §A8) | ✅ |
+| 2026-10-21 | **Legal-gate exemptions are declared by the page** (`gateExempt`), not matched by path: the old regex never matched the real 404 (served at any URL) or the service worker's offline page. `/contact` is exempt too (docs/14 Part 2) | ✅ |
+| 2026-10-21 | **Search and sort repaired**: race-free (sequence numbers), "Clear all" clears the query too, view state in the URL, "Best match" while querying, MiniSearch by dynamic `import()`, and every name order — grid, category pages — through one pinned `Intl.Collator('en', base, numeric)` (a Czech-locale browser had reordered 81 cards); `/api/apps.json` sorted by slug in code-unit order (docs/05 §A2–A3) | ✅ |
+| 2026-10-21 | **Data rules enforced, not just promised**: the schema requires `evidence` for `clean`/`flagged` and real, non-future dates; `validate-data.mjs` adds a download-portal denylist, tracking parameters, punycode hosts, invisible/bidi characters, case-sensitive local logos, date order, quarantine-tree rules and a 180-day stale-check warning (docs/03 §2) | ✅ |
+| 2026-10-21 | **"Harbor" UI refresh** (docs/06): OKLCH chart-paper/night-harbour tokens, hairline `--sh-border` separate from `--sh-control`, soft shadows (the offset shadows are gone), WCAG AA for every token pair held by `contrast.test.ts`, dark mode with JS off. Lucide via `ShIcon.astro`; the `set:html` carve-out now lists five named files (was three) | ✅ |
+| 2026-10-21 | **PWA installable**: manifest linked, PNG icons (192/512/maskable) + apple-touch + favicon.ico from `pnpm icons`; the SW precaches what `/offline` loads — it had rendered unstyled — and calls `skipWaiting`; `check:sw` asserts both (docs/08 Part D) | ✅ |
+| 2026-10-21 | **`check:feed`** at the end of `pnpm build` asserts the emitted RSS — slug guids that name real apps, links, newest first, ≤ 50 items — because the `customData` guid seam is invisible to unit tests and notify.py announces every new guid (docs/05 §A4) | ✅ |
+| 2026-10-21 | **Recorded late: `routes` removed from `wrangler.jsonc`** (commit 66c6255, 2026-07-28). Both custom domains are attached in the dashboard; with no `routes` key a deploy leaves them untouched. Supersedes that day's "declare www as a second custom_domain" row; a Worker re-created from a fresh clone needs both re-attached (docs/16 §3) | ✅ |
+| 2026-10-21 | **Workers Builds runs one build at a time.** A `main` merge can wait ~20 minutes behind PR builds, a superseded queued `main` build may be skipped (`ff95578` never deployed; `3743cfb` did), and the "Workers Builds" check appears on a commit only once its build starts. A gap in `wrangler deployments list` only means nothing reached `main`. New release step: wait for that check to go green, then verify production (assets, headers, `/api/verify`, RSS); never `wrangler deploy` by hand while builds are queued (docs/13 §3) | ✅ |
+| 2026-10-21 | **Recorded late: v1.0.0 tagged and released on 2026-07-30** — 326 apps, 320 `clean`, 6 `unverified`. Supersedes the 2026-07-28 "v1.0.0 NOT tagged" row | ✅ |
+| 2026-10-21 | **v1.1.0 tagged and released** after #23–#25 (merge 2c40baf: `Workers Builds: softharbor`, `build`, `gates`, `codeql` green; production checked — `/contact`, the v1.1 CSP meta, single immutable `Cache-Control`, `/api/verify` answering from the Worker with the runtime secret set) | ✅ |
+| 2026-10-21 | **Suite v2.0** (site v1.1) — a MAJOR bump by §6's rule, because D25/D26 amend hard rules 1 and 7: docs/00–16 brought in line with the code — D25–D27, the rows above, superseded statuses marked; claims that could not be checked from the repository or a live probe are marked "⚠ verify" | ✅ |
 
 ## 5. Open questions for Kokone
 
-Everything below is blocked on a decision or a setting, not on code. Ordered
-by what gates the v1.0.0 tag.
+Everything below is blocked on a decision or a setting, not on code.
+Status as of 2026-10-21: v1.0.0 shipped on 2026-07-30 and v1.1.0 on
+2026-10-21, so nothing here gates a tag any more; ordered by risk.
 
-**Gating the launch**
+**Open — decisions**
 
-1. **Seed and vet the remaining ~27 entries** (docs/13 §4, H7). This is the
-   only real blocker: 5 of ~32 are in, and all 5 are `unverified` because
-   `clean` requires the docs/09 §6 checklist per entry (reputation sweep +
-   VirusTotal + `evidence` URL). Tagging v1.0.0 before that would rest hard
-   rule 4's honesty claim on unchecked data. Also confirm any
-   additions/removals — the current list leans Windows.
-2. **D16 naming convention for community projects** — "VSCodium contributors"
-   vs "VSCodium Team". Answer once, or 32 entries will answer it 32 ways.
-3. **Launch announcement scope** — full notify.py fan-out, or soft-launch to
-   Discord for a week of feedback first?
+1. **D16 naming convention for community projects** — "VSCodium contributors"
+   vs "VSCodium Team". Answer once, or the catalogue answers it many ways.
+   (Nothing in the repository records an answer — ⚠ verify.)
+2. **Sign-off on the 2026-10-21 legal rewrite** — Privacy, Terms, contacts,
+   AI Disclosure. H6 approved the 2026-07-28 drafts; the rewrite is live with
+   `LEGAL_VERSION` 2026-10-21 (docs/14 Part 4). ⚠ verify.
+3. **softharbor.net's Email Routing records** — no published address uses
+   the domain since D27. Keep them (receive-only, harmless) or retire Email
+   Routing and publish the non-sending set, `v=spf1 -all` + DMARC
+   `p=reject` (docs/16 §6, H5).
+4. ~~**Suite numbering**~~ — resolved 2026-10-21: amending hard rules 1
+   and 7 (D25, D26) is a *major* change by §6's own rule, so the suite is
+   **2.0**, in CLAUDE.md and here alike.
 
-**Repo settings (each is a silent failure until set)**
+**Open — settings (each is a silent failure until set)**
 
-4. **Branch protection**: require **`ci / build` AND `ci / gates`** as required
-   checks. Naming only the workflow leaves the gates job unenforced.
-5. **H10** — Settings → Actions → General → *Allow GitHub Actions to create and
-   approve pull requests*, or the nightly quarantine sweep cannot open its PR
-   (docs/12 §4).
+5. **Speed Brain off** (H12) — production still sent `Speculation-Rules:
+   "/cdn-cgi/speculation"` on 2026-10-21, and Cloudflare answers prefetch
+   on Worker requests with a 503 (docs/16 §9).
 6. **Delete `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`** — unused since
-   deployment moved to Workers Builds (docs/12 §3).
-7. **GSC Domain property + Bing import + Crawler Hints** (docs/16 §8).
+   deployment moved to Workers Builds (docs/12 §1). ⚠ verify whether done.
+7. **GSC Domain property + sitemap + Bing import + Crawler Hints** (docs/16
+   §8, H8) — the `google-site-verification` TXT is published (observed
+   2026-10-21); the rest ⚠ verify.
+8. **H4** — GitHub private vulnerability reporting: `SECURITY.md`,
+   `security.txt` and the issue-form config all route reports there.
+   ⚠ verify the setting.
 
 **Live but off-spec — decide whether to reconcile**
 
-8. **HSTS is already at phase P3 (`preload`)**, skipping the staged P1→P2
-   burn-in docs/16 §5 designed. It works; `preload` is semi-irreversible, so
-   this is now a "keep and update the doc" call rather than a go/no-go.
-9. **DMARC is `p=none`** (Cloudflare's auto record), not the `p=quarantine`
-   docs/16 §6 specifies.
-10. Raster PWA icons (192/512/maskable) remain an optional upgrade — the
-    manifest ships `favicon.svg` with `sizes: "any"`, per your call.
+9. **HSTS is already at phase P3 (`preload`)** — observed again on
+   2026-10-21 — skipping the staged P1→P2 burn-in docs/16 §5 designed. It
+   works; `preload` is semi-irreversible, so this is now a "keep and update
+   the doc" call rather than a go/no-go. Whether the domain was submitted
+   to hstspreload.org: ⚠ verify.
+10. **DMARC is `p=quarantine`** (observed 2026-10-21); docs/16 §6's planned
+    tightening to `p=reject` has not happened.
 
 **Closed**
 
-11. ~~Accent hue~~ — harbor blue `oklch(0.52 0.11 235)` shipped in M1 tokens.
+11. ~~Accent hue~~ — harbor blue `oklch(0.52 0.11 235)` shipped in M1 tokens;
+    the v1.1 refresh re-tuned it to `oklch(0.5 0.13 245)` (light) and
+    `oklch(0.77 0.11 230)` (dark) under the contrast test (docs/06 §2).
 12. ~~**D18 / S1 blocking risk** — View Transitions under a strict CSP.~~
     **Closed 2026-07-27 by S1:** ClientRouter compiles to an external script,
     so View Transitions are safe. The real constraint was island hydration,
-    handled by D20.
+    handled by D20. (ClientRouter itself was removed on 2026-10-21 for
+    native cross-document transitions — docs/02 §6.)
 13. ~~**S3 and S5 blocked on H1/H2/H3.**~~ Closed 2026-07-28 — both ran against
     the live origin.
+14. ~~**Seed and vet the remaining entries**~~ — closed 2026-07-30: 326 apps,
+    320 `clean`, 6 `unverified`, every scan linked; v1.0.0 tagged.
+15. ~~**Launch announcement scope**~~ — moot: v1.0.0 launched on 2026-07-30.
+    Tagged releases reach Discord through `notify.yml`; per-app posts are
+    notify.py's, outside this repository.
+16. ~~**Branch protection**~~ — the ruleset "Run" requires `build`, `gates`
+    and `codeql / Analyze (javascript-typescript)`, signed commits and linear
+    history (docs/12 §8).
+17. ~~**H10**~~ — enabled; the quarantine sweep relies on it (docs/12 §4).
+18. ~~**DMARC is `p=none`**~~ — it reads `p=quarantine` now (item 10 tracks
+    `p=reject`).
+19. ~~Raster PWA icons~~ — shipped in v1.1 (docs/08 Part D).
+20. ~~**`TURNSTILE_SECRET`**~~ — set; verified 2026-10-21 (`/api/verify`
+    answers a junk token with `403 rejected`, not `503 not_configured`).
 
 ## 6. Suite maintenance
 
-This suite (v1.2, 2026-07-27 — v1.1 was 2026-07-20 post-domain; v1.0 was
-2026-07-15, pre-domain) is the contract. Any implementation that
-diverges updates the relevant doc **in the same PR** (docs/10 §7-8). Version
-bumps: minor for clarifications, major when a hard rule or locked decision
-changes.
+This suite (**v2.0, 2026-10-21, describing site v1.1** — v1.2 was
+2026-07-27; v1.1 was 2026-07-20 post-domain; v1.0 was 2026-07-15,
+pre-domain) is the contract. Mind the two numbering schemes: *suite* v1.1
+is the July domain revision, *site* v1.1 is the October release. Any
+implementation that diverges updates the relevant doc **in the same PR**
+(docs/10 §7-8). Version bumps: minor for clarifications, major when a hard
+rule or locked decision changes — v2.0 is major because it amends hard
+rules 1 and 7.
+
+**v2.0 caught the docs up with site v1.1** — the code had moved for three
+months while the suite stood still. D25–D27 and the 2026-10-21 rows of §4
+record what changed; superseded rows are marked in their Status cell only
+(the log stays append-only); every page of the suite was re-read against
+the repository, and against live DNS and response headers where a claim
+was about the platform (D19). What neither could settle is marked
+"⚠ verify" rather than guessed.
 
 **v1.2 was a correctness pass, not a feature pass** — no hard rule and no
 pre-existing locked decision changed; six blockers, ten high-severity

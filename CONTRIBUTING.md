@@ -46,11 +46,13 @@ software we link to; take that to its own developer.
    advisory:
 
 ```bash
-pnpm lint && pnpm i18n:check && pnpm validate:data && pnpm test && pnpm check && pnpm build && pnpm check:styles && pnpm check:sw && pnpm knip
+pnpm lint && pnpm check && pnpm coverage && pnpm build && pnpm knip && pnpm e2e
 ```
 
-`check:styles` and `check:sw` inspect `dist/`, so they must run **after**
-`build`.
+`pnpm build` already runs the data and i18n gates before Astro and the
+`dist/` gates after it (`check:csp`, `check:assets`, `check:sw`,
+`check:feed`); `pnpm e2e` needs that build, and a one-time
+`pnpm exec playwright install chromium`.
 
 Data lives in `src/data/apps/<slug>.json`, one file per app, validated by the
 Zod schema in `src/content.config.ts`. Summaries are written **from scratch**
@@ -99,7 +101,7 @@ blocked:
   [/legal/ai-disclosure](https://softharbor.net/legal/ai-disclosure), and holds
   contributions to the same standard it holds itself.
 - **Drive-by or automated PRs** — whitespace, reformatting, badge additions,
-  dependency bumps Renovate already owns, or bulk submissions for contribution
+  dependency bumps Dependabot already owns, or bulk submissions for contribution
   counts.
 - **Vendor marketing copy or encyclopedia text** pasted as a summary. It breaks
   the licence provenance the dataset depends on.
