@@ -11,6 +11,21 @@
 # script-src or style-src — the intersection would drop Astro's hashes and
 # break every island.
 #
+# HOW RULES COMBINE (Cloudflare docs, verified live 2026-10-21): every rule
+# whose path matches a request contributes its headers, and a header set by
+# more than one matching rule is JOINED WITH A COMMA — it is not overridden.
+# `/*` used to set `Cache-Control: public, max-age=0, must-revalidate` and
+# `/_astro/*` set `public, max-age=31536000, immutable`, so hashed assets were
+# served with BOTH. Browsers honour the first max-age (RFC 9111 §4.2.1 even
+# says to treat conflicting directives as stale), so every "immutable" asset
+# was revalidated on every load and the JSON feeds were never cached at all.
+# Fixed two ways at once:
+#   * `/*` no longer sets Cache-Control. Cloudflare's default for static
+#     assets is exactly `public, max-age=0, must-revalidate`, which is still
+#     what HTML, sw.js and the manifest get.
+#   * Each specific rule detaches any inherited value with `! Cache-Control`
+#     before setting its own, so a future `/*` line cannot reintroduce this.
+#
 # The pre-launch `X-Robots-Tag: noindex` was REMOVED on 2026-07-28. It existed
 # only while the dataset was empty, where an indexed blank site can linger as
 # "Crawled — currently not indexed". With real entries, legal pages and a
@@ -25,17 +40,32 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
-  Cache-Control: public, max-age=0, must-revalidate
 
 # Content-hashed by Vite — this covers JS, CSS *and* the self-hosted fonts,
 # which Astro emits into /_astro/ rather than a /fonts/ directory. An earlier
 # spec had a separate /fonts/* rule; it matched nothing (found in M1).
 /_astro/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 /api/apps.json
+  ! Cache-Control
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=300
 
 /search-index.json
+  ! Cache-Control
   Cache-Control: public, max-age=300
+
+# RFC 9116 §3: security.txt MUST be served as text/plain with charset=utf-8;
+# the platform's inferred type omits the charset.
+/.well-known/security.txt
+  Content-Type: text/plain; charset=utf-8
+
+# PR preview versions (`wrangler versions upload`) are public on workers.dev
+# because `preview_urls: true`. Their canonicals already point at
+# softharbor.net, but a preview should never be indexed in its own right.
+# Absolute-URL patterns with placeholders are supported by _headers; the
+# production custom domain never matches this host pattern.
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex

@@ -27,14 +27,23 @@ const REPO = 'https://github.com/poli0981/softharbor';
  */
 export const BUDGET = 5000;
 
-export function buildBugUrl(
-  consoleText: string,
-  ctx: { href: string; userAgent: string; lang: string } = {
+export interface BugContext {
+  href: string;
+  userAgent: string;
+  lang: string;
+}
+
+/** The live page's context. Read lazily so the module stays importable in tests. */
+function currentContext(): BugContext {
+  return {
     href: location.href,
     userAgent: navigator.userAgent,
     lang: document.documentElement.lang,
-  },
-): string {
+  };
+}
+
+export function buildBugUrl(consoleText: string, context?: BugContext): string {
+  const ctx = context ?? currentContext();
   const u = new URL(`${REPO}/issues/new`);
   u.searchParams.set('template', 'bug_report.yml');
   u.searchParams.set('labels', 'bug');

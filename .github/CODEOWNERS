@@ -1,7 +1,12 @@
 # docs/12 §8 — T6: a malicious PR must not be able to alter what runs.
 * @poli0981
 
-# Highest-risk paths, called out explicitly so a review is always required.
+# Highest-risk paths, called out explicitly so GitHub always requests the
+# owner's review on them. The "Run" ruleset does not REQUIRE an approval
+# (single-maintainer repository, 0 required reviews, code-owner review off);
+# what it does require is a PR, signed commits and the build / gates / codeql
+# checks — see docs/12 §8.
 /.github/**   @poli0981
 /scripts/**   @poli0981
 /src/data/**  @poli0981
+/worker/**    @poli0981

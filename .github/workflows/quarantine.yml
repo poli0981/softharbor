@@ -1,8 +1,21 @@
 # docs/12 §4 — enforces hard rule 5 mechanically.
 #
-# Runs on data pushes AND nightly. The nightly cron is the point: it guarantees
-# a flagged entry never survives more than 24 h even if a reviewer missed it.
-# It opens a PR rather than pushing to main, so a human stays in the loop.
+# Runs on data pushes AND nightly. The nightly cron re-checks main so a
+# flagged entry that slipped past review is moved within a day — as a PR, not
+# a push to main, so a human stays in the loop and the ruleset's required
+# checks still apply.
+#
+# Fixed 2026-10-21 (audit):
+#  - A PR opened with GITHUB_TOKEN triggers no `pull_request` workflows, so its
+#    required checks (build, gates, codeql) never ran and it could not merge.
+#    The job now dispatches ci.yml and codeql.yml on the PR branch —
+#    `workflow_dispatch` is the documented exception to that rule.
+#  - The ruleset requires signed commits: create-pull-request now signs via the
+#    API (`sign-commits`).
+#  - Every nightly run re-opened `[quarantine] <slug>` issues while the PR was
+#    pending; issues are now created only when none is open.
+#  - Step outputs no longer reach `run:`/`script:` bodies through `${{ }}`
+#    (expression injection); they pass through `env:` and slugs are validated.
 name: quarantine
 
 on:
@@ -14,16 +27,28 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
+
+concurrency:
+  group: quarantine
+  cancel-in-progress: false
 
 jobs:
   sweep:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # create-pull-request commits to quarantine/auto
+      pull-requests: write # …and opens the PR
+      issues: write # tracking issue per slug
+      actions: write # dispatch the required checks onto the PR branch
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      # No persisted token while repository code (quarantine.mjs) runs;
+      # create-pull-request authenticates with its own `token` input.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
 
@@ -31,12 +56,13 @@ jobs:
         run: node scripts/quarantine.mjs
 
       # NOTE: requires Settings → Actions → General → "Allow GitHub Actions to
-      # create and approve pull requests" (action item H10). Without it this
-      # step fails even with the permissions block above.
-      - if: steps.sweep.outputs.moved != ''
-        uses: peter-evans/create-pull-request@v7
+      # create and approve pull requests" (action item H10 — enabled).
+      - id: cpr
+        if: steps.sweep.outputs.moved != ''
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           branch: quarantine/auto
+          sign-commits: true
           title: 'data: quarantine flagged entries'
           commit-message: 'data: quarantine ${{ steps.sweep.outputs.moved }}'
           labels: security, quarantine
@@ -48,25 +74,48 @@ jobs:
             Nothing was deleted. Restoring is a `git mv` plus a status edit;
             the reason and evidence live in the linked tracking issue.
 
-      - if: steps.sweep.outputs.moved != ''
-        uses: actions/github-script@v7
-        with:
-          script: |
-            for (const slug of `${{ steps.sweep.outputs.moved }}`.trim().split(/\s+/)) {
-              if (!slug) continue;
-              await github.rest.issues.create({ ...context.repo,
-                title: `[quarantine] ${slug}`,
-                labels: ['security', 'quarantine'],
-                body: [
-                  `\`${slug}\` was flagged and moved to \`data/quarantine/\`.`,
-                  '',
-                  'Record here before closing:',
-                  '- [ ] Reason it was flagged',
-                  '- [ ] Evidence link (VirusTotal / vendor advisory)',
-                  '- [ ] Date checked',
-                  '- [ ] Whether users were plausibly exposed (docs/13 §7)',
-                  '',
-                  'Restoring is a reviewed PR: status back to `clean`/`unverified`,',
-                  'a fresh `checkedAt`, and the file moved back (docs/03 §5).',
-                ].join('\n') });
-            }
+      - name: Run the required checks on the PR branch
+        if: steps.cpr.outputs.pull-request-branch != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.cpr.outputs.pull-request-branch }}
+        run: |
+          set -euo pipefail
+          gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"
+          gh workflow run codeql.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"
+
+      - name: Open one tracking issue per newly quarantined slug
+        if: steps.sweep.outputs.moved != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MOVED: ${{ steps.sweep.outputs.moved }}
+        run: |
+          set -euo pipefail
+          for slug in $MOVED; do
+            # Same shape validate:data enforces on filenames; anything else is
+            # not ours and must not reach a shell command or issue title.
+            if ! [[ "$slug" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+              echo "::warning::skipping unexpected slug '$slug'"
+              continue
+            fi
+            title="[quarantine] $slug"
+            open=$(gh issue list --repo "$GITHUB_REPOSITORY" --label quarantine --state open \
+              --json title --jq "map(select(.title == \"$title\")) | length")
+            if [ "$open" != "0" ]; then
+              echo "#$title already tracked"
+              continue
+            fi
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" \
+              --label security --label quarantine --body-file - <<EOF
+          \`$slug\` was flagged and moved to \`data/quarantine/\`.
+
+          Record here before closing:
+          - [ ] Reason it was flagged
+          - [ ] Evidence link (VirusTotal / vendor advisory)
+          - [ ] Date checked
+          - [ ] Whether users were plausibly exposed (docs/13 §7)
+
+          Restoring is a reviewed PR: status back to \`clean\`/\`unverified\`,
+          a fresh \`checkedAt\`, and the file moved back (docs/03 §5).
+          EOF
+          done

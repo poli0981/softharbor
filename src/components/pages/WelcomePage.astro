@@ -23,9 +23,7 @@ const how = ['welcome.how.official', 'welcome.how.pricing', 'welcome.how.securit
     <h1 class="text-[length:var(--text-display)] font-semibold">
       {t(locale, 'welcome.hero.title')}
     </h1>
-    <p class="text-sh-muted mt-4 text-[length:var(--text-h3)]">
-      {t(locale, 'welcome.hero.sub')}
-    </p>
+    <p class="text-sh-muted mt-4 text-[length:var(--text-h3)]">{t(locale, 'welcome.hero.sub')}</p>
     <a
       href={localePath(locale, '/apps')}
       class="sh-lift bg-sh-accent text-sh-accent-ink border-sh-border mt-8 inline-block rounded-[var(--radius-card)] border-2 px-5 py-3 font-medium"
@@ -37,13 +35,11 @@ const how = ['welcome.how.official', 'welcome.how.pricing', 'welcome.how.securit
   <section class="mt-16">
     <h2 class="text-[length:var(--text-h2)] font-semibold">{t(locale, 'welcome.how.title')}</h2>
     <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        how.map((key) => (
-          <li class="sh-panel p-5">
-            <p>{t(locale, key)}</p>
-          </li>
-        ))
-      }
+      {how.map((key) => (
+        <li class="sh-panel p-5">
+          <p>{t(locale, key)}</p>
+        </li>
+      ))}
     </ul>
   </section>
 </Base>

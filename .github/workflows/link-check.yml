@@ -1,5 +1,11 @@
 # docs/12 §5 — weekly full sweep of every official link in the dataset.
 # PR-time checking covers only changed files, inside ci.yml's `gates` job.
+#
+# ONE tracking issue, not one per week. The previous version called
+# create-issue-from-file on every red run, which left 12 duplicate
+# "link-check: broken official links" issues open (#7–#20) — the latest of
+# them for a single transient 502. Now the open issue is refreshed in place,
+# and closed automatically the first week the sweep comes back clean.
 name: link-check
 
 on:
@@ -11,30 +17,65 @@ permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: link-check
+  cancel-in-progress: false
+
 jobs:
   lychee:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # extract-urls.mjs is plain Node, but it should run on the project's
+      # Node (.nvmrc), not whatever the runner image happens to ship.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
       - run: node scripts/extract-urls.mjs > /tmp/urls.txt
 
       - id: lychee
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           # Kept in step with ci.yml's PR sweep — see the note there for why
-          # 403/429 are accepted. The weekly run covers the whole catalogue
-          # (~1 150 URLs), so a false-positive rate that looks tolerable per-PR
-          # turns into an unreadable issue every Monday.
+          # 403/429 are accepted. More retries with a longer wait than before:
+          # vendor sites blip (inkscape.org's 502 opened #20 on its own), and
+          # a weekly job has the time to ride that out.
           args: >-
-            --max-concurrency 4 --retry-wait-time 2 --max-retries 3 --timeout 45
+            --max-concurrency 4 --retry-wait-time 10 --max-retries 5 --timeout 45
             --accept '200..=299,403,429'
             /tmp/urls.txt
-          # Link rot is triage, not a build break — it opens an issue instead.
+          output: ./lychee/out.md
+          # Link rot is triage, not a build break — it updates an issue instead.
           fail: false
 
-      - if: steps.lychee.outputs.exit_code != 0
-        uses: peter-evans/create-issue-from-file@v5
-        with:
-          title: 'link-check: broken official links'
-          content-filepath: ./lychee/out.md
-          labels: link-rot
+      - name: Refresh the tracking issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXIT_CODE: ${{ steps.lychee.outputs.exit_code }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          title='link-check: broken official links'
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --label link-rot --state open \
+            --json number,title --jq "map(select(.title == \"$title\")) | .[0].number // empty")
+
+          if [ "$EXIT_CODE" != "0" ]; then
+            if [ -n "$existing" ]; then
+              gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --body-file ./lychee/out.md
+              gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" \
+                --body "Still failing in $RUN_URL — the report above was refreshed."
+              echo "Refreshed #$existing"
+            else
+              gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" \
+                --label link-rot --body-file ./lychee/out.md
+            fi
+          elif [ -n "$existing" ]; then
+            gh issue close "$existing" --repo "$GITHUB_REPOSITORY" \
+              --comment "Every official link resolved in $RUN_URL. Closing; the next failure reopens a fresh report."
+            echo "Closed #$existing"
+          else
+            echo "All links healthy; nothing to report."
+          fi

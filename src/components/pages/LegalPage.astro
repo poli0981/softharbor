@@ -25,11 +25,9 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
 }).format(new Date(`${LEGAL_VERSION}T00:00:00Z`));
 ---
 
-{
-  /* Suffixed like every other page: an unbranded <title> in a SERP reads as
+{/* Suffixed like every other page: an unbranded <title> in a SERP reads as
     someone else's document. The description names the document too, so the
-    six legal pages are not six copies of the site tagline. */
-}
+    six legal pages are not six copies of the site tagline. */}
 <Base
   title={`${title} — ${t(locale, 'site.name')}`}
   description={t(locale, 'meta.legal', { title })}
@@ -42,21 +40,19 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
       {t(locale, 'legal.lastUpdated', { date: updated })}
     </p>
 
-    {
-      locale === 'vi' && (
-        <p class="sh-panel text-sh-muted mt-6 p-4 text-[var(--text-small)]" lang="vi">
-          {/* Fixed notice required on every VI legal page (docs/07 §8). */}
-          {t('vi', 'legal.viNotice')}
-        </p>
-      )
-    }
+    {locale === 'vi' && (
+      <p class="sh-panel text-sh-muted mt-6 p-4 text-[var(--text-small)]" lang="vi">
+        {/* Fixed notice required on every VI legal page (docs/07 §8). */}
+        {t('vi', 'legal.viNotice')}
+      </p>
+    )}
 
-    {
-      /* No inter-document nav here: ShFooter already lists all of them on
+    {/* No inter-document nav here: ShFooter already lists all of them on
         every page, and repeating the same six links a screen apart is just
-        noise. */
-    }
-    <div class="mt-8 flex flex-col gap-4"><slot /></div>
+        noise. */}
+    <div class="mt-8 flex flex-col gap-4">
+      <slot />
+    </div>
   </article>
 </Base>
 

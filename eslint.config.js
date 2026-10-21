@@ -10,7 +10,9 @@ import svelteParser from 'svelte-eslint-parser';
 import globals from 'globals';
 
 export default tseslint.config(
-  { ignores: ['dist/', '.astro/', 'node_modules/'] },
+  // `.claude/` holds agent worktrees — full copies of the repo that `eslint .`
+  // would otherwise lint a second (or third) time.
+  { ignores: ['dist/', '.astro/', 'node_modules/', '.claude/', 'coverage/', 'lychee/'] },
   {
     // Unbundled scripts shipped verbatim from public/. They must stay plain
     // browser JS — no imports, no TypeScript — because they load before the
@@ -42,6 +44,10 @@ export default tseslint.config(
     files: ['**/*.astro'],
     rules: {
       'astro/no-set-html-directive': 'error',
+      // CSP: Astro hashes only the scripts it bundles, so a hand-written
+      // inline <script> body ships unhashed and the browser refuses it with
+      // nothing in CI noticing. JSON-LD data blocks are allowed by default.
+      'astro/no-unsafe-inline-scripts': 'error',
     },
   },
   {
@@ -78,6 +84,13 @@ export default tseslint.config(
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
+      // The reason projectService is on at all: promise misuse is invisible
+      // to non-type-aware linting, and every island here awaits a fetch or a
+      // dynamic import.
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
+      '@typescript-eslint/await-thenable': 'error',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'error',
     },
   },
   {

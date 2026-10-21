@@ -19,14 +19,24 @@
 #
 # The duplicated "logic" is six pnpm invocations. That is a fair price for a
 # gate that fails loudly.
+#
+# Every `uses:` is pinned to a full commit SHA with the release tag in a
+# comment (SonarCloud githubactions:S7637). Dependabot's github-actions
+# ecosystem bumps the SHA and the comment together.
 name: ci
 
 on:
   pull_request:
   push:
     branches: [main]
+  # Lets quarantine.yml run the required checks on the PR it opens: a PR
+  # created with GITHUB_TOKEN triggers no `pull_request` workflows, but a
+  # `workflow_dispatch` is the documented exception (docs/12 §4).
+  workflow_dispatch:
 
-# Explicit — a workflow without its own block defaults every scope to `none`.
+# Explicit least privilege. This repository's default workflow token is
+# read-WRITE (Settings → Actions → Workflow permissions), so a workflow
+# without this block would get far more than it needs.
 permissions:
   contents: read
 
@@ -37,10 +47,17 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # No `version:` — the action reads package.json `packageManager`
+      # (pnpm@11.x), so CI, Dependabot, Workers Builds and laptops all run the
+      # same pnpm. 6.0.10+ bootstraps with pnpm 11, which is what silenced the
+      # "pnpm v10 installation layout at PNPM_HOME" warning on every run.
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -52,27 +69,26 @@ jobs:
         run: pnpm check
       - name: Unit tests
         run: pnpm test
-      - name: Build
+      # `pnpm build` is the SAME command Cloudflare Workers Builds runs, and it
+      # carries its own gates: data + i18n before `astro build`, the CSP and
+      # service-worker checks on dist/ after it (package.json). Running the
+      # composite here means CI and production can never diverge on what
+      # "a good build" means.
+      - name: Build (with data, i18n, CSP and service-worker gates)
         run: pnpm build
-      # Must run AFTER build — it inspects dist/. CSP style-src drops inline
-      # style attributes silently, so this is the only thing that catches them.
-      - name: No inline style attributes
-        run: pnpm check:styles
-      # Also post-build, and for the same reason: every service-worker failure
-      # this project has had was silent (docs/08 Part D).
-      - name: Service worker shape
-        run: pnpm check:sw
       - name: Dead code
         run: pnpm knip
 
   gates:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0 # extract-urls --changed diffs against origin/main
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+          fetch-depth: 0 # the changed-links step diffs against the PR base
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -85,9 +101,9 @@ jobs:
 
       # The action lives in a SUBDIRECTORY of the repo and there is no rolling
       # `v2` tag — only full versions. `…/osv-scanner-action@v2` does not
-      # resolve. Renovate keeps this pinned version current.
+      # resolve.
       - name: Vulnerability scan
-        uses: google/osv-scanner-action/osv-scanner-action@v2.3.8
+        uses: google/osv-scanner-action/osv-scanner-action@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
         with:
           scan-args: |-
             --lockfile=pnpm-lock.yaml
@@ -95,12 +111,17 @@ jobs:
         run: pnpm audit --prod
 
       # PR-time link check over changed data files only; link-check.yml owns
-      # the weekly full sweep (docs/12 §5).
+      # the weekly full sweep (docs/12 §5). git runs HERE, under pipefail, so a
+      # failed diff stops the job instead of silently widening the sweep.
       - name: Collect changed official links
         id: urls
         if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
         run: |
-          node scripts/extract-urls.mjs --changed > /tmp/urls.txt
+          set -euo pipefail
+          git diff --name-only "origin/${BASE_REF}...HEAD" -- src/data/apps \
+            | node scripts/extract-urls.mjs --changed > /tmp/urls.txt
           count=$(grep -c . /tmp/urls.txt || true)
           echo "count=$count" >> "$GITHUB_OUTPUT"
           echo "$count changed URL(s) to check"
@@ -121,16 +142,15 @@ jobs:
       #
       # Skipped when the PR changes no app data — lychee treats an empty input
       # as a configuration error and fails. A code-only PR legitimately has
-      # zero URLs to check, and this gate had failed every one of them since it
-      # was written; nothing noticed because every PR until now touched data.
-      # Skipping rather than `failIfEmpty: false` keeps the zero visible: a
-      # skipped step is obvious in the checks list, whereas a green "0 links"
-      # is exactly the kind of quiet pass this repo keeps getting caught by.
+      # zero URLs to check. Skipping rather than `failIfEmpty: false` keeps the
+      # zero visible: a skipped step is obvious in the checks list, whereas a
+      # green "0 links" is exactly the kind of quiet pass this repo keeps
+      # getting caught by.
       - name: Link check
         if: github.event_name == 'pull_request' && steps.urls.outputs.count != '0'
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: >-
-            --max-concurrency 4 --retry-wait-time 2 --max-retries 3 --timeout 45
+            --max-concurrency 4 --retry-wait-time 5 --max-retries 4 --timeout 45
             --accept '200..=299,403,429'
             /tmp/urls.txt

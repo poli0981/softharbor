@@ -27,18 +27,27 @@ const { code, titleEn, titleVi, bodyEn, bodyVi, noindex = true } = Astro.props;
     <span
       aria-hidden="true"
       class="text-sh-muted pointer-events-none absolute -top-10 -left-2 font-mono text-[8rem] leading-none opacity-40 select-none"
-      >{code}</span
     >
+      {code}
+    </span>
     <div class="relative">
       <h1 class="text-[length:var(--text-h1)] font-semibold">{titleEn}</h1>
       <p class="text-sh-muted mt-3 max-w-xl">{bodyEn}</p>
 
-      <h2 class="mt-8 text-[length:var(--text-h3)] font-semibold" lang="vi">{titleVi}</h2>
-      <p class="text-sh-muted mt-2 max-w-xl" lang="vi">{bodyVi}</p>
+      <h2 class="mt-8 text-[length:var(--text-h3)] font-semibold" lang="vi">
+        {titleVi}
+      </h2>
+      <p class="text-sh-muted mt-2 max-w-xl" lang="vi">
+        {bodyVi}
+      </p>
 
       <p class="mt-8 flex flex-wrap gap-4">
-        <a href="/" class="text-sh-accent underline">SoftHarbor</a>
-        <a href="/apps" class="text-sh-accent underline">Apps</a>
+        <a href="/" class="text-sh-accent underline">
+          SoftHarbor
+        </a>
+        <a href="/apps" class="text-sh-accent underline">
+          Apps
+        </a>
       </p>
     </div>
   </div>

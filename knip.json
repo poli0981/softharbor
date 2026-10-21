@@ -7,7 +7,6 @@
     "tailwindcss",
     "@fontsource-variable/bricolage-grotesque",
     "@fontsource/be-vietnam-pro",
-    "@fontsource/ibm-plex-mono",
-    "lefthook"
+    "@fontsource/ibm-plex-mono"
   ]
 }

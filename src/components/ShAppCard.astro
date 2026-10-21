@@ -47,11 +47,9 @@ const security =
   data-name={d.name}
 >
   <div class="flex items-start gap-3">
-    {
-      /* Build-time SVG from a vendored icon set, a vendored asset, or a
+    {/* Build-time SVG from a vendored icon set, a vendored asset, or a
         generated monogram — never user input. The set:html carve-out is
-        scoped to this file in eslint.config.js. */
-    }
+        scoped to this file in eslint.config.js. */}
     <Fragment
       set:html={logoSvg(d.logo, d.name, {
         class: 'mt-0.5 size-10 shrink-0',
@@ -75,34 +73,28 @@ const security =
     </span>
   </div>
 
-  <p class="text-sh-muted line-clamp-2 text-[var(--text-small)]">
-    {d.summary[locale]}
-  </p>
+  <p class="text-sh-muted line-clamp-2 text-[var(--text-small)]">{d.summary[locale]}</p>
 
   <hr class="border-sh-border opacity-35" />
 
   <p class="text-sh-muted font-mono text-[var(--text-badge)]">
-    {
-      /* Conditional CLASS, not a conditional style attribute — CSP style-src
-        drops inline style attributes silently (docs/09 §4). */
-    }
-    <span aria-hidden="true" class={d.security.status === 'clean' ? 'text-sh-ok' : 'text-sh-warn'}
-      >●</span
-    >
+    {/* Conditional CLASS, not a conditional style attribute — CSP style-src
+        drops inline style attributes silently (docs/09 §4). */}
+    <span aria-hidden="true" class={d.security.status === 'clean' ? 'text-sh-ok' : 'text-sh-warn'}>
+      ●
+    </span>
     {security}
   </p>
 
   <p class="flex flex-wrap gap-2 text-[var(--text-badge)]">
-    {
-      d.categories.map((c) => (
-        <a
-          href={localePath(locale, `/categories/${c.id}`)}
-          class="sh-chip text-sh-accent hover:underline"
-        >
-          {c.id}
-        </a>
-      ))
-    }
+    {d.categories.map((c) => (
+      <a
+        href={localePath(locale, `/categories/${c.id}`)}
+        class="sh-chip text-sh-accent hover:underline"
+      >
+        {c.id}
+      </a>
+    ))}
   </p>
 </article>
 
