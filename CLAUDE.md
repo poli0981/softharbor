@@ -16,17 +16,22 @@ googling every tool one by one.
 - Repo: `poli0981/softharbor` · License: code **GPL-3.0-only**, data **CC BY-SA 4.0**
 - Hosting: **Cloudflare Workers Static Assets** on canonical
   **`https://softharbor.net`** (Free zone; `www` 301s to apex; workers.dev
-  route disabled, PR previews only — see `docs/16`). No Worker script, no
-  backend, no database.
-- Stack: Node 24 LTS · pnpm 10 · Astro 7 (static output) · Svelte 5 islands ·
+  route disabled, PR previews only — see `docs/16`), deployed by Cloudflare
+  Workers Builds when `main` changes. One tiny Worker answers
+  `POST /api/verify` only (D25); no backend, no database.
+- Stack: Node 24 LTS · pnpm 11 · Astro 7 (static output) · Svelte 5 islands ·
   Tailwind CSS 4.3 · TypeScript strict · Wrangler 4 — full table in `docs/01`
 
 ## Hard rules (never violate)
 
-1. **Static-first.** No `main` Worker script, no SSR, no server code, no
-   database, no serverless functions. All interactivity is client-side Svelte
-   islands. If a feature seems to need a server, redesign it or move it to a
-   GitHub Actions workflow.
+1. **Static-first.** No SSR, no database, no serverless functions; all
+   interactivity is client-side Svelte islands. The ONE exception (D25) is
+   `worker/`: a minimal Worker that answers only `POST /api/verify` (the
+   legal gate's Turnstile check) and runs only for the paths in
+   `assets.run_worker_first`. It never serves pages, never gates content, and
+   every failure on its side must fail OPEN. Anything else that seems to need
+   a server: redesign it or move it to a GitHub Actions workflow — a second
+   Worker route needs a decision-log entry.
 2. **Data is law.** Every listed app is exactly one JSON file in
    `src/data/apps/<slug>.json`, validated by the Zod schema in
    `src/content.config.ts`. Invalid data must fail the build. Never bypass the
@@ -46,9 +51,14 @@ googling every tool one by one.
    `src/i18n/en.json` and `src/i18n/vi.json`; every app has `summary.en` and
    `summary.vi`. A missing key in either language fails CI.
 7. **Self-host everything.** Fonts (Fontsource), logos (Simple Icons /
-   `src/assets/logos/`), scripts, styles. Zero third-party requests at
-   runtime. `Content-Security-Policy: default-src 'self'` must keep passing
-   (`docs/09 §4`).
+   `src/assets/logos/`), scripts, styles. The only third-party runtime
+   requests are two Cloudflare services, each started by our own code:
+   Web Analytics (`src/scripts/analytics.js` — never under Global Privacy
+   Control, production host only; D26) and Turnstile (`src/lib/turnstile.ts`
+   — only after the legal gate is accepted; D25). Adding a third needs a
+   decision-log entry. The CSP (`default-src 'self'` plus exactly those
+   origins, `docs/09 §4`) must keep passing `pnpm check:csp` and the e2e
+   suite.
 8. **Official links only, original words only.** `links.*` must point to the
    developer's official domain or official repo. Summaries are written from
    scratch — never paste vendor marketing copy or Wikipedia text (data is
@@ -76,21 +86,25 @@ pnpm dev                # astro dev
 pnpm build              # astro build → dist/
 pnpm preview            # astro preview
 pnpm lint               # eslint + prettier --check
-pnpm test               # vitest run
+pnpm test               # vitest run (unit, islands, scripts, worker)
+pnpm coverage           # vitest run --coverage (thresholds in vitest.config.ts)
+pnpm e2e                # playwright + axe against astro preview (build first)
 pnpm validate:data      # node scripts/validate-data.mjs   (L2 data rules)
 pnpm i18n:check         # node scripts/check-i18n-parity.mjs (EN/VI key parity)
-pnpm deploy             # wrangler deploy (CI does this on main)
+pnpm deploy             # build + wrangler deploy (Workers Builds does this on main)
 ```
 
 ## Naming & identifiers (locked)
 
 - Component prefix `Sh*`: `ShAppCard.astro`, `ShSearch.svelte`,
   `ShLegalGate.svelte`, `ShFilterSheet.svelte`, `ShLangSwitch.svelte`,
-  `ShThemeToggle.svelte`
-- CSS custom properties: `--sh-*` · localStorage keys: `sh:legal`, `sh:lang`,
-  `sh:theme`
-- Worker name: `softharbor` · Data: `src/data/apps/` · Quarantine:
-  `data/quarantine/`
+  `ShPrefs.svelte` (display menu; replaced `ShThemeToggle`)
+- CSS custom properties: `--sh-*` · localStorage keys: `sh:legal`, `sh:human`,
+  `sh:lang`, `sh:theme`, `sh:scrollbar`, `sh:motion`
+- Worker name: `softharbor` (code in `worker/`, endpoint `/api/verify`) ·
+  Data: `src/data/apps/` · Quarantine: `data/quarantine/`
+- Contacts: one `@poli0981.dev` address per purpose — `src/lib/contacts.ts`
+  (D27)
 
 ## Document map
 
