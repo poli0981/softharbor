@@ -13,6 +13,7 @@
 // (hagen./brunhild.challenges.cloudflare.com), which no page can change.
 
 import { expect, test as base, type Page } from '@playwright/test';
+import { PASS_TTL_MS } from '../src/lib/human';
 import { LEGAL_VERSION } from '../src/lib/legal';
 
 const THIRD_PARTY_NOISE = /challenges\.cloudflare\.com/;
@@ -72,13 +73,54 @@ export async function waitForIsland(page: Page, name: string): Promise<void> {
   }, name);
 }
 
-/** Pre-accept the legal gate (the current version) before the page loads. */
+/**
+ * Pre-accept the legal gate (the current version) AND its human check, before
+ * the page loads — for tests about something other than the gate.
+ */
 export async function acceptGate(page: Page): Promise<void> {
-  await page.addInitScript((version) => {
-    try {
-      localStorage.setItem('sh:legal', version);
-    } catch {
-      /* storage blocked: the gate will show, and the test will say so */
-    }
-  }, LEGAL_VERSION);
+  await page.addInitScript(
+    ([version, ttl]) => {
+      try {
+        localStorage.setItem('sh:legal', version);
+        localStorage.setItem('sh:human', String(Date.now() + ttl));
+      } catch {
+        /* storage blocked: the gate will show, and the test will say so */
+      }
+    },
+    [LEGAL_VERSION, PASS_TTL_MS - 60_000] as const,
+  );
+}
+
+/** A stand-in for Cloudflare's api.js: a widget that hands over a token at once. */
+const FAKE_TURNSTILE = `window.turnstile = {
+  render(el, options) { setTimeout(() => options.callback('e2e-token'), 50); return 'w1'; },
+  reset() {},
+  remove() {},
+};`;
+
+/**
+ * Stands in for Cloudflare in the gate's step 2: api.js becomes FAKE_TURNSTILE
+ * (served from its real URL, so the page's CSP is still exercised), and
+ * /api/verify — which `astro preview` does not run — answers `status`.
+ * `'blocked'` makes api.js fail to load instead. Returns the tokens posted.
+ */
+export async function stubTurnstile(
+  page: Page,
+  status: number | 'blocked' = 200,
+): Promise<string[]> {
+  const tokens: string[] = [];
+  await page.route('https://challenges.cloudflare.com/turnstile/v0/api.js*', (route) =>
+    status === 'blocked'
+      ? route.abort('blockedbyclient')
+      : route.fulfill({ contentType: 'text/javascript', body: FAKE_TURNSTILE }),
+  );
+  await page.route('**/api/verify', async (route) => {
+    tokens.push(String((route.request().postDataJSON() as { token?: unknown }).token));
+    await route.fulfill({
+      status: status === 'blocked' ? 503 : status,
+      contentType: 'application/json',
+      body: status === 200 ? '{"ok":true}' : '{"error":"unavailable"}',
+    });
+  });
+  return tokens;
 }
