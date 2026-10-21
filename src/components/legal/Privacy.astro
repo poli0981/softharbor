@@ -1,92 +1,261 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/14 §3b. The storage inventory here must stay in step with docs/09 §8.
+// docs/14 §3b. The storage inventory here must stay in step with docs/09 §8,
+// and the two Cloudflare sections with src/scripts/analytics.js and
+// src/lib/turnstile.ts + worker/verify.ts. Section ids are link targets:
+// the gate's step 2 links to #turnstile.
+import { CONTACTS } from '../../lib/contacts';
 import type { Locale } from '../../i18n';
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const CONTACT = 'contact@softharbor.net';
+const PRIVACY = CONTACTS.privacy;
 ---
 
 {locale === 'en' ? (
   <>
     <p>
-      <strong>Short version: we collect nothing.</strong>
+      <strong>Short version:</strong> no accounts, no ads, no cookies, and nothing sold or shared
+      for advertising. Two Cloudflare services see limited data — visitor statistics that skip you
+      if your browser sends Global Privacy Control, and a bot check that runs only after you accept
+      these documents. Your settings stay in your browser.
     </p>
-    <ol>
-      <li>
-        <strong>No accounts, no forms, no analytics, no ads, no cookies.</strong>
-      </li>
-      <li>
-        <strong>Local preferences only:</strong> language, theme, and legal-acceptance version are
-        stored in your browser's localStorage (<code>sh:lang</code>, <code>sh:theme</code>,{' '}
-        <code>sh:legal</code>) and never transmitted; clearing site data removes them. A service
-        worker caches a small offline page.
-      </li>
-      <li>
-        <strong>Infrastructure:</strong> the site is served by Cloudflare, which processes
-        connection data (such as IP addresses) as a network provider under its own privacy policy.
-        We do not receive or store this data; aggregate request counts are visible to us in
-        Cloudflare's dashboard.
-      </li>
-      <li>
-        <strong>Bug reports:</strong> the "Report a bug" button opens a{' '}
-        <strong>prefilled GitHub issue in your browser</strong> containing the page URL, your
-        browser/OS string, and recent console error lines from this site. Nothing is sent until you
-        review and submit it on GitHub, under GitHub's terms and privacy policy.
-      </li>
-      <li>
-        <strong>Third-party links</strong> lead to sites with their own policies.
-      </li>
-      <li>
-        <strong>Changes</strong> to this policy bump the version date and re-show the consent gate.
-      </li>
-    </ol>
+
+    <h2 id="who">Who runs this site</h2>
     <p>
-      Contact: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      SoftHarbor is a non-commercial project run by an individual developer, poli0981 (SkullMute),
+      in Vietnam, who decides how the little data described here is handled. Privacy questions:{' '}
+      <a href={`mailto:${PRIVACY}`}>{PRIVACY}</a>.
+    </p>
+
+    <h2 id="storage">What stays in your browser</h2>
+    <p>
+      These are kept in your browser's localStorage and never sent anywhere; clearing this site's
+      data removes them:
+    </p>
+    <ul>
+      <li>
+        <code>sh:legal</code> — the version of these documents you accepted;
+      </li>
+      <li>
+        <code>sh:human</code> — until when the bot check below counts as done;
+      </li>
+      <li>
+        <code>sh:lang</code> — that you answered the language suggestion;
+      </li>
+      <li>
+        <code>sh:theme</code>, <code>sh:scrollbar</code>, <code>sh:motion</code> — your display
+        choices.
+      </li>
+    </ul>
+    <p>
+      A service worker also stores the offline page and the site's styles and fonts, so the site
+      still opens without a connection. There are no cookies.
+    </p>
+
+    <h2 id="analytics">Visitor statistics</h2>
+    <p>
+      We use Cloudflare Web Analytics to see which pages are read and how fast they load. It sets no
+      cookies and stores nothing in your browser. When a page loads, a script from Cloudflare
+      reports the page address, the address you came from, page-load timings and your browser's
+      user-agent string; Cloudflare derives a country from your connection and shows us totals only
+      — we never see individual visits or IP addresses.
+    </p>
+    <p>
+      It does not run at all if your browser sends <strong>Global Privacy Control</strong>, nor on
+      any host other than softharbor.net. We use it out of a legitimate interest in knowing whether
+      the site works and is used.
+    </p>
+
+    <h2 id="turnstile">The bot check (Cloudflare Turnstile)</h2>
+    <p>
+      After you accept these documents — never before — the gate runs Cloudflare Turnstile once to
+      tell people from automated traffic. It usually finishes on its own; occasionally it asks for a
+      click. Turnstile runs in a frame from challenges.cloudflare.com and evaluates signals from
+      your browser and device; Cloudflare states that it uses them only to tell people from bots,
+      not to track you or to target advertising.
+    </p>
+    <p>
+      The one-time token it produces is sent to this site's verification endpoint,{' '}
+      <code>/api/verify</code>, which forwards it — with your IP address — to Cloudflare's
+      Siteverify service to confirm it. To prevent abuse, the endpoint counts requests per IP
+      address (per /64 network for IPv6) for one minute. We keep no record of either: the endpoint
+      logs only whether a check succeeded and how long it took.
+    </p>
+    <p>
+      A pass is remembered in your browser for 48 hours (<code>sh:human</code>). If the check cannot
+      run — blocked, offline, or our endpoint is down — you are let in anyway, and it is tried again
+      after an hour. We use it out of a legitimate interest in keeping automated abuse off a public
+      service.
+    </p>
+
+    <h2 id="hosting">Hosting</h2>
+    <p>
+      Cloudflare serves the site and the endpoint above. As a network provider it processes
+      connection data, such as IP addresses, to deliver and protect the site, under its own privacy
+      policy. We do not receive those logs; Cloudflare shows us aggregate request counts.
+    </p>
+
+    <h2 id="email">If you email us</h2>
+    <p>
+      Addresses at poli0981.dev are delivered to a mailbox hosted by Google. We use your address and
+      message only to deal with what you wrote, and delete them once they are no longer needed for
+      that — or sooner, if you ask.
+    </p>
+
+    <h2 id="bug-reports">Bug reports</h2>
+    <p>
+      "Report a bug" is a link to a prefilled GitHub issue form. Its address contains the page's
+      URL, your browser's user-agent string and recent error lines from this site, so{' '}
+      <strong>GitHub receives them as soon as you open the link</strong>. Nothing is filed until you
+      review and submit the form, under GitHub's terms and privacy policy — remove anything you
+      would rather not share first.
+    </p>
+
+    <h2 id="links">Other sites</h2>
+    <p>Links to developers' sites lead to services with privacy policies of their own.</p>
+
+    <h2 id="rights">Your choices and rights</h2>
+    <p>
+      Turn on Global Privacy Control to switch the statistics off; block challenges.cloudflare.com
+      if you prefer — the gate still lets you in. Clearing this site's data removes everything
+      stored in your browser. We hold nothing that identifies you except email you send; to see,
+      correct or delete it, or to object to anything here, write to{' '}
+      <a href={`mailto:${PRIVACY}`}>{PRIVACY}</a>. You may also complain to your data protection
+      authority.
+    </p>
+
+    <h2 id="changes">Changes</h2>
+    <p>
+      When this policy changes, the date above changes with it, and the gate asks everyone to accept
+      the new version.
     </p>
   </>
 ) : (
   <>
     <p>
-      <strong>Phiên bản ngắn gọn: chúng tôi không thu thập gì.</strong>
+      <strong>Tóm tắt:</strong> không tài khoản, không quảng cáo, không cookie, và không bán hay
+      chia sẻ dữ liệu cho quảng cáo. Hai dịch vụ của Cloudflare thấy một ít dữ liệu — thống kê truy
+      cập sẽ bỏ qua bạn nếu trình duyệt gửi tín hiệu Global Privacy Control, và một bước kiểm tra
+      bot chỉ chạy sau khi bạn chấp nhận các văn bản này. Các tuỳ chọn của bạn nằm lại trong trình
+      duyệt.
     </p>
-    <ol>
-      <li>
-        <strong>
-          Không tài khoản, không biểu mẫu, không analytics, không quảng cáo, không cookie.
-        </strong>
-      </li>
-      <li>
-        <strong>Chỉ lưu tuỳ chọn cục bộ:</strong> ngôn ngữ, giao diện sáng/tối và phiên bản điều
-        khoản đã chấp nhận được lưu trong localStorage của trình duyệt (<code>sh:lang</code>,{' '}
-        <code>sh:theme</code>, <code>sh:legal</code>), không bao giờ được truyền đi; xoá dữ liệu
-        trang sẽ xoá chúng. Service worker lưu một trang offline nhỏ.
-      </li>
-      <li>
-        <strong>Hạ tầng:</strong> trang được phục vụ bởi Cloudflare — đơn vị xử lý dữ liệu kết nối
-        (như địa chỉ IP) theo chính sách riêng của họ với vai trò nhà cung cấp hạ tầng. Chúng tôi
-        không nhận hay lưu dữ liệu này; chỉ thấy số liệu truy cập tổng hợp trong bảng điều khiển
-        Cloudflare.
-      </li>
-      <li>
-        <strong>Báo lỗi:</strong> nút "Report a bug" mở một{' '}
-        <strong>issue GitHub được điền sẵn trong trình duyệt của bạn</strong> gồm URL trang, chuỗi
-        trình duyệt/hệ điều hành và các dòng lỗi console gần đây của trang này. Không có gì được gửi
-        đi cho tới khi bạn xem lại và tự đăng trên GitHub, theo điều khoản và chính sách của GitHub.
-      </li>
-      <li>
-        <strong>Liên kết bên thứ ba</strong> có chính sách riêng.
-      </li>
-      <li>
-        <strong>Thay đổi</strong> chính sách sẽ cập nhật ngày phiên bản và hiển thị lại hộp thoại
-        chấp nhận.
-      </li>
-    </ol>
+
+    <h2 id="who">Ai vận hành trang này</h2>
     <p>
-      Liên hệ: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      SoftHarbor là dự án phi thương mại do một nhà phát triển cá nhân, poli0981 (SkullMute), tại
+      Việt Nam vận hành; người này quyết định cách xử lý số ít dữ liệu được mô tả ở đây. Câu hỏi về
+      quyền riêng tư: <a href={`mailto:${PRIVACY}`}>{PRIVACY}</a>.
+    </p>
+
+    <h2 id="storage">Những gì nằm lại trong trình duyệt của bạn</h2>
+    <p>
+      Các mục sau được lưu trong localStorage của trình duyệt và không bao giờ được gửi đi; xoá dữ
+      liệu của trang này sẽ xoá chúng:
+    </p>
+    <ul>
+      <li>
+        <code>sh:legal</code> — phiên bản các văn bản này mà bạn đã chấp nhận;
+      </li>
+      <li>
+        <code>sh:human</code> — thời điểm bước kiểm tra bot bên dưới hết hiệu lực;
+      </li>
+      <li>
+        <code>sh:lang</code> — việc bạn đã trả lời gợi ý ngôn ngữ;
+      </li>
+      <li>
+        <code>sh:theme</code>, <code>sh:scrollbar</code>, <code>sh:motion</code> — các tuỳ chọn hiển
+        thị của bạn.
+      </li>
+    </ul>
+    <p>
+      Service worker cũng lưu trang offline cùng kiểu dáng và phông chữ của trang, để trang vẫn mở
+      được khi mất kết nối. Không có cookie nào.
+    </p>
+
+    <h2 id="analytics">Thống kê truy cập</h2>
+    <p>
+      Chúng tôi dùng Cloudflare Web Analytics để biết trang nào được đọc và tải nhanh đến đâu. Công
+      cụ này không đặt cookie và không lưu gì trong trình duyệt. Khi một trang tải xong, một đoạn mã
+      của Cloudflare gửi địa chỉ trang, địa chỉ trang bạn đến từ đó, thời gian tải trang và chuỗi
+      user-agent của trình duyệt; Cloudflare suy ra quốc gia từ kết nối của bạn và chỉ cho chúng tôi
+      xem số liệu tổng hợp — chúng tôi không bao giờ thấy từng lượt truy cập hay địa chỉ IP.
+    </p>
+    <p>
+      Công cụ này hoàn toàn không chạy nếu trình duyệt của bạn gửi tín hiệu{' '}
+      <strong>Global Privacy Control</strong>, và cũng không chạy trên tên miền nào khác
+      softharbor.net. Chúng tôi dùng nó vì lợi ích chính đáng: biết trang có hoạt động tốt và có
+      người dùng hay không.
+    </p>
+
+    <h2 id="turnstile">Bước kiểm tra bot (Cloudflare Turnstile)</h2>
+    <p>
+      Sau khi bạn chấp nhận các văn bản này — không bao giờ trước đó — cổng chạy Cloudflare
+      Turnstile một lần để phân biệt người với lưu lượng tự động. Thường nó tự hoàn tất; đôi khi nó
+      yêu cầu bạn bấm một lần. Turnstile chạy trong một khung từ challenges.cloudflare.com và đánh
+      giá các tín hiệu từ trình duyệt và thiết bị của bạn; Cloudflare cho biết họ chỉ dùng chúng để
+      phân biệt người với bot, không để theo dõi bạn hay nhắm quảng cáo.
+    </p>
+    <p>
+      Mã dùng một lần mà nó tạo ra được gửi tới điểm xác minh của trang (<code>/api/verify</code>);
+      điểm này chuyển mã — kèm địa chỉ IP của bạn — tới dịch vụ Siteverify của Cloudflare để xác
+      nhận. Để chống lạm dụng, điểm này đếm số yêu cầu theo từng địa chỉ IP (theo dải /64 với IPv6)
+      trong một phút. Chúng tôi không lưu lại cả hai: điểm xác minh chỉ ghi nhật ký việc kiểm tra
+      thành công hay không và mất bao lâu.
+    </p>
+    <p>
+      Kết quả đạt được ghi nhớ trong trình duyệt của bạn trong 48 giờ (<code>sh:human</code>). Nếu
+      bước kiểm tra không chạy được — bị chặn, mất mạng, hoặc điểm xác minh của chúng tôi gặp sự cố
+      — bạn vẫn được vào trang, và việc kiểm tra sẽ được thử lại sau một giờ. Chúng tôi dùng nó vì
+      lợi ích chính đáng: giữ cho một dịch vụ công cộng không bị lạm dụng tự động.
+    </p>
+
+    <h2 id="hosting">Lưu trữ và phân phối</h2>
+    <p>
+      Cloudflare phục vụ trang web và điểm xác minh nói trên. Với vai trò nhà cung cấp mạng,
+      Cloudflare xử lý dữ liệu kết nối, như địa chỉ IP, để phân phối và bảo vệ trang, theo chính
+      sách quyền riêng tư của riêng họ. Chúng tôi không nhận các nhật ký đó; Cloudflare chỉ cho
+      chúng tôi xem số lượng yêu cầu tổng hợp.
+    </p>
+
+    <h2 id="email">Nếu bạn gửi email cho chúng tôi</h2>
+    <p>
+      Thư gửi tới các địa chỉ @poli0981.dev được chuyển vào một hộp thư do Google lưu trữ. Chúng tôi
+      chỉ dùng địa chỉ và nội dung thư của bạn để giải quyết việc bạn viết, và xoá chúng khi không
+      còn cần cho việc đó — hoặc sớm hơn, nếu bạn yêu cầu.
+    </p>
+
+    <h2 id="bug-reports">Báo lỗi</h2>
+    <p>
+      "Báo lỗi" là liên kết tới một biểu mẫu issue GitHub được điền sẵn. Địa chỉ của liên kết chứa
+      URL của trang, chuỗi user-agent của trình duyệt và các dòng lỗi gần đây của trang này, nên{' '}
+      <strong>GitHub nhận được chúng ngay khi bạn mở liên kết</strong>. Không có gì được đăng cho
+      tới khi bạn xem lại và tự gửi biểu mẫu, theo điều khoản và chính sách quyền riêng tư của
+      GitHub — hãy xoá những gì bạn không muốn chia sẻ trước khi gửi.
+    </p>
+
+    <h2 id="links">Trang web khác</h2>
+    <p>
+      Liên kết tới trang của các nhà phát triển dẫn tới những dịch vụ có chính sách quyền riêng tư
+      riêng.
+    </p>
+
+    <h2 id="rights">Lựa chọn và quyền của bạn</h2>
+    <p>
+      Bật Global Privacy Control để tắt thống kê truy cập; chặn challenges.cloudflare.com nếu bạn
+      muốn — cổng vẫn cho bạn vào. Xoá dữ liệu của trang sẽ xoá mọi thứ được lưu trong trình duyệt.
+      Chúng tôi không giữ thông tin nào nhận diện được bạn ngoài email bạn gửi; để xem, sửa hoặc xoá
+      thông tin đó, hay để phản đối bất kỳ điều gì ở đây, hãy viết tới{' '}
+      <a href={`mailto:${PRIVACY}`}>{PRIVACY}</a>. Bạn cũng có thể khiếu nại tới cơ quan bảo vệ dữ
+      liệu có thẩm quyền.
+    </p>
+
+    <h2 id="changes">Thay đổi</h2>
+    <p>
+      Khi chính sách này thay đổi, ngày cập nhật ở trên sẽ đổi theo, và cổng sẽ đề nghị mọi người
+      chấp nhận phiên bản mới.
     </p>
   </>
 )}

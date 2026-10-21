@@ -85,3 +85,22 @@ describe('legal gate — hostile storage fails OPEN per session', () => {
     expect(m.isAccepted()).toBe(true);
   });
 });
+
+describe('legal versions and dates', () => {
+  it('bumps the gate version whenever an accepted document changes', async () => {
+    const { ACCEPTED_DOCS, LEGAL_UPDATED, LEGAL_VERSION } = await import('./legal');
+    // A Disclaimer/Terms/Privacy change dated after the version would update
+    // the page without asking anyone to accept it again.
+    for (const doc of ACCEPTED_DOCS) expect(LEGAL_UPDATED[doc] <= LEGAL_VERSION, doc).toBe(true);
+  });
+
+  it('dates every document with a real day that has already happened', async () => {
+    const { LEGAL_UPDATED, LEGAL_VERSION } = await import('./legal');
+    const today = new Date().toISOString().slice(0, 10);
+    for (const [doc, date] of Object.entries({ ...LEGAL_UPDATED, version: LEGAL_VERSION })) {
+      expect(date, doc).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(new Date(`${date}T00:00:00Z`).toISOString().slice(0, 10), doc).toBe(date);
+      expect(date <= today, doc).toBe(true);
+    }
+  });
+});

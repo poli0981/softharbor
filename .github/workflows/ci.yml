@@ -78,6 +78,11 @@ jobs:
       # "a good build" means.
       - name: Build (with data, i18n, CSP and service-worker gates)
         run: pnpm build
+      # Bundles worker/ and validates wrangler.jsonc (bindings, assets,
+      # run_worker_first) exactly as Workers Builds will, without credentials
+      # or a deploy. A config error then fails here instead of in production.
+      - name: Worker bundle (wrangler deploy --dry-run)
+        run: pnpm exec wrangler deploy --dry-run --outdir "$RUNNER_TEMP/worker"
       - name: Dead code
         run: pnpm knip
 

@@ -2,7 +2,12 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreExportsUsedInFile": true,
   "entry": ["src/pages/**/*.{astro,ts}", "scripts/*.mjs", "src/scripts/*.js"],
-  "project": ["src/**/*.{ts,astro,svelte}", "scripts/**/*.{mjs,ts}", "e2e/**/*.ts"],
+  "project": [
+    "src/**/*.{ts,astro,svelte}",
+    "scripts/**/*.{mjs,ts}",
+    "e2e/**/*.ts",
+    "worker/**/*.ts"
+  ],
   "ignoreDependencies": [
     "tailwindcss",
     "@fontsource-variable/bricolage-grotesque",

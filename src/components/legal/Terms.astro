@@ -2,20 +2,31 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/14 §3c. Governing law (Vietnam) is a Kokone sign-off item — docs/14 Part 4.
+// `#copyright` is the notice-and-takedown procedure the Contact page links to.
+import { CONTACTS } from '../../lib/contacts';
 import type { Locale } from '../../i18n';
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const CONTACT = 'contact@softharbor.net';
 const SITE = 'https://softharbor.net';
+const LICENSE_DATA = 'https://github.com/poli0981/softharbor/blob/main/LICENSE-DATA.md';
+const { legal: LEGAL, dmca: DMCA, takedown: TAKEDOWN } = CONTACTS;
+const base = locale === 'vi' ? '/vi/legal' : '/legal';
 ---
 
 {locale === 'en' ? (
   <ol>
+    <li id="operator">
+      <strong>Who we are:</strong> <a href={SITE}>{SITE}</a> ("SoftHarbor") is a non-commercial
+      project run by an individual developer, poli0981 (SkullMute), in Vietnam — "we" or "the
+      operator" below.
+    </li>
     <li>
-      <strong>Acceptance:</strong> using <a href={SITE}>{SITE}</a> means you accept these terms, the
-      Disclaimer, and the Privacy Policy; the consent dialog records acceptance in your browser.
+      <strong>Acceptance:</strong> using the site means you accept these terms, the{' '}
+      <a href={`${base}/disclaimer`}>Disclaimer</a>, and the{' '}
+      <a href={`${base}/privacy`}>Privacy Policy</a>; the consent dialog records acceptance in your
+      browser, then runs the automatic bot check the Privacy Policy describes.
     </li>
     <li>
       <strong>The service:</strong> an informational directory of links and metadata; no downloads
@@ -24,11 +35,23 @@ const SITE = 'https://softharbor.net';
     <li>
       <strong>Acceptable use:</strong> no scraping at abusive rates (the public dataset at{' '}
       <a href="/api/apps.json">/api/apps.json</a> exists — use it), no attempts to disrupt the
-      service, no misrepresentation of SoftHarbor as affiliated with listed vendors.
+      service or to get past its bot check by automated means, no misrepresentation of SoftHarbor as
+      affiliated with listed vendors.
     </li>
     <li>
       <strong>Intellectual property:</strong> site code is GPL-3.0-only; the dataset is CC BY-SA 4.0
-      (see LICENSE-DATA); third-party names and logos remain their owners' property.
+      (see <a href={LICENSE_DATA}>LICENSE-DATA</a>); third-party names and logos remain their
+      owners' property (see <a href={`${base}/trademarks`}>Trademarks</a>).
+    </li>
+    <li id="copyright">
+      <strong>Copyright complaints:</strong> if you believe something on SoftHarbor infringes your
+      copyright, email <a href={`mailto:${DMCA}`}>{DMCA}</a> with: the work you own; the material
+      and its address on this site; your name and contact details; a statement that you believe in
+      good faith the use is not authorised; a statement that the notice is accurate and that you own
+      the right or may act for its owner; and your signature (a typed full name is enough). We
+      remove or disable the material promptly and tell whoever added it, who may answer with a
+      counter-notice to the same address. A developer who wants a listing or logo changed or removed
+      writes to <a href={`mailto:${TAKEDOWN}`}>{TAKEDOWN}</a> instead.
     </li>
     <li>
       <strong>No warranty / limitation of liability:</strong> the service is provided "as is"
@@ -44,15 +67,22 @@ const SITE = 'https://softharbor.net';
       if a provision is unenforceable, the remainder stands.
     </li>
     <li>
-      Contact: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      Contact: <a href={`mailto:${LEGAL}`}>{LEGAL}</a>.
     </li>
   </ol>
 ) : (
   <ol>
+    <li id="operator">
+      <strong>Chúng tôi là ai:</strong> <a href={SITE}>{SITE}</a> ("SoftHarbor") là dự án phi thương
+      mại do một nhà phát triển cá nhân, poli0981 (SkullMute), tại Việt Nam vận hành — dưới đây gọi
+      là "chúng tôi" hoặc "người vận hành".
+    </li>
     <li>
-      <strong>Chấp nhận:</strong> việc sử dụng <a href={SITE}>{SITE}</a> đồng nghĩa bạn chấp nhận
-      các điều khoản này, Tuyên bố miễn trừ và Chính sách quyền riêng tư; hộp thoại đồng ý ghi nhận
-      việc chấp nhận trong trình duyệt của bạn.
+      <strong>Chấp nhận:</strong> việc sử dụng trang đồng nghĩa bạn chấp nhận các điều khoản này,{' '}
+      <a href={`${base}/disclaimer`}>Tuyên bố miễn trừ</a> và{' '}
+      <a href={`${base}/privacy`}>Chính sách quyền riêng tư</a>; hộp thoại đồng ý ghi nhận việc chấp
+      nhận trong trình duyệt của bạn, rồi chạy bước kiểm tra bot tự động mà Chính sách quyền riêng
+      tư mô tả.
     </li>
     <li>
       <strong>Dịch vụ:</strong> trang thông tin tổng hợp liên kết và siêu dữ liệu; không lưu trữ tệp
@@ -60,29 +90,42 @@ const SITE = 'https://softharbor.net';
     </li>
     <li>
       <strong>Sử dụng hợp lệ:</strong> không scrape với tần suất gây hại (đã có bộ dữ liệu công khai
-      tại <a href="/api/apps.json">/api/apps.json</a> — hãy dùng nó), không phá hoại dịch vụ, không
-      mạo nhận SoftHarbor liên kết với các nhà phát triển được liệt kê.
+      tại <a href="/api/apps.json">/api/apps.json</a> — hãy dùng nó), không tìm cách phá hoại dịch
+      vụ hay dùng phương tiện tự động để vượt qua bước kiểm tra bot, không mạo nhận SoftHarbor liên
+      kết với các nhà phát triển được liệt kê.
     </li>
     <li>
-      <strong>Sở hữu trí tuệ:</strong> mã nguồn theo GPL-3.0-only; bộ dữ liệu theo CC BY-SA 4.0 (xem
-      LICENSE-DATA); tên và logo bên thứ ba thuộc chủ sở hữu tương ứng.
+      <strong>Sở hữu trí tuệ:</strong> mã nguồn theo GPL-3.0-only; bộ dữ liệu theo CC BY-SA 4.0 (xem{' '}
+      <a href={LICENSE_DATA}>LICENSE-DATA</a>); tên và logo của bên thứ ba thuộc chủ sở hữu tương
+      ứng (xem <a href={`${base}/trademarks`}>Thương hiệu</a>).
+    </li>
+    <li id="copyright">
+      <strong>Khiếu nại bản quyền:</strong> nếu bạn cho rằng nội dung nào đó trên SoftHarbor xâm
+      phạm bản quyền của bạn, hãy email tới <a href={`mailto:${DMCA}`}>{DMCA}</a>, gồm: tác phẩm bạn
+      sở hữu; nội dung bị khiếu nại và địa chỉ của nó trên trang này; họ tên và thông tin liên hệ
+      của bạn; lời khẳng định bạn tin một cách thiện chí rằng việc sử dụng đó chưa được phép; lời
+      khẳng định thông báo là chính xác và bạn là chủ sở hữu quyền hoặc được phép đại diện chủ sở
+      hữu; và chữ ký của bạn (gõ đầy đủ họ tên là đủ). Chúng tôi sẽ nhanh chóng gỡ hoặc vô hiệu hoá
+      nội dung đó và báo cho người đã thêm nó, người này có thể gửi phản hồi phản đối tới cùng địa
+      chỉ. Nhà phát triển muốn sửa hoặc gỡ mục giới thiệu hay logo của mình thì viết tới{' '}
+      <a href={`mailto:${TAKEDOWN}`}>{TAKEDOWN}</a>.
     </li>
     <li>
-      <strong>Không bảo đảm / giới hạn trách nhiệm:</strong> dịch vụ cung cấp "nguyên trạng" không
-      kèm bất kỳ bảo đảm nào; trong phạm vi tối đa pháp luật cho phép, người vận hành không chịu
-      trách nhiệm cho thiệt hại phát sinh từ việc dùng dịch vụ hoặc phần mềm bên thứ ba truy cập qua
-      dịch vụ.
+      <strong>Không bảo đảm / giới hạn trách nhiệm:</strong> dịch vụ được cung cấp "nguyên trạng",
+      không kèm bất kỳ bảo đảm nào; trong phạm vi tối đa pháp luật cho phép, người vận hành không
+      chịu trách nhiệm cho thiệt hại phát sinh từ việc dùng dịch vụ hoặc phần mềm của bên thứ ba
+      truy cập qua dịch vụ.
     </li>
     <li>
       <strong>Thay đổi:</strong> thay đổi trọng yếu sẽ nâng phiên bản và hiển thị lại hộp thoại đồng
       ý.
     </li>
     <li>
-      <strong>Luật áp dụng:</strong> pháp luật Việt Nam; nếu một điều khoản vô hiệu, các điều khoản
-      còn lại vẫn giữ hiệu lực.
+      <strong>Luật áp dụng:</strong> pháp luật Việt Nam, không xét đến quy tắc xung đột pháp luật;
+      nếu một điều khoản không thể thi hành, các điều khoản còn lại vẫn giữ hiệu lực.
     </li>
     <li>
-      Liên hệ: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      Liên hệ: <a href={`mailto:${LEGAL}`}>{LEGAL}</a>.
     </li>
   </ol>
 )}

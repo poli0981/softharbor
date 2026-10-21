@@ -3,12 +3,14 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/14 §3d. The logo-handling rules here are the ones src/lib/icon.ts and
 // the Simple Icons caveat in §3e depend on.
+import { CONTACTS } from '../../lib/contacts';
 import type { Locale } from '../../i18n';
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const CONTACT = 'contact@softharbor.net';
+const TAKEDOWN = CONTACTS.takedown;
+const ISSUES = 'https://github.com/poli0981/softharbor/issues';
 ---
 
 {locale === 'en' ? (
@@ -26,11 +28,11 @@ const CONTACT = 'contact@softharbor.net';
       Icons set or the vendor's official brand assets. "SoftHarbor" and the SoftHarbor wordmark
       identify this project.
     </p>
-    <h2>Takedown</h2>
+    <h2 id="takedown">Takedown</h2>
     <p>
       If you own a mark and want its use changed or removed, email{' '}
-      <a href={`mailto:${CONTACT}`}>{CONTACT}</a> or open a GitHub issue — we comply promptly and
-      remove the entry's logo (or the entry) while discussing.
+      <a href={`mailto:${TAKEDOWN}`}>{TAKEDOWN}</a> or open a <a href={ISSUES}>GitHub issue</a> — we
+      comply promptly and remove the entry's logo (or the entry) while we discuss it.
     </p>
   </>
 ) : (
@@ -42,15 +44,15 @@ const CONTACT = 'contact@softharbor.net';
     </p>
     <h2>Nguyên tắc với logo</h2>
     <p>
-      Hiển thị nguyên bản (không đổi màu ngoài việc render đơn sắc với logo vector, không biến
+      Hiển thị nguyên bản (không đổi màu ngoài việc hiển thị đơn sắc với logo vector, không biến
       dạng), ở kích thước hợp lý, đi kèm thông tin chính xác, lấy từ bộ Simple Icons hoặc bộ nhận
       diện chính thức của nhà phát triển. "SoftHarbor" và wordmark SoftHarbor nhận diện dự án này.
     </p>
-    <h2>Yêu cầu gỡ bỏ</h2>
+    <h2 id="takedown">Yêu cầu gỡ bỏ</h2>
     <p>
-      Nếu bạn là chủ sở hữu nhãn hiệu và muốn thay đổi hoặc gỡ việc sử dụng, hãy email{' '}
-      <a href={`mailto:${CONTACT}`}>{CONTACT}</a> hoặc mở GitHub issue — chúng tôi sẽ xử lý nhanh
-      chóng và tạm gỡ logo (hoặc mục liên quan) trong quá trình trao đổi.
+      Nếu bạn là chủ sở hữu nhãn hiệu và muốn thay đổi hoặc gỡ việc sử dụng, hãy email tới{' '}
+      <a href={`mailto:${TAKEDOWN}`}>{TAKEDOWN}</a> hoặc mở <a href={ISSUES}>GitHub issue</a> —
+      chúng tôi đáp ứng kịp thời và gỡ logo của mục (hoặc cả mục) trong khi trao đổi.
     </p>
   </>
 )}

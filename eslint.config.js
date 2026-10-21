@@ -12,7 +12,20 @@ import globals from 'globals';
 export default tseslint.config(
   // `.claude/` holds agent worktrees — full copies of the repo that `eslint .`
   // would otherwise lint a second (or third) time.
-  { ignores: ['dist/', '.astro/', 'node_modules/', '.claude/', 'coverage/', 'lychee/'] },
+  {
+    ignores: [
+      'dist/',
+      '.astro/',
+      // wrangler dev / deploy --dry-run scratch bundles.
+      '.wrangler/',
+      'node_modules/',
+      '.claude/',
+      'coverage/',
+      'lychee/',
+      'playwright-report/',
+      'test-results/',
+    ],
+  },
   {
     // Pre-paint scripts Base.astro loads via `?url&no-inline`: Vite copies them
     // verbatim (no transform), so they must stay plain classic browser JS — no

@@ -85,4 +85,17 @@ AI was used to build this project; where and how is disclosed at
 
 ## Contact
 
-**contact@softharbor.net** · maintained by [@poli0981](https://github.com/poli0981)
+Maintained by [@poli0981](https://github.com/poli0981). One address per
+purpose, so a message reaches the right queue:
+
+| About                                               | Address                |
+| --------------------------------------------------- | ---------------------- |
+| A vulnerability, or a hijacked or malicious listing | security@poli0981.dev  |
+| Privacy                                             | privacy@poli0981.dev   |
+| Terms, disclaimer, other legal                      | legal@poli0981.dev     |
+| A copyright complaint                               | dmca@poli0981.dev      |
+| Changing or removing your app's listing or logo     | takedown@poli0981.dev  |
+| Licensing of the code or the dataset                | copyright@poli0981.dev |
+| Code of Conduct                                     | code@poli0981.dev      |
+| Press                                               | press@poli0981.dev     |
+| Collaboration                                       | collab@poli0981.dev    |

@@ -9,7 +9,7 @@ versions to patch (docs/13 §1).
 ## Reporting a vulnerability
 
 Please use **GitHub's private vulnerability reporting** on this repository
-(Security → Report a vulnerability), or email `contact@softharbor.net`.
+(Security → Report a vulnerability), or email `security@poli0981.dev`.
 
 Acknowledgement within **72 hours**. Machine-readable contact details are in
 [`/.well-known/security.txt`](https://softharbor.net/.well-known/security.txt).
@@ -32,8 +32,10 @@ Acknowledgement within **72 hours**. Machine-readable contact details are in
 - Vulnerabilities in the **listed third-party applications themselves**.
   Report those to their vendors — but please tell us too, so we can flag the
   entry while it is unresolved.
-- Anything requiring a server: there is no backend, no database, no accounts,
-  no cookies, and no user input parsing (docs/09 §3).
+- Server-side issues beyond one endpoint: the site is static except for
+  `POST /api/verify`, the legal gate's Turnstile check (`worker/`, D25),
+  which **is** in scope. There is no database, no accounts and no cookies
+  (docs/09 §3).
 
 ## What we do not claim
 

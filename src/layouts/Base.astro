@@ -12,6 +12,7 @@ import { canonicalPath } from '../lib/locale';
 // URLs, which `script-src 'self'` refuses (scripts/check-assets.mjs guards it).
 import errorsUrl from '../scripts/errors.js?url&no-inline';
 import themeUrl from '../scripts/theme.js?url&no-inline';
+import analyticsUrl from '../scripts/analytics.js?url&no-inline';
 import { VIEW_TRANSITION_OPT_IN } from '../lib/inlineCss';
 import '../styles/global.css';
 
@@ -65,6 +66,10 @@ const gateStrings = {
   privacy: t(locale, 'gate.link.privacy'),
   and: t(locale, 'gate.and'),
   base: localePath(locale, '/legal'),
+  verifyTitle: t(locale, 'gate.verify.title'),
+  verifyBody: t(locale, 'gate.verify.body'),
+  verifySkipped: t(locale, 'gate.verify.skipped'),
+  lang: locale,
 };
 ---
 
@@ -128,6 +133,11 @@ const gateStrings = {
       file ourselves. External, not inline, to satisfy script-src (docs/09 §4).
     */}
     <script is:inline defer src="/registerSW.js"></script>
+    {/*
+      Cloudflare Web Analytics — the loader decides (GPC, production host only)
+      before anything third-party is requested. Not render-blocking.
+    */}
+    <script is:inline defer src={analyticsUrl}></script>
   </head>
   <body class="flex min-h-dvh flex-col">
     {/*

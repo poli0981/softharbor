@@ -9,7 +9,8 @@ under **GPL-3.0-only**, dataset entries under **CC BY-SA 4.0**.
 
 - Code of Conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 - Security vulnerabilities: [SECURITY.md](SECURITY.md) — **never** a public issue
-- Contact: **contact@softharbor.net**
+- Contact: Code of Conduct reports **code@poli0981.dev**, licensing questions
+  **copyright@poli0981.dev**; anything else, open an issue
 
 ## Suggesting an app
 

@@ -16,7 +16,12 @@ export default getViteConfig({
     // raise them when coverage rises, never lower them to land a change.
     coverage: {
       provider: 'v8',
-      include: ['src/lib/**/*.ts', 'src/i18n/**/*.ts', 'src/components/islands/**/*.svelte'],
+      include: [
+        'src/lib/**/*.ts',
+        'src/i18n/**/*.ts',
+        'src/components/islands/**/*.svelte',
+        'worker/**/*.ts',
+      ],
       exclude: ['**/*.test.ts'],
       reporter: ['text-summary', 'html', 'lcov'],
       thresholds: { statements: 93, branches: 78, functions: 90, lines: 93 },
@@ -29,6 +34,16 @@ export default getViteConfig({
           name: 'unit',
           environment: 'node',
           include: ['src/{lib,i18n}/**/*.test.ts'],
+        },
+      },
+      {
+        // The /api/verify Worker (worker/), against a stubbed Siteverify. Node
+        // has every Web API it uses (Request, FormData, streams, crypto).
+        extends: true,
+        test: {
+          name: 'worker',
+          environment: 'node',
+          include: ['worker/**/*.test.ts'],
         },
       },
       {

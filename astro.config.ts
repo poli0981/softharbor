@@ -80,12 +80,28 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' data:",
         "font-src 'self'",
-        "connect-src 'self'",
+        // Cloudflare Web Analytics posts its beacon to cloudflareinsights.com
+        // (src/scripts/analytics.js; skipped under GPC).
+        "connect-src 'self' https://cloudflareinsights.com",
+        // The Turnstile widget is an iframe (legal gate step 2, after consent).
+        'frame-src https://challenges.cloudflare.com',
         "manifest-src 'self'",
         "base-uri 'none'",
         "form-action 'none'",
         "object-src 'none'",
       ],
+      // The two third-party script origins, both loaded by our own code
+      // rather than by markup: the analytics beacon (src/scripts/analytics.js)
+      // and Turnstile's api.js (src/lib/turnstile.ts). `resources` REPLACES
+      // Astro's default, so 'self' must be listed or every same-origin
+      // script — islands included — is refused (docs/09 §4).
+      scriptDirective: {
+        resources: [
+          "'self'",
+          'https://static.cloudflareinsights.com',
+          'https://challenges.cloudflare.com',
+        ],
+      },
       // The one `is:inline` <style> (src/lib/inlineCss.ts) — Astro hashes
       // only what it bundles, so this hash is ours to supply.
       styleDirective: {
@@ -157,7 +173,7 @@ export default defineConfig({
         globPatterns: [
           'offline.html',
           '_astro/*.css',
-          '_astro/{errors,theme}.*.js',
+          '_astro/{errors,theme,analytics}.*.js',
           '_astro/be-vietnam-pro-{latin,vietnamese}-400-normal.*.woff2',
           '_astro/bricolage-grotesque-{latin,vietnamese}-wght-normal.*.woff2',
           'favicon.svg',

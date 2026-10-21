@@ -1,0 +1,5 @@
+# Local secrets for `wrangler dev` — copy to .dev.vars (git-ignored).
+# Cloudflare's always-pass Turnstile TEST secret; pairs with the test
+# sitekey the gate uses on localhost (src/lib/turnstile.ts). Production uses
+# a runtime secret set in the dashboard, never a file.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA

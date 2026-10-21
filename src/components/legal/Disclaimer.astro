@@ -3,12 +3,17 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/14 §3a. EN is canonical (docs/07 §8); both locales kept in one file so
 // a change to one is visibly a change to the other during review.
+// The reporting routes match SECURITY.md: a dangerous listing is a security
+// report (private), wrong information is an ordinary issue.
+import { CONTACTS } from '../../lib/contacts';
 import type { Locale } from '../../i18n';
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const CONTACT = 'contact@softharbor.net';
+const { security: SECURITY, takedown: TAKEDOWN } = CONTACTS;
+const ISSUES = 'https://github.com/poli0981/softharbor/issues';
+const base = locale === 'vi' ? '/vi/legal' : '/legal';
 ---
 
 {locale === 'en' ? (
@@ -17,7 +22,8 @@ const CONTACT = 'contact@softharbor.net';
     <ol>
       <li>
         <strong>No affiliation:</strong> we are not affiliated with, endorsed by, or sponsored by
-        any listed developer; names and logos identify products only (see Trademarks).
+        any listed developer; names and logos identify products only (see{' '}
+        <a href={`${base}/trademarks`}>Trademarks</a>).
       </li>
       <li>
         <strong>No hosting:</strong> we host no installers; all download links lead to third-party
@@ -29,7 +35,7 @@ const CONTACT = 'contact@softharbor.net';
         pricing models change without notice.
       </li>
       <li>
-        <strong>Security statuses are not guarantees:</strong> "No known warnings — checked
+        <strong>Security statuses are not guarantees:</strong> "No known warnings · checked
         &lt;date&gt;" means our checklist found nothing <em>on that date</em>; it is not an audit, a
         certification, or a promise of safety. Software can be compromised after our check. Always
         download from official sources, verify signatures or checksums where offered, and use your
@@ -40,9 +46,12 @@ const CONTACT = 'contact@softharbor.net';
         the maximum extent permitted by law we accept no liability for damages arising from software
         you obtain via links on this site.
       </li>
-      <li>
-        Report dangerous or incorrect listings: GitHub issues or{' '}
-        <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      <li id="report">
+        <strong>Reporting a listing:</strong> a dangerous one — a hijacked, look-alike or malicious
+        download link — goes privately to <a href={`mailto:${SECURITY}`}>{SECURITY}</a>, not to a
+        public issue, so the bad link is not spread further. Outdated or wrong information goes to a{' '}
+        <a href={ISSUES}>GitHub issue</a>; a developer who wants their entry changed or removed can
+        write to <a href={`mailto:${TAKEDOWN}`}>{TAKEDOWN}</a>.
       </li>
     </ol>
   </>
@@ -51,33 +60,37 @@ const CONTACT = 'contact@softharbor.net';
     <p>SoftHarbor là trang tổng hợp phần mềm desktop độc lập, phi thương mại.</p>
     <ol>
       <li>
-        <strong>Không liên kết:</strong> chúng tôi không liên kết, không được bảo trợ hay tài trợ
-        bởi bất kỳ nhà phát triển nào; tên và logo chỉ nhằm nhận diện sản phẩm (xem Thương hiệu).
+        <strong>Không liên kết:</strong> chúng tôi không liên kết với, không được chứng thực, bảo
+        trợ hay tài trợ bởi bất kỳ nhà phát triển nào được liệt kê; tên và logo chỉ nhằm nhận diện
+        sản phẩm (xem <a href={`${base}/trademarks`}>Thương hiệu</a>).
       </li>
       <li>
         <strong>Không lưu trữ:</strong> chúng tôi không lưu trữ tệp cài đặt; mọi liên kết tải về dẫn
-        tới trang bên thứ ba ngoài tầm kiểm soát của chúng tôi.
+        tới trang của bên thứ ba ngoài tầm kiểm soát của chúng tôi.
       </li>
       <li>
-        <strong>Không bảo đảm thông tin:</strong> thông tin — gồm giá, giấy phép, nền tảng hỗ trợ,
+        <strong>Không bảo đảm thông tin:</strong> thông tin — gồm giá, giấy phép, nền tảng hỗ trợ và
         trạng thái bảo mật — được cung cấp "nguyên trạng", có thể lỗi thời hoặc sai; mô hình giá có
-        thể thay đổi bất kỳ lúc nào.
+        thể thay đổi mà không báo trước.
       </li>
       <li>
-        <strong>Trạng thái bảo mật không phải bảo chứng:</strong> "Không có cảnh báo đã biết — đã
+        <strong>Trạng thái bảo mật không phải bảo chứng:</strong> "Không có cảnh báo đã biết · đã
         kiểm tra &lt;ngày&gt;" nghĩa là quy trình kiểm tra của chúng tôi không phát hiện gì{' '}
-        <em>tại ngày đó</em>; đây không phải kiểm định hay cam kết an toàn. Phần mềm có thể bị xâm
-        phạm sau thời điểm kiểm tra. Hãy luôn tải từ nguồn chính thức, xác minh chữ ký/checksum nếu
-        có, và tự cân nhắc.
+        <em>vào ngày đó</em>; đây không phải là một cuộc kiểm toán, một chứng nhận hay một lời hứa
+        về an toàn. Phần mềm có thể bị xâm phạm sau thời điểm kiểm tra. Hãy luôn tải từ nguồn chính
+        thức, xác minh chữ ký hoặc checksum nếu có, và tự cân nhắc.
       </li>
       <li>
-        <strong>Rủi ro của bạn:</strong> việc cài đặt phần mềm bên thứ ba hoàn toàn thuộc rủi ro của
-        bạn; trong phạm vi tối đa pháp luật cho phép, chúng tôi không chịu trách nhiệm cho thiệt hại
-        phát sinh.
+        <strong>Rủi ro của bạn:</strong> việc cài đặt phần mềm của bên thứ ba hoàn toàn thuộc rủi ro
+        của bạn; trong phạm vi tối đa pháp luật cho phép, chúng tôi không chịu trách nhiệm cho thiệt
+        hại phát sinh từ phần mềm bạn tải qua các liên kết trên trang này.
       </li>
-      <li>
-        Báo cáo mục nguy hiểm hoặc sai: GitHub issues hoặc{' '}
-        <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
+      <li id="report">
+        <strong>Báo cáo một mục:</strong> mục nguy hiểm — liên kết tải về bị chiếm quyền, giả mạo
+        hoặc độc hại — hãy báo riêng tới <a href={`mailto:${SECURITY}`}>{SECURITY}</a>, đừng mở
+        issue công khai, để liên kết xấu không bị lan rộng thêm. Thông tin lỗi thời hoặc sai hãy báo
+        qua <a href={ISSUES}>GitHub issue</a>; nhà phát triển muốn sửa hoặc gỡ mục của mình có thể
+        viết tới <a href={`mailto:${TAKEDOWN}`}>{TAKEDOWN}</a>.
       </li>
     </ol>
   </>

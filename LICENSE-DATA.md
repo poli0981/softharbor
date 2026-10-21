@@ -18,3 +18,5 @@ structure). It does **not** cover the listed applications, their names, or
 their logos, which belong to their respective owners (see /legal/trademarks).
 Everything in this repository outside `src/data/` is licensed under
 GPL-3.0-only — see `LICENSE`.
+
+Questions about this license or how to attribute: copyright@poli0981.dev.
