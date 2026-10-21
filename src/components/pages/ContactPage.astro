@@ -1,0 +1,86 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+//
+// /contact and /vi/contact (D27): one address per purpose, all reaching the
+// one maintainer. Exempt from the legal gate — a copyright or security notice
+// must never wait behind "I understand and accept".
+import Base from '../../layouts/Base.astro';
+import ShIcon from '../ShIcon.astro';
+import { CONTACTS } from '../../lib/contacts';
+import { localePath, t, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const ISSUES = 'https://github.com/poli0981/softharbor/issues/new/choose';
+
+/** Order is urgency: what can hurt someone first, press and collaboration last. */
+const rows = [
+  { key: 'security', icon: 'shield-alert' },
+  { key: 'privacy', icon: 'eye-off' },
+  { key: 'dmca', icon: 'copyright', more: '/legal/terms#copyright' },
+  { key: 'takedown', icon: 'flag' },
+  { key: 'legal', icon: 'scale' },
+  { key: 'copyright', icon: 'scroll-text' },
+  { key: 'conduct', icon: 'handshake' },
+  { key: 'press', icon: 'newspaper' },
+  { key: 'collab', icon: 'sparkles' },
+] as const;
+---
+
+<Base
+  title={`${t(locale, 'contact.title')} — ${t(locale, 'site.name')}`}
+  description={t(locale, 'meta.contact')}
+  {locale}
+  gateExempt
+>
+  <p class="sh-eyebrow">{t(locale, 'site.name')}</p>
+  <h1 class="mt-2 text-[length:var(--text-h1)] font-semibold">{t(locale, 'contact.title')}</h1>
+  <p class="text-sh-muted mt-3 max-w-2xl">{t(locale, 'contact.intro')}</p>
+
+  <ul class="sh-stagger mt-8 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+    {rows.map((row) => {
+      const address = CONTACTS[row.key];
+      return (
+        <li class="sh-panel flex gap-4 p-5">
+          <span class="sh-tile text-sh-accent size-11">
+            <ShIcon name={row.icon} class="size-5" />
+          </span>
+          <div class="min-w-0">
+            <p class="font-medium">{t(locale, `contact.${row.key}`)}</p>
+            <a
+              href={`mailto:${address}`}
+              class="text-sh-accent mt-1 inline-block font-mono text-small break-all underline"
+            >
+              {address}
+            </a>
+            {'more' in row && (
+              <a
+                href={localePath(locale, row.more)}
+                class="sh-anim text-sh-muted mt-1 flex items-center gap-1 text-small hover:underline"
+              >
+                {t(locale, 'legal.title.terms')}
+                <ShIcon name="arrow-right" class="size-3.5" motion="nudge-x" />
+              </a>
+            )}
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+
+  <section class="sh-panel bg-sh-accent-soft mt-8 flex flex-wrap items-center gap-4 border-transparent p-6">
+    <span class="sh-tile text-sh-accent size-11">
+      <ShIcon name="message-square-text" class="size-5" />
+    </span>
+    <p class="min-w-0 flex-1">{t(locale, 'contact.issues')}</p>
+    <a href={ISSUES} rel="noopener" class="sh-btn sh-btn-primary sh-anim">
+      {t(locale, 'contact.issuesLink')}
+      <ShIcon name="arrow-up-right" class="size-4" motion="nudge-diag" />
+    </a>
+  </section>
+
+  <p class="text-sh-muted mt-6 max-w-2xl text-small">{t(locale, 'contact.languages')}</p>
+</Base>
