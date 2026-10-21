@@ -17,12 +17,30 @@ allowBuilds:
   # binary is dead weight. False is a decision, not an oversight.
   workerd: false
 
-# Security override — GHSA-mh99-v99m-4gvg (CVSS 7.5) affects brace-expansion
-# <5.0.8, and no patched 2.x exists. It reaches us only through
-# @vite-pwa/astro -> vite-plugin-pwa -> workbox-build -> ... -> minimatch@5,
-# i.e. BUILD tooling; nothing here ships to a visitor. Forcing 5.x across a
-# three-major gap is only acceptable because the package's surface is a single
-# `expand()` function — and because the build and full test suite are run
-# against it below. Remove once upstream moves.
+# Security overrides. Both packages reach us only through
+# @vite-pwa/astro -> vite-plugin-pwa -> workbox-build, i.e. BUILD tooling;
+# nothing here ships to a visitor. Each floor is the first release that fixes
+# every advisory listed. Remove a line once upstream's own range moves past it
+# (`pnpm why <pkg>` shows who still pins the old version).
+#
+# brace-expansion — GHSA-mh99-v99m-4gvg (<5.0.8), GHSA-rgw5-rvv9-x895 (<5.0.9),
+# GHSA-6j4f-fj2g-mc7p (<5.0.10), GHSA-qhr7-859c-m2p7 (<5.0.11),
+# GHSA-q2hr-2g5m-vwhr (<5.0.12). No patched 2.x exists, so minimatch@5 is forced
+# across a three-major gap; acceptable only because the package's surface is a
+# single `expand()` function and the build plus full test suite run against it.
+#
+# fast-uri — GHSA-7p8r-x3mc-p8w7, GHSA-5jgf-p345-68v8, GHSA-f65p-4m7j-42xc,
+# GHSA-fph4-wmhf-6fwf, GHSA-jqff-g426-hqxp, GHSA-qw65-cvwx-89v3 (<3.1.7) and
+# GHSA-hrr3-gc8f-f4qj (<3.1.8). Same major as ajv@8's `^3.0.1` range; pnpm kept
+# the locked 3.1.4 even under `update --depth Infinity`, hence the override.
 overrides:
-  brace-expansion: '^5.0.8'
+  brace-expansion: '^5.0.12'
+  fast-uri: '^3.1.9'
+
+# @vite-pwa/astro 1.2.0 is the latest release (2025-11) and its peer range stops
+# at Astro 5. It works on Astro 7 — `pnpm build` and `check:sw` exercise the
+# generated service worker on every CI run — so the mismatch is accepted
+# explicitly here instead of surfacing as an unexplained install warning.
+peerDependencyRules:
+  allowedVersions:
+    '@vite-pwa/astro>astro': '7'
