@@ -28,11 +28,18 @@ explaining it away. The scan is linked either way — judge it yourself.
 
 ## How it is built
 
-Fully static. No server, no database, no backend, no tracking, and no
-third-party request at runtime — fonts, icons and scripts are all self-hosted.
+Static. No database, no accounts, no cookies; fonts, icons and scripts are
+self-hosted. The exceptions are deliberate and small: one tiny Worker endpoint
+that checks the legal gate's Cloudflare Turnstile token (`worker/`, and the
+gate lets you in even if the check cannot run), and cookieless Cloudflare Web
+Analytics, which does not load at all when your browser sends Global Privacy
+Control. The [Privacy Policy](https://softharbor.net/legal/privacy) has the
+details.
 
 Astro 7 (static) · Svelte 5 islands · Tailwind CSS 4 · TypeScript strict ·
-Node 24 · pnpm 10 · deployed to Cloudflare Workers Static Assets.
+Node 24 · pnpm 11 · Cloudflare Workers Static Assets (+ one Worker route).
+Tested with Vitest (unit, islands, build scripts, the Worker) and Playwright +
+axe on the built site.
 
 ```bash
 pnpm install

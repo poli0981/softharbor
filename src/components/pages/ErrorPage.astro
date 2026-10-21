@@ -9,6 +9,7 @@
 // no safe moment to pick one. Copy lives in the dictionaries (error.<kind>.*)
 // like every other UI string, so i18n:check covers it.
 import Base from '../../layouts/Base.astro';
+import ShIcon from '../ShIcon.astro';
 import { t } from '../../i18n';
 
 type Kind = '404' | 'offline' | '403' | '429' | '500';
@@ -23,6 +24,14 @@ interface Props {
   noindex?: boolean;
 }
 const { kind, noindex = true } = Astro.props;
+
+const ICON: Record<Kind, string> = {
+  '404': 'map-pinned',
+  offline: 'wifi-off',
+  '403': 'lock',
+  '429': 'hourglass',
+  '500': 'life-buoy',
+};
 ---
 
 <Base
@@ -32,36 +41,50 @@ const { kind, noindex = true } = Astro.props;
   gateExempt
   alternates={false}
 >
-  <div class="relative">
-    {/* Giant clipped status code at 40% opacity, behind the text (docs/06 §5). */}
-    <span
+  <section class="sh-contours py-6 md:py-14">
+    {/* The status code, set large in the ledger's mono and fading behind the
+        text (docs/06 §5) — decoration, so hidden from assistive tech. */}
+    <p
       aria-hidden="true"
-      class="text-sh-muted pointer-events-none absolute -top-10 -left-2 font-mono text-[8rem] leading-none opacity-40 select-none"
+      class="text-sh-accent pointer-events-none font-mono text-[clamp(5rem,18vw,10rem)] leading-none font-medium tracking-tight opacity-25 select-none"
     >
-      {kind}
-    </span>
-    <div class="relative">
-      <h1 class="text-[length:var(--text-h1)] font-semibold">{t('en', `error.${kind}.title`)}</h1>
-      <p class="text-sh-muted mt-3 max-w-xl">{t('en', `error.${kind}.body`)}</p>
+      {kind === 'offline' ? '···' : kind}
+    </p>
 
-      <h2 class="mt-8 text-[length:var(--text-h3)] font-semibold" lang="vi">
-        {t('vi', `error.${kind}.title`)}
-      </h2>
-      <p class="text-sh-muted mt-2 max-w-xl" lang="vi">
-        {t('vi', `error.${kind}.body`)}
-      </p>
-
-      <p class="mt-8 flex flex-wrap gap-4">
-        <a href="/" class="text-sh-accent underline">
-          {t('en', 'error.home')}
-        </a>
-        <a href="/apps" class="text-sh-accent underline">
-          {t('en', 'nav.apps')}
-        </a>
-        <a href="/vi" class="text-sh-accent underline" lang="vi">
-          {t('vi', 'error.home')}
-        </a>
-      </p>
+    <div class="mt-2 grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
+      <div class="sh-panel p-6">
+        <span class="sh-tile bg-sh-accent-soft text-sh-accent size-11 border-transparent">
+          <ShIcon name={ICON[kind]} class="size-[22px]" />
+        </span>
+        <h1 class="mt-4 text-[length:var(--text-h2)] font-semibold">
+          {t('en', `error.${kind}.title`)}
+        </h1>
+        <p class="text-sh-muted mt-2">{t('en', `error.${kind}.body`)}</p>
+      </div>
+      <div class="sh-panel p-6" lang="vi">
+        <span class="sh-tile bg-sh-accent-soft text-sh-accent size-11 border-transparent">
+          <ShIcon name={ICON[kind]} class="size-[22px]" />
+        </span>
+        <h2 class="mt-4 text-[length:var(--text-h2)] font-semibold">
+          {t('vi', `error.${kind}.title`)}
+        </h2>
+        <p class="text-sh-muted mt-2">{t('vi', `error.${kind}.body`)}</p>
+      </div>
     </div>
-  </div>
+
+    <p class="mt-8 flex flex-wrap gap-3">
+      <a href="/" class="sh-btn sh-btn-primary sh-anim">
+        <ShIcon name="anchor" class="size-[18px]" motion="pop" />
+        {t('en', 'error.home')}
+      </a>
+      <a href="/apps" class="sh-btn sh-anim">
+        <ShIcon name="layout-grid" class="size-[18px]" motion="pop" />
+        {t('en', 'nav.apps')}
+      </a>
+      <a href="/vi" class="sh-btn sh-anim" lang="vi">
+        <ShIcon name="languages" class="size-[18px]" motion="pop" />
+        {t('vi', 'error.home')}
+      </a>
+    </p>
+  </section>
 </Base>

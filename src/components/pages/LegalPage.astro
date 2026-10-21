@@ -37,7 +37,8 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   gateExempt
 >
   <article class="sh-prose max-w-2xl">
-    <h1 class="text-[length:var(--text-h1)] font-semibold">{title}</h1>
+    <p class="sh-eyebrow">{t(locale, 'footer.legal.heading')}</p>
+    <h1 class="mt-2 text-[length:var(--text-h1)] font-semibold">{title}</h1>
 
     <p class="text-sh-muted mt-2 font-mono text-badge">
       {t(locale, 'legal.lastUpdated', { date: updated })}
@@ -96,5 +97,16 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   }
   .sh-prose li::marker {
     color: var(--sh-muted);
+  }
+  .sh-prose code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--sh-surface-2);
+    border: 1px solid var(--sh-border);
+    border-radius: 6px;
+    padding: 0.05em 0.35em;
+  }
+  .sh-prose h2[id] {
+    scroll-margin-top: 6rem;
   }
 </style>

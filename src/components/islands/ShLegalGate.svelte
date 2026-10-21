@@ -3,6 +3,8 @@
      docs/14 Part 2 — first-visit legal gate; docs/09 §4a — its human check. -->
 <script lang="ts">
   import { onMount, tick } from 'svelte';
+  import IconScale from '~icons/lucide/scale';
+  import IconShield from '~icons/lucide/shield-check';
   import { acceptLegal, isAccepted } from '../../lib/legal';
   import { isHuman, PASS_TTL_MS, rememberHuman, UNVERIFIED_TTL_MS } from '../../lib/human';
   import { runHumanCheck, sitekeyFor } from '../../lib/turnstile';
@@ -135,6 +137,7 @@
     <!-- Focus lands on the heading, not on the first link or the accept button:
          a screen reader then reads the notice before any control. Autofocus is
          the dialog's own focusing step here, not a page-load focus grab. -->
+    <span class="sh-gate-icon" aria-hidden="true"><IconScale /></span>
     <h2 id="sh-gate-title" tabindex="-1" autofocus>{strings.title}</h2>
     <p id="sh-gate-body">
       {strings.body}
@@ -147,6 +150,7 @@
       {strings.accept}
     </button>
   {:else}
+    <span class="sh-gate-icon" aria-hidden="true"><IconShield /></span>
     <h2 id="sh-gate-title" tabindex="-1" bind:this={verifyHeading}>{strings.verifyTitle}</h2>
     <!-- A live region: the "skipped" note replaces the explanation in place. -->
     <p id="sh-gate-body" role="status" data-testid="sh-gate-status">
@@ -174,10 +178,23 @@
     border-radius: var(--radius-card);
     background: var(--sh-surface);
     color: var(--sh-ink);
-    padding: 1.5rem;
+    box-shadow: var(--sh-shadow-3);
+    padding: 1.75rem;
   }
   .sh-gate::backdrop {
-    background: rgb(0 0 0 / 0.55);
+    background: oklch(0.17 0.03 255 / 0.6);
+    backdrop-filter: blur(3px);
+  }
+  .sh-gate-icon {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    margin-block-end: 0.75rem;
+    border-radius: var(--radius-tile);
+    background: var(--sh-accent-soft);
+    color: var(--sh-accent);
+    font-size: 1.375rem;
   }
   h2 {
     font-family: var(--font-display);
@@ -194,14 +211,18 @@
     text-underline-offset: 0.15em;
   }
   button {
-    margin-top: 1rem;
-    border: 1px solid var(--sh-border);
-    border-radius: var(--radius-pill);
+    margin-top: 1.25rem;
+    border: 1px solid var(--sh-accent);
+    border-radius: var(--radius-btn);
     background: var(--sh-accent);
     color: var(--sh-accent-ink);
-    font-weight: 500;
-    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    padding: 0.55rem 1.25rem;
     min-height: 44px;
+    box-shadow: var(--sh-shadow-1);
+  }
+  button:hover {
+    background: color-mix(in oklch, var(--sh-accent) 88%, var(--sh-ink));
   }
   .sh-gate-widget:not(:empty) {
     margin-top: 1rem;

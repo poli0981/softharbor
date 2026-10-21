@@ -1,12 +1,13 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// Category index. The header has always linked here (docs/06 §4); until M2 the
-// link 404'd.
+// Category index — one tile per category: its icon, its name, how many apps,
+// and the first few names, so the tile says what is inside before a click.
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { iconSvg } from '../../lib/icon';
-import { localePath, t, type Locale } from '../../i18n';
+import ShIcon from '../ShIcon.astro';
+import { compareNames } from '../../lib/filter';
+import { appCount, localePath, t, type Locale } from '../../i18n';
 
 interface Props {
   locale: Locale;
@@ -15,8 +16,11 @@ const { locale } = Astro.props;
 
 const categories = (await getCollection('categories')).sort((a, b) => a.data.order - b.data.order);
 const apps = await getCollection('apps');
-const countFor = (id: string) =>
-  apps.filter((a) => a.data.categories.some((c) => c.id === id)).length;
+const inCategory = (id: string) =>
+  apps
+    .filter((a) => a.data.categories.some((c) => c.id === id))
+    .sort((a, b) => compareNames(a.data.name, b.data.name));
+const SAMPLE = 3;
 ---
 
 <Base
@@ -24,37 +28,46 @@ const countFor = (id: string) =>
   description={t(locale, 'meta.categories')}
   {locale}
 >
-  <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'categories.title')}</h1>
+  <p class="sh-eyebrow">{t(locale, 'welcome.manifest')}</p>
+  <h1 class="mt-2 text-[length:var(--text-h1)] font-semibold">{t(locale, 'categories.title')}</h1>
   <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'categories.intro')}</p>
 
-  <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {categories.map((c) => (
-      <li class="sh-panel sh-lift relative p-5">
-        <div class="flex items-center gap-3">
-          <Fragment
-            set:html={iconSvg(`lucide:${c.data.icon}`, {
-              class: 'size-6 shrink-0',
-              'aria-hidden': 'true',
-            })}
-          />
-          <h2 class="text-[length:var(--text-h3)] font-semibold">
-            <a href={localePath(locale, `/categories/${c.id}`)} class="sh-stretch">
-              {c.data.label[locale]}
-            </a>
-          </h2>
-        </div>
-        <p class="text-sh-muted mt-2 font-mono text-badge">
-          {t(locale, 'apps.count', { n: countFor(c.id) })}
-        </p>
-      </li>
-    ))}
+  <ul class="sh-stagger mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {categories.map((c) => {
+      const members = inCategory(c.id);
+      return (
+        <li class="sh-panel sh-lift sh-anim relative flex flex-col gap-4 p-5">
+          <div class="flex items-center gap-4">
+            <span class="sh-tile text-sh-accent size-12">
+              <ShIcon name={c.data.icon} class="size-6" motion="pop" />
+            </span>
+            <div class="min-w-0">
+              <h2 class="text-[length:var(--text-h3)] font-semibold">
+                <a href={localePath(locale, `/categories/${c.id}`)} class="sh-stretch">
+                  {c.data.label[locale]}
+                </a>
+              </h2>
+              <p class="sh-eyebrow mt-0.5 normal-case tracking-normal">
+                {appCount(locale, members.length)}
+              </p>
+            </div>
+            <ShIcon
+              name="arrow-right"
+              class="text-sh-muted ml-auto size-4 shrink-0"
+              motion="nudge-x"
+            />
+          </div>
+          {members.length > 0 && (
+            <p class="text-sh-muted border-sh-border border-t border-dashed pt-3 text-small">
+              {members
+                .slice(0, SAMPLE)
+                .map((a) => a.data.name)
+                .join(' · ')}
+              {members.length > SAMPLE && ' …'}
+            </p>
+          )}
+        </li>
+      );
+    })}
   </ul>
 </Base>
-
-<style>
-  .sh-stretch::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
-</style>

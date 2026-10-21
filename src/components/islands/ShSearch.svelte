@@ -3,6 +3,7 @@
      docs/05 §A2/§A3, docs/06 §5 — search input + grid controller. -->
 <script lang="ts">
   import { onMount } from 'svelte';
+  import IconSearch from '~icons/lucide/search';
   import { mountGrid, type GridHandle } from '../../lib/grid';
   import { loadSearchIndex } from '../../lib/searchIndex';
   import { categories, platforms, pricing, query, sort, type SortOrder } from '../../lib/stores';
@@ -186,6 +187,10 @@
 <div class="flex flex-wrap items-center gap-3">
   <div class="relative min-w-0 flex-1">
     <label class="sr-only" for="sh-search">{label}</label>
+    <IconSearch
+      aria-hidden="true"
+      class="text-sh-muted pointer-events-none absolute top-1/2 left-3.5 size-5 -translate-y-1/2"
+    />
     <input
       id="sh-search"
       bind:this={input}
@@ -194,7 +199,7 @@
       autocomplete="off"
       spellcheck="false"
       enterkeyhint="search"
-      class="bg-sh-surface border-sh-border w-full rounded-[var(--radius-card)] border px-4 py-3"
+      class="bg-sh-surface border-sh-control shadow-sh-1 w-full rounded-[var(--radius-card)] border py-3 pr-4 pl-11"
       {value}
       oninput={onInput}
       onkeydown={onKeydown}
@@ -212,7 +217,7 @@
   <label class="sr-only" for="sh-sort">{sortLabel}</label>
   <select
     id="sh-sort"
-    class="bg-sh-surface border-sh-border rounded-[var(--radius-card)] border px-3 py-3"
+    class="bg-sh-surface border-sh-control shadow-sh-1 rounded-[var(--radius-card)] border px-3 py-3"
     value={$sort}
     onchange={onSortChange}
   >

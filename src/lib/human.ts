@@ -32,7 +32,7 @@ export function isHuman(now = Date.now()): boolean {
   } catch {
     return false;
   }
-  const until = raw === null || raw.trim() === '' ? NaN : Number(raw);
+  const until = raw === null || raw.trim() === '' ? Number.NaN : Number(raw);
   // Anything further out than the longest lifetime was not written by us.
   return Number.isFinite(until) && until > now && until <= now + PASS_TTL_MS;
 }

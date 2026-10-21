@@ -1,15 +1,21 @@
 /* SPDX-License-Identifier: GPL-3.0-only
    Copyright (C) 2026 poli0981 (SkullMute)
-   Design tokens & base styles — docs/06 §2, §3, §7. */
+   Design tokens & base styles — docs/06 §2, §3, §7.
+
+   v1.1 "Harbor": a harbour master's ledger. Cool chart paper and navy ink by
+   day, a night harbour by night; hairline rules, soft shadows, mono labels
+   for the data, and depth contours behind the welcome hero. Every colour pair
+   that carries text or a control boundary is held to WCAG AA by
+   src/styles/contrast.test.ts, which reads THIS file. */
 
 @import 'tailwindcss';
 
-/* Self-hosted fonts, latin + vietnamese only (hard rule 7 — zero third-party
-   requests at runtime). Bricolage is a variable font whose package ships one
-   stylesheet covering vietnamese/latin-ext/latin; each @font-face carries a
-   unicode-range, so a browser still downloads only the subsets it needs.
-   Be Vietnam Pro and IBM Plex Mono expose per-subset files, so we name exactly
-   the weights docs/06 §3 calls for and nothing else. */
+/* Self-hosted fonts, latin + vietnamese only (hard rule 7). Bricolage is a
+   variable font whose package ships one stylesheet covering
+   vietnamese/latin-ext/latin; each @font-face carries a unicode-range, so a
+   browser still downloads only the subsets it needs. Be Vietnam Pro and IBM
+   Plex Mono expose per-subset files, so we name exactly the weights docs/06
+   §3 calls for and nothing else. */
 @import '@fontsource-variable/bricolage-grotesque';
 @import '@fontsource/be-vietnam-pro/latin-400.css';
 @import '@fontsource/be-vietnam-pro/latin-500.css';
@@ -24,29 +30,31 @@
 
 @theme {
   /* Design tokens exposed as Tailwind colours, so every use is a UTILITY
-     (`text-sh-muted`, `bg-sh-surface`, `border-sh-border`) and never an inline
-     `style` attribute.
-
-     This is not a style preference — it is a correctness requirement. CSP
-     `style-src` governs inline style ATTRIBUTES as well as <style> blocks, and
-     hashes do not apply to attributes: only 'unsafe-hashes' or 'unsafe-inline'
-     would permit them. Our policy has neither (docs/09 §4, D20), so every
-     `style="…"` on the site was silently dropped by the browser — the sticky
-     header rendered transparent and content bled through it. Found 2026-07-28.
-
-     Each maps to the runtime custom property rather than a literal, so the
-     values still switch with html[data-theme]. A build guard asserts no
-     `style=` survives into dist (scripts/check-no-inline-styles.mjs). */
+     (`text-sh-muted`, `bg-sh-surface`, `border-sh-control`) and never an
+     inline `style` attribute — CSP style-src drops those silently (docs/09
+     §4, D20). Each maps to the runtime custom property, so the values switch
+     with html[data-theme]. check:csp fails the build on any `style=`. */
   --color-sh-bg: var(--sh-bg);
   --color-sh-surface: var(--sh-surface);
+  --color-sh-surface-2: var(--sh-surface-2);
   --color-sh-ink: var(--sh-ink);
   --color-sh-muted: var(--sh-muted);
   --color-sh-accent: var(--sh-accent);
   --color-sh-accent-ink: var(--sh-accent-ink);
+  --color-sh-accent-soft: var(--sh-accent-soft);
   --color-sh-ok: var(--sh-ok);
+  --color-sh-ok-soft: var(--sh-ok-soft);
   --color-sh-warn: var(--sh-warn);
+  --color-sh-warn-soft: var(--sh-warn-soft);
   --color-sh-danger: var(--sh-danger);
+  /* Hairline: separates and frames, never the only edge of a control. */
   --color-sh-border: var(--sh-border);
+  /* The visible boundary of an input, select or button (WCAG 1.4.11, 3:1). */
+  --color-sh-control: var(--sh-control);
+
+  --shadow-sh-1: var(--sh-shadow-1);
+  --shadow-sh-2: var(--sh-shadow-2);
+  --shadow-sh-3: var(--sh-shadow-3);
 
   --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
   --font-sans: 'Be Vietnam Pro', system-ui, sans-serif;
@@ -54,59 +62,107 @@
 
   /* docs/06 §3 — desktop step; the mobile step is applied in the media query
      at the bottom so the scale lives in one place. */
+  --text-hero: 4rem; /* 64 — the welcome headline only */
   --text-display: 2.75rem; /* 44 */
-  --text-h1: 2rem; /* 32 */
+  --text-h1: 2.25rem; /* 36 */
   --text-h2: 1.5rem; /* 24 */
   --text-h3: 1.1875rem; /* 19 */
   --text-body: 1rem; /* 16 */
   --text-small: 0.875rem; /* 14 */
   --text-badge: 0.78125rem; /* 12.5 */
 
-  --radius-card: 10px;
+  --radius-card: 14px;
+  --radius-tile: 12px;
+  --radius-btn: 10px;
   --radius-pill: 999px;
 
   /* docs/06 §7 */
   --ease-sh: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-fast: 150ms;
   --duration-slow: 250ms;
 }
 
-/* Colour tokens switch on html[data-theme]; /theme.js sets that attribute
-   before first paint (docs/05 §A8). Light is also the :root default so the
-   page is legible if scripting is off entirely. */
+/* ── Colour tokens ─────────────────────────────────────────────────────────
+   theme.js sets html[data-theme] before first paint (docs/05 §A8). With
+   scripting off there is no attribute, and the OS preference decides — the
+   third block below, which must stay identical to the [data-theme='dark']
+   one (contrast.test.ts compares them). */
 :root,
 :root[data-theme='light'] {
-  --sh-bg: oklch(0.97 0.01 85);
-  --sh-surface: oklch(0.99 0.005 85);
-  --sh-ink: oklch(0.22 0.015 75);
-  --sh-muted: oklch(0.48 0.012 75);
-  --sh-accent: oklch(0.52 0.11 235);
-  --sh-accent-ink: oklch(0.98 0.005 235);
-  --sh-ok: oklch(0.55 0.12 150);
-  --sh-warn: oklch(0.62 0.13 75);
-  --sh-danger: oklch(0.55 0.19 25);
-  --sh-border: var(--sh-ink);
+  --sh-bg: oklch(0.975 0.007 230);
+  --sh-surface: oklch(0.995 0.003 230);
+  --sh-surface-2: oklch(0.952 0.012 232);
+  --sh-ink: oklch(0.24 0.035 252);
+  --sh-muted: oklch(0.47 0.03 250);
+  --sh-accent: oklch(0.5 0.13 245);
+  --sh-accent-ink: oklch(0.985 0.005 240);
+  --sh-accent-soft: oklch(0.94 0.03 240);
+  --sh-ok: oklch(0.5 0.12 155);
+  --sh-ok-soft: oklch(0.95 0.035 155);
+  --sh-warn: oklch(0.53 0.12 62);
+  --sh-warn-soft: oklch(0.95 0.04 75);
+  --sh-danger: oklch(0.52 0.18 25);
+  --sh-border: oklch(0.88 0.014 240);
+  --sh-control: oklch(0.6 0.035 248);
+  --sh-contour: oklch(0.5 0.13 245 / 0.14);
+  --sh-shadow-1: 0 1px 2px oklch(0.24 0.035 252 / 0.05), 0 1px 3px oklch(0.24 0.035 252 / 0.04);
+  --sh-shadow-2:
+    0 2px 4px oklch(0.24 0.035 252 / 0.04), 0 14px 30px -12px oklch(0.24 0.035 252 / 0.24);
+  --sh-shadow-3: 0 28px 64px -16px oklch(0.24 0.035 252 / 0.36);
 }
 
 :root[data-theme='dark'] {
-  --sh-bg: oklch(0.19 0.01 85);
-  --sh-surface: oklch(0.23 0.012 85);
-  --sh-ink: oklch(0.93 0.008 85);
-  --sh-muted: oklch(0.7 0.01 85);
-  --sh-accent: oklch(0.72 0.1 235);
-  --sh-accent-ink: oklch(0.16 0.02 235);
-  --sh-ok: oklch(0.72 0.12 150);
-  --sh-warn: oklch(0.75 0.12 75);
-  --sh-danger: oklch(0.68 0.17 25);
-  /* 0.42 measured 2.0:1 on surface — the only visible edge of the search box,
-     sort select and filter button, failing WCAG 1.4.11 (3:1 for UI parts). */
-  --sh-border: oklch(0.58 0.012 85);
+  --sh-bg: oklch(0.17 0.03 255);
+  --sh-surface: oklch(0.205 0.034 255);
+  --sh-surface-2: oklch(0.245 0.036 255);
+  --sh-ink: oklch(0.94 0.012 230);
+  --sh-muted: oklch(0.75 0.025 240);
+  --sh-accent: oklch(0.77 0.11 230);
+  --sh-accent-ink: oklch(0.18 0.04 255);
+  --sh-accent-soft: oklch(0.27 0.05 245);
+  --sh-ok: oklch(0.78 0.13 155);
+  --sh-ok-soft: oklch(0.27 0.045 160);
+  --sh-warn: oklch(0.82 0.12 78);
+  --sh-warn-soft: oklch(0.28 0.045 70);
+  --sh-danger: oklch(0.74 0.15 25);
+  --sh-border: oklch(0.31 0.03 252);
+  --sh-control: oklch(0.6 0.03 245);
+  --sh-contour: oklch(0.77 0.11 230 / 0.16);
+  --sh-shadow-1: 0 1px 2px oklch(0 0 0 / 0.35);
+  --sh-shadow-2: 0 2px 4px oklch(0 0 0 / 0.3), 0 16px 34px -12px oklch(0 0 0 / 0.65);
+  --sh-shadow-3: 0 28px 64px -16px oklch(0 0 0 / 0.75);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --sh-bg: oklch(0.17 0.03 255);
+    --sh-surface: oklch(0.205 0.034 255);
+    --sh-surface-2: oklch(0.245 0.036 255);
+    --sh-ink: oklch(0.94 0.012 230);
+    --sh-muted: oklch(0.75 0.025 240);
+    --sh-accent: oklch(0.77 0.11 230);
+    --sh-accent-ink: oklch(0.18 0.04 255);
+    --sh-accent-soft: oklch(0.27 0.05 245);
+    --sh-ok: oklch(0.78 0.13 155);
+    --sh-ok-soft: oklch(0.27 0.045 160);
+    --sh-warn: oklch(0.82 0.12 78);
+    --sh-warn-soft: oklch(0.28 0.045 70);
+    --sh-danger: oklch(0.74 0.15 25);
+    --sh-border: oklch(0.31 0.03 252);
+    --sh-control: oklch(0.6 0.03 245);
+    --sh-contour: oklch(0.77 0.11 230 / 0.16);
+    --sh-shadow-1: 0 1px 2px oklch(0 0 0 / 0.35);
+    --sh-shadow-2: 0 2px 4px oklch(0 0 0 / 0.3), 0 16px 34px -12px oklch(0 0 0 / 0.65);
+    --sh-shadow-3: 0 28px 64px -16px oklch(0 0 0 / 0.75);
+    color-scheme: dark;
+  }
 }
 
 /* Scrollbar colours derive from the ink token, so they follow the theme. */
 :root {
-  --sh-scrollbar-thumb: color-mix(in oklch, var(--sh-ink) 32%, transparent);
-  --sh-scrollbar-thumb-hover: color-mix(in oklch, var(--sh-ink) 50%, transparent);
+  --sh-scrollbar-thumb: color-mix(in oklch, var(--sh-ink) 30%, transparent);
+  --sh-scrollbar-thumb-hover: color-mix(in oklch, var(--sh-ink) 48%, transparent);
   --sh-scrollbar-track: transparent;
 }
 
@@ -122,14 +178,19 @@
   html {
     /* The header is sticky: without this, jumping to #main or tabbing to a
        control near the top puts it underneath the header (WCAG 2.4.11). */
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5.5rem;
   }
 
-  /* Preflight's default placeholder is the text colour at 50 % — 3.3:1 in the
-     light theme. The muted token is ≥ 4.5:1 in both. */
+  /* Preflight's default placeholder is the text colour at 50 %; the muted
+     token is ≥ 4.5:1 on every surface. */
   ::placeholder {
     color: var(--sh-muted);
     opacity: 1;
+  }
+
+  ::selection {
+    background: var(--sh-accent-soft);
+    color: var(--sh-ink);
   }
 
   body {
@@ -146,6 +207,7 @@
   h3 {
     font-family: var(--font-display);
     line-height: 1.15;
+    letter-spacing: -0.015em;
     /* Vietnamese stacks diacritics two deep (ậ, ễ, ữ); the tighter display
        leading must not clip them — visual QA item, docs/06 §3. */
     text-wrap: balance;
@@ -158,37 +220,196 @@
   :focus-visible {
     outline: 2px solid var(--sh-accent);
     outline-offset: 2px;
-    border-radius: 2px;
+    border-radius: 4px;
   }
 }
 
 @layer components {
-  /* The soft-brutalist tell: offset, unblurred shadow (docs/06 §2). */
+  /* A framed surface: hairline edge, a breath of shadow. */
   .sh-panel {
     background: var(--sh-surface);
-    border: 2px solid var(--sh-border);
+    border: 1px solid var(--sh-border);
     border-radius: var(--radius-card);
+    box-shadow: var(--sh-shadow-1);
   }
 
+  /* Hover lift for whole-card links. Pointer devices only: a tap should not
+     leave a card floating. */
   .sh-lift {
     transition:
-      transform var(--duration-fast) var(--ease-sh),
-      box-shadow var(--duration-fast) var(--ease-sh);
+      transform var(--duration-slow) var(--ease-sh),
+      box-shadow var(--duration-slow) var(--ease-sh),
+      border-color var(--duration-slow) var(--ease-sh);
   }
-
   @media (hover: hover) {
     .sh-lift:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0 var(--sh-border);
+      transform: translateY(-2px);
+      box-shadow: var(--sh-shadow-2);
+      border-color: color-mix(in oklch, var(--sh-accent) 45%, var(--sh-border));
     }
+  }
+  /* A stretched-link card shows its focus on the whole card, not on a title
+     the ring would barely outline. */
+  .sh-lift:has(:focus-visible) {
+    outline: 2px solid var(--sh-accent);
+    outline-offset: 2px;
+  }
+
+  /* Ledger label: small mono capitals. */
+  .sh-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-badge);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sh-muted);
   }
 
   .sh-pill {
-    border: 2px solid var(--sh-border);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    border: 1px solid var(--sh-border);
     border-radius: var(--radius-pill);
+    background: var(--sh-surface-2);
     font-family: var(--font-mono);
     font-size: var(--text-badge);
-    padding: 0.125rem 0.5rem;
+    line-height: 1.5;
+    padding: 0.0625rem 0.55rem;
+    white-space: nowrap;
+  }
+  /* Pricing tones. Text stays ≥ 4.5:1 on its own tint (contrast.test.ts). */
+  .sh-tone-ok {
+    color: var(--sh-ok);
+    background: var(--sh-ok-soft);
+    border-color: transparent;
+  }
+  .sh-tone-accent {
+    color: var(--sh-accent);
+    background: var(--sh-accent-soft);
+    border-color: transparent;
+  }
+  .sh-tone-warn {
+    color: var(--sh-warn);
+    background: var(--sh-warn-soft);
+    border-color: transparent;
+  }
+
+  .sh-kbd {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.5em;
+    border: 1px solid var(--sh-control);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: var(--text-badge);
+    line-height: 1.4;
+    padding: 0 0.35em;
+  }
+
+  .sh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--sh-control);
+    border-radius: var(--radius-btn);
+    background: var(--sh-surface);
+    color: var(--sh-ink);
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      background-color var(--duration-fast) var(--ease-sh),
+      border-color var(--duration-fast) var(--ease-sh),
+      box-shadow var(--duration-fast) var(--ease-sh);
+  }
+  .sh-btn:hover {
+    background: var(--sh-surface-2);
+    border-color: var(--sh-accent);
+  }
+  .sh-btn-primary {
+    background: var(--sh-accent);
+    border-color: var(--sh-accent);
+    color: var(--sh-accent-ink);
+    font-weight: 600;
+    box-shadow: var(--sh-shadow-1);
+  }
+  .sh-btn-primary:hover {
+    background: color-mix(in oklch, var(--sh-accent) 88%, var(--sh-ink));
+    border-color: color-mix(in oklch, var(--sh-accent) 88%, var(--sh-ink));
+    box-shadow: var(--sh-shadow-2);
+  }
+
+  /* The square tile a logo or a category icon sits on. */
+  .sh-tile {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border: 1px solid var(--sh-border);
+    border-radius: var(--radius-tile);
+    background: var(--sh-surface-2);
+    color: var(--sh-ink);
+  }
+
+  /* Sticky header glass: the page shows through, blurred. Without
+     backdrop-filter it is simply opaque. */
+  .sh-glass {
+    background: var(--sh-bg);
+    border-bottom: 1px solid var(--sh-border);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .sh-glass {
+      background: color-mix(in oklch, var(--sh-bg) 80%, transparent);
+      backdrop-filter: blur(14px) saturate(1.4);
+    }
+  }
+
+  /* Depth contours: the welcome hero's chart. Pure CSS — no image request,
+     nothing for the CSP to allow. Masked so it fades into the page, and kept
+     INSIDE the section: anything poking past the edge widens a phone's
+     layout viewport (the page zooms out), whatever overflow says. */
+  .sh-contours {
+    position: relative;
+    isolation: isolate;
+  }
+  .sh-contours::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset-block-start: -5rem;
+    inset-inline-end: 0;
+    width: min(48rem, 100%);
+    aspect-ratio: 1;
+    background: repeating-radial-gradient(
+      circle at 58% 42%,
+      transparent 0 30px,
+      var(--sh-contour) 30px 31px
+    );
+    mask-image: radial-gradient(closest-side, #000 35%, transparent 100%);
+    pointer-events: none;
+  }
+  .sh-contours::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: -3rem 0 auto;
+    height: 26rem;
+    background-image: radial-gradient(var(--sh-contour) 1px, transparent 1.5px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(to bottom, #000, transparent);
+    pointer-events: none;
+  }
+
+  /* Stretched link: its ::after covers the nearest positioned ancestor, so a
+     whole card is one click target while the accessibility tree keeps ONE
+     link. Anything else clickable inside must sit above it (`relative z-1`). */
+  .sh-stretch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
   }
 
   /* Visible only to keyboard users, per docs/06 §9 tab order. */
@@ -201,10 +422,102 @@
     top: 1rem;
     z-index: 50;
     background: var(--sh-surface);
-    border: 2px solid var(--sh-border);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--sh-control);
+    border-radius: var(--radius-btn);
     padding: 0.5rem 0.75rem;
   }
+}
+
+/* ── Motion ────────────────────────────────────────────────────────────────
+   Icons react to the control they belong to (`.sh-anim` on the link or
+   card). Every effect here collapses to nothing under reduced motion — the
+   rules at the bottom of this file. */
+.sh-anim svg {
+  transition: transform var(--duration-slow) var(--ease-sh);
+}
+.sh-anim:is(:focus-visible, :focus-within) .sh-nudge-x {
+  transform: translateX(3px);
+}
+.sh-anim:is(:focus-visible, :focus-within) .sh-nudge-diag {
+  transform: translate(2px, -2px);
+}
+.sh-anim:is(:focus-visible, :focus-within) .sh-pop {
+  transform: scale(1.12) rotate(-6deg);
+  transition-timing-function: var(--ease-spring);
+}
+@media (hover: hover) {
+  .sh-anim:hover .sh-nudge-x {
+    transform: translateX(3px);
+  }
+  .sh-anim:hover .sh-nudge-diag {
+    transform: translate(2px, -2px);
+  }
+  .sh-anim:hover .sh-pop {
+    transform: scale(1.12) rotate(-6deg);
+    transition-timing-function: var(--ease-spring);
+  }
+  .sh-anim:hover .sh-draw :is(path, circle, rect, line, polyline, polygon, ellipse) {
+    stroke-dasharray: 160;
+    animation: sh-draw 0.8s var(--ease-sh) both;
+  }
+}
+@keyframes sh-draw {
+  from {
+    stroke-dashoffset: 160;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* First paint: content rises into place, a child at a time. Delays are
+   classes, not inline styles (CSP). */
+@keyframes sh-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.sh-rise,
+.sh-stagger > * {
+  animation: sh-rise 0.6s var(--ease-sh) both;
+}
+.sh-stagger > :nth-child(2) {
+  animation-delay: 45ms;
+}
+.sh-stagger > :nth-child(3) {
+  animation-delay: 90ms;
+}
+.sh-stagger > :nth-child(4) {
+  animation-delay: 135ms;
+}
+.sh-stagger > :nth-child(5) {
+  animation-delay: 180ms;
+}
+.sh-stagger > :nth-child(6) {
+  animation-delay: 225ms;
+}
+.sh-stagger > :nth-child(7) {
+  animation-delay: 270ms;
+}
+.sh-stagger > :nth-child(8) {
+  animation-delay: 315ms;
+}
+.sh-stagger > :nth-child(9) {
+  animation-delay: 360ms;
+}
+.sh-stagger > :nth-child(10) {
+  animation-delay: 405ms;
+}
+.sh-stagger > :nth-child(11) {
+  animation-delay: 450ms;
+}
+.sh-stagger > :nth-child(n + 12) {
+  animation-delay: 495ms;
 }
 
 /* Scrollbars (v1.1) — themed, with the "thin" and "hidden" choices from the
@@ -257,8 +570,9 @@
 /* Mobile step of the type scale (docs/06 §3). */
 @media (width < 40rem) {
   :root {
+    --text-hero: 2.625rem; /* 42 */
     --text-display: 2.25rem; /* 36 */
-    --text-h1: 1.75rem; /* 28 */
+    --text-h1: 1.875rem; /* 30 */
     --text-h2: 1.375rem; /* 22 */
     --text-h3: 1.125rem; /* 18 */
   }
@@ -271,15 +585,18 @@
    page a real document load — its own CSP, a fresh island tree — and still
    cross-fade in browsers that support them. Opt-in only without reduced
    motion; browsers without support simply navigate. The opt-in itself lives
-   in an inline <style> in Base.astro (see the comment there for why it cannot
-   live in this file); the rules below only shape the animation. */
+   in an inline <style> in Base.astro (see src/lib/inlineCss.ts for why it
+   cannot live in this file); the rules below only shape the animation. */
 
-/* docs/06 §7 — everything collapses to instant, including View Transitions. */
+/* docs/06 §7 — everything collapses to instant, including View Transitions.
+   Delays go too: a staggered element would otherwise sit invisible (fill
+   mode `both`) for the length of its delay. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
@@ -297,6 +614,7 @@
 :root[data-motion='reduce'] *::before,
 :root[data-motion='reduce'] *::after {
   animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
   scroll-behavior: auto !important;

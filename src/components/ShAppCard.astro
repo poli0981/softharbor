@@ -1,8 +1,11 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/06 §6 — card anatomy.
+// docs/06 §6 — card anatomy: logo tile, name and developer, the price in its
+// own colour, licence and platforms, two lines of summary, then the dated
+// status and the categories along a ruled foot.
 import { getCollection, type CollectionEntry } from 'astro:content';
+import ShIcon from './ShIcon.astro';
 import { logoSvg } from '../lib/logo';
 import { localePath, t, type Locale } from '../i18n';
 
@@ -35,10 +38,17 @@ const fmt = (iso: string) => dateFmt.format(new Date(`${iso}T00:00:00Z`));
 
 // Each string renders the date field it actually NAMES — the dated-honesty
 // claim is the product (hard rule 4, docs/06 §6).
-const security =
-  d.security.status === 'clean'
-    ? `${t(locale, 'card.security.clean')} · ${t(locale, 'card.checked', { date: fmt(d.security.checkedAt) })}`
-    : `${t(locale, 'card.security.unverified')} · ${t(locale, 'card.listed', { date: fmt(d.addedAt) })}`;
+const clean = d.security.status === 'clean';
+const security = clean
+  ? `${t(locale, 'card.security.clean')} · ${t(locale, 'card.checked', { date: fmt(d.security.checkedAt) })}`
+  : `${t(locale, 'card.security.unverified')} · ${t(locale, 'card.listed', { date: fmt(d.addedAt) })}`;
+
+/** Free reads green, free-with-a-paid-tier blue, buy-once amber. */
+const priceTone = {
+  free: 'sh-tone-ok',
+  'free-onetime': 'sh-tone-accent',
+  onetime: 'sh-tone-warn',
+}[d.pricing];
 ---
 
 <!--
@@ -52,7 +62,7 @@ const security =
   keep working if search is never used.
 -->
 <article
-  class="sh-panel sh-lift sh-card relative flex flex-col gap-3 p-5"
+  class="sh-panel sh-lift sh-anim sh-card relative flex flex-col gap-3 p-5"
   data-slug={app.id}
   data-categories={d.categories.map((c) => c.id).join(' ')}
   data-platforms={d.platforms.join(' ')}
@@ -61,68 +71,67 @@ const security =
   data-name={d.name}
 >
   <div class="flex items-start gap-3">
-    {/* Build-time SVG from a vendored icon set, a vendored asset, or a
-        generated monogram — never user input. The set:html carve-out is
-        scoped to this file in eslint.config.js. */}
-    <Fragment
-      set:html={logoSvg(d.logo, d.name, {
-        class: 'mt-0.5 size-10 shrink-0',
-        'aria-hidden': 'true',
-        fill: 'currentColor',
-      })}
-    />
-    <div class="min-w-0">
-      <Heading class="sh-card-title text-[17px] leading-tight font-semibold">
-        <a href={localePath(locale, `/apps/${app.id}`)}>{d.name}</a>
+    <span class="sh-tile size-12">
+      {/* Build-time SVG from a vendored icon set, a vendored asset, or a
+          generated monogram — never user input. The set:html carve-out is
+          scoped to this file in eslint.config.js. */}
+      <Fragment
+        set:html={logoSvg(d.logo, d.name, {
+          class: 'size-7 sh-pop',
+          'aria-hidden': 'true',
+          fill: 'currentColor',
+        })}
+      />
+    </span>
+    <div class="min-w-0 flex-1">
+      <Heading class="text-[1.0625rem] leading-snug font-semibold">
+        <a href={localePath(locale, `/apps/${app.id}`)} class="sh-stretch">
+          {d.name}
+        </a>
       </Heading>
       <p class="text-sh-muted truncate text-small">{d.developer}</p>
     </div>
-  </div>
-
-  <div class="flex flex-wrap items-center gap-2">
-    <span class="sh-pill">{t(locale, `pricing.${d.pricing}`)}</span>
-    {d.license && <span class="sh-pill">{d.license}</span>}
-    <span class="text-sh-muted font-mono text-badge">
-      {d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · ')}
-    </span>
+    <span class:list={['sh-pill shrink-0', priceTone]}>{t(locale, `pricing.${d.pricing}`)}</span>
   </div>
 
   <p class="text-sh-muted line-clamp-2 text-small">{d.summary[locale]}</p>
 
-  <hr class="border-sh-border opacity-35" />
-
-  <p class="text-sh-muted font-mono text-badge">
-    {/* Conditional CLASS, not a conditional style attribute — CSP style-src
-        drops inline style attributes silently (docs/09 §4). */}
-    <span aria-hidden="true" class={d.security.status === 'clean' ? 'text-sh-ok' : 'text-sh-warn'}>
-      ●
+  <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+    {d.license && <span class="sh-pill">{d.license}</span>}
+    <span class="text-sh-muted inline-flex items-center gap-1.5 font-mono text-badge">
+      <ShIcon name="monitor" class="size-3.5" />
+      {d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · ')}
     </span>
-    {security}
-  </p>
+  </div>
 
-  <p class="flex flex-wrap gap-2 text-badge">
-    {d.categories.map((c) => (
-      <a
-        href={localePath(locale, `/categories/${c.id}`)}
-        class="sh-chip text-sh-accent hover:underline"
-      >
-        {categoryLabels.get(c.id) ?? c.id}
-      </a>
-    ))}
-  </p>
+  <div class="border-sh-border mt-auto flex flex-col gap-2 border-t border-dashed pt-3">
+    <p class="text-sh-muted flex items-center gap-1.5 font-mono text-badge">
+      {/* Shape AND colour: a shield with a tick or a question mark, so the
+          status never rests on colour alone (WCAG 1.4.1). */}
+      <ShIcon
+        name={clean ? 'shield-check' : 'shield-question'}
+        class={`size-4 shrink-0 ${clean ? 'text-sh-ok' : 'text-sh-warn'}`}
+      />
+      {security}
+    </p>
+    <p class="flex flex-wrap gap-x-3 gap-y-1 text-badge">
+      {d.categories.map((c) => (
+        <a
+          href={localePath(locale, `/categories/${c.id}`)}
+          class="text-sh-accent relative z-1 font-medium hover:underline"
+        >
+          {categoryLabels.get(c.id) ?? c.id}
+        </a>
+      ))}
+    </p>
+  </div>
 </article>
 
 <style>
-  /* The overlay that makes the whole card clickable while keeping exactly one
-     link in the accessibility tree. */
-  .sh-card-title a::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
-  /* Chips must sit above that overlay to stay independently clickable. */
-  .sh-chip {
-    position: relative;
-    z-index: 1;
+  /* 326 cards on /apps: let the browser skip layout and paint for the ones
+     off screen. The intrinsic size keeps the scrollbar honest meanwhile. */
+  .sh-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 15rem;
   }
 </style>

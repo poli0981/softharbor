@@ -24,3 +24,15 @@ export function t(locale: Locale, key: Key, vars: Record<string, string | number
   for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, String(v));
   return s;
 }
+
+/**
+ * "1 app" / "326 apps" / "326 ứng dụng": the plural rule and the digit
+ * grouping of the page's language. One helper, so no page can print "1 apps".
+ */
+export function appCount(locale: Locale, n: number): string {
+  const lang = locale === 'vi' ? 'vi-VN' : 'en-GB';
+  const one = new Intl.PluralRules(lang).select(n) === 'one';
+  return t(locale, one ? 'apps.count.one' : 'apps.count', {
+    n: new Intl.NumberFormat(lang).format(n),
+  });
+}

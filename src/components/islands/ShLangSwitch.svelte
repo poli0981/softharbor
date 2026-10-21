@@ -92,18 +92,10 @@
     data-testid="sh-lang-suggest"
   >
     <p class="min-w-0 flex-1">{suggestText}</p>
-    <a
-      href={hrefFor('vi')}
-      onclick={() => choose('vi')}
-      class="bg-sh-accent text-sh-accent-ink border-sh-border rounded-[var(--radius-pill)] border px-3 py-2"
+    <a href={hrefFor('vi')} onclick={() => choose('vi')} class="sh-btn sh-btn-primary"
       >{suggestAccept}</a
     >
-    <button
-      type="button"
-      onclick={dismiss}
-      class="border-sh-border rounded-[var(--radius-pill)] border px-3 py-2"
-      >{suggestDismiss}</button
-    >
+    <button type="button" onclick={dismiss} class="sh-btn">{suggestDismiss}</button>
   </div>
 {/if}
 
@@ -111,8 +103,9 @@
   /* Segmented EN | VI control: the current language is the filled segment. */
   .sh-lang {
     display: inline-flex;
-    border: 1px solid var(--sh-border);
-    border-radius: var(--radius-pill);
+    border: 1px solid var(--sh-control);
+    border-radius: var(--radius-btn);
+    background: var(--sh-surface);
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: var(--text-badge);
@@ -120,15 +113,16 @@
   .sh-lang > * {
     display: inline-flex;
     align-items: center;
-    min-height: 2.25rem;
-    padding: 0 0.75rem;
+    min-height: 2.375rem;
+    padding: 0 0.7rem;
   }
   .sh-lang > [aria-current='true'] {
-    background: var(--sh-ink);
-    color: var(--sh-bg);
+    background: var(--sh-accent);
+    color: var(--sh-accent-ink);
+    font-weight: 600;
   }
   .sh-lang > a:hover {
-    background: var(--sh-surface);
+    background: var(--sh-surface-2);
   }
   /* The endonym is read after the visible code ("VI — Tiếng Việt"), so the
      visible text stays part of the accessible name (WCAG 2.5.3). Its leading

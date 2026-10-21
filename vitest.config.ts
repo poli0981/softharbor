@@ -33,7 +33,7 @@ export default getViteConfig({
         test: {
           name: 'unit',
           environment: 'node',
-          include: ['src/{lib,i18n}/**/*.test.ts'],
+          include: ['src/{lib,i18n,styles}/**/*.test.ts'],
         },
       },
       {

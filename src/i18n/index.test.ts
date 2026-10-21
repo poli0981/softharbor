@@ -47,6 +47,7 @@ describe('dictionary parity (hard rule 6 — same check CI runs)', () => {
       'platform.windows',
       'site.name',
       'sort.name', // "A–Z" — the Latin range reads the same in Vietnamese
+      'welcome.manifest.platforms', // "Windows · macOS · Linux" — three platform names
     ];
     const identical = Object.keys(en).filter(
       (k) => en[k as keyof typeof en] === vi[k as keyof typeof vi],

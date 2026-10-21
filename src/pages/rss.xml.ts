@@ -44,7 +44,8 @@ export async function GET(context: APIContext) {
       // @astrojs/rss has no `guid` option — it derives <guid> from `link`.
       // docs/05 §A4 wants the bare slug with isPermaLink="false", because the
       // slug is permanent while a URL is only conventionally so. Injected via
-      // customData; the emitted XML is asserted in the build check.
+      // customData; scripts/check-feed.mjs asserts the EMITTED guids on
+      // every build, since this seam is invisible to the unit tests.
       customData: `<guid isPermaLink="false">${xml(i.guid)}</guid>`,
     })),
   });
