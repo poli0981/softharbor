@@ -68,6 +68,10 @@ export default tseslint.config(
       // corrupt the JSON — &quot; is not valid inside it. Values come from the
       // schema-validated collection, never from a request.
       'src/components/ShJsonLd.astro',
+      // Base.astro writes ONE compile-time constant (src/lib/inlineCss.ts)
+      // into an inline <style> — set:html keeps the bytes exactly the ones
+      // astro.config.ts hashes into the CSP. No runtime or data input at all.
+      'src/layouts/Base.astro',
     ],
     rules: {
       'astro/no-set-html-directive': 'off',

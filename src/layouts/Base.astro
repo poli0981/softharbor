@@ -12,6 +12,7 @@ import { canonicalPath } from '../lib/locale';
 // URLs, which `script-src 'self'` refuses (scripts/check-assets.mjs guards it).
 import errorsUrl from '../scripts/errors.js?url&no-inline';
 import themeUrl from '../scripts/theme.js?url&no-inline';
+import { VIEW_TRANSITION_OPT_IN } from '../lib/inlineCss';
 import '../styles/global.css';
 
 interface Props {
@@ -110,6 +111,8 @@ const gateStrings = {
     <meta property="og:locale:alternate" content={locale === 'vi' ? 'en_GB' : 'vi_VN'} />
     <meta name="twitter:card" content="summary" />
 
+    {/* View Transitions opt-in — inline on purpose, see src/lib/inlineCss.ts. */}
+    <style is:inline set:html={VIEW_TRANSITION_OPT_IN} />
     {/*
       Console ring buffer FIRST (docs/05 §A5): it must already be listening when
       theme.js or an island bootstrap throws. Blocking and tiny on purpose.

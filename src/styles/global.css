@@ -270,12 +270,9 @@
    module state alive while islands reset. Native MPA transitions keep every
    page a real document load — its own CSP, a fresh island tree — and still
    cross-fade in browsers that support them. Opt-in only without reduced
-   motion; browsers without support simply navigate. */
-@media (prefers-reduced-motion: no-preference) {
-  @view-transition {
-    navigation: auto;
-  }
-}
+   motion; browsers without support simply navigate. The opt-in itself lives
+   in an inline <style> in Base.astro (see the comment there for why it cannot
+   live in this file); the rules below only shape the animation. */
 
 /* docs/06 §7 — everything collapses to instant, including View Transitions. */
 @media (prefers-reduced-motion: reduce) {

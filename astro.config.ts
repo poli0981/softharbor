@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 
+import { createHash } from 'node:crypto';
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import AstroPWA from '@vite-pwa/astro';
 import tailwindcss from '@tailwindcss/vite';
 import Icons from 'unplugin-icons/vite';
+import { VIEW_TRANSITION_OPT_IN } from './src/lib/inlineCss';
 
 // Reachable but meaningless in SERPs — noindex'd (docs/16 §7) AND kept out of
 // the sitemap, or GSC reports "Submitted URL marked noindex" forever.
@@ -84,6 +86,13 @@ export default defineConfig({
         "form-action 'none'",
         "object-src 'none'",
       ],
+      // The one `is:inline` <style> (src/lib/inlineCss.ts) — Astro hashes
+      // only what it bundles, so this hash is ours to supply.
+      styleDirective: {
+        hashes: [
+          `sha256-${createHash('sha256').update(VIEW_TRANSITION_OPT_IN).digest('base64')}` as const,
+        ],
+      },
     },
   },
 
