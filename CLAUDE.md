@@ -2,7 +2,7 @@
 
 > Root instruction file for AI-assisted development (Claude Code).
 > Read this first. Detailed specs live in `docs/00–16`.
-> Suite version: 1.3 (2026-10-21, site v1.1) · Author: poli0981 / SkullMute
+> Suite version: 2.0 (2026-10-21, site v1.1) · Author: poli0981 / SkullMute
 
 ## What this project is
 
