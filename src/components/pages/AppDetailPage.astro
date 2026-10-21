@@ -65,7 +65,7 @@ const meta: MetaRow[] = [
     {app}
     categoryLabelEn={primary?.data.label.en}
   />
-  <nav aria-label="Breadcrumb" class="text-sh-muted text-[var(--text-small)]">
+  <nav aria-label={t(locale, 'nav.breadcrumb')} class="text-sh-muted text-small">
     <a href={localePath(locale, '/apps')} class="hover:underline">
       {t(locale, 'apps.title')}
     </a>
@@ -94,7 +94,7 @@ const meta: MetaRow[] = [
     <div>
       <h1 class="text-[length:var(--text-h1)] font-semibold">{d.name}</h1>
       <p class="text-sh-muted">
-        <span class="font-mono text-[var(--text-badge)]">{t(locale, 'detail.developer')}:</span>
+        <span class="font-mono text-badge">{t(locale, 'detail.developer')}:</span>
         {d.developer}
       </p>
       <p class="mt-2 flex flex-wrap gap-2">
@@ -133,7 +133,7 @@ const meta: MetaRow[] = [
     </a>
   </div>
 
-  <dl class="sh-panel mt-8 grid max-w-2xl gap-2 p-5 font-mono text-[var(--text-badge)]">
+  <dl class="sh-panel mt-8 grid max-w-2xl gap-2 p-5 font-mono text-badge">
     {meta.map((row) => (
       <div class="flex flex-wrap gap-x-3">
         <dt class="text-sh-muted min-w-28">{row.label}</dt>
@@ -152,7 +152,5 @@ const meta: MetaRow[] = [
     ))}
   </dl>
 
-  <p class="text-sh-muted mt-6 max-w-2xl text-[var(--text-small)]">
-    {t(locale, 'detail.officialNote')}
-  </p>
+  <p class="text-sh-muted mt-6 max-w-2xl text-small">{t(locale, 'detail.officialNote')}</p>
 </Base>

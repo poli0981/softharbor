@@ -6,15 +6,15 @@
 //
 // Bilingual on ONE page rather than per-locale: an error can be reached from
 // either locale (and /offline is reached with no network at all), so there is
-// no safe moment to pick one.
+// no safe moment to pick one. Copy lives in the dictionaries (error.<kind>.*)
+// like every other UI string, so i18n:check covers it.
 import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n';
+
+type Kind = '404' | 'offline' | '403' | '429' | '500';
 
 interface Props {
-  code: string;
-  titleEn: string;
-  titleVi: string;
-  bodyEn: string;
-  bodyVi: string;
+  kind: Kind;
   /**
    * Default true for every error shell. 404 used to opt out on the grounds that
    * its status code excludes it from SERPs — but /404 requested directly is
@@ -22,35 +22,44 @@ interface Props {
    */
   noindex?: boolean;
 }
-const { code, titleEn, titleVi, bodyEn, bodyVi, noindex = true } = Astro.props;
+const { kind, noindex = true } = Astro.props;
 ---
 
-<Base title={`${titleEn} — SoftHarbor`} locale="en" {noindex} gateExempt alternates={false}>
+<Base
+  title={`${t('en', `error.${kind}.title`)} — SoftHarbor`}
+  locale="en"
+  {noindex}
+  gateExempt
+  alternates={false}
+>
   <div class="relative">
     {/* Giant clipped status code at 40% opacity, behind the text (docs/06 §5). */}
     <span
       aria-hidden="true"
       class="text-sh-muted pointer-events-none absolute -top-10 -left-2 font-mono text-[8rem] leading-none opacity-40 select-none"
     >
-      {code}
+      {kind}
     </span>
     <div class="relative">
-      <h1 class="text-[length:var(--text-h1)] font-semibold">{titleEn}</h1>
-      <p class="text-sh-muted mt-3 max-w-xl">{bodyEn}</p>
+      <h1 class="text-[length:var(--text-h1)] font-semibold">{t('en', `error.${kind}.title`)}</h1>
+      <p class="text-sh-muted mt-3 max-w-xl">{t('en', `error.${kind}.body`)}</p>
 
       <h2 class="mt-8 text-[length:var(--text-h3)] font-semibold" lang="vi">
-        {titleVi}
+        {t('vi', `error.${kind}.title`)}
       </h2>
       <p class="text-sh-muted mt-2 max-w-xl" lang="vi">
-        {bodyVi}
+        {t('vi', `error.${kind}.body`)}
       </p>
 
       <p class="mt-8 flex flex-wrap gap-4">
         <a href="/" class="text-sh-accent underline">
-          SoftHarbor
+          {t('en', 'error.home')}
         </a>
         <a href="/apps" class="text-sh-accent underline">
-          Apps
+          {t('en', 'nav.apps')}
+        </a>
+        <a href="/vi" class="text-sh-accent underline" lang="vi">
+          {t('vi', 'error.home')}
         </a>
       </p>
     </div>

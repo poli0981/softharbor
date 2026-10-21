@@ -5,6 +5,7 @@
 import ShLangSwitch from './islands/ShLangSwitch.svelte';
 import ShThemeToggle from './islands/ShThemeToggle.svelte';
 import { localePath, t, type Locale } from '../i18n';
+import { canonicalPath } from '../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -13,6 +14,13 @@ interface Props {
 }
 const { locale, pair } = Astro.props;
 const home = localePath(locale, '/');
+// The section the page belongs to, for aria-current on the nav links.
+const here = canonicalPath(Astro.url.pathname).replace(/^\/vi(?=\/|$)/, '') || '/';
+const section = here.startsWith('/apps')
+  ? 'apps'
+  : here.startsWith('/categories')
+    ? 'categories'
+    : null;
 const apps = localePath(locale, '/apps');
 
 const themeLabels = {
@@ -28,11 +36,15 @@ const themeLabels = {
       {t(locale, 'site.name')}
     </a>
 
-    <nav aria-label={t(locale, 'nav.apps')} class="flex items-center gap-4">
-      <a href={apps} class="hover:underline">
+    <nav aria-label={t(locale, 'nav.main')} class="flex items-center gap-4">
+      <a href={apps} class="hover:underline" aria-current={section === 'apps' ? 'page' : undefined}>
         {t(locale, 'nav.apps')}
       </a>
-      <a href={localePath(locale, '/categories')} class="hover:underline">
+      <a
+        href={localePath(locale, '/categories')}
+        class="hover:underline"
+        aria-current={section === 'categories' ? 'page' : undefined}
+      >
         {t(locale, 'nav.categories')}
       </a>
     </nav>

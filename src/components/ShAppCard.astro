@@ -2,16 +2,30 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/06 §6 — card anatomy.
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { logoSvg } from '../lib/logo';
 import { localePath, t, type Locale } from '../i18n';
 
 interface Props {
   app: CollectionEntry<'apps'>;
   locale: Locale;
+  /**
+   * Card titles sit directly under the page's h1 on /apps and category pages
+   * (h2); a card listed inside an h2 section uses 3. Hard-coded h3 used to skip
+   * a level on every grid page.
+   */
+  headingLevel?: 2 | 3;
 }
-const { app, locale } = Astro.props;
+const { app, locale, headingLevel = 2 } = Astro.props;
 const d = app.data;
+const Heading = headingLevel === 3 ? 'h3' : 'h2';
+
+// Chips show the category's NAME in the page's language (they used to print
+// the raw id, e.g. "security-privacy", on Vietnamese pages too). Astro caches
+// getCollection per build, so this is not a query per card.
+const categoryLabels = new Map(
+  (await getCollection('categories')).map((c) => [c.id, c.data.label[locale]]),
+);
 
 const dateFmt = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   dateStyle: 'medium',
@@ -58,26 +72,26 @@ const security =
       })}
     />
     <div class="min-w-0">
-      <h3 class="sh-card-title text-[17px] leading-tight font-semibold">
+      <Heading class="sh-card-title text-[17px] leading-tight font-semibold">
         <a href={localePath(locale, `/apps/${app.id}`)}>{d.name}</a>
-      </h3>
-      <p class="text-sh-muted truncate text-[var(--text-small)]">{d.developer}</p>
+      </Heading>
+      <p class="text-sh-muted truncate text-small">{d.developer}</p>
     </div>
   </div>
 
   <div class="flex flex-wrap items-center gap-2">
     <span class="sh-pill">{t(locale, `pricing.${d.pricing}`)}</span>
     {d.license && <span class="sh-pill">{d.license}</span>}
-    <span class="text-sh-muted font-mono text-[var(--text-badge)]">
+    <span class="text-sh-muted font-mono text-badge">
       {d.platforms.map((p) => t(locale, `platform.${p}`)).join(' · ')}
     </span>
   </div>
 
-  <p class="text-sh-muted line-clamp-2 text-[var(--text-small)]">{d.summary[locale]}</p>
+  <p class="text-sh-muted line-clamp-2 text-small">{d.summary[locale]}</p>
 
   <hr class="border-sh-border opacity-35" />
 
-  <p class="text-sh-muted font-mono text-[var(--text-badge)]">
+  <p class="text-sh-muted font-mono text-badge">
     {/* Conditional CLASS, not a conditional style attribute — CSP style-src
         drops inline style attributes silently (docs/09 §4). */}
     <span aria-hidden="true" class={d.security.status === 'clean' ? 'text-sh-ok' : 'text-sh-warn'}>
@@ -86,13 +100,13 @@ const security =
     {security}
   </p>
 
-  <p class="flex flex-wrap gap-2 text-[var(--text-badge)]">
+  <p class="flex flex-wrap gap-2 text-badge">
     {d.categories.map((c) => (
       <a
         href={localePath(locale, `/categories/${c.id}`)}
         class="sh-chip text-sh-accent hover:underline"
       >
-        {c.id}
+        {categoryLabels.get(c.id) ?? c.id}
       </a>
     ))}
   </p>

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 //
-// docs/14 — shared chrome for the five legal documents. Prose lives per
+// docs/14 — shared chrome for the six legal documents. Prose lives per
 // locale in src/components/legal/, not in the i18n dictionaries: docs/07 §1
 // puts legal in its own layer precisely because multi-paragraph documents are
 // content, not UI strings, and the English text is canonical (docs/07 §8).
@@ -13,11 +13,15 @@ import Base from '../../layouts/Base.astro';
 import { LEGAL_VERSION } from '../../lib/legal';
 import { t, type Locale } from '../../i18n';
 
+type Doc = 'aiDisclosure' | 'disclaimer' | 'privacy' | 'terms' | 'thirdParty' | 'trademarks';
+
 interface Props {
-  title: string;
+  /** Which document; its title comes from the dictionary (legal.title.<doc>). */
+  doc: Doc;
   locale: Locale;
 }
-const { title, locale } = Astro.props;
+const { doc, locale } = Astro.props;
+const title = t(locale, `legal.title.${doc}`);
 
 const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   dateStyle: 'medium',
@@ -37,12 +41,12 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   <article class="sh-prose max-w-2xl">
     <h1 class="text-[length:var(--text-h1)] font-semibold">{title}</h1>
 
-    <p class="text-sh-muted mt-2 font-mono text-[var(--text-badge)]">
+    <p class="text-sh-muted mt-2 font-mono text-badge">
       {t(locale, 'legal.lastUpdated', { date: updated })}
     </p>
 
     {locale === 'vi' && (
-      <p class="sh-panel text-sh-muted mt-6 p-4 text-[var(--text-small)]" lang="vi">
+      <p class="sh-panel text-sh-muted mt-6 p-4 text-small" lang="vi">
         {/* Fixed notice required on every VI legal page (docs/07 §8). */}
         {t('vi', 'legal.viNotice')}
       </p>
@@ -74,13 +78,25 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
     color: var(--sh-accent);
     text-decoration: underline;
   }
-  .sh-prose ol {
+  /* Tailwind's preflight strips list markers. Numbered clauses in a legal
+     text must stay numbered — they are referred to by number. */
+  .sh-prose ol,
+  .sh-prose ul {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    counter-reset: item;
+    padding-inline-start: 1.5rem;
   }
-  .sh-prose ol > li {
+  .sh-prose ol {
+    list-style: decimal;
+  }
+  .sh-prose ul {
+    list-style: disc;
+  }
+  .sh-prose li {
     max-width: 65ch;
+  }
+  .sh-prose li::marker {
+    color: var(--sh-muted);
   }
 </style>
