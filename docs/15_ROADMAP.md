@@ -36,14 +36,26 @@ data was seeded and vetted.
 
 ## 2. Post-v1 backlog (ordered by current intent)
 
+**Next up after v1.1 (agreed 2026-10-21), in this order:** item 2 first —
+it has a deadline — then 10 → 11 → 12 (with 3) → 13 → 14 → 15 → 16. The
+rest wait for evidence. Item numbers are stable because other docs cite
+them (item 9 especially), so new work is appended, never renumbered.
+
 1. **Zone upgrades on evidence, not by default** — revisit the
    deliberately-OFF trio (rate limiting, Bot Fight Mode, Pro-zone Custom
    Errors) only if abuse or 403/429 UX ever becomes real (docs/16 §9);
    plus a `SearchAction` JSON-LD node (docs/16 §7) — its prerequisite, the
    `/apps?q=` deep link, **shipped in v1.1** (`src/lib/urlstate.ts`).
-2. **VirusTotal automation** — scheduled workflow scanning `links.download`
-   via VT API, writing `evidence` + opening flag issues on detections
-   (turns docs/09 §6.5 from manual to assisted).
+2. **VirusTotal automation — deadline 2027-01-26.** Every entry was
+   checked on 2026-07-30, so all 326 cross the 180-day staleness line
+   (`validate-data.mjs` warns) together around 2027-01-26. A scheduled
+   workflow re-scans each entry's official links through the VT API in
+   batches inside the public limits (4/min, 500/day), refreshes
+   `checkedAt` + `evidence`, and opens a signed-commit PR — dispatching
+   `ci.yml`/`codeql.yml` itself, as quarantine.yml does — plus flag issues
+   on detections (docs/09 §6.5 from manual to assisted; a confirmed
+   detection goes through `pnpm quarantine`, never deletion). Also re-scan
+   the ~11 entries whose evidence is a scan of an earlier link.
 3. **Install-command snippets** — optional `install.winget` /
    `install.brew` fields rendered as copy buttons.
 4. **Favorites** — localStorage star + "my list" view (stays static).
@@ -69,6 +81,43 @@ data was seeded and vetted.
    `/apps` 119.0 KB gzip (~1.24 MB raw), `/vi/apps` 125.3 KB — up from
    112.2 / 116.9 KB on 2026-07-29, still inside the 200 KB budget; cards
    use `content-visibility: auto` so off-screen ones cost no layout.*
+10. **Catalogue batch 2 (~40 apps).** Candidates — Windows: PowerToys,
+    ShareX, Flameshot, Greenshot, AutoHotkey, Ditto, Bulk Crap
+    Uninstaller, EarTrumpet, Twinkle Tray, Scoop, WinGet, PowerShell 7;
+    sharing/remote: LocalSend, KDE Connect, RustDesk, Parsec; hashing:
+    OpenHashTab, QuickHash GUI; macOS: Maccy, AltTab, MonitorControl, Ice,
+    Karabiner-Elements, Shottr; gaming: Prism Launcher, Lossless Scaling,
+    DuckStation, Azahar, ReShade; dev: Fork, Docker Desktop, Insomnia,
+    Kitty, Tabby; local AI: LM Studio, Jan, GPT4All; CAD/3D: KiCad,
+    OpenSCAD, PrusaSlicer, OrcaSlicer, Cura, LibreCAD. Each passes C1–C7
+    on its own (Docker Desktop needs a C3 ruling — paid for larger
+    companies); possible new categories `ai-local` and `cad-3d`. New slugs
+    enter `/rss.xml`, so notify.py announces each one once — expected.
+    The one-app-per-PR rule (docs/03 §1) applies unless a batch exemption
+    is logged like D24.
+11. **Data hygiene.** SPDX-normalise `license`, consolidate `tags` (663
+    distinct, 68 % used once), unify developer names, record the missing
+    C3 rulings — fixed in the data, then held by `validate-data.mjs`
+    rules so they stay fixed.
+12. **Install-command generator** (extends item 3): optional
+    `install.{winget,scoop,choco,brew,flatpak}` fields, a copy button per
+    app, and a multi-select on `/apps` that builds ONE combined command —
+    entirely client-side, no new island if it can live in ShSearch's grid
+    controller.
+13. **Collections** — curated static lists ("Fresh Windows install",
+    "Privacy", "Creator", "Dev setup") from a `collections.json`, each a
+    page in both locales.
+14. **"Free alternatives to X" pages** — an optional `alternativeTo` field
+    and static landing pages; useful for search, honest only while every
+    listed alternative still passes C1–C7.
+15. **Anonymous app-suggestion form** — reuses `/api/verify` + Turnstile;
+    the Worker files a GitHub issue with a fine-grained token (runtime
+    secret), rate-limited like D25. A second Worker route, so it needs its
+    own decision-log entry under hard rule 1.
+16. **Platform upkeep** — Node 26 LTS (from 2026-10-28) together with
+    `.nvmrc`, `engines` and the `@types/node` major Dependabot holds back;
+    TypeScript 7 once `astro check` supports it (D21); an OpenSearch
+    description; a versioned `/api/v1` with a published JSON Schema.
 
 ## 3. Explicitly rejected (for the record)
 
