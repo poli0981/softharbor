@@ -197,6 +197,9 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss(), Icons({ compiler: 'astro' })],
+    // `~icons/<set>/<name>` imports compile to Svelte 5 components: usable in
+    // islands, and in .astro files (rendered to static SVG at build time).
+    // Data-driven icons (app logos, category icons) go through src/lib/icon.ts.
+    plugins: [tailwindcss(), Icons({ compiler: 'svelte' })],
   },
 });

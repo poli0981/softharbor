@@ -3,7 +3,7 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/06 §4 — sticky header.
 import ShLangSwitch from './islands/ShLangSwitch.svelte';
-import ShThemeToggle from './islands/ShThemeToggle.svelte';
+import ShPrefs from './islands/ShPrefs.svelte';
 import { localePath, t, type Locale } from '../i18n';
 import { canonicalPath } from '../lib/locale';
 
@@ -22,12 +22,6 @@ const section = here.startsWith('/apps')
     ? 'categories'
     : null;
 const apps = localePath(locale, '/apps');
-
-const themeLabels = {
-  system: t(locale, 'theme.system'),
-  light: t(locale, 'theme.light'),
-  dark: t(locale, 'theme.dark'),
-};
 ---
 
 <header class="bg-sh-bg border-sh-border sticky top-0 z-30 border-b-2">
@@ -75,7 +69,28 @@ const themeLabels = {
         suggestAccept={t('vi', 'lang.suggest.accept')}
         suggestDismiss={t('vi', 'lang.suggest.dismiss')}
       />
-      <ShThemeToggle client:idle label={t(locale, 'theme.label')} labels={themeLabels} />
+      <ShPrefs
+        client:idle
+        label={t(locale, 'prefs.label')}
+        themeLabel={t(locale, 'theme.label')}
+        themes={{
+          system: t(locale, 'theme.system'),
+          light: t(locale, 'theme.light'),
+          dark: t(locale, 'theme.dark'),
+        }}
+        scrollbarLabel={t(locale, 'prefs.scrollbar')}
+        scrollbars={{
+          auto: t(locale, 'prefs.scrollbar.auto'),
+          thin: t(locale, 'prefs.scrollbar.thin'),
+          hidden: t(locale, 'prefs.scrollbar.hidden'),
+        }}
+        motionLabel={t(locale, 'prefs.motion')}
+        motions={{
+          system: t(locale, 'prefs.motion.system'),
+          reduce: t(locale, 'prefs.motion.reduce'),
+        }}
+        searchHref={`${apps}#search`}
+      />
     </div>
   </div>
 </header>
