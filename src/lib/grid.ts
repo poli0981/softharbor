@@ -9,12 +9,11 @@
 // this file only reads facets off the DOM, toggles `hidden`, and reorders the
 // card nodes.
 //
-// It must never write `el.style.*`. CSP `style-src` carries hashes but neither
-// `unsafe-inline` nor `unsafe-hashes` (D20), so the browser silently drops any
-// inline style a script applies — and `pnpm check:styles` cannot catch it,
-// because that scans the built HTML and this assignment only ever exists at
-// runtime. Sorting shipped broken for exactly that reason: `el.style.order`
-// was refused on every navigation and the grid never reordered.
+// It never writes `el.style.*` and never needs to: hiding is the `hidden`
+// attribute and ordering is a real DOM move. (An earlier version set
+// `el.style.order`; whatever broke it, nodes moved with insertBefore keep
+// working regardless of style or CSP, and keep tab order matching the
+// visual order.)
 //
 // It never re-renders card CONTENT: the grid ships fully server-rendered, so a
 // visitor with JS disabled sees every app (docs/03 §8, hard rule 1).
@@ -58,9 +57,29 @@ function reorder(grid: HTMLElement, ordered: readonly HTMLElement[]): void {
   }
 }
 
+/**
+ * Locale-correct "N apps". The server leaves one template per plural category
+ * on the count element (`data-count-one`, `data-count-other`); the island
+ * picks with Intl.PluralRules and formats the number with Intl.NumberFormat,
+ * exactly as the server did — before v1.1 the client wrote `String(n)` into a
+ * single "{n} apps" template, so one result read "1 apps" and the number lost
+ * its locale formatting after the first keystroke.
+ */
+export function formatCount(el: HTMLElement, n: number, lang: string): string {
+  const category = new Intl.PluralRules(lang).select(n);
+  const template =
+    el.dataset[`count${category[0]?.toUpperCase() ?? ''}${category.slice(1)}`] ??
+    el.dataset['countOther'] ??
+    '{n}';
+  return template.replaceAll('{n}', new Intl.NumberFormat(lang).format(n));
+}
+
 export interface GridHandle {
-  /** Feed in search results; `null` restores "query not constraining". */
-  setSearchHits(hits: ReadonlySet<string> | null): void;
+  /**
+   * Feed in search results in RANK order (MiniSearch's result order) —
+   * `null` restores "query not constraining".
+   */
+  setSearchHits(hits: Iterable<string> | null): void;
   apply(): void;
   destroy(): void;
 }
@@ -78,14 +97,15 @@ export function mountGrid(doc: Document = document): GridHandle | null {
   /** Server-rendered order, restored by destroy(). */
   const initialOrder = cards.map((c) => c.el);
   let searchHits: ReadonlySet<string> | null = null;
+  let searchRank: ReadonlyMap<string, number> | undefined;
 
   // The count and empty-state are SERVER-rendered with the true total, so a
   // no-JS visitor sees a correct number. We only rewrite them here, using the
-  // localized template the server left behind — the island never needs to know
-  // about locales (docs/07 §3).
+  // localized templates the server left behind — the island never needs to
+  // know about locales (docs/07 §3).
   const countEl = doc.querySelector<HTMLElement>(COUNT_SELECTOR);
   const emptyEl = doc.querySelector<HTMLElement>(EMPTY_SELECTOR);
-  const countTemplate = countEl?.dataset['countTemplate'] ?? '{n}';
+  const lang = doc.documentElement.lang || 'en';
 
   function apply(): void {
     const visible = visibleSlugs(
@@ -97,14 +117,15 @@ export function mountGrid(doc: Document = document): GridHandle | null {
         pricing: pricing.get(),
       },
       sort.get(),
+      searchRank,
     );
-    const rank = new Map(visible.map((slug, i) => [slug, i]));
+    const shown = new Set(visible);
 
-    for (const card of cards) card.el.hidden = !rank.has(card.slug);
+    for (const card of cards) card.el.hidden = !shown.has(card.slug);
 
-    // Cards carry no entrance animation — only `.sh-lift` hover transitions —
-    // and every control that drives this (search box, sort, filter sheet)
-    // lives outside the grid, so moving nodes costs no focus and no motion.
+    // Cards carry no entrance animation — only hover transitions — and every
+    // control that drives this (search box, sort, filter sheet) lives outside
+    // the grid, so moving nodes costs no focus and no motion.
     reorder(
       grid,
       visible.flatMap((slug) => bySlug.get(slug) ?? []),
@@ -112,19 +133,42 @@ export function mountGrid(doc: Document = document): GridHandle | null {
 
     visibleCount.set(visible.length);
 
-    if (countEl) countEl.textContent = countTemplate.replaceAll('{n}', String(visible.length));
+    const text = countEl ? formatCount(countEl, visible.length, lang) : '';
+    // Writing identical text into an aria-live region still re-announces it.
+    if (countEl && countEl.textContent !== text) countEl.textContent = text;
     // Only reveal the empty state once filtering actually produced nothing —
     // it must not flash while the index is still loading.
     if (emptyEl) emptyEl.hidden = visible.length > 0;
   }
 
-  const unsubs = [query, categories, platforms, pricing, sort].map((s) =>
-    s.subscribe(() => apply()),
-  );
+  // `listen`, not `subscribe`: subscribe() calls back immediately, so mounting
+  // used to run five full filter-and-sort passes before the first keystroke.
+  const unsubs = [
+    categories.listen(apply),
+    platforms.listen(apply),
+    pricing.listen(apply),
+    sort.listen(apply),
+    // An emptied query — the box cleared, or "Clear all" — must also drop the
+    // cached hits, or the grid stays filtered by a search nobody sees.
+    query.listen((q) => {
+      if (q.trim() === '' && searchHits !== null) {
+        searchHits = null;
+        searchRank = undefined;
+        apply();
+      }
+    }),
+  ];
 
   return {
     setSearchHits(hits) {
-      searchHits = hits;
+      if (hits === null) {
+        searchHits = null;
+        searchRank = undefined;
+      } else {
+        const ordered = [...hits];
+        searchHits = new Set(ordered);
+        searchRank = new Map(ordered.map((slug, i) => [slug, i]));
+      }
       apply();
     },
     apply,

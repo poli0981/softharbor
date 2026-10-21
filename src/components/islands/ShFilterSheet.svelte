@@ -3,6 +3,7 @@
      docs/06 §5 — facets. Desktop: side panel; mobile: bottom sheet. Native
      <dialog> so focus trapping and Esc come from the platform (docs/06 §9). -->
 <script lang="ts">
+  import { onMount } from 'svelte';
   // Imported without the `$` prefix — Svelte reserves it, and `$name` below is
   // what auto-subscribes to these atoms (see src/lib/stores.ts).
   import {
@@ -22,16 +23,21 @@
     label: string;
   }
   interface Props {
+    /** Button text AND the dialog's accessible name ("Filters"). */
     openLabel: string;
-    closeLabel: string;
     clearLabel: string;
+    /** "Show {n} apps" (plural "other") and "Show {n} app" (plural "one"). */
     showLabel: string;
+    showLabelOne: string;
     headings: { categories: string; platforms: string; pricing: string };
     options: { categories: Option[]; platforms: Option[]; pricing: Option[] };
   }
-  const { openLabel, closeLabel, clearLabel, showLabel, headings, options }: Props = $props();
+  const { openLabel, clearLabel, showLabel, showLabelOne, headings, options }: Props = $props();
 
   let dialog: HTMLDialogElement | undefined = $state();
+  /** Resolved on mount from <html lang>; SSR renders the "other" form. */
+  let rules: Intl.PluralRules | null = $state(null);
+  let numbers: Intl.NumberFormat | null = $state(null);
 
   // Re-read on every store change so checkboxes reflect an external clearAll().
   const selection = $derived(
@@ -43,16 +49,30 @@
   );
   const isOn = (facet: Facet, value: string): boolean => selection.has(`${facet}:${value}`);
 
-  const groups: Array<{ facet: Facet; heading: string; items: Option[] }> = [
+  const showText = $derived(
+    (rules?.select($visibleCount) === 'one' ? showLabelOne : showLabel).replaceAll(
+      '{n}',
+      numbers ? numbers.format($visibleCount) : String($visibleCount),
+    ),
+  );
+
+  const groups: Array<{ facet: Facet; heading: string; items: Option[] }> = $derived([
     { facet: 'categories', heading: headings.categories, items: options.categories },
     { facet: 'platforms', heading: headings.platforms, items: options.platforms },
     { facet: 'pricing', heading: headings.pricing, items: options.pricing },
-  ];
+  ]);
+
+  onMount(() => {
+    const lang = document.documentElement.lang || 'en';
+    rules = new Intl.PluralRules(lang);
+    numbers = new Intl.NumberFormat(lang);
+  });
 </script>
 
 <button
   type="button"
-  class="bg-sh-surface border-sh-border rounded-[var(--radius-card)] border-2 px-4 py-3"
+  class="bg-sh-surface border-sh-border rounded-[var(--radius-card)] border px-4 py-3"
+  aria-haspopup="dialog"
   onclick={() => dialog?.showModal()}
 >
   {openLabel}
@@ -61,8 +81,11 @@
   {/if}
 </button>
 
-<dialog bind:this={dialog} class="sh-sheet">
+<dialog bind:this={dialog} class="sh-sheet" aria-labelledby="sh-filters-title">
   <form method="dialog" class="flex h-full flex-col gap-6">
+    <h2 id="sh-filters-title" class="font-display text-[length:var(--text-h2)] font-semibold">
+      {openLabel}
+    </h2>
     {#each groups as group (group.facet)}
       <fieldset>
         <legend class="font-display text-[length:var(--text-h3)] font-semibold">
@@ -86,16 +109,18 @@
     <footer class="mt-auto flex gap-3 pt-4">
       <button
         type="button"
-        class="border-sh-border rounded-[var(--radius-card)] border-2 px-4 py-2"
+        class="border-sh-border rounded-[var(--radius-card)] border px-4 py-2"
         disabled={!$hasActiveFilters}
         onclick={clearAll}>{clearLabel}</button
       >
+      <!-- The visible text IS the accessible name ("Show 42 apps"). It used to
+           carry aria-label="Close filters", which hid the count from screen
+           readers and broke WCAG 2.5.3 Label in Name for voice control. -->
       <button
         type="submit"
-        class="bg-sh-accent text-sh-accent-ink border-sh-border ml-auto rounded-[var(--radius-card)] border-2 px-4 py-2 font-medium"
-        aria-label={closeLabel}
+        class="bg-sh-accent text-sh-accent-ink border-sh-border ml-auto rounded-[var(--radius-card)] border px-4 py-2 font-medium"
       >
-        {showLabel.replaceAll('{n}', String($visibleCount))}
+        {showText}
       </button>
     </footer>
   </form>
@@ -108,7 +133,7 @@
     max-height: 100dvh;
     width: min(24rem, 100vw);
     max-width: 100vw;
-    border: 2px solid var(--sh-border);
+    border: 1px solid var(--sh-border);
     background: var(--sh-surface);
     color: var(--sh-ink);
     padding: 1.5rem;

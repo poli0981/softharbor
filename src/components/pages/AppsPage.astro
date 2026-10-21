@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/06 §5 — grid + toolbar. The grid is server-rendered with ALL apps,
-// unfiltered: the islands hide cards by toggling [hidden] and reorder with CSS
-// `order`, so the no-JS experience stays whole (docs/03 §8, docs/05 §A3).
+// unfiltered: the islands hide cards by toggling [hidden] and reorder the
+// card nodes, so the no-JS experience stays whole (docs/03 §8, docs/05 §A3).
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ShAppCard from '../ShAppCard.astro';
 import ShSearch from '../islands/ShSearch.svelte';
 import ShFilterSheet from '../islands/ShFilterSheet.svelte';
-import { byAddedDesc } from '../../lib/paths';
+import { sortCards } from '../../lib/filter';
 import { t, type Locale } from '../../i18n';
 
 interface Props {
@@ -17,10 +17,30 @@ interface Props {
 }
 const { locale } = Astro.props;
 
-const apps = (await getCollection('apps')).sort(byAddedDesc);
+// Server order == the client's default order (A–Z, same comparator), so
+// hydration never reshuffles the grid. It used to render newest-first while
+// the client defaulted to A–Z — invisible only because every entry shares one
+// addedAt; the first entry with a different date would have moved 326 cards.
+const all = await getCollection('apps');
+const bySlug = new Map(all.map((a) => [a.id, a]));
+const apps = sortCards(
+  all.map((a) => ({
+    slug: a.id,
+    name: a.data.name,
+    categories: a.data.categories.map((c) => c.id),
+    platforms: a.data.platforms,
+    pricing: a.data.pricing,
+    added: a.data.addedAt,
+  })),
+  'name',
+).flatMap((c) => bySlug.get(c.slug) ?? []);
 const categories = (await getCollection('categories')).sort((a, b) => a.data.order - b.data.order);
 
-const nf = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB');
+const lang = locale === 'vi' ? 'vi-VN' : 'en-GB';
+const nf = new Intl.NumberFormat(lang);
+const plural = new Intl.PluralRules(lang);
+const countText = (n: number) =>
+  t(locale, plural.select(n) === 'one' ? 'apps.count.one' : 'apps.count', { n: nf.format(n) });
 
 const facetOptions = {
   categories: categories.map((c) => ({ value: c.id, label: c.data.label[locale] })),
@@ -43,25 +63,28 @@ const facetOptions = {
   <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'apps.title')}</h1>
   <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'apps.intro')}</p>
 
-  {/* client:idle — the grid is readable without either island (docs/02 §5). */}
-  <div class="mt-6 flex flex-wrap items-center gap-3">
+  {/* client:idle — the grid is readable without either island (docs/02 §5).
+      #search is where the welcome page's search field points. */}
+  <div id="search" class="mt-6 flex scroll-mt-24 flex-wrap items-center gap-3">
     <div class="min-w-0 flex-1">
       <ShSearch
         client:idle
         placeholder={t(locale, 'search.placeholder')}
         label={t(locale, 'search.label')}
         loadingLabel={t(locale, 'search.loading')}
+        errorLabel={t(locale, 'search.error')}
         sortLabel={t(locale, 'sort.label')}
         sortName={t(locale, 'sort.name')}
         sortAdded={t(locale, 'sort.added')}
+        sortRelevance={t(locale, 'sort.relevance')}
       />
     </div>
     <ShFilterSheet
       client:idle
       openLabel={t(locale, 'filters.open')}
-      closeLabel={t(locale, 'filters.close')}
       clearLabel={t(locale, 'filters.clear')}
       showLabel={t(locale, 'filters.show')}
+      showLabelOne={t(locale, 'filters.show.one')}
       headings={{
         categories: t(locale, 'filters.categories'),
         platforms: t(locale, 'filters.platforms'),
@@ -73,16 +96,17 @@ const facetOptions = {
 
   {/*
     Server-rendered with the true total so a no-JS visitor sees a correct
-    number; the grid controller rewrites it from data-count-template, which is
-    how the island stays locale-agnostic (docs/07 §3).
+    number; the grid controller rewrites it from the per-plural templates,
+    which is how the island stays locale-agnostic (docs/07 §3).
   */}
   <p
     id="sh-count"
-    class="text-sh-muted mt-6 font-mono text-[var(--text-badge)]"
+    class="text-sh-muted text-badge mt-6 font-mono"
     aria-live="polite"
-    data-count-template={t(locale, 'apps.count', { n: '{n}' })}
+    data-count-one={t(locale, 'apps.count.one', { n: '{n}' })}
+    data-count-other={t(locale, 'apps.count', { n: '{n}' })}
   >
-    {t(locale, 'apps.count', { n: nf.format(apps.length) })}
+    {countText(apps.length)}
   </p>
 
   <div id="sh-grid" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -92,7 +116,7 @@ const facetOptions = {
   </div>
 
   {/* Hidden until filtering actually yields nothing (docs/06 §5). */}
-  <p id="sh-empty" class="sh-panel text-sh-muted mt-8 p-6" hidden={apps.length > 0}>
-    {t(locale, 'apps.empty')}
+  <p id="sh-empty" class="sh-panel text-sh-muted mt-8 p-6" hidden>
+    {t(locale, 'apps.noResults')}
   </p>
 </Base>

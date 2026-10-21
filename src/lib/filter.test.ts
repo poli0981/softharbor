@@ -132,6 +132,38 @@ describe('sort orders', () => {
   });
 });
 
+describe('sort — locale independence and relevance', () => {
+  it('orders the same way whatever locale the browser would collate in', () => {
+    // "ch" is a separate letter after "h" in Czech; localeCompare() with no
+    // locale used to follow the browser and move CherryTree past Hugin there.
+    const cards = [
+      { ...CARDS[0]!, slug: 'hugin', name: 'Hugin' },
+      { ...CARDS[0]!, slug: 'cherrytree', name: 'CherryTree' },
+      { ...CARDS[0]!, slug: 'chocolatey', name: 'Chocolatey' },
+    ];
+    expect(sortCards(cards, 'name').map((c) => c.slug)).toEqual([
+      'cherrytree',
+      'chocolatey',
+      'hugin',
+    ]);
+  });
+
+  it('relevance follows the search rank, unranked cards last by name', () => {
+    const rank = new Map([
+      ['obsidian', 0],
+      ['7-zip', 1],
+    ]);
+    const order = sortCards(CARDS, 'relevance', rank).map((c) => c.slug);
+    expect(order.slice(0, 2)).toEqual(['obsidian', '7-zip']);
+  });
+
+  it('relevance without a rank falls back to name order', () => {
+    expect(sortCards(CARDS, 'relevance').map((c) => c.slug)).toEqual(
+      sortCards(CARDS, 'name').map((c) => c.slug),
+    );
+  });
+});
+
 describe('visibleSlugs — filter then sort, in display order', () => {
   it('composes both', () => {
     expect(visibleSlugs(CARDS, state({ pricing: new Set(['free']) }), 'name')).toEqual([

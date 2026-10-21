@@ -40,7 +40,7 @@ const count = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB').format(
   </p>
 
   {apps.length === 0 ? (
-    <p class="sh-panel text-sh-muted mt-8 p-6">{t(locale, 'apps.empty')}</p>
+    <p class="sh-panel text-sh-muted mt-8 p-6">{t(locale, 'categories.empty')}</p>
   ) : (
     <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {apps.map((app) => (
