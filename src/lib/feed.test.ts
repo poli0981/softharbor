@@ -91,4 +91,15 @@ describe('buildExport — docs/03 §6', () => {
   it('sorts by slug so consumers get a stable document', () => {
     expect(buildExport(apps, 'x').apps.map((a) => a.slug)).toEqual(['7-zip', 'vlc']);
   });
+
+  it('orders slugs by code unit — no build-machine locale can reorder them', () => {
+    // "aa" sorts after "z" in Danish collation, "ch" after "h" in Czech: the
+    // ICU default of whichever machine builds must not matter.
+    const slugs = ['zotero', 'aard', 'chatterino', 'h-x', 'a-b', 'a0', 'ab'];
+    const out = buildExport(
+      slugs.map((slug) => ({ slug })),
+      'x',
+    ).apps.map((a) => a.slug);
+    expect(out).toEqual(['a-b', 'a0', 'aard', 'ab', 'chatterino', 'h-x', 'zotero']);
+  });
 });
