@@ -76,6 +76,9 @@ export function buildExport(apps: readonly ExportApp[], generatedAt: string) {
     count: apps.length,
     license: 'CC-BY-SA-4.0',
     attribution: 'SoftHarbor contributors — https://github.com/poli0981/softharbor',
-    apps: [...apps].sort((a, b) => a.slug.localeCompare(b.slug)),
+    // Code-unit order: slugs are ASCII kebab-case, where it matches `en`
+    // collation exactly — without depending on the build machine's ICU
+    // default the way a bare localeCompare() did.
+    apps: [...apps].sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0)),
   };
 }

@@ -3,11 +3,12 @@
 //
 // docs/05 §A5 — reader for the console ring buffer.
 //
-// The buffer is FILLED by public/errors.js, which is loaded early from
-// Base.astro. It cannot live in this module: ShBugReport is client:visible in
-// the footer (docs/02 §5), so listeners attached at hydration would miss every
-// error that happened before the user scrolled — the ones a bug report is
-// actually about. The two halves meet on `window.__shErrors`.
+// The buffer is FILLED by src/scripts/errors.js, the first script in
+// Base.astro's <head>. It cannot live in this module: ShBugReport is
+// client:visible in the footer (docs/02 §5), so listeners attached at
+// hydration would miss every error that happened before the user scrolled —
+// the ones a bug report is actually about. The two halves meet on
+// `window.__shErrors`.
 //
 // Privacy (docs/09 §8): in-memory only, page lifetime, never transmitted until
 // the user opens a report themselves.

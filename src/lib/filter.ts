@@ -71,6 +71,14 @@ function sortKey(name: string): string {
 }
 
 /**
+ * THE name order, wherever a list is sorted by name — the grid here, and the
+ * category pages through src/lib/paths.ts — so the two can never disagree.
+ */
+export function compareNames(a: string, b: string): number {
+  return collator.compare(sortKey(a), sortKey(b));
+}
+
+/**
  * Sort comparator.
  *
  * - `name` collates on the NORMALIZED name, so Vietnamese entries order the
@@ -93,7 +101,7 @@ export function compareCards(
     const rb = rank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
     if (ra !== rb) return ra - rb;
   }
-  return collator.compare(sortKey(a.name), sortKey(b.name));
+  return compareNames(a.name, b.name);
 }
 
 export function sortCards(
