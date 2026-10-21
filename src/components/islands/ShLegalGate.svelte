@@ -3,6 +3,8 @@
      docs/14 Part 2 — first-visit legal gate; docs/09 §4a — its human check. -->
 <script lang="ts">
   import { onMount, tick } from 'svelte';
+  import IconScale from '~icons/lucide/scale';
+  import IconShield from '~icons/lucide/shield-check';
   import { acceptLegal, isAccepted } from '../../lib/legal';
   import { isHuman, PASS_TTL_MS, rememberHuman, UNVERIFIED_TTL_MS } from '../../lib/human';
   import { runHumanCheck, sitekeyFor } from '../../lib/turnstile';
@@ -135,6 +137,7 @@
     <!-- Focus lands on the heading, not on the first link or the accept button:
          a screen reader then reads the notice before any control. Autofocus is
          the dialog's own focusing step here, not a page-load focus grab. -->
+    <span class="sh-gate-icon" aria-hidden="true"><IconScale /></span>
     <h2 id="sh-gate-title" tabindex="-1" autofocus>{strings.title}</h2>
     <p id="sh-gate-body">
       {strings.body}
@@ -147,6 +150,7 @@
       {strings.accept}
     </button>
   {:else}
+    <span class="sh-gate-icon" aria-hidden="true"><IconShield /></span>
     <h2 id="sh-gate-title" tabindex="-1" bind:this={verifyHeading}>{strings.verifyTitle}</h2>
     <!-- A live region: the "skipped" note replaces the explanation in place. -->
     <p id="sh-gate-body" role="status" data-testid="sh-gate-status">
@@ -180,6 +184,17 @@
   .sh-gate::backdrop {
     background: oklch(0.17 0.03 255 / 0.6);
     backdrop-filter: blur(3px);
+  }
+  .sh-gate-icon {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    margin-block-end: 0.75rem;
+    border-radius: var(--radius-tile);
+    background: var(--sh-accent-soft);
+    color: var(--sh-accent);
+    font-size: 1.375rem;
   }
   h2 {
     font-family: var(--font-display);
