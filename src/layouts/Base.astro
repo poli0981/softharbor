@@ -7,6 +7,11 @@ import ShHeader from '../components/ShHeader.astro';
 import ShFooter from '../components/ShFooter.astro';
 import { localePair, localePath, t, type Locale } from '../i18n';
 import { canonicalPath } from '../lib/locale';
+// Pre-paint scripts, emitted verbatim as content-hashed /_astro/ files.
+// `no-inline` is load-bearing: plain `?url` inlines files under 4 KiB as data:
+// URLs, which `script-src 'self'` refuses (scripts/check-assets.mjs guards it).
+import errorsUrl from '../scripts/errors.js?url&no-inline';
+import themeUrl from '../scripts/theme.js?url&no-inline';
 import '../styles/global.css';
 
 interface Props {
@@ -73,8 +78,13 @@ const gateStrings = {
     <meta property="og:locale:alternate" content={locale === 'vi' ? 'en_GB' : 'vi_VN'} />
     <meta name="twitter:card" content="summary" />
 
-    {/* Blocking, same-origin, NOT inline — docs/05 §A8, docs/09 §4 (D20). */}
-    <script is:inline src="/theme.js"></script>
+    {/*
+      Console ring buffer FIRST (docs/05 §A5): it must already be listening when
+      theme.js or an island bootstrap throws. Blocking and tiny on purpose.
+    */}
+    <script is:inline src={errorsUrl}></script>
+    {/* No-flash theme, blocking, before first paint — docs/05 §A8. */}
+    <script is:inline src={themeUrl}></script>
     {/*
       Service-worker registration. @vite-pwa/astro EMITS /registerSW.js and
       /sw.js but never references them from any page — the build reports
@@ -83,13 +93,6 @@ const gateStrings = {
       file ourselves. External, not inline, to satisfy script-src (docs/09 §4).
     */}
     <script is:inline defer src="/registerSW.js"></script>
-    {/*
-      Console ring buffer (docs/05 §A5). Loaded here rather than inside
-      ShBugReport because that island is client:visible in the footer — a
-      listener attached at hydration would miss every error that happened
-      before the user scrolled, which is most of them.
-    */}
-    <script is:inline defer src="/errors.js"></script>
   </head>
   <body class="flex min-h-dvh flex-col">
     {/*

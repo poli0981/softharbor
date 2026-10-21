@@ -2,16 +2,17 @@
    Copyright (C) 2026 poli0981 (SkullMute)
 
    No-flash theme resolution — docs/05 §A8.
-   Loaded as a BLOCKING <script src> in <head> (no defer, no async) so it runs
-   before first paint. It lives in public/ and is deliberately NOT bundled: it
-   must run before any module, and an external same-origin file is covered by
-   the page CSP's `script-src 'self'` without a hash (docs/09 §4).
+
+   Loaded as a BLOCKING classic <script src> in <head> (no defer, no async, no
+   type=module) so it runs before first paint. Base.astro references it via
+   `?url&no-inline`: Vite copies it verbatim to a content-hashed /_astro/ file
+   that is cached immutably. `no-inline` matters — plain `?url` inlines any
+   file under 4 KiB as a data: URL, which `script-src 'self'` refuses.
 
    Storage access is guarded. With site data blocked, localStorage THROWS, and
-   this script runs before errors.js exists — an unguarded read used to abort
-   here, leaving dark-OS visitors on the light theme with nothing logged. The
-   rules match src/lib/theme.ts: only 'light' / 'dark' are explicit choices;
-   anything else (missing, garbage) means "follow the system". */
+   an unguarded read used to abort here, leaving dark-OS visitors on the light
+   theme. The rules match src/lib/theme.ts: only 'light' / 'dark' are explicit
+   choices; anything else (missing, garbage) means "follow the system". */
 (() => {
   let stored = null;
   try {
