@@ -102,7 +102,7 @@ function judge(outcome: unknown, check: Check, deps: VerifyDeps): Verdict {
   if (isTestSecret(check.secret)) return 'ok';
   if (outcome['hostname'] !== check.hostname || outcome['action'] !== ACTION) return 'rejected';
   const issued =
-    typeof outcome['challenge_ts'] === 'string' ? Date.parse(outcome['challenge_ts']) : NaN;
+    typeof outcome['challenge_ts'] === 'string' ? Date.parse(outcome['challenge_ts']) : Number.NaN;
   return deps.now() - issued <= MAX_TOKEN_AGE_MS ? 'ok' : 'rejected';
 }
 
