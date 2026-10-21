@@ -1,0 +1,52 @@
+# docs/12 §6 — dependency updates.
+#
+# Replaces renovate.json (removed 2026-10-21). Renovate was never installed on
+# this repository: no renovate/* branch, Dependency Dashboard or PR ever
+# appeared, so for three months nothing kept versions or action pins current
+# while Dependabot security updates — already enabled in Settings — quietly
+# failed on transitive packages. One bot, configured here, instead of two.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '05:00'
+      timezone: Asia/Ho_Chi_Minh
+    # pnpm 11 rejects any release younger than 24 h (minimumReleaseAge) and CI
+    # installs with --frozen-lockfile under that policy, so a PR opened on
+    # release day fails before a single test runs — exactly what killed #14
+    # and #15. Two days of cooldown keeps every update PR installable.
+    cooldown:
+      default-days: 2
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    ignore:
+      # D21 — TypeScript 7's native compiler does not expose the API that
+      # `astro check` needs, so `pnpm check` fails on it. Hold at 6.x.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+    commit-message:
+      prefix: 'fix(deps)'
+      prefix-development: 'chore(deps)'
+
+  # Workflow actions are pinned to full commit SHAs (SonarCloud S7637); this
+  # bumps the SHA and its `# vX.Y.Z` comment together.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '05:00'
+      timezone: Asia/Ho_Chi_Minh
+    cooldown:
+      default-days: 2
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: 'ci'

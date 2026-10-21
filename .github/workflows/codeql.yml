@@ -14,6 +14,9 @@ on:
   pull_request:
   schedule:
     - cron: '31 3 * * 1'
+  # quarantine.yml dispatches this on the PR it opens (GITHUB_TOKEN-created PRs
+  # trigger no pull_request runs, so the required check would never appear).
+  workflow_dispatch:
 
 # Required matrix — security-events: write is what lets results upload.
 # Must be a SUPERSET of what the reusable workflow's jobs declare — a called
@@ -28,6 +31,8 @@ permissions:
 
 jobs:
   codeql:
+    # First-party org workflow, deliberately tracked at @main so org-wide fixes
+    # land everywhere at once. Third-party actions are SHA-pinned instead.
     uses: poli0981/.github/.github/workflows/reusable-codeql.yml@main
     with:
       # A JSON ARRAY STRING, not a bare value — the reusable workflow feeds it

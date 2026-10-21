@@ -12,6 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
+        description: Release tag to (re-)announce, e.g. v1.1.0
         required: true
         type: string
 
@@ -21,4 +22,12 @@ permissions:
 jobs:
   announce:
     uses: poli0981/.github/.github/workflows/announce-release.yml@main
-    secrets: inherit
+    with:
+      # The reusable workflow reads `tag_override`, falling back to the
+      # release event's tag. This input was never passed before, so every
+      # manual re-run died with "No release tag available."
+      tag_override: ${{ inputs.tag || '' }}
+    # Only what the announcement needs, instead of `secrets: inherit`
+    # handing every repository secret to code tracked at @main.
+    secrets:
+      DISCORD_RELEASES_WEBHOOK: ${{ secrets.DISCORD_RELEASES_WEBHOOK }}
