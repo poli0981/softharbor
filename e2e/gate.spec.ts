@@ -23,7 +23,7 @@ test('blocks a first-time visitor until accepted and checked, and remembers both
   const tokens = await stubTurnstile(page);
   const scripts: string[] = [];
   page.on('request', (r) => {
-    if (r.url().includes('challenges.cloudflare.com')) scripts.push(r.url());
+    if (new URL(r.url()).hostname === 'challenges.cloudflare.com') scripts.push(r.url());
   });
 
   await page.goto('/apps');

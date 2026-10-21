@@ -16,7 +16,15 @@ import { expect, test as base, type Page } from '@playwright/test';
 import { PASS_TTL_MS } from '../src/lib/human';
 import { LEGAL_VERSION } from '../src/lib/legal';
 
-const THIRD_PARTY_NOISE = /challenges\.cloudflare\.com/;
+/** Cloudflare's challenge hosts (the Turnstile frame and its probes). */
+function fromTurnstileFrame(url: string): boolean {
+  try {
+    const host = new URL(url).hostname;
+    return host === 'challenges.cloudflare.com' || host.endsWith('.challenges.cloudflare.com');
+  } catch {
+    return false; // no location at all — not the frame's
+  }
+}
 
 declare global {
   interface Window {
@@ -41,7 +49,7 @@ export const test = base.extend<{ issues: string[]; allowConsole: RegExp[] }>({
       });
       page.on('console', (msg) => {
         if (msg.type() !== 'error') return;
-        if (THIRD_PARTY_NOISE.test(msg.location().url)) return;
+        if (fromTurnstileFrame(msg.location().url)) return;
         if (allowConsole.some((re) => re.test(msg.text()))) return;
         issues.push(`console: ${msg.text()}`);
       });
