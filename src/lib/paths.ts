@@ -6,12 +6,24 @@
 // re-exporting them means a filter added to one locale can never silently
 // skip the other.
 
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import type { Locale } from '../i18n';
+import { compareNames } from './filter';
 
-/** Sort helper shared by grid and feed: newest first, name as tiebreak. */
-export function byAddedDesc(a: CollectionEntry<'apps'>, b: CollectionEntry<'apps'>): number {
-  return b.data.addedAt.localeCompare(a.data.addedAt) || a.data.name.localeCompare(b.data.name);
+interface Dated {
+  data: { addedAt: string; name: string };
+}
+
+/**
+ * Category pages: newest first, name as the tie-break — the /apps grid's
+ * "Newest" order exactly (compareNames is the grid's pinned `en` collator).
+ * It used to tie-break with a bare localeCompare(), i.e. in whatever locale
+ * the BUILD machine's ICU defaults to, so a laptop, GitHub CI and Workers
+ * Builds could each ship a different order.
+ */
+export function byAddedDesc(a: Dated, b: Dated): number {
+  const byDate = b.data.addedAt < a.data.addedAt ? -1 : b.data.addedAt > a.data.addedAt ? 1 : 0;
+  return byDate || compareNames(a.data.name, b.data.name);
 }
 
 function appPathsFor(locale: Locale) {

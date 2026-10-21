@@ -14,11 +14,10 @@ export default tseslint.config(
   // would otherwise lint a second (or third) time.
   { ignores: ['dist/', '.astro/', 'node_modules/', '.claude/', 'coverage/', 'lychee/'] },
   {
-    // Unbundled scripts shipped verbatim from public/. They must stay plain
-    // browser JS — no imports, no TypeScript — because they load before the
-    // bundle and at a stable path (docs/05 §A8, §A5). Previously theme.js was
-    // simply ignored; linting them is better than exempting them.
-    files: ['public/*.js'],
+    // Pre-paint scripts Base.astro loads via `?url&no-inline`: Vite copies them
+    // verbatim (no transform), so they must stay plain classic browser JS — no
+    // imports, no TypeScript (docs/05 §A8, §A5).
+    files: ['src/scripts/*.js'],
     languageOptions: {
       globals: globals.browser,
       sourceType: 'script',
@@ -69,6 +68,10 @@ export default tseslint.config(
       // corrupt the JSON — &quot; is not valid inside it. Values come from the
       // schema-validated collection, never from a request.
       'src/components/ShJsonLd.astro',
+      // Base.astro writes ONE compile-time constant (src/lib/inlineCss.ts)
+      // into an inline <style> — set:html keeps the bytes exactly the ones
+      // astro.config.ts hashes into the CSP. No runtime or data input at all.
+      'src/layouts/Base.astro',
     ],
     rules: {
       'astro/no-set-html-directive': 'off',

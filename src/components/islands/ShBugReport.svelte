@@ -46,7 +46,7 @@
   onclick={refresh}
   class="hover:underline"
 >
-  {label}{#if count > 0}<span class="ml-1 font-mono text-[var(--text-badge)]"
+  {label}{#if count > 0}<span class="text-badge ml-1 font-mono"
       >({countLabel.replaceAll('{n}', String(count))})</span
     >{/if}
 </a>

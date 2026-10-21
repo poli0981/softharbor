@@ -9,6 +9,18 @@ import { getViteConfig } from 'astro/config';
 
 export default getViteConfig({
   test: {
+    // `pnpm coverage`. Scoped to the code that ships to visitors; the build
+    // scripts run as child processes in their tests (scripts/fixture.ts), which
+    // V8 coverage cannot see, so they are judged by those tests' assertions.
+    // Thresholds sit just under the measured numbers: a ratchet, not a goal —
+    // raise them when coverage rises, never lower them to land a change.
+    coverage: {
+      provider: 'v8',
+      include: ['src/lib/**/*.ts', 'src/i18n/**/*.ts', 'src/components/islands/**/*.svelte'],
+      exclude: ['**/*.test.ts'],
+      reporter: ['text-summary', 'html', 'lcov'],
+      thresholds: { statements: 93, branches: 78, functions: 90, lines: 93 },
+    },
     projects: [
       {
         // Pure logic — src/lib/**. No DOM, so a DOM bug can never hide here.
@@ -17,6 +29,15 @@ export default getViteConfig({
           name: 'unit',
           environment: 'node',
           include: ['src/{lib,i18n}/**/*.test.ts'],
+        },
+      },
+      {
+        // The build/CI scripts, run for real against throwaway project trees.
+        extends: true,
+        test: {
+          name: 'scripts',
+          environment: 'node',
+          include: ['scripts/**/*.test.ts'],
         },
       },
       {

@@ -3,21 +3,25 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/06 §4 — sticky header.
 import ShLangSwitch from './islands/ShLangSwitch.svelte';
-import ShThemeToggle from './islands/ShThemeToggle.svelte';
+import ShPrefs from './islands/ShPrefs.svelte';
 import { localePath, t, type Locale } from '../i18n';
+import { canonicalPath } from '../lib/locale';
 
 interface Props {
   locale: Locale;
+  /** The EN/VI pair Base.astro also writes into the hreflang alternates. */
+  pair: Record<Locale, string>;
 }
-const { locale } = Astro.props;
+const { locale, pair } = Astro.props;
 const home = localePath(locale, '/');
+// The section the page belongs to, for aria-current on the nav links.
+const here = canonicalPath(Astro.url.pathname).replace(/^\/vi(?=\/|$)/, '') || '/';
+const section = here.startsWith('/apps')
+  ? 'apps'
+  : here.startsWith('/categories')
+    ? 'categories'
+    : null;
 const apps = localePath(locale, '/apps');
-
-const themeLabels = {
-  system: t(locale, 'theme.system'),
-  light: t(locale, 'theme.light'),
-  dark: t(locale, 'theme.dark'),
-};
 ---
 
 <header class="bg-sh-bg border-sh-border sticky top-0 z-30 border-b-2">
@@ -26,11 +30,15 @@ const themeLabels = {
       {t(locale, 'site.name')}
     </a>
 
-    <nav aria-label={t(locale, 'nav.apps')} class="flex items-center gap-4">
-      <a href={apps} class="hover:underline">
+    <nav aria-label={t(locale, 'nav.main')} class="flex items-center gap-4">
+      <a href={apps} class="hover:underline" aria-current={section === 'apps' ? 'page' : undefined}>
         {t(locale, 'nav.apps')}
       </a>
-      <a href={localePath(locale, '/categories')} class="hover:underline">
+      <a
+        href={localePath(locale, '/categories')}
+        class="hover:underline"
+        aria-current={section === 'categories' ? 'page' : undefined}
+      >
         {t(locale, 'nav.categories')}
       </a>
     </nav>
@@ -54,12 +62,35 @@ const themeLabels = {
     */}
       <ShLangSwitch
         client:idle
+        {locale}
+        {pair}
         label={t(locale, 'lang.label')}
         suggestText={t('vi', 'lang.suggest.text')}
         suggestAccept={t('vi', 'lang.suggest.accept')}
         suggestDismiss={t('vi', 'lang.suggest.dismiss')}
       />
-      <ShThemeToggle client:idle label={t(locale, 'theme.label')} labels={themeLabels} />
+      <ShPrefs
+        client:idle
+        label={t(locale, 'prefs.label')}
+        themeLabel={t(locale, 'theme.label')}
+        themes={{
+          system: t(locale, 'theme.system'),
+          light: t(locale, 'theme.light'),
+          dark: t(locale, 'theme.dark'),
+        }}
+        scrollbarLabel={t(locale, 'prefs.scrollbar')}
+        scrollbars={{
+          auto: t(locale, 'prefs.scrollbar.auto'),
+          thin: t(locale, 'prefs.scrollbar.thin'),
+          hidden: t(locale, 'prefs.scrollbar.hidden'),
+        }}
+        motionLabel={t(locale, 'prefs.motion')}
+        motions={{
+          system: t(locale, 'prefs.motion.system'),
+          reduce: t(locale, 'prefs.motion.reduce'),
+        }}
+        searchHref={`${apps}#search`}
+      />
     </div>
   </div>
 </header>

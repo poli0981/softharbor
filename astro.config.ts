@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 
+import { createHash } from 'node:crypto';
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import AstroPWA from '@vite-pwa/astro';
 import tailwindcss from '@tailwindcss/vite';
 import Icons from 'unplugin-icons/vite';
+import { VIEW_TRANSITION_OPT_IN } from './src/lib/inlineCss';
 
 // Reachable but meaningless in SERPs — noindex'd (docs/16 §7) AND kept out of
 // the sitemap, or GSC reports "Submitted URL marked noindex" forever.
@@ -31,38 +33,31 @@ export default defineConfig({
   // html_handling: "drop-trailing-slash" in wrangler.jsonc, /apps/ redirects
   // to /apps and the canonical URL is the one that serves.
   trailingSlash: 'never',
-  // `inlineStylesheets: 'never'` is a CSP decision, not a perf one.
+  // `inlineStylesheets: 'never'` began as a CSP fix and stays as a cache one.
   //
-  // Astro's default inlines small stylesheets, and its CSP hashes them into
-  // the meta tag of the page that carries them. That is fine on a hard load
-  // and broken under `<ClientRouter />`: a soft navigation never re-applies
-  // the meta CSP, so the policy in force stays the one from the page you
-  // STARTED on. Arriving at a page with a style the origin page lacked means
-  // the browser refuses it.
-  //
-  // That is exactly what happened to `/apps`. It alone carried ShAppCard's
-  // scoped CSS — the stretched-link `::after{inset:0}` and `.sr-only` — so
-  // navigating there from any detail page silently dropped the whole-card
-  // click target and unhid screen-reader-only text.
-  //
-  // External stylesheets are covered by `style-src 'self'` with no hash at
-  // all, so every page's policy accepts them and the class of bug disappears.
-  // They also cache once across ~700 pages instead of shipping per page.
+  // Under the former `<ClientRouter />`, a soft navigation never re-applied
+  // the meta CSP, so a small stylesheet Astro had inlined (and hashed into ONE
+  // page's policy) was refused on arrival from any page that lacked it — which
+  // silently dropped ShAppCard's stretched link and `.sr-only` on /apps.
+  // ClientRouter is gone since v1.1 (every navigation is a real document load
+  // with its own policy), but external stylesheets are still the better
+  // shape: covered by `style-src 'self'` with no hash at all, and cached once
+  // across ~700 pages instead of shipping inside each one.
   build: { format: 'file', inlineStylesheets: 'never' },
 
-  // OFF because the platform refuses it, not because it is unwanted.
-  // `<ClientRouter />` turns prefetching on by default and hovering a link
-  // then issues a speculative GET carrying `Sec-Purpose: prefetch`. Cloudflare
-  // answers those with a bare **503** and the header
-  // `Cf-Speculation-Refused: prefetch refused: disabled for worker requests` —
-  // reproducible on demand, and nothing to do with rate limiting:
+  // OFF because the platform refuses it, not because it is unwanted. A
+  // speculative GET carrying `Sec-Purpose: prefetch` is answered by Cloudflare
+  // with a bare **503** and `Cf-Speculation-Refused: prefetch refused:
+  // disabled for worker requests` — reproducible on demand, and nothing to do
+  // with rate limiting:
   //
   //   curl -I -H 'Sec-Purpose: prefetch' https://softharbor.net/apps   → 503
   //   curl -I                            https://softharbor.net/apps   → 200
   //
-  // So every hover cost a failed request and a red console line while
-  // delivering no prefetch at all. Real navigations were never affected.
-  // Revisit if Cloudflare ever allows speculation on Worker routes.
+  // So prefetching would cost a failed request and a red console line per
+  // hover while delivering nothing. (The zone's Speed Brain feature hits the
+  // same refusal and should be off — docs/16 §9.) Revisit if Cloudflare ever
+  // allows speculation on Worker routes.
   prefetch: false,
 
   i18n: {
@@ -91,6 +86,13 @@ export default defineConfig({
         "form-action 'none'",
         "object-src 'none'",
       ],
+      // The one `is:inline` <style> (src/lib/inlineCss.ts) — Astro hashes
+      // only what it bundles, so this hash is ours to supply.
+      styleDirective: {
+        hashes: [
+          `sha256-${createHash('sha256').update(VIEW_TRANSITION_OPT_IN).digest('base64')}` as const,
+        ],
+      },
     },
   },
 
@@ -111,24 +113,28 @@ export default defineConfig({
       // one of them (docs/09 §4, D20).
       injectRegister: 'script',
       manifest: {
+        id: '/',
         name: 'SoftHarbor',
         short_name: 'SoftHarbor',
         description: 'Free & buy-once desktop software, one page.',
-        theme_color: '#f7f4ee',
-        background_color: '#f7f4ee',
-        // The existing SVG, used as-is. A single scalable icon covers every
-        // size, and `purpose: 'any maskable'` lets platforms that crop to a
-        // shape do so without a separate asset. Browsers with no SVG-manifest
-        // support simply fall back to the favicon — strictly better than the
-        // empty array that shipped in M5, which suppressed the install prompt
-        // entirely. Raster PNGs remain the eventual upgrade (docs/13 §2).
+        lang: 'en',
+        // The tile colour of the mark (scripts/gen-icons.mjs), so the install
+        // splash and title bar match the icon rather than the page.
+        theme_color: '#0B4F7A',
+        background_color: '#0B4F7A',
+        // Raster icons generated from one vector mark (`pnpm icons`). Until
+        // v1.1 the only icon was the SVG favicon drawn in currentColor —
+        // black in launchers — declared 'any maskable' with no safe zone.
         icons: [
+          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
           {
-            src: '/favicon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any maskable',
+            src: '/icons/maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
           },
+          { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
         ],
       },
       workbox: {
@@ -138,11 +144,32 @@ export default defineConfig({
         // original patterns ('offline/**', 'fonts/*.woff2') matched nothing,
         // which is a silent failure: the build succeeds and the offline page
         // simply is not there (found in M1 and S5).
-        globPatterns: ['offline.html', '_astro/*.woff2', 'favicon.svg'],
+        //
+        // What the offline page actually needs, and nothing more:
+        //  - its stylesheets. Missing until v1.1 — once inlineStylesheets went
+        //    'never', /offline linked CSS the SW never cached, so it rendered
+        //    unstyled exactly when it was needed;
+        //  - the two pre-paint scripts it loads (errors.js, theme.js);
+        //  - the latin + Vietnamese body and display faces. Precaching all 13
+        //    font files (211 KB, latin-ext and mono included) on a visitor's
+        //    first page view was a lot of bandwidth for a fallback page; the
+        //    rest falls back to system fonts.
+        globPatterns: [
+          'offline.html',
+          '_astro/*.css',
+          '_astro/{errors,theme}.*.js',
+          '_astro/be-vietnam-pro-{latin,vietnamese}-400-normal.*.woff2',
+          '_astro/bricolage-grotesque-{latin,vietnamese}-wght-normal.*.woff2',
+          'favicon.svg',
+        ],
 
-        // skipWaiting is already true under registerType 'autoUpdate', but
-        // clientsClaim is not — without it the SW controls only pages loaded
-        // AFTER activation, so a first-time visitor who loses connection mid
+        // A new SW takes over as soon as it is installed. registerSW.js never
+        // posts SKIP_WAITING, so without this a fixed SW waited until every
+        // SoftHarbor tab was closed (an older comment here wrongly claimed
+        // 'autoUpdate' implied it).
+        skipWaiting: true,
+        // Without clientsClaim the SW controls only pages loaded AFTER
+        // activation, so a first-time visitor who loses connection mid
         // session gets the browser's error page instead of ours (S5).
         clientsClaim: true,
 
@@ -179,6 +206,9 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss(), Icons({ compiler: 'astro' })],
+    // `~icons/<set>/<name>` imports compile to Svelte 5 components: usable in
+    // islands, and in .astro files (rendered to static SVG at build time).
+    // Data-driven icons (app logos, category icons) go through src/lib/icon.ts.
+    plugins: [tailwindcss(), Icons({ compiler: 'svelte' })],
   },
 });

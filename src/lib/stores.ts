@@ -13,10 +13,19 @@
 // error (`dollar_prefix_invalid`). Declaring `query` here is what lets a
 // component write `$query` to read the value reactively. The two conventions
 // collide head-on; this is the side that has to give.
+//
+// Lifetime: one page. Every navigation is a full document load since v1.1
+// (no <ClientRouter />), so these never outlive the islands that read them —
+// the stale-sort-after-navigation bug that motivated that change is gone by
+// construction. The URL is the durable copy (src/lib/urlstate.ts).
 
 import { atom, computed } from 'nanostores';
 
-export type SortOrder = 'name' | 'added';
+/**
+ * `relevance` exists only while a query is active; ShSearch switches to it on
+ * the first keystroke unless the visitor has picked an order themselves.
+ */
+export type SortOrder = 'name' | 'added' | 'relevance';
 export type Facet = 'categories' | 'platforms' | 'pricing';
 
 export const query = atom<string>('');
@@ -38,6 +47,12 @@ export function toggleFacet(facet: Facet, value: string): void {
   store.set(next);
 }
 
+/**
+ * Clears the query AND every facet. The search box and the grid's cached
+ * search hits both follow `query`, so an empty query empties the box and
+ * stops constraining the grid — before v1.1 "Clear all" reset the stores
+ * while the box kept its text and the grid stayed filtered.
+ */
 export function clearAll(): void {
   query.set('');
   for (const store of Object.values(FACETS)) store.set(new Set());

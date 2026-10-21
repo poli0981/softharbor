@@ -14,6 +14,9 @@ worker-configuration.d.ts
 
 # Test & tooling output
 coverage/
+playwright-report/
+test-results/
+blob-report/
 .vitest/
 lychee/
 *.tsbuildinfo

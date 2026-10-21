@@ -3,9 +3,12 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 //
 // Regression cover for the sort bug that reached production: the grid used to
-// reorder with `el.style.order`, which CSP `style-src` refuses (D20), so the
-// cards never moved. `check:styles` could not see it — the assignment only
-// exists at runtime — and nothing here exercised the DOM, so it shipped green.
+// reorder with `el.style.order`, and the cards never moved. Nothing exercised
+// the DOM, so it shipped green; these tests drive real nodes.
+//
+// mountGrid() no longer applies on its own (it listens instead of
+// subscribing, so mounting is not five full filter passes); the island calls
+// apply() once after restoring the URL state, and so do these tests.
 
 import { beforeEach, describe, expect, it } from 'vitest';
 import { mountGrid } from './grid';
@@ -27,7 +30,7 @@ function build(): HTMLElement {
         `<article data-slug="${a.slug}" data-name="${a.name}" data-categories="${a.cats}"` +
         ` data-platforms="windows" data-pricing="${a.pricing}" data-added="${a.added}"></article>`,
     ).join('') +
-    `</div><span id="sh-count" data-count-template="{n} apps"></span>` +
+    `</div><span id="sh-count" data-count-one="{n} app" data-count-other="{n} apps"></span>` +
     `<p id="sh-empty" hidden></p>`;
   const grid = document.querySelector<HTMLElement>('#sh-grid');
   if (!grid) throw new Error('fixture did not build');
@@ -65,8 +68,8 @@ describe('mountGrid', () => {
   it('reorders the actual DOM nodes when the sort changes', () => {
     const grid = build();
     const handle = mountGrid(document);
+    handle?.apply();
 
-    sort.set('name');
     expect(visibleOrder(grid)).toEqual(['anki', 'krita', 'vlc']);
 
     // Newest first — the assertion that would have caught the shipped bug.
@@ -78,7 +81,7 @@ describe('mountGrid', () => {
   it('leaves the DOM untouched when the order is already correct', () => {
     const grid = build();
     const handle = mountGrid(document);
-    sort.set('name');
+    handle?.apply();
     const before = domOrder(grid);
 
     let mutations = 0;
@@ -113,6 +116,40 @@ describe('mountGrid', () => {
     handle?.destroy();
     expect(domOrder(grid)).toEqual(['vlc', 'anki', 'krita']);
     expect(visibleOrder(grid)).toEqual(['vlc', 'anki', 'krita']);
+  });
+
+  it('orders by search rank under the relevance sort', () => {
+    const grid = build();
+    const handle = mountGrid(document);
+    sort.set('relevance');
+    // MiniSearch's order: best match first, regardless of name or date.
+    handle?.setSearchHits(['vlc', 'anki']);
+    expect(visibleOrder(grid)).toEqual(['vlc', 'anki']);
+    handle?.destroy();
+  });
+
+  it('drops cached search hits when the query is cleared ("Clear all")', () => {
+    const grid = build();
+    const handle = mountGrid(document);
+    query.set('kri');
+    handle?.setSearchHits(['krita']);
+    expect(visibleOrder(grid)).toEqual(['krita']);
+
+    query.set('');
+    expect(visibleOrder(grid)).toEqual(['anki', 'krita', 'vlc']);
+    handle?.destroy();
+  });
+
+  it('writes a plural-correct, locale-formatted count', () => {
+    build();
+    document.documentElement.lang = 'en';
+    const handle = mountGrid(document);
+    const count = () => document.querySelector('#sh-count')?.textContent;
+    handle?.setSearchHits(['krita']);
+    expect(count()).toBe('1 app');
+    handle?.setSearchHits(null);
+    expect(count()).toBe('3 apps');
+    handle?.destroy();
   });
 
   it('returns null off the grid pages', () => {

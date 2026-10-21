@@ -98,7 +98,16 @@
   --sh-ok: oklch(0.72 0.12 150);
   --sh-warn: oklch(0.75 0.12 75);
   --sh-danger: oklch(0.68 0.17 25);
-  --sh-border: oklch(0.42 0.012 85);
+  /* 0.42 measured 2.0:1 on surface — the only visible edge of the search box,
+     sort select and filter button, failing WCAG 1.4.11 (3:1 for UI parts). */
+  --sh-border: oklch(0.58 0.012 85);
+}
+
+/* Scrollbar colours derive from the ink token, so they follow the theme. */
+:root {
+  --sh-scrollbar-thumb: color-mix(in oklch, var(--sh-ink) 32%, transparent);
+  --sh-scrollbar-thumb-hover: color-mix(in oklch, var(--sh-ink) 50%, transparent);
+  --sh-scrollbar-track: transparent;
 }
 
 /* Tell the UA about both themes so form controls and scrollbars follow. */
@@ -110,6 +119,19 @@
 }
 
 @layer base {
+  html {
+    /* The header is sticky: without this, jumping to #main or tabbing to a
+       control near the top puts it underneath the header (WCAG 2.4.11). */
+    scroll-padding-top: 5rem;
+  }
+
+  /* Preflight's default placeholder is the text colour at 50 % — 3.3:1 in the
+     light theme. The muted token is ≥ 4.5:1 in both. */
+  ::placeholder {
+    color: var(--sh-muted);
+    opacity: 1;
+  }
+
   body {
     background: var(--sh-bg);
     color: var(--sh-ink);
@@ -185,6 +207,53 @@
   }
 }
 
+/* Scrollbars (v1.1) — themed, with the "thin" and "hidden" choices from the
+   display menu (src/lib/prefs.ts, applied pre-paint by theme.js).
+
+   Standard properties first: Chromium ≥ 121 and Firefox use scrollbar-color /
+   scrollbar-width and then IGNORE ::-webkit-scrollbar, which stays as the
+   fallback for older WebKit. "hidden" removes the bar, never the scrolling:
+   wheel, touch, keyboard and assistive tech are unaffected. It applies to
+   every scroll container (dialogs, sheets), not just the page. */
+:root {
+  scrollbar-color: var(--sh-scrollbar-thumb) var(--sh-scrollbar-track);
+}
+:root[data-scrollbar='thin'],
+:root[data-scrollbar='thin'] * {
+  scrollbar-width: thin;
+}
+:root[data-scrollbar='hidden'],
+:root[data-scrollbar='hidden'] * {
+  scrollbar-width: none;
+}
+:root[data-scrollbar='hidden']::-webkit-scrollbar,
+:root[data-scrollbar='hidden'] *::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar {
+  inline-size: 12px;
+  block-size: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--sh-scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sh-scrollbar-thumb);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sh-scrollbar-thumb-hover);
+  background-clip: padding-box;
+}
+/* High-contrast / forced-colours modes: hand the bar back to the system. */
+@media (forced-colors: active) {
+  :root {
+    scrollbar-color: auto;
+  }
+}
+
 /* Mobile step of the type scale (docs/06 §3). */
 @media (width < 40rem) {
   :root {
@@ -194,6 +263,16 @@
     --text-h3: 1.125rem; /* 18 */
   }
 }
+
+/* Cross-document View Transitions (v1.1). This replaced <ClientRouter />,
+   which Astro documents as unsupported together with security.csp: a soft
+   navigation kept the FIRST page's meta CSP, wiped <html data-theme>, and kept
+   module state alive while islands reset. Native MPA transitions keep every
+   page a real document load — its own CSP, a fresh island tree — and still
+   cross-fade in browsers that support them. Opt-in only without reduced
+   motion; browsers without support simply navigate. The opt-in itself lives
+   in an inline <style> in Base.astro (see the comment there for why it cannot
+   live in this file); the rules below only shape the animation. */
 
 /* docs/06 §7 — everything collapses to instant, including View Transitions. */
 @media (prefers-reduced-motion: reduce) {
@@ -210,4 +289,20 @@
   ::view-transition-new(*) {
     animation: none !important;
   }
+}
+
+/* The same, chosen on the site rather than in the OS ("Motion: Reduce" in the
+   display menu → data-motion="reduce", applied pre-paint by theme.js). */
+:root[data-motion='reduce'] *,
+:root[data-motion='reduce'] *::before,
+:root[data-motion='reduce'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+:root[data-motion='reduce']::view-transition-group(*),
+:root[data-motion='reduce']::view-transition-old(*),
+:root[data-motion='reduce']::view-transition-new(*) {
+  animation: none !important;
 }

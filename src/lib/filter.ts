@@ -48,22 +48,68 @@ export function filterCards(cards: readonly CardFacets[], state: FilterState): C
 }
 
 /**
- * Sort comparator.
+ * One collator for the whole module, pinned to `en`.
  *
- * `name` collates on the NORMALIZED name so Vietnamese entries order the same
- * way in both locales, rather than depending on the browser's collation for
- * diacritics (docs/07 §4).
+ * `localeCompare()` with no locale collates by the VISITOR's browser locale:
+ * in a Czech-locale browser "ch" sorts after "h", which moved 81 of the 326
+ * cards (CherryTree, Chocolatey, …). Names are compared AFTER normalizeViet,
+ * so Vietnamese diacritics are already folded and `en` rules are exactly
+ * what we want in both UI locales (docs/07 §4). `numeric` puts "7-Zip"
+ * before "10…" the way people read it.
  */
-export function compareCards(a: CardFacets, b: CardFacets, order: SortOrder): number {
-  if (order === 'added') {
-    const byDate = b.added.localeCompare(a.added); // newest first
-    if (byDate !== 0) return byDate;
+const collator = new Intl.Collator('en', { sensitivity: 'base', numeric: true });
+
+/** normalizeViet() per distinct name, computed once instead of per comparison. */
+const sortKeys = new Map<string, string>();
+function sortKey(name: string): string {
+  let key = sortKeys.get(name);
+  if (key === undefined) {
+    key = normalizeViet(name);
+    sortKeys.set(name, key);
   }
-  return normalizeViet(a.name).localeCompare(normalizeViet(b.name));
+  return key;
 }
 
-export function sortCards(cards: readonly CardFacets[], order: SortOrder): CardFacets[] {
-  return [...cards].sort((a, b) => compareCards(a, b, order));
+/**
+ * THE name order, wherever a list is sorted by name — the grid here, and the
+ * category pages through src/lib/paths.ts — so the two can never disagree.
+ */
+export function compareNames(a: string, b: string): number {
+  return collator.compare(sortKey(a), sortKey(b));
+}
+
+/**
+ * Sort comparator.
+ *
+ * - `name` collates on the NORMALIZED name, so Vietnamese entries order the
+ *   same way in both locales.
+ * - `added` is newest first, name as the tie-break.
+ * - `relevance` follows the search ranking (`rank`: slug → position in
+ *   MiniSearch's result list); unranked cards fall back to name.
+ */
+export function compareCards(
+  a: CardFacets,
+  b: CardFacets,
+  order: SortOrder,
+  rank?: ReadonlyMap<string, number>,
+): number {
+  if (order === 'added') {
+    const byDate = b.added < a.added ? -1 : b.added > a.added ? 1 : 0; // newest first
+    if (byDate !== 0) return byDate;
+  } else if (order === 'relevance' && rank) {
+    const ra = rank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
+    const rb = rank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
+    if (ra !== rb) return ra - rb;
+  }
+  return compareNames(a.name, b.name);
+}
+
+export function sortCards(
+  cards: readonly CardFacets[],
+  order: SortOrder,
+  rank?: ReadonlyMap<string, number>,
+): CardFacets[] {
+  return [...cards].sort((a, b) => compareCards(a, b, order, rank));
 }
 
 /** Convenience for the grid: visible slugs, already in display order. */
@@ -71,6 +117,7 @@ export function visibleSlugs(
   cards: readonly CardFacets[],
   state: FilterState,
   order: SortOrder,
+  rank?: ReadonlyMap<string, number>,
 ): string[] {
-  return sortCards(filterCards(cards, state), order).map((c) => c.slug);
+  return sortCards(filterCards(cards, state), order, rank).map((c) => c.slug);
 }

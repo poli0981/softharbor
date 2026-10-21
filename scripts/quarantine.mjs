@@ -9,11 +9,18 @@
  * rendering on the next build.
  *
  * MOVE, never delete: the file keeps its schema so restoring is a plain
- * `git mv` plus a status edit, and the reason lives in the tracking issue and
- * the commit message. History is the audit trail.
+ * move back plus a status edit, and the reason lives in the tracking issue and
+ * the commit message. History is the audit trail. (A plain filesystem rename;
+ * git records it as a rename when the move is committed.)
  *
- * Idempotent; exits 0 when there is nothing to do. Writes the moved slugs to
- * the `moved` GitHub output so the workflow can open a PR and one issue each.
+ * Two callers:
+ *  - a maintainer, locally: set `security.status` to "flagged", run
+ *    `pnpm quarantine`, commit both the flag and the move in one PR — the
+ *    `gates` check (validate:data) rejects a flagged entry left in place;
+ *  - .github/workflows/quarantine.yml, nightly and on data pushes, as the
+ *    safety net. It reads the moved slugs from the `moved` GitHub output.
+ *
+ * Idempotent; exits 0 when there is nothing to do.
  */
 import {
   appendFileSync,
@@ -28,6 +35,7 @@ import { join } from 'node:path';
 const APPS_DIR = join(process.cwd(), 'src/data/apps');
 const QUARANTINE_DIR = join(process.cwd(), 'data/quarantine');
 
+const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const moved = [];
 
 if (existsSync(APPS_DIR)) {
@@ -49,8 +57,16 @@ if (existsSync(APPS_DIR)) {
       console.error(`quarantine: ${file} already in quarantine — leaving both for review`);
       continue;
     }
+    const slug = file.replace(/\.json$/, '');
+    // The slug reaches a workflow output, a commit message and an issue title;
+    // anything that is not a plain kebab-case slug is left for a human.
+    if (!SLUG_RE.test(slug)) {
+      console.error(`quarantine: refusing to move ${file} — not a valid slug`);
+      process.exitCode = 1;
+      continue;
+    }
     renameSync(path, dest);
-    moved.push(file.replace(/\.json$/, ''));
+    moved.push(slug);
     console.log(`quarantine: moved ${file} → data/quarantine/`);
   }
 }

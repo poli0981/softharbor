@@ -30,6 +30,11 @@ updates:
       # `astro check` needs, so `pnpm check` fails on it. Hold at 6.x.
       - dependency-name: typescript
         update-types: ['version-update:semver-major']
+      # The Node typings track the Node major in .nvmrc (24 LTS), not the
+      # newest Node: @types/node 26 types APIs the runtime does not have.
+      # Bump both together when .nvmrc moves (docs/01 §4).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
     commit-message:
       prefix: 'fix(deps)'
       prefix-development: 'chore(deps)'

@@ -11,8 +11,21 @@
 import { defineCollection, reference, z } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 
-const DATE = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'YYYY-MM-DD');
-const HTTPS = z.string().url().startsWith('https://');
+/** Today in UTC, at build time: data dated after the build is a typo. */
+const TODAY = new Date().toISOString().slice(0, 10);
+
+/**
+ * A real calendar date in YYYY-MM-DD, not in the future. The regex alone let
+ * `2026-02-31` through; round-tripping through Date catches impossible days.
+ */
+const DATE = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, 'YYYY-MM-DD')
+  .refine((d) => new Date(`${d}T00:00:00Z`).toISOString().slice(0, 10) === d, {
+    message: 'not a real calendar date',
+  })
+  .refine((d) => d <= TODAY, { message: 'date is in the future' });
+const HTTPS = z.url().refine((u) => u.startsWith('https://'), { message: 'https:// only' });
 
 const categories = defineCollection({
   loader: file('./src/data/categories.json'),
@@ -63,7 +76,27 @@ const apps = defineCollection({
     })
     // Deliberate: unknown keys fail the build, so the public export contract
     // (docs/03 §6) can never silently grow.
-    .strict(),
+    .strict()
+    .superRefine((app, ctx) => {
+      // A status that makes a claim must link the evidence behind it: "no
+      // known warnings" is only worth something when the reader can check
+      // it (hard rule 4), and a flag needs its reason. CONTRIBUTING closed
+      // these on sight, but nothing enforced it. `unverified` claims nothing.
+      if (app.security.status !== 'unverified' && app.security.evidence === null) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['security', 'evidence'],
+          message: `status "${app.security.status}" requires an evidence URL`,
+        });
+      }
+      if (app.updatedAt && app.updatedAt < app.addedAt) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['updatedAt'],
+          message: `updatedAt ${app.updatedAt} precedes addedAt ${app.addedAt}`,
+        });
+      }
+    }),
 });
 
 export const collections = { apps, categories };

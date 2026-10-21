@@ -1,2 +1,2 @@
 /// <reference types="astro/client" />
-/// <reference types="unplugin-icons/types/astro" />
+/// <reference types="unplugin-icons/types/svelte5" />
