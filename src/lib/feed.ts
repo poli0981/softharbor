@@ -24,6 +24,16 @@ export interface FeedItem {
 export const FEED_LIMIT = 50;
 
 /**
+ * Name tie-break with a PINNED locale. A bare `localeCompare()` collates by
+ * the build machine's ICU default — and builds now run on Cloudflare Workers
+ * Builds as well as GitHub CI and laptops. If two machines disagreed, the
+ * 50-item window could change membership between builds and notify.py would
+ * announce apps that are not new. `en` matches the order production has
+ * served since launch (verified byte-for-byte against the live /rss.xml).
+ */
+const byName = new Intl.Collator('en');
+
+/**
  * Newest first, capped at 50.
  *
  * The tiebreak on name is not cosmetic: `notify.py` consumes this feed on a
@@ -33,7 +43,11 @@ export const FEED_LIMIT = 50;
  */
 export function feedItems(apps: readonly FeedApp[], site: string): FeedItem[] {
   return [...apps]
-    .sort((a, b) => b.addedAt.localeCompare(a.addedAt) || a.name.localeCompare(b.name))
+    .sort(
+      (a, b) =>
+        (b.addedAt < a.addedAt ? -1 : b.addedAt > a.addedAt ? 1 : 0) ||
+        byName.compare(a.name, b.name),
+    )
     .slice(0, FEED_LIMIT)
     .map((app) => ({
       title: app.name,

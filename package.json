@@ -28,6 +28,7 @@
     "lint": "eslint . && prettier --check .",
     "postbuild:html": "node scripts/postbuild.mjs",
     "preview": "astro preview",
+    "quarantine": "node scripts/quarantine.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "validate:data": "node scripts/validate-data.mjs"
