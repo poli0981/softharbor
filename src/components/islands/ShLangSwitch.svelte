@@ -26,10 +26,11 @@
   const { locale, pair, label, suggestText, suggestAccept, suggestDismiss }: Props = $props();
 
   /**
-   * Endonyms for assistive tech — each language named in itself, paired with a
-   * matching `lang` attribute so it is pronounced correctly. Invariant across
-   * UI locales, so they are constants rather than dictionary entries. The
-   * visible text stays the compact EN / VI.
+   * Endonyms for assistive tech — each language named in itself, inside an
+   * element with the matching `lang` so it is pronounced correctly. Invariant
+   * across UI locales, so they are constants rather than dictionary entries.
+   * They are APPENDED to the visible EN / VI (not an aria-label replacing it),
+   * so voice-control users can still say what they see.
    */
   const names: Record<Locale, string> = { en: 'English', vi: 'Tiếng Việt' };
 
@@ -69,19 +70,17 @@
       onclick={() => choose('en')}
       hreflang="en"
       lang="en"
-      aria-label={names.en}
-      data-testid="sh-lang-en">EN</a
+      data-testid="sh-lang-en">EN<span class="sh-sr">{` — ${names.en}`}</span></a
     >
-    <span aria-current="true" lang="vi" aria-label={names.vi}>VI</span>
+    <span aria-current="true" lang="vi">VI<span class="sh-sr">{` — ${names.vi}`}</span></span>
   {:else}
-    <span aria-current="true" lang="en" aria-label={names.en}>EN</span>
+    <span aria-current="true" lang="en">EN<span class="sh-sr">{` — ${names.en}`}</span></span>
     <a
       href={hrefFor('vi')}
       onclick={() => choose('vi')}
       hreflang="vi"
       lang="vi"
-      aria-label={names.vi}
-      data-testid="sh-lang-vi">VI</a
+      data-testid="sh-lang-vi">VI<span class="sh-sr">{` — ${names.vi}`}</span></a
     >
   {/if}
 </nav>
@@ -130,5 +129,17 @@
   }
   .sh-lang > a:hover {
     background: var(--sh-surface);
+  }
+  /* The endonym is read after the visible code ("VI — Tiếng Việt"), so the
+     visible text stays part of the accessible name (WCAG 2.5.3). Its leading
+     space is an expression in the markup: Svelte strips whitespace at the
+     start of an element, which ran the two together ("VI— Tiếng Việt"). */
+  .sh-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 </style>
