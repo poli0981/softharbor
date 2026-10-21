@@ -56,10 +56,9 @@ export default getViteConfig({
         },
       },
       {
-        // Island behavior. docs/11 §1 keeps Playwright out of v1; these run in
-        // happy-dom instead, which is enough for focus/keyboard/lifecycle
-        // assertions. Anything needing real layout or the top layer stays a
-        // manual launch-checklist item (docs/13 §2).
+        // Island behavior in happy-dom: enough for focus, keyboard and
+        // lifecycle assertions. Real layout, the top layer, CSP and axe are
+        // the Playwright suite's job (e2e/, docs/11 §5).
         extends: true,
         // Without the browser condition, Svelte 5 resolves to its SSR build
         // and mount() throws lifecycle_function_unavailable.

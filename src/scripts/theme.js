@@ -39,15 +39,15 @@
 
   if (read('sh:motion') === 'reduce') root.dataset.motion = 'reduce';
 
-  // Cross-document View Transitions (global.css `@view-transition`). When the
-  // browser aborts one — a page that is slow to reveal, an opt-in mismatch —
-  // it rejects the transition's promises, and with nobody holding them that
-  // surfaces as an unhandled rejection ("Transition was aborted because of
-  // invalid state"). Nothing is wrong for the visitor; the navigation simply
-  // happens without the fade. Marking the promises handled keeps that noise
-  // out of the console and out of bug reports (errors.js records unhandled
-  // rejections). Registered here because pagereveal fires before any
-  // deferred or module script runs.
+  // Cross-document View Transitions (the inline opt-in from
+  // src/lib/inlineCss.ts). When the browser aborts one — a page that is slow
+  // to reveal, an opt-in mismatch — it rejects the transition's promises, and
+  // with nobody holding them that surfaces as an unhandled rejection
+  // ("Transition was aborted because of invalid state"). Nothing is wrong for
+  // the visitor; the navigation simply happens without the fade. Marking the
+  // promises handled keeps that noise out of the console and out of bug
+  // reports (errors.js records unhandled rejections). Registered here because
+  // pagereveal fires before any deferred or module script runs.
   const settle = (e) => {
     const vt = e.viewTransition;
     if (!vt) return;

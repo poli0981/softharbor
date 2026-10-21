@@ -28,8 +28,9 @@ const abs = (path: string) => new URL(path, site).href;
 const nodes: Record<string, unknown>[] = [];
 
 if (website) {
-  // One WebSite node, on / only. No SearchAction in v1: search is client-side
-  // with no ?q= deep link to point at (docs/16 §7, docs/15 §2).
+  // One WebSite node, on / only. No SearchAction even though /apps?q= now
+  // deep-links (v1.1): Google retired the sitelinks search box in 2024, so
+  // the markup would buy nothing (docs/16 §7).
   nodes.push({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
