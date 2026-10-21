@@ -44,6 +44,20 @@ describe('check-csp', () => {
     expect(r.out).toContain('unhashedScript');
   });
 
+  it('still sees inline code behind an unusual end tag', () => {
+    const root = project({
+      'dist/index.html': page(
+        "script-src 'self'",
+        '<STYLE media="all">a{}</style >',
+        '<script>x()</script foo>',
+      ),
+    });
+    const r = run('check-csp.mjs', root);
+    expect(r.code).toBe(1);
+    expect(r.out).toContain('unhashedStyle');
+    expect(r.out).toContain('unhashedScript');
+  });
+
   it.each(['style="color:red"', "STYLE='color:red'", 'style=color:red'])(
     'refuses the style attribute %s',
     (attr) => {

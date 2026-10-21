@@ -32,9 +32,15 @@ import { join, relative } from 'node:path';
 const DIST = join(process.cwd(), 'dist');
 
 const CSP_META = /<meta http-equiv="content-security-policy" content="([^"]+)"/i;
-const STYLE_EL = /<style[^>]*>([\s\S]*?)<\/style>/gi;
-/** <script> elements; external ones (with `src`) are skipped in code below. */
-const SCRIPT_EL = /<script([^>]*)>([\s\S]*?)<\/script>/gi;
+/**
+ * <style> and <script> elements; external scripts (with `src`) are skipped in
+ * the code below. The end tags accept what the HTML tokenizer accepts —
+ * `</script >`, `</script foo>` — so an oddly written end tag cannot hide an
+ * element's content from the hash check (CodeQL js/bad-tag-filter). This
+ * reads our own build output, but a checker must not have blind spots.
+ */
+const STYLE_EL = /<style\b[^>]*>([\s\S]*?)<\/style\b[^>]*>/gi;
+const SCRIPT_EL = /<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi;
 const HAS_SRC = /\ssrc\s*=/i;
 const DATA_BLOCK = /\stype="application\/(?:ld\+)?json"/i;
 /** Every start tag. `[^>]*` is a single linear run — no nested quantifiers. */
