@@ -25,7 +25,7 @@ interface IconSet {
 
 const SETS: Record<string, IconSet> = {
   'simple-icons': simpleIcons as IconSet,
-  lucide: lucide as IconSet,
+  lucide,
 };
 
 export class UnknownIconError extends Error {}

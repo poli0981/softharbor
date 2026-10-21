@@ -82,8 +82,8 @@ beforeEach(() => {
   document.body.appendChild(target);
 });
 
-afterEach(() => {
-  if (app) unmount(app);
+afterEach(async () => {
+  if (app) await unmount(app);
   app = undefined;
   Reflect.deleteProperty(globalThis, 'localStorage');
   Reflect.deleteProperty(globalThis, '__shLegalAcceptedThisSession');

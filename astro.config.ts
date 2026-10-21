@@ -181,7 +181,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), Icons({ compiler: 'astro' })],
   },
-
-  // No CSP config: nothing inline ships, so `script-src 'self'` in
-  // public/_headers is the whole story — docs/09 §4, decision D18.
 });
