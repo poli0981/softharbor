@@ -10,17 +10,41 @@
 // rendered there.
 
 /**
- * Bump when ANY legal document changes; re-opens the gate for everyone.
+ * The version of the ACCEPTED set — Disclaimer, Terms and Privacy Policy, the
+ * three documents the gate asks for. Bump it when any of those three changes
+ * materially: it re-opens the gate for everyone (docs/14 Part 2). The other
+ * documents only move their own date in LEGAL_UPDATED.
  *
- * Was the H6 approval date 2026-07-28, when Kokone signed off on the docs/14
- * drafts (docs/14 Part 4). Bumped to 2026-07-30 when the AI Disclosure was
- * added: the accepted set — Disclaimer, Terms, Privacy — did not itself
- * change, but this constant also stamps "last updated" on every legal page,
- * and leaving it would have dated a brand-new document three days before it
- * existed. Re-opening the gate is the cheaper error of the two, and pre-launch
- * it costs nobody anything.
+ * History: 2026-07-28 (H6 approval of the docs/14 drafts); 2026-07-30 (when
+ * this constant still dated every page, it moved with the new AI
+ * Disclosure); 2026-10-21 (v1.1: the Privacy Policy now covers Cloudflare
+ * Web Analytics and the Turnstile check, and Terms gained the operator and a
+ * copyright-complaint procedure).
  */
-export const LEGAL_VERSION = '2026-07-30';
+export const LEGAL_VERSION = '2026-10-21';
+
+export type LegalDoc =
+  'aiDisclosure' | 'disclaimer' | 'privacy' | 'terms' | 'thirdParty' | 'trademarks';
+
+/** The documents the gate asks you to accept. */
+export const ACCEPTED_DOCS = [
+  'disclaimer',
+  'privacy',
+  'terms',
+] as const satisfies readonly LegalDoc[];
+
+/**
+ * When each document last changed in substance — its "Last updated" line.
+ * One date for all six used to stamp documents that had not changed.
+ */
+export const LEGAL_UPDATED: Readonly<Record<LegalDoc, string>> = {
+  aiDisclosure: '2026-10-21',
+  disclaimer: '2026-10-21',
+  privacy: '2026-10-21',
+  terms: '2026-10-21',
+  thirdParty: '2026-10-21',
+  trademarks: '2026-10-21',
+};
 
 const KEY = 'sh:legal';
 

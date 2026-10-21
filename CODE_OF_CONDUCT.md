@@ -6,7 +6,7 @@ Please read it there; it applies in full and is not restated here.
 It covers every project space — issues, pull requests, commit messages,
 discussions — and any place someone is representing the project.
 
-Reports go to **contact@softharbor.net**. They are read by the maintainer
+Reports go to **code@poli0981.dev**. They are read by the maintainer
 (@poli0981) and are not shared further. If your report concerns the
 maintainer, say so and you will get a plain answer about what can be done,
 rather than a process that reviews itself.

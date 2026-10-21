@@ -10,14 +10,12 @@
 // These routes are EXEMPT from the legal gate (docs/14 Part 2) — the gate
 // links here, so gating them would dead-lock acceptance.
 import Base from '../../layouts/Base.astro';
-import { LEGAL_VERSION } from '../../lib/legal';
+import { LEGAL_UPDATED, type LegalDoc } from '../../lib/legal';
 import { t, type Locale } from '../../i18n';
-
-type Doc = 'aiDisclosure' | 'disclaimer' | 'privacy' | 'terms' | 'thirdParty' | 'trademarks';
 
 interface Props {
   /** Which document; its title comes from the dictionary (legal.title.<doc>). */
-  doc: Doc;
+  doc: LegalDoc;
   locale: Locale;
 }
 const { doc, locale } = Astro.props;
@@ -26,7 +24,7 @@ const title = t(locale, `legal.title.${doc}`);
 const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
   dateStyle: 'medium',
   timeZone: 'UTC',
-}).format(new Date(`${LEGAL_VERSION}T00:00:00Z`));
+}).format(new Date(`${LEGAL_UPDATED[doc]}T00:00:00Z`));
 ---
 
 {/* Suffixed like every other page: an unbranded <title> in a SERP reads as

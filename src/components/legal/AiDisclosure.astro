@@ -8,7 +8,8 @@
 // project grant CC BY-SA 4.0 on the dataset only if the words in it are its
 // own, and the site's whole proposition is that a reader can check what they
 // are told. Both of those are worth less if the reader does not know how the
-// thing was made.
+// thing was made — so every claim here must stay literally true. Name each
+// model whose work lands, and update the claims when a process changes.
 import type { Locale } from '../../i18n';
 interface Props {
   locale: Locale;
@@ -22,36 +23,36 @@ const rows = [
   {
     area: { en: 'Source code', vi: 'Mã nguồn' },
     how: {
-      en: 'Written with AI assistance, then reviewed and run by the maintainer. Every change passes the same automated gates as any other: lint, type-check, unit tests, schema validation, EN/VI parity, a build, and a CSP guard.',
-      vi: 'Viết với sự hỗ trợ của AI, sau đó người bảo trì đọc lại và chạy thử. Mọi thay đổi đều qua đúng bộ kiểm tra tự động như bình thường: lint, kiểm tra kiểu, unit test, kiểm tra schema, đối chiếu EN/VI, build và kiểm tra CSP.',
+      en: 'Written with AI assistance, then reviewed and run by the maintainer. Every change passes the same automated gates as any other: lint, type-check, unit and browser tests, schema validation, EN/VI parity, a build, and a CSP guard.',
+      vi: 'Viết với sự hỗ trợ của AI, sau đó người bảo trì đọc lại và chạy thử. Mọi thay đổi đều qua đúng bộ kiểm tra tự động như bình thường: lint, kiểm tra kiểu, unit test và kiểm thử trên trình duyệt, kiểm tra schema, đối chiếu EN/VI, build và kiểm tra CSP.',
     },
   },
   {
     area: { en: 'Tests', vi: 'Kiểm thử' },
     how: {
-      en: 'Test cases were drafted with AI assistance and are checked against the behaviour they describe — a test is only kept once it has been seen to fail on the bug it claims to cover.',
-      vi: 'Các ca kiểm thử được soạn với hỗ trợ của AI và được đối chiếu với hành vi mà chúng mô tả — một bài kiểm thử chỉ được giữ lại sau khi đã thấy nó thất bại đúng với lỗi mà nó tuyên bố phát hiện.',
+      en: 'Test cases were drafted with AI assistance and are reviewed against the behaviour they describe. They run on every change, and a change cannot be merged while any of them fails.',
+      vi: 'Các ca kiểm thử được soạn với sự hỗ trợ của AI và được đối chiếu với hành vi mà chúng mô tả. Chúng chạy ở mọi thay đổi, và không thay đổi nào được hợp nhất khi còn một bài kiểm thử thất bại.',
     },
   },
   {
     area: { en: 'Finding the software', vi: 'Tìm danh sách phần mềm' },
     how: {
-      en: 'The candidate list was assembled with AI assistance. Inclusion is a human decision against the published criteria, and every homepage, repository and download link is machine-checked on each pull request and again weekly.',
-      vi: 'Danh sách ứng viên được tập hợp với hỗ trợ của AI. Việc đưa vào danh sách là quyết định của con người theo bộ tiêu chí đã công bố, và mọi liên kết trang chủ, kho mã nguồn và tải về đều được máy kiểm tra ở mỗi pull request và hàng tuần.',
+      en: 'The candidate list was assembled with AI assistance. Inclusion is a human decision against the published criteria. Links are machine-checked: a pull request checks the entries it changes, and a weekly run checks the whole catalogue. A site that answers automated checkers with "forbidden" or "too many requests" is counted as reachable, since many developers block bots.',
+      vi: 'Danh sách ứng viên được tập hợp với sự hỗ trợ của AI. Việc đưa vào danh sách là quyết định của con người theo bộ tiêu chí đã công bố. Liên kết được máy kiểm tra: mỗi pull request kiểm tra các mục nó thay đổi, và một lượt chạy hàng tuần kiểm tra toàn bộ danh mục. Trang nào trả lời công cụ kiểm tra tự động bằng "bị cấm" hoặc "quá nhiều yêu cầu" vẫn được tính là truy cập được, vì nhiều nhà phát triển chặn bot.',
     },
   },
   {
     area: { en: 'Summaries', vi: 'Mô tả ứng dụng' },
     how: {
       en: 'Written from scratch in both languages, never pasted from vendor marketing or an encyclopaedia. That is what allows the dataset to carry CC BY-SA 4.0 at all. Vietnamese is reviewed by a native speaker rather than machine-translated.',
-      vi: 'Được viết mới hoàn toàn ở cả hai ngôn ngữ, không sao chép từ quảng cáo của nhà phát triển hay bách khoa toàn thư. Chính điều đó cho phép dữ liệu mang giấy phép CC BY-SA 4.0. Phần tiếng Việt do người bản ngữ đọc duyệt chứ không dịch máy.',
+      vi: 'Được viết mới hoàn toàn ở cả hai ngôn ngữ, không sao chép từ quảng cáo của nhà phát triển hay bách khoa toàn thư. Chính điều đó cho phép bộ dữ liệu mang giấy phép CC BY-SA 4.0. Phần tiếng Việt do người bản ngữ đọc duyệt chứ không dịch máy.',
     },
   },
   {
     area: { en: 'Security status', vi: 'Trạng thái bảo mật' },
     how: {
-      en: 'Not AI-decided. Each entry is checked by the maintainer against the published vetting checklist, and the scan behind every status is linked from the app page so you can read it yourself.',
-      vi: 'Không do AI quyết định. Mỗi mục được người bảo trì kiểm tra theo quy trình đã công bố, và kết quả quét đứng sau mỗi trạng thái đều có liên kết ngay trên trang ứng dụng để bạn tự đọc.',
+      en: 'Not AI-decided. Each entry is checked by the maintainer against the published vetting checklist, and the scan behind every status is linked from the app page so you can read it yourself. Where a link has changed since its scan, the linked scan is of the earlier link until the next re-check.',
+      vi: 'Không do AI quyết định. Mỗi mục được người bảo trì kiểm tra theo quy trình đã công bố, và kết quả quét đứng sau mỗi trạng thái đều có liên kết ngay trên trang ứng dụng để bạn tự đọc. Nếu một liên kết đã đổi sau lần quét, kết quả được liên kết là của liên kết cũ cho tới lần kiểm tra lại kế tiếp.',
     },
   },
 ];
@@ -60,15 +61,15 @@ const rows = [
 <p>
   {en
     ? 'SoftHarbor is built with AI assistance, and this page says where and how. It is published because the site asks you to trust a set of links and a dated security note — and that request is worth less if you do not know how the list was put together.'
-    : 'SoftHarbor được xây dựng với sự hỗ trợ của AI, và trang này nói rõ ở đâu và như thế nào. Chúng tôi công bố điều đó vì trang web đang đề nghị bạn tin vào một tập liên kết và một ghi chú bảo mật có ghi ngày — lời đề nghị ấy sẽ kém giá trị nếu bạn không biết danh sách được tạo ra ra sao.'}
+    : 'SoftHarbor được xây dựng với sự hỗ trợ của AI, và trang này nói rõ ở đâu và như thế nào. Chúng tôi công bố điều đó vì trang web đang đề nghị bạn tin vào một tập liên kết và một ghi chú bảo mật có ghi ngày — lời đề nghị ấy sẽ kém giá trị nếu bạn không biết danh sách được tạo ra như thế nào.'}
 </p>
 
 <h2>{en ? 'Tools used' : 'Công cụ đã dùng'}</h2>
 
 <p>
   {en
-    ? 'Claude Opus 5 (model identifier claude-opus-5), developed by Anthropic, used through Claude Code — Anthropic’s command-line coding tool. Earlier work on the project used Claude models through the same tool. No other AI system contributed to this site.'
-    : 'Claude Opus 5 (mã định danh mô hình claude-opus-5) do Anthropic phát triển, sử dụng thông qua Claude Code — công cụ lập trình dòng lệnh của Anthropic. Các giai đoạn trước của dự án cũng dùng mô hình Claude qua chính công cụ này. Không có hệ thống AI nào khác tham gia vào trang web này.'}
+    ? 'Claude models developed by Anthropic, used through Claude Code — Anthropic’s command-line coding tool: Claude Opus 5 (model identifier claude-opus-5) for the site and catalogue through v1.0, and Claude Opus 5.5 (claude-opus-5-5) for the v1.1 work of October 2026. Earlier work on the project used Claude models through the same tool. No other AI system contributed to this site.'
+    : 'Các mô hình Claude do Anthropic phát triển, sử dụng qua Claude Code — công cụ lập trình dòng lệnh của Anthropic: Claude Opus 5 (mã định danh mô hình claude-opus-5) cho trang web và danh mục đến hết v1.0, và Claude Opus 5.5 (claude-opus-5-5) cho phần việc v1.1 vào tháng 10/2026. Các giai đoạn trước của dự án cũng dùng mô hình Claude qua chính công cụ này. Không có hệ thống AI nào khác tham gia vào trang web này.'}
 </p>
 
 <h2>{en ? 'Where it was used' : 'Đã dùng ở đâu'}</h2>
@@ -102,6 +103,6 @@ const rows = [
 
 <p class="text-sh-muted">
   {en
-    ? 'Found something wrong? Every app page has a "Report a bug" link, and the full history of how each entry got here is public in the repository.'
-    : 'Phát hiện điều gì chưa đúng? Mỗi trang ứng dụng đều có liên kết "Báo lỗi", và toàn bộ lịch sử hình thành của từng mục đều công khai trong kho mã nguồn.'}
+    ? 'Found something wrong? The "Report a bug" link at the foot of every page opens a prefilled report, and the full history of how each entry got here is public in the repository.'
+    : 'Phát hiện điều gì chưa đúng? Liên kết "Báo lỗi" ở cuối mỗi trang mở sẵn một báo cáo được điền trước, và toàn bộ lịch sử hình thành của từng mục đều công khai trong kho mã nguồn.'}
 </p>

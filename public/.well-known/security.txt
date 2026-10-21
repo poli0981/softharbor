@@ -1,4 +1,4 @@
-Contact: mailto:contact@softharbor.net
+Contact: mailto:security@poli0981.dev
 Contact: https://github.com/poli0981/softharbor/security/advisories/new
 Preferred-Languages: en, vi
 Expires: 2027-07-28T00:00:00.000Z
