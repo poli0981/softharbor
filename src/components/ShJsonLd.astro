@@ -73,6 +73,13 @@ if (app) {
 }
 ---
 
+{/* `<` is escaped as \u003c: JSON.stringify leaves it alone, so a name or
+    summary containing `</script>` would end the data block early and inject
+    markup. CSP would stop an injected script, but not an injected link. */}
 {nodes.map((node) => (
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(node)} />
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(node).replace(/</g, '\\u003c')}
+  />
 ))}

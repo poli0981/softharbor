@@ -28,14 +28,28 @@ interface Props {
    * path rule can never recognise them.
    */
   gateExempt?: boolean;
+  /**
+   * Whether this page exists in BOTH locales. Error and offline pages are
+   * single, bilingual documents: advertising hreflang alternates for them
+   * pointed crawlers at /vi/404 and /vi/offline, which do not exist, and the
+   * language switcher there leads to the other locale's home instead.
+   */
+  alternates?: boolean;
 }
-const { title, description, locale = 'en', noindex = false, gateExempt = false } = Astro.props;
+const {
+  title,
+  description,
+  locale = 'en',
+  noindex = false,
+  gateExempt = false,
+  alternates = true,
+} = Astro.props;
 
 const site = Astro.site ?? new URL('https://softharbor.net');
 // canonicalPath, never Astro.url.pathname directly: with build.format 'file'
 // the latter is the emitted FILE name (/apps.html), which would make every
 // canonical disagree with the sitemap and with the URL actually served.
-const pair = localePair(Astro.url.pathname);
+const pair = alternates ? localePair(Astro.url.pathname) : { en: '/', vi: '/vi' };
 const canonical = new URL(canonicalPath(Astro.url.pathname), site);
 const desc = description ?? t(locale, 'site.tagline');
 
@@ -62,13 +76,31 @@ const gateStrings = {
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical.href} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {/* @vite-pwa/astro emits the manifest but, like registerSW.js, links it
+        from no page — so the site was never installable (audit, 2026-10). */}
+    <link rel="manifest" href="/manifest.webmanifest" />
+    {/* Browser chrome follows the page background in each scheme. */}
+    <meta name="theme-color" content="#f8f5ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16140f" media="(prefers-color-scheme: dark)" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={t(locale, 'feed.title')}
+      href="/rss.xml"
+    />
     {noindex && <meta name="robots" content="noindex" />}
 
     {/* Canonical is self-per-locale; alternates come from the single
         localePair() source the switcher will also use (docs/07 §5/§6). */}
-    <link rel="alternate" hreflang="en" href={new URL(pair.en, site).href} />
-    <link rel="alternate" hreflang="vi" href={new URL(pair.vi, site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL(pair.en, site).href} />
+    {alternates && (
+      <>
+        <link rel="alternate" hreflang="en" href={new URL(pair.en, site).href} />
+        <link rel="alternate" hreflang="vi" href={new URL(pair.vi, site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(pair.en, site).href} />
+      </>
+    )}
 
     <meta property="og:site_name" content={t(locale, 'site.name')} />
     <meta property="og:title" content={title} />
@@ -105,7 +137,7 @@ const gateStrings = {
     <a href="#main" class="sh-skip">
       {t(locale, 'nav.skipToContent')}
     </a>
-    <ShHeader {locale} />
+    <ShHeader {locale} {pair} />
 
     <main id="main" class="mx-auto w-full max-w-[1360px] flex-1 px-4 py-8 md:px-6">
       <slot />

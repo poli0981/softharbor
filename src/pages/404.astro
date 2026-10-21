@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 // Served by Workers Static Assets via not_found_handling: "404-page", with a
-// real HTTP 404 (docs/08 Part C). No noindex needed — the status code already
-// excludes it from SERPs (docs/16 §7).
+// real HTTP 404 (docs/08 Part C). noindex anyway: /404 requested directly
+// is a 200, and the sitemap already excludes it (astro.config.ts).
 import ErrorPage from '../components/pages/ErrorPage.astro';
 ---
 
@@ -13,5 +13,4 @@ import ErrorPage from '../components/pages/ErrorPage.astro';
   titleVi="Không tìm thấy trang"
   bodyEn="The link may be old, or the entry may have been removed — flagged apps are quarantined rather than kept live."
   bodyVi="Liên kết có thể đã cũ, hoặc mục tương ứng đã được gỡ — ứng dụng bị gắn cờ sẽ được đưa vào khu cách ly thay vì giữ lại."
-  noindex={false}
 />

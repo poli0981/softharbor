@@ -65,17 +65,54 @@ if (!existsSync(SW)) {
     );
   }
   if (!urls.some((u) => u.endsWith('.woff2'))) {
-    problems.push('no fonts precached — the offline shell would render unstyled');
+    problems.push('no fonts precached — the offline shell would render in fallback fonts only');
+  }
+
+  // (5) Everything the offline page itself loads must be precached, or it
+  // renders broken exactly when it is shown. Checking the fonts alone missed
+  // this for months: with inlineStylesheets 'never', /offline linked CSS the
+  // SW never cached, so the fallback page was unstyled.
+  const offlineFile = join(process.cwd(), 'dist/offline.html');
+  if (existsSync(offlineFile)) {
+    const offline = readFileSync(offlineFile, 'utf8');
+    const needs = [
+      ...[...offline.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="\/([^"]+)"/g)].map(
+        (m) => m[1],
+      ),
+      ...[...offline.matchAll(/<script\b[^>]*\ssrc="\/(_astro\/[^"]+)"/g)].map((m) => m[1]),
+    ];
+    for (const asset of needs) {
+      if (!urls.includes(asset)) {
+        problems.push(`/offline loads /${asset} but the SW does not precache it`);
+      }
+    }
+  } else {
+    problems.push('dist/offline.html does not exist');
+  }
+
+  // (6) An updated SW must take over without waiting for every tab to close:
+  // registerSW.js never posts SKIP_WAITING (workbox.skipWaiting).
+  if (!sw.includes('skipWaiting')) {
+    problems.push('the SW does not call skipWaiting() — fixes would wait for every tab to close');
   }
 }
 
 // (1) The registration script must be referenced by a page, or the SW is dead
-// code no matter how correct it is.
+// code no matter how correct it is. (7) Same for the manifest: emitted but
+// unlinked means "not installable", silently.
 const home = join(process.cwd(), 'dist/index.html');
-if (existsSync(home) && !readFileSync(home, 'utf8').includes('registerSW.js')) {
-  problems.push(
-    "registerSW.js is not referenced from dist/index.html — set injectRegister: 'script'",
-  );
+if (!existsSync(home)) {
+  problems.push('dist/index.html does not exist — run `astro build` first');
+} else {
+  const html = readFileSync(home, 'utf8');
+  if (!html.includes('registerSW.js')) {
+    problems.push(
+      "registerSW.js is not referenced from dist/index.html — set injectRegister: 'script'",
+    );
+  }
+  if (!html.includes('rel="manifest"')) {
+    problems.push('dist/index.html does not link the web app manifest');
+  }
 }
 
 if (problems.length > 0) {
@@ -84,5 +121,8 @@ if (problems.length > 0) {
   console.error('\n  Every one of these fails silently at build time. See docs/08 Part D.');
   process.exitCode = 1;
 } else {
-  console.log('check-service-worker — OK (no navigation fallback, offline path precached)');
+  console.log(
+    'check-service-worker — OK (no navigation fallback; /offline and everything it loads ' +
+      'precached; skipWaiting; manifest linked)',
+  );
 }

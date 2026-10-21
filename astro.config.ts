@@ -104,24 +104,28 @@ export default defineConfig({
       // one of them (docs/09 §4, D20).
       injectRegister: 'script',
       manifest: {
+        id: '/',
         name: 'SoftHarbor',
         short_name: 'SoftHarbor',
         description: 'Free & buy-once desktop software, one page.',
-        theme_color: '#f7f4ee',
-        background_color: '#f7f4ee',
-        // The existing SVG, used as-is. A single scalable icon covers every
-        // size, and `purpose: 'any maskable'` lets platforms that crop to a
-        // shape do so without a separate asset. Browsers with no SVG-manifest
-        // support simply fall back to the favicon — strictly better than the
-        // empty array that shipped in M5, which suppressed the install prompt
-        // entirely. Raster PNGs remain the eventual upgrade (docs/13 §2).
+        lang: 'en',
+        // The tile colour of the mark (scripts/gen-icons.mjs), so the install
+        // splash and title bar match the icon rather than the page.
+        theme_color: '#0B4F7A',
+        background_color: '#0B4F7A',
+        // Raster icons generated from one vector mark (`pnpm icons`). Until
+        // v1.1 the only icon was the SVG favicon drawn in currentColor —
+        // black in launchers — declared 'any maskable' with no safe zone.
         icons: [
+          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
           {
-            src: '/favicon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any maskable',
+            src: '/icons/maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
           },
+          { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
         ],
       },
       workbox: {
@@ -131,11 +135,32 @@ export default defineConfig({
         // original patterns ('offline/**', 'fonts/*.woff2') matched nothing,
         // which is a silent failure: the build succeeds and the offline page
         // simply is not there (found in M1 and S5).
-        globPatterns: ['offline.html', '_astro/*.woff2', 'favicon.svg'],
+        //
+        // What the offline page actually needs, and nothing more:
+        //  - its stylesheets. Missing until v1.1 — once inlineStylesheets went
+        //    'never', /offline linked CSS the SW never cached, so it rendered
+        //    unstyled exactly when it was needed;
+        //  - the two pre-paint scripts it loads (errors.js, theme.js);
+        //  - the latin + Vietnamese body and display faces. Precaching all 13
+        //    font files (211 KB, latin-ext and mono included) on a visitor's
+        //    first page view was a lot of bandwidth for a fallback page; the
+        //    rest falls back to system fonts.
+        globPatterns: [
+          'offline.html',
+          '_astro/*.css',
+          '_astro/{errors,theme}.*.js',
+          '_astro/be-vietnam-pro-{latin,vietnamese}-400-normal.*.woff2',
+          '_astro/bricolage-grotesque-{latin,vietnamese}-wght-normal.*.woff2',
+          'favicon.svg',
+        ],
 
-        // skipWaiting is already true under registerType 'autoUpdate', but
-        // clientsClaim is not — without it the SW controls only pages loaded
-        // AFTER activation, so a first-time visitor who loses connection mid
+        // A new SW takes over as soon as it is installed. registerSW.js never
+        // posts SKIP_WAITING, so without this a fixed SW waited until every
+        // SoftHarbor tab was closed (an older comment here wrongly claimed
+        // 'autoUpdate' implied it).
+        skipWaiting: true,
+        // Without clientsClaim the SW controls only pages loaded AFTER
+        // activation, so a first-time visitor who loses connection mid
         // session gets the browser's error page instead of ours (S5).
         clientsClaim: true,
 

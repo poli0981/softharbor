@@ -15,13 +15,17 @@ interface Props {
   titleVi: string;
   bodyEn: string;
   bodyVi: string;
-  /** 404 needs none — its status code already excludes it (docs/16 §7). */
+  /**
+   * Default true for every error shell. 404 used to opt out on the grounds that
+   * its status code excludes it from SERPs — but /404 requested directly is
+   * served with 200, so it needs the tag like the others.
+   */
   noindex?: boolean;
 }
 const { code, titleEn, titleVi, bodyEn, bodyVi, noindex = true } = Astro.props;
 ---
 
-<Base title={`${titleEn} — SoftHarbor`} locale="en" {noindex} gateExempt>
+<Base title={`${titleEn} — SoftHarbor`} locale="en" {noindex} gateExempt alternates={false}>
   <div class="relative">
     {/* Giant clipped status code at 40% opacity, behind the text (docs/06 §5). */}
     <span
