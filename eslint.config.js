@@ -73,8 +73,9 @@ export default tseslint.config(
     // the monochrome theming docs/04 §2 and docs/14 §3d require.
     files: [
       'src/components/ShAppCard.astro',
+      // The single UI-icon component (src/lib/icon.ts behind it).
+      'src/components/ShIcon.astro',
       'src/components/pages/AppDetailPage.astro',
-      'src/components/pages/CategoriesPage.astro',
       // ShJsonLd emits JSON.stringify() of an object it builds itself into a
       // <script type="application/ld+json">. That is a DATA block, not
       // executable script (docs/09 §4), and Astro's normal escaping would

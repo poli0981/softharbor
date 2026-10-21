@@ -7,7 +7,8 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ShAppCard from '../ShAppCard.astro';
 import { byAddedDesc } from '../../lib/paths';
-import { localePath, t, type Locale } from '../../i18n';
+import ShIcon from '../ShIcon.astro';
+import { appCount, localePath, t, type Locale } from '../../i18n';
 
 interface Props {
   category: CollectionEntry<'categories'>;
@@ -29,18 +30,29 @@ const count = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB').format(
   {locale}
 >
   <nav aria-label={t(locale, 'nav.breadcrumb')} class="text-sh-muted text-small">
-    <a href={localePath(locale, '/categories')} class="hover:underline">
+    <a
+      href={localePath(locale, '/categories')}
+      class="sh-anim inline-flex items-center gap-1 hover:underline"
+    >
+      <ShIcon name="arrow-left" class="size-4" />
       {t(locale, 'categories.title')}
     </a>
   </nav>
 
-  <h1 class="mt-4 text-[length:var(--text-h1)] font-semibold">{label}</h1>
-  <p class="text-sh-muted mt-2 font-mono text-badge">{t(locale, 'apps.count', { n: count })}</p>
+  <div class="mt-5 flex items-center gap-4">
+    <span class="sh-tile bg-sh-accent-soft text-sh-accent size-14 border-transparent">
+      <ShIcon name={category.data.icon} class="size-7" />
+    </span>
+    <div>
+      <h1 class="text-[length:var(--text-h1)] font-semibold">{label}</h1>
+      <p class="sh-eyebrow mt-1 normal-case tracking-normal">{appCount(locale, apps.length)}</p>
+    </div>
+  </div>
 
   {apps.length === 0 ? (
     <p class="sh-panel text-sh-muted mt-8 p-6">{t(locale, 'categories.empty')}</p>
   ) : (
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {apps.map((app) => (
         <ShAppCard {app} {locale} />
       ))}

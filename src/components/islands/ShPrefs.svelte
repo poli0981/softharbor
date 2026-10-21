@@ -211,14 +211,17 @@
   .sh-prefs-button {
     display: inline-grid;
     place-items: center;
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
-    border: 1px solid var(--sh-border);
-    border-radius: var(--radius-pill);
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border: 1px solid var(--sh-control);
+    border-radius: var(--radius-btn);
+    background: var(--sh-surface);
     color: var(--sh-ink);
+    transition: border-color var(--duration-fast) var(--ease-sh);
   }
   .sh-prefs-button:hover {
-    background: var(--sh-surface);
+    border-color: var(--sh-accent);
+    background: var(--sh-surface-2);
   }
 
   /* A popover is in the top layer and starts as a centred box with margin
@@ -233,7 +236,7 @@
     border-radius: var(--radius-card);
     background: var(--sh-surface);
     color: var(--sh-ink);
-    box-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
+    box-shadow: var(--sh-shadow-3);
   }
   .sh-prefs-title {
     font-family: var(--font-display);
@@ -253,8 +256,8 @@
      behaviour (arrow keys), one tab stop per group, form semantics for free. */
   .sh-seg {
     display: flex;
-    border: 1px solid var(--sh-border);
-    border-radius: var(--radius-pill);
+    border: 1px solid var(--sh-control);
+    border-radius: var(--radius-btn);
     overflow: hidden;
   }
   .sh-seg label {
@@ -280,8 +283,9 @@
     border-inline-start: 1px solid var(--sh-border);
   }
   .sh-seg input:checked + span {
-    background: var(--sh-ink);
-    color: var(--sh-bg);
+    background: var(--sh-accent);
+    color: var(--sh-accent-ink);
+    font-weight: 600;
   }
   .sh-seg input:focus-visible + span {
     outline: 2px solid var(--sh-accent);

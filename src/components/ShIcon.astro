@@ -1,0 +1,30 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+//
+// A Lucide icon, inlined at build time (src/lib/icon.ts) — the one place UI
+// icons are rendered, so the set:html carve-out (eslint.config.js) covers a
+// single component rather than every page. Decorative by default; pass
+// `label` when the icon is the only thing naming a control.
+//
+// `motion` names one of the hover/focus effects in global.css (it reacts to
+// the nearest `.sh-anim` ancestor): nudge-x for "go there", nudge-diag for
+// "leaves the site", pop for tiles, draw for a stroke-by-stroke redraw.
+import { iconSvg } from '../lib/icon';
+
+interface Props {
+  /** Lucide name without the set prefix, e.g. `arrow-right`. */
+  name: string;
+  class?: string;
+  label?: string;
+  motion?: 'nudge-x' | 'nudge-diag' | 'pop' | 'draw';
+}
+const { name, class: cls = 'size-5', label, motion } = Astro.props;
+const svg = iconSvg(`lucide:${name}`, {
+  class: [cls, motion && `sh-${motion}`].filter(Boolean).join(' '),
+  ...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' }),
+  focusable: 'false',
+});
+---
+
+<Fragment set:html={svg} />

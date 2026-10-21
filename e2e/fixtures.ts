@@ -82,6 +82,23 @@ export async function waitForIsland(page: Page, name: string): Promise<void> {
 }
 
 /**
+ * Resolves once every finite animation on the page has finished. The pages
+ * rise into place on load (global.css `sh-rise`); axe measures colour
+ * contrast with the element's CURRENT opacity, so scanning mid-fade reports
+ * contrast failures that no settled page has.
+ */
+export async function settled(page: Page): Promise<void> {
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((a) => a.effect?.getComputedTiming().iterations !== Infinity)
+        .map((a) => a.finished.catch(() => undefined)),
+    ),
+  );
+}
+
+/**
  * Pre-accept the legal gate (the current version) AND its human check, before
  * the page loads — for tests about something other than the gate.
  */

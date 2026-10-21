@@ -4,42 +4,210 @@
 // docs/06 §5 — Welcome. Rendered by BOTH /src/pages/index.astro and
 // /src/pages/vi/index.astro; the locale is the only difference, so the markup
 // lives here exactly once (docs/07 §2).
+//
+// The search "field" in the hero is a LINK to /apps#search, styled as an
+// input: the real search is an island on /apps, and docs/02 §5 caps islands
+// at six — so the home page stays island-free and works with JS off.
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import ShIcon from '../ShIcon.astro';
 import ShJsonLd from '../ShJsonLd.astro';
-import { localePath, t, type Locale } from '../../i18n';
+import { appCount, localePath, t, type Locale } from '../../i18n';
 
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
 
-const how = ['welcome.how.official', 'welcome.how.pricing', 'welcome.how.security'] as const;
+const apps = await getCollection('apps');
+const categories = (await getCollection('categories')).sort((a, b) => a.data.order - b.data.order);
+const nf = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB');
+const count = (pred: (a: (typeof apps)[number]) => boolean) => nf.format(apps.filter(pred).length);
+const perCategory = (id: string) =>
+  apps.filter((a) => a.data.categories.some((c) => c.id === id)).length;
+
+// The ledger: every figure counted from the data at build time.
+const manifest = [
+  { icon: 'package', label: t(locale, 'welcome.manifest.apps'), value: nf.format(apps.length) },
+  {
+    icon: 'gift',
+    label: t(locale, 'welcome.manifest.free'),
+    value: count((a) => a.data.pricing === 'free'),
+  },
+  {
+    icon: 'receipt',
+    label: t(locale, 'welcome.manifest.once'),
+    value: count((a) => a.data.pricing !== 'free'),
+  },
+  {
+    icon: 'shield-check',
+    label: t(locale, 'welcome.manifest.clean'),
+    value: count((a) => a.data.security.status === 'clean'),
+  },
+  {
+    icon: 'monitor-smartphone',
+    label: t(locale, 'welcome.manifest.platforms'),
+    value: (['windows', 'macos', 'linux'] as const)
+      .map((p) => count((a) => a.data.platforms.includes(p)))
+      .join(' · '),
+  },
+];
+
+const how = [
+  { key: 'welcome.how.official', icon: 'badge-check' },
+  { key: 'welcome.how.pricing', icon: 'hand-coins' },
+  { key: 'welcome.how.security', icon: 'calendar-check' },
+] as const;
+const appsHref = localePath(locale, '/apps');
 ---
 
 <Base title={`${t(locale, 'site.name')} — ${t(locale, 'site.tagline')}`} {locale}>
   <ShJsonLd {locale} site={Astro.site ?? new URL('https://softharbor.net')} website />
 
-  <section class="max-w-3xl">
-    <h1 class="text-[length:var(--text-display)] font-semibold">
-      {t(locale, 'welcome.hero.title')}
-    </h1>
-    <p class="text-sh-muted mt-4 text-[length:var(--text-h3)]">{t(locale, 'welcome.hero.sub')}</p>
-    <a
-      href={localePath(locale, '/apps')}
-      class="sh-lift bg-sh-accent text-sh-accent-ink border-sh-border mt-8 inline-block rounded-[var(--radius-card)] border-2 px-5 py-3 font-medium"
-    >
-      {t(locale, 'welcome.cta')}
-    </a>
+  <section class="sh-contours grid grid-cols-1 items-center gap-10 pt-4 lg:grid-cols-[1.3fr_1fr] lg:gap-14 lg:pt-14">
+    <div class="sh-stagger">
+      <p class="sh-eyebrow flex items-center gap-2">
+        <ShIcon name="compass" class="text-sh-accent size-4" />
+        {t(locale, 'welcome.hero.eyebrow')}
+      </p>
+      <h1 class="mt-5 text-[length:var(--text-hero)] leading-[1.06] font-bold tracking-[-0.035em]">
+        {t(locale, 'welcome.hero.title')}
+      </h1>
+      <p class="text-sh-muted mt-5 max-w-xl text-[length:var(--text-h3)] leading-relaxed">
+        {t(locale, 'welcome.hero.sub')}
+      </p>
+
+      <a href={`${appsHref}#search`} class="sh-searchbox sh-anim mt-8">
+        <ShIcon name="search" class="text-sh-accent size-5" motion="pop" />
+        <span>{t(locale, 'welcome.search', { n: nf.format(apps.length) })}</span>
+        <kbd class="sh-kbd ml-auto" aria-hidden="true">
+          /
+        </kbd>
+      </a>
+
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href={appsHref} class="sh-btn sh-btn-primary sh-anim">
+          {t(locale, 'welcome.cta')}
+          <ShIcon name="arrow-right" class="size-[18px]" motion="nudge-x" />
+        </a>
+        <a href={localePath(locale, '/categories')} class="sh-btn sh-anim">
+          <ShIcon name="shapes" class="size-[18px]" motion="pop" />
+          {t(locale, 'welcome.categories.all')}
+        </a>
+      </div>
+    </div>
+
+    <aside class="sh-panel sh-rise p-6 lg:p-7" aria-labelledby="sh-manifest">
+      <h2 id="sh-manifest" class="sh-eyebrow flex items-center gap-2">
+        <ShIcon name="scroll-text" class="size-4" />
+        {t(locale, 'welcome.manifest')}
+      </h2>
+      <dl class="mt-4">
+        {manifest.map((row) => (
+          <div class="sh-ledger">
+            <dt class="flex items-center gap-2.5">
+              <ShIcon name={row.icon} class="text-sh-accent size-[18px]" />
+              {row.label}
+            </dt>
+            <dd class="font-mono font-medium tabular-nums">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="text-sh-muted mt-4 text-small">{t(locale, 'welcome.manifest.note')}</p>
+    </aside>
   </section>
 
-  <section class="mt-16">
-    <h2 class="text-[length:var(--text-h2)] font-semibold">{t(locale, 'welcome.how.title')}</h2>
-    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {how.map((key) => (
-        <li class="sh-panel p-5">
-          <p>{t(locale, key)}</p>
+  <section class="mt-20" aria-labelledby="sh-cats">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <h2 id="sh-cats" class="text-[length:var(--text-h2)] font-semibold">
+        {t(locale, 'welcome.categories')}
+      </h2>
+      <a
+        href={localePath(locale, '/categories')}
+        class="sh-anim text-sh-accent inline-flex items-center gap-1.5 font-medium hover:underline"
+      >
+        {t(locale, 'welcome.categories.all')}
+        <ShIcon name="arrow-right" class="size-4" motion="nudge-x" />
+      </a>
+    </div>
+    <ul class="sh-stagger mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {categories.map((c) => (
+        <li class="sh-panel sh-lift sh-anim relative flex items-center gap-4 p-4">
+          <span class="sh-tile text-sh-accent size-12">
+            <ShIcon name={c.data.icon} class="size-6" motion="pop" />
+          </span>
+          <div class="min-w-0">
+            <h3 class="text-[length:var(--text-body)] font-semibold">
+              <a href={localePath(locale, `/categories/${c.id}`)} class="sh-stretch">
+                {c.data.label[locale]}
+              </a>
+            </h3>
+            <p class="sh-eyebrow mt-0.5 normal-case tracking-normal">
+              {appCount(locale, perCategory(c.id))}
+            </p>
+          </div>
+          <ShIcon
+            name="arrow-right"
+            class="text-sh-muted ml-auto size-4 shrink-0"
+            motion="nudge-x"
+          />
         </li>
       ))}
     </ul>
   </section>
+
+  <section class="mt-20" aria-labelledby="sh-how">
+    <h2 id="sh-how" class="text-[length:var(--text-h2)] font-semibold">
+      {t(locale, 'welcome.how.title')}
+    </h2>
+    <ol class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+      {how.map((item, i) => (
+        <li class="sh-panel flex gap-4 p-5">
+          <span class="sh-tile bg-sh-accent-soft text-sh-accent size-11 border-transparent">
+            <ShIcon name={item.icon} class="size-[22px]" />
+          </span>
+          <div>
+            <p class="sh-eyebrow">{`0${i + 1}`}</p>
+            <p class="mt-1">{t(locale, item.key)}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
 </Base>
+
+<style>
+  .sh-searchbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 34rem;
+    min-height: 3.5rem;
+    padding: 0 0.75rem 0 1rem;
+    border: 1px solid var(--sh-control);
+    border-radius: var(--radius-card);
+    background: var(--sh-surface);
+    box-shadow: var(--sh-shadow-1);
+    color: var(--sh-muted);
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-sh),
+      box-shadow var(--duration-slow) var(--ease-sh);
+  }
+  .sh-searchbox:hover {
+    border-color: var(--sh-accent);
+    box-shadow: var(--sh-shadow-2);
+  }
+  /* A ruled ledger line: label left, figure right, a hairline between rows. */
+  .sh-ledger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed var(--sh-border);
+  }
+  .sh-ledger:last-child {
+    border-bottom: 0;
+  }
+</style>

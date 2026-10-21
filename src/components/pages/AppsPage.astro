@@ -10,7 +10,7 @@ import ShAppCard from '../ShAppCard.astro';
 import ShSearch from '../islands/ShSearch.svelte';
 import ShFilterSheet from '../islands/ShFilterSheet.svelte';
 import { sortCards } from '../../lib/filter';
-import { t, type Locale } from '../../i18n';
+import { appCount, t, type Locale } from '../../i18n';
 
 interface Props {
   locale: Locale;
@@ -36,11 +36,7 @@ const apps = sortCards(
 ).flatMap((c) => bySlug.get(c.slug) ?? []);
 const categories = (await getCollection('categories')).sort((a, b) => a.data.order - b.data.order);
 
-const lang = locale === 'vi' ? 'vi-VN' : 'en-GB';
-const nf = new Intl.NumberFormat(lang);
-const plural = new Intl.PluralRules(lang);
-const countText = (n: number) =>
-  t(locale, plural.select(n) === 'one' ? 'apps.count.one' : 'apps.count', { n: nf.format(n) });
+const nf = new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-GB');
 
 const facetOptions = {
   categories: categories.map((c) => ({ value: c.id, label: c.data.label[locale] })),
@@ -60,13 +56,14 @@ const facetOptions = {
   description={t(locale, 'meta.apps', { n: nf.format(apps.length) })}
   {locale}
 >
-  <h1 class="text-[length:var(--text-h1)] font-semibold">{t(locale, 'apps.title')}</h1>
+  <p class="sh-eyebrow">{t(locale, 'welcome.manifest')}</p>
+  <h1 class="mt-2 text-[length:var(--text-h1)] font-semibold">{t(locale, 'apps.title')}</h1>
   <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'apps.intro')}</p>
 
   {/* client:idle — the grid is readable without either island (docs/02 §5).
       #search is where the welcome page's search field points. */}
   <div id="search" class="mt-6 flex scroll-mt-24 flex-wrap items-center gap-3">
-    <div class="min-w-0 flex-1">
+    <div class="min-w-0 flex-1 basis-full sm:basis-0">
       <ShSearch
         client:idle
         placeholder={t(locale, 'search.placeholder')}
@@ -106,10 +103,13 @@ const facetOptions = {
     data-count-one={t(locale, 'apps.count.one', { n: '{n}' })}
     data-count-other={t(locale, 'apps.count', { n: '{n}' })}
   >
-    {countText(apps.length)}
+    {appCount(locale, apps.length)}
   </p>
 
-  <div id="sh-grid" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+  <div
+    id="sh-grid"
+    class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  >
     {apps.map((app) => (
       <ShAppCard {app} {locale} />
     ))}

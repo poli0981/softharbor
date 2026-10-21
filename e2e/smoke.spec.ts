@@ -5,7 +5,7 @@
 // errors, no CSP violations (fixture), and no serious/critical axe findings.
 
 import AxeBuilder from '@axe-core/playwright';
-import { acceptGate, expect, test } from './fixtures';
+import { acceptGate, expect, settled, test } from './fixtures';
 
 const PAGES = [
   '/',
@@ -21,6 +21,8 @@ const PAGES = [
   '/vi/categories/security-privacy',
   '/vi/legal/disclaimer',
   '/offline',
+  '/contact',
+  '/vi/contact',
 ];
 
 for (const path of PAGES) {
@@ -31,6 +33,13 @@ for (const path of PAGES) {
     await expect(page.locator('h1').first()).toBeVisible();
     // The pre-paint script ran: a theme is always resolved.
     await expect(page.locator('html')).toHaveAttribute('data-theme', /^(light|dark)$/);
+    // Nothing pokes past the right edge. On a phone that is not a scrollbar
+    // but a zoomed-out page (the layout viewport widens to fit), and it
+    // happened twice in v1.1 — a grid sized by min-content, then decoration.
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    expect(overflow, 'horizontal overflow in px').toBeLessThanOrEqual(0);
   });
 }
 
@@ -52,6 +61,7 @@ for (const scheme of ['light', 'dark'] as const) {
       await page.emulateMedia({ colorScheme: scheme });
       await acceptGate(page);
       await page.goto(path);
+      await settled(page);
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
         .analyze();

@@ -4,6 +4,7 @@
      <dialog> so focus trapping and Esc come from the platform (docs/06 §9). -->
 <script lang="ts">
   import { onMount } from 'svelte';
+  import IconFilter from '~icons/lucide/sliders-horizontal';
   // Imported without the `$` prefix — Svelte reserves it, and `$name` below is
   // what auto-subscribes to these atoms (see src/lib/stores.ts).
   import {
@@ -71,13 +72,16 @@
 
 <button
   type="button"
-  class="bg-sh-surface border-sh-border rounded-[var(--radius-card)] border px-4 py-3"
+  class="bg-sh-surface border-sh-control shadow-sh-1 inline-flex items-center gap-2 rounded-[var(--radius-card)] border px-4 py-3"
   aria-haspopup="dialog"
   onclick={() => dialog?.showModal()}
 >
+  <IconFilter aria-hidden="true" class="size-[18px]" />
   {openLabel}
   {#if $activeFilterCount > 0}
-    <span class="sh-pill bg-sh-accent text-sh-accent-ink ml-2">{$activeFilterCount}</span>
+    <span class="sh-pill bg-sh-accent text-sh-accent-ink border-transparent"
+      >{$activeFilterCount}</span
+    >
   {/if}
 </button>
 
@@ -107,19 +111,13 @@
     {/each}
 
     <footer class="mt-auto flex gap-3 pt-4">
-      <button
-        type="button"
-        class="border-sh-border rounded-[var(--radius-card)] border px-4 py-2"
-        disabled={!$hasActiveFilters}
-        onclick={clearAll}>{clearLabel}</button
+      <button type="button" class="sh-btn" disabled={!$hasActiveFilters} onclick={clearAll}
+        >{clearLabel}</button
       >
       <!-- The visible text IS the accessible name ("Show 42 apps"). It used to
            carry aria-label="Close filters", which hid the count from screen
            readers and broke WCAG 2.5.3 Label in Name for voice control. -->
-      <button
-        type="submit"
-        class="bg-sh-accent text-sh-accent-ink border-sh-border ml-auto rounded-[var(--radius-card)] border px-4 py-2 font-medium"
-      >
+      <button type="submit" class="sh-btn sh-btn-primary ml-auto">
         {showText}
       </button>
     </footer>
@@ -136,6 +134,7 @@
     border: 1px solid var(--sh-border);
     background: var(--sh-surface);
     color: var(--sh-ink);
+    box-shadow: var(--sh-shadow-3);
     padding: 1.5rem;
     overflow-y: auto;
   }

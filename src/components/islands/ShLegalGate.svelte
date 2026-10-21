@@ -174,10 +174,12 @@
     border-radius: var(--radius-card);
     background: var(--sh-surface);
     color: var(--sh-ink);
-    padding: 1.5rem;
+    box-shadow: var(--sh-shadow-3);
+    padding: 1.75rem;
   }
   .sh-gate::backdrop {
-    background: rgb(0 0 0 / 0.55);
+    background: oklch(0.17 0.03 255 / 0.6);
+    backdrop-filter: blur(3px);
   }
   h2 {
     font-family: var(--font-display);
@@ -194,14 +196,18 @@
     text-underline-offset: 0.15em;
   }
   button {
-    margin-top: 1rem;
-    border: 1px solid var(--sh-border);
-    border-radius: var(--radius-pill);
+    margin-top: 1.25rem;
+    border: 1px solid var(--sh-accent);
+    border-radius: var(--radius-btn);
     background: var(--sh-accent);
     color: var(--sh-accent-ink);
-    font-weight: 500;
-    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    padding: 0.55rem 1.25rem;
     min-height: 44px;
+    box-shadow: var(--sh-shadow-1);
+  }
+  button:hover {
+    background: color-mix(in oklch, var(--sh-accent) 88%, var(--sh-ink));
   }
   .sh-gate-widget:not(:empty) {
     margin-top: 1rem;

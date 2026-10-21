@@ -1,7 +1,9 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// docs/06 §4 — sticky header.
+// docs/06 §4 — sticky header: frosted glass over the page, the anchor mark,
+// two sections, a search shortcut, then language and display settings.
+import ShIcon from './ShIcon.astro';
 import ShLangSwitch from './islands/ShLangSwitch.svelte';
 import ShPrefs from './islands/ShPrefs.svelte';
 import { localePath, t, type Locale } from '../i18n';
@@ -22,37 +24,64 @@ const section = here.startsWith('/apps')
     ? 'categories'
     : null;
 const apps = localePath(locale, '/apps');
+const nav = [
+  { key: 'apps', href: apps, icon: 'layout-grid', label: t(locale, 'nav.apps') },
+  {
+    key: 'categories',
+    href: localePath(locale, '/categories'),
+    icon: 'shapes',
+    label: t(locale, 'nav.categories'),
+  },
+] as const;
 ---
 
-<header class="bg-sh-bg border-sh-border sticky top-0 z-30 border-b-2">
-  <div class="mx-auto flex max-w-[1360px] flex-wrap items-center gap-4 px-4 py-3 md:px-6">
-    <a href={home} class="font-display text-[1.375rem] font-semibold tracking-tight">
-      {t(locale, 'site.name')}
+<header class="sh-glass sticky top-0 z-30">
+  <div class="mx-auto flex max-w-[1360px] items-center gap-2 px-4 py-2.5 md:gap-4 md:px-6">
+    <a
+      href={home}
+      class="sh-anim group flex items-center gap-2.5 rounded-[var(--radius-btn)] py-1 pr-2"
+    >
+      <span class="sh-tile bg-sh-accent text-sh-accent-ink size-9 border-transparent">
+        <ShIcon name="anchor" class="size-5" motion="pop" />
+      </span>
+      <span class="font-display hidden text-[1.3125rem] font-semibold tracking-tight sm:inline">
+        {t(locale, 'site.name')}
+      </span>
+      <span class="sr-only sm:hidden">{t(locale, 'site.name')}</span>
     </a>
 
-    <nav aria-label={t(locale, 'nav.main')} class="flex items-center gap-4">
-      <a href={apps} class="hover:underline" aria-current={section === 'apps' ? 'page' : undefined}>
-        {t(locale, 'nav.apps')}
-      </a>
-      <a
-        href={localePath(locale, '/categories')}
-        class="hover:underline"
-        aria-current={section === 'categories' ? 'page' : undefined}
-      >
-        {t(locale, 'nav.categories')}
-      </a>
+    <nav aria-label={t(locale, 'nav.main')} class="flex items-center gap-1">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class="sh-nav sh-anim"
+          aria-current={section === item.key ? 'page' : undefined}
+        >
+          <ShIcon name={item.icon} class="hidden size-[18px] sm:block" motion="pop" />
+          {item.label}
+        </a>
+      ))}
     </nav>
 
-    <span class="sh-pill text-sh-muted border-sh-muted ml-auto hidden lg:inline-block">
-      {t(locale, 'search.hint')}
-    </span>
+    {/* A real link, so it works before any island hydrates and with JS off;
+        ShPrefs/ShSearch add the "/" shortcut on top (docs/06 §9). */}
+    <a
+      href={`${apps}#search`}
+      class="sh-searchlink sh-anim ml-auto hidden items-center gap-2 lg:inline-flex"
+    >
+      <ShIcon name="search" class="size-4" motion="pop" />
+      <span>{t(locale, 'search.label')}</span>
+      <kbd class="sh-kbd ml-6" aria-hidden="true">
+        /
+      </kbd>
+    </a>
 
     {/*
       client:idle — both are preferences, not gates: the page is fully usable
-      before they hydrate, and /theme.js has already applied the right theme
+      before they hydrate, and theme.js has already applied the right theme
       pre-paint (docs/02 §5, docs/05 §A8).
     */}
-    <div class="ml-auto flex items-center gap-3 lg:ml-0">
+    <div class="ml-auto flex items-center gap-2 lg:ml-0">
       {/*
       The suggestion banner is resolved with t('vi', …) regardless of page
       locale — deliberately. It only ever renders to someone whose browser is
@@ -94,3 +123,53 @@ const apps = localePath(locale, '/apps');
     </div>
   </div>
 </header>
+
+<style>
+  .sh-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.5rem;
+    padding: 0 0.7rem;
+    border-radius: var(--radius-btn);
+    color: var(--sh-muted);
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      color var(--duration-fast) var(--ease-sh),
+      background-color var(--duration-fast) var(--ease-sh);
+  }
+  .sh-nav:hover {
+    color: var(--sh-ink);
+    background: var(--sh-surface-2);
+  }
+  /* The current section: ink text over a short accent rule, so it is not
+     colour alone (WCAG 1.4.1). */
+  .sh-nav[aria-current='page'] {
+    color: var(--sh-ink);
+    box-shadow: inset 0 -2px 0 var(--sh-accent);
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+  .sh-searchlink {
+    min-height: 2.5rem;
+    padding: 0 0.5rem 0 0.75rem;
+    border: 1px solid var(--sh-control);
+    border-radius: var(--radius-btn);
+    background: var(--sh-surface);
+    color: var(--sh-muted);
+    font-size: var(--text-small);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) var(--ease-sh);
+  }
+  .sh-searchlink:hover {
+    border-color: var(--sh-accent);
+    color: var(--sh-ink);
+  }
+  @media (width < 30rem) {
+    .sh-nav {
+      padding: 0 0.5rem;
+    }
+  }
+</style>
