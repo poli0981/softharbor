@@ -73,8 +73,6 @@ if (app) {
 }
 ---
 
-{
-  nodes.map((node) => (
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(node)} />
-  ))
-}
+{nodes.map((node) => (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(node)} />
+))}

@@ -36,11 +36,9 @@ const rows = [
 ---
 
 <p>
-  {
-    locale === 'en'
-      ? 'SoftHarbor is built with open-source software. Runtime and asset dependencies and their licenses:'
-      : 'SoftHarbor được xây dựng trên phần mềm mã nguồn mở. Các thành phần và giấy phép tương ứng:'
-  }
+  {locale === 'en'
+    ? 'SoftHarbor is built with open-source software. Runtime and asset dependencies and their licenses:'
+    : 'SoftHarbor được xây dựng trên phần mềm mã nguồn mở. Các thành phần và giấy phép tương ứng:'}
 </p>
 
 <div class="-mx-4 overflow-x-auto px-4">
@@ -53,23 +51,19 @@ const rows = [
       </tr>
     </thead>
     <tbody>
-      {
-        rows.map((r) => (
-          <tr class="border-sh-border border-b opacity-95">
-            <td class="py-2 pr-4 align-top">{r.component}</td>
-            <td class="py-2 pr-4 align-top font-mono whitespace-nowrap">{r.license}</td>
-            <td class="text-sh-muted py-2 align-top">{r.note[locale]}</td>
-          </tr>
-        ))
-      }
+      {rows.map((r) => (
+        <tr class="border-sh-border border-b opacity-95">
+          <td class="py-2 pr-4 align-top">{r.component}</td>
+          <td class="py-2 pr-4 align-top font-mono whitespace-nowrap">{r.license}</td>
+          <td class="text-sh-muted py-2 align-top">{r.note[locale]}</td>
+        </tr>
+      ))}
     </tbody>
   </table>
 </div>
 
 <p class="text-sh-muted">
-  {
-    locale === 'en'
-      ? 'A full machine-generated dependency list is regenerated each release.'
-      : 'Danh sách phụ thuộc đầy đủ được tạo tự động mỗi bản phát hành.'
-  }
+  {locale === 'en'
+    ? 'A full machine-generated dependency list is regenerated each release.'
+    : 'Danh sách phụ thuộc đầy đủ được tạo tự động mỗi bản phát hành.'}
 </p>

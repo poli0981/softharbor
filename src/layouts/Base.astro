@@ -58,10 +58,8 @@ const gateStrings: Record<Locale, ReturnType<typeof gateStringsFor>> = {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {noindex && <meta name="robots" content="noindex" />}
 
-    {
-      /* Canonical is self-per-locale; alternates come from the single
-        localePair() source the switcher will also use (docs/07 §5/§6). */
-    }
+    {/* Canonical is self-per-locale; alternates come from the single
+        localePair() source the switcher will also use (docs/07 §5/§6). */}
     <link rel="alternate" hreflang="en" href={new URL(pair.en, site).href} />
     <link rel="alternate" hreflang="vi" href={new URL(pair.vi, site).href} />
     <link rel="alternate" hreflang="x-default" href={new URL(pair.en, site).href} />
@@ -76,42 +74,35 @@ const gateStrings: Record<Locale, ReturnType<typeof gateStringsFor>> = {
 
     {/* Blocking, same-origin, NOT inline — docs/05 §A8, docs/09 §4 (D20). */}
     <script is:inline src="/theme.js"></script>
-
-    {
-      /*
+    {/*
       Service-worker registration. @vite-pwa/astro EMITS /registerSW.js and
       /sw.js but never references them from any page — the build reports
       success while the SW silently never registers, so the offline fallback
       would not exist in production (found in spike S5). We load the emitted
       file ourselves. External, not inline, to satisfy script-src (docs/09 §4).
-    */
-    }
+    */}
     <script is:inline defer src="/registerSW.js"></script>
-
-    {
-      /*
+    {/*
       Console ring buffer (docs/05 §A5). Loaded here rather than inside
       ShBugReport because that island is client:visible in the footer — a
       listener attached at hydration would miss every error that happened
       before the user scrolled, which is most of them.
-    */
-    }
+    */}
     <script is:inline defer src="/errors.js"></script>
-
     <ClientRouter />
   </head>
   <body class="flex min-h-dvh flex-col">
-    {
-      /*
+    {/*
       client:load — must block interaction immediately, not on idle.
       transition:persist — survives ClientRouter navigations so acceptance
       never re-flashes; it re-asserts modal state after each swap
       (docs/02 §5, docs/14 Part 2, spike S4).
-    */
-    }
+    */}
     <ShLegalGate client:load transition:persist {locale} strings={gateStrings} />
 
-    <a href="#main" class="sh-skip">{t(locale, 'nav.skipToContent')}</a>
+    <a href="#main" class="sh-skip">
+      {t(locale, 'nav.skipToContent')}
+    </a>
     <ShHeader {locale} />
 
     <main id="main" class="mx-auto w-full max-w-[1360px] flex-1 px-4 py-8 md:px-6">

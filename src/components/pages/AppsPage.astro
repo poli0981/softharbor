@@ -71,13 +71,11 @@ const facetOptions = {
     />
   </div>
 
-  {
-    /*
+  {/*
     Server-rendered with the true total so a no-JS visitor sees a correct
     number; the grid controller rewrites it from data-count-template, which is
     how the island stays locale-agnostic (docs/07 §3).
-  */
-  }
+  */}
   <p
     id="sh-count"
     class="text-sh-muted mt-6 font-mono text-[var(--text-badge)]"
@@ -88,7 +86,9 @@ const facetOptions = {
   </p>
 
   <div id="sh-grid" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    {apps.map((app) => <ShAppCard {app} {locale} />)}
+    {apps.map((app) => (
+      <ShAppCard {app} {locale} />
+    ))}
   </div>
 
   {/* Hidden until filtering actually yields nothing (docs/06 §5). */}

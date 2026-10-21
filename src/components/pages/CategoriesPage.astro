@@ -28,28 +28,26 @@ const countFor = (id: string) =>
   <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'categories.intro')}</p>
 
   <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {
-      categories.map((c) => (
-        <li class="sh-panel sh-lift relative p-5">
-          <div class="flex items-center gap-3">
-            <Fragment
-              set:html={iconSvg(`lucide:${c.data.icon}`, {
-                class: 'size-6 shrink-0',
-                'aria-hidden': 'true',
-              })}
-            />
-            <h2 class="text-[length:var(--text-h3)] font-semibold">
-              <a href={localePath(locale, `/categories/${c.id}`)} class="sh-stretch">
-                {c.data.label[locale]}
-              </a>
-            </h2>
-          </div>
-          <p class="text-sh-muted mt-2 font-mono text-[var(--text-badge)]">
-            {t(locale, 'apps.count', { n: countFor(c.id) })}
-          </p>
-        </li>
-      ))
-    }
+    {categories.map((c) => (
+      <li class="sh-panel sh-lift relative p-5">
+        <div class="flex items-center gap-3">
+          <Fragment
+            set:html={iconSvg(`lucide:${c.data.icon}`, {
+              class: 'size-6 shrink-0',
+              'aria-hidden': 'true',
+            })}
+          />
+          <h2 class="text-[length:var(--text-h3)] font-semibold">
+            <a href={localePath(locale, `/categories/${c.id}`)} class="sh-stretch">
+              {c.data.label[locale]}
+            </a>
+          </h2>
+        </div>
+        <p class="text-sh-muted mt-2 font-mono text-[var(--text-badge)]">
+          {t(locale, 'apps.count', { n: countFor(c.id) })}
+        </p>
+      </li>
+    ))}
   </ul>
 </Base>
 

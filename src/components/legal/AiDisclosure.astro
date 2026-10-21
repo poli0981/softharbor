@@ -58,21 +58,17 @@ const rows = [
 ---
 
 <p>
-  {
-    en
-      ? 'SoftHarbor is built with AI assistance, and this page says where and how. It is published because the site asks you to trust a set of links and a dated security note — and that request is worth less if you do not know how the list was put together.'
-      : 'SoftHarbor được xây dựng với sự hỗ trợ của AI, và trang này nói rõ ở đâu và như thế nào. Chúng tôi công bố điều đó vì trang web đang đề nghị bạn tin vào một tập liên kết và một ghi chú bảo mật có ghi ngày — lời đề nghị ấy sẽ kém giá trị nếu bạn không biết danh sách được tạo ra ra sao.'
-  }
+  {en
+    ? 'SoftHarbor is built with AI assistance, and this page says where and how. It is published because the site asks you to trust a set of links and a dated security note — and that request is worth less if you do not know how the list was put together.'
+    : 'SoftHarbor được xây dựng với sự hỗ trợ của AI, và trang này nói rõ ở đâu và như thế nào. Chúng tôi công bố điều đó vì trang web đang đề nghị bạn tin vào một tập liên kết và một ghi chú bảo mật có ghi ngày — lời đề nghị ấy sẽ kém giá trị nếu bạn không biết danh sách được tạo ra ra sao.'}
 </p>
 
 <h2>{en ? 'Tools used' : 'Công cụ đã dùng'}</h2>
 
 <p>
-  {
-    en
-      ? 'Claude Opus 5 (model identifier claude-opus-5), developed by Anthropic, used through Claude Code — Anthropic’s command-line coding tool. Earlier work on the project used Claude models through the same tool. No other AI system contributed to this site.'
-      : 'Claude Opus 5 (mã định danh mô hình claude-opus-5) do Anthropic phát triển, sử dụng thông qua Claude Code — công cụ lập trình dòng lệnh của Anthropic. Các giai đoạn trước của dự án cũng dùng mô hình Claude qua chính công cụ này. Không có hệ thống AI nào khác tham gia vào trang web này.'
-  }
+  {en
+    ? 'Claude Opus 5 (model identifier claude-opus-5), developed by Anthropic, used through Claude Code — Anthropic’s command-line coding tool. Earlier work on the project used Claude models through the same tool. No other AI system contributed to this site.'
+    : 'Claude Opus 5 (mã định danh mô hình claude-opus-5) do Anthropic phát triển, sử dụng thông qua Claude Code — công cụ lập trình dòng lệnh của Anthropic. Các giai đoạn trước của dự án cũng dùng mô hình Claude qua chính công cụ này. Không có hệ thống AI nào khác tham gia vào trang web này.'}
 </p>
 
 <h2>{en ? 'Where it was used' : 'Đã dùng ở đâu'}</h2>
@@ -86,14 +82,12 @@ const rows = [
       </tr>
     </thead>
     <tbody>
-      {
-        rows.map((r) => (
-          <tr class="border-sh-border border-b opacity-95">
-            <td class="py-2 pr-4 align-top">{r.area[locale]}</td>
-            <td class="text-sh-muted py-2 align-top">{r.how[locale]}</td>
-          </tr>
-        ))
-      }
+      {rows.map((r) => (
+        <tr class="border-sh-border border-b opacity-95">
+          <td class="py-2 pr-4 align-top">{r.area[locale]}</td>
+          <td class="text-sh-muted py-2 align-top">{r.how[locale]}</td>
+        </tr>
+      ))}
     </tbody>
   </table>
 </div>
@@ -101,17 +95,13 @@ const rows = [
 <h2>{en ? 'What this does not mean' : 'Điều này không có nghĩa là'}</h2>
 
 <p>
-  {
-    en
-      ? 'AI assistance is not a warranty and not an excuse. Nothing here is checked less carefully because a model helped write it, and a mistake on this site is the maintainer’s, not a tool’s. The limits already stated in the Disclaimer apply unchanged: SoftHarbor hosts no downloads, cannot guarantee third-party software, and reports a security status only as of the date shown.'
-      : 'Việc dùng AI không phải là bảo đảm, cũng không phải là cái cớ. Không có thứ gì ở đây được kiểm tra qua loa hơn chỉ vì có mô hình tham gia viết, và mọi sai sót trên trang này thuộc về người bảo trì chứ không phải công cụ. Các giới hạn đã nêu trong Tuyên bố miễn trừ vẫn giữ nguyên: SoftHarbor không lưu trữ tệp cài đặt, không thể bảo đảm cho phần mềm của bên thứ ba, và chỉ nêu trạng thái bảo mật tính đến ngày được hiển thị.'
-  }
+  {en
+    ? 'AI assistance is not a warranty and not an excuse. Nothing here is checked less carefully because a model helped write it, and a mistake on this site is the maintainer’s, not a tool’s. The limits already stated in the Disclaimer apply unchanged: SoftHarbor hosts no downloads, cannot guarantee third-party software, and reports a security status only as of the date shown.'
+    : 'Việc dùng AI không phải là bảo đảm, cũng không phải là cái cớ. Không có thứ gì ở đây được kiểm tra qua loa hơn chỉ vì có mô hình tham gia viết, và mọi sai sót trên trang này thuộc về người bảo trì chứ không phải công cụ. Các giới hạn đã nêu trong Tuyên bố miễn trừ vẫn giữ nguyên: SoftHarbor không lưu trữ tệp cài đặt, không thể bảo đảm cho phần mềm của bên thứ ba, và chỉ nêu trạng thái bảo mật tính đến ngày được hiển thị.'}
 </p>
 
 <p class="text-sh-muted">
-  {
-    en
-      ? 'Found something wrong? Every app page has a "Report a bug" link, and the full history of how each entry got here is public in the repository.'
-      : 'Phát hiện điều gì chưa đúng? Mỗi trang ứng dụng đều có liên kết "Báo lỗi", và toàn bộ lịch sử hình thành của từng mục đều công khai trong kho mã nguồn.'
-  }
+  {en
+    ? 'Found something wrong? Every app page has a "Report a bug" link, and the full history of how each entry got here is public in the repository.'
+    : 'Phát hiện điều gì chưa đúng? Mỗi trang ứng dụng đều có liên kết "Báo lỗi", và toàn bộ lịch sử hình thành của từng mục đều công khai trong kho mã nguồn.'}
 </p>

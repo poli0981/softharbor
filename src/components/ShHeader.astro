@@ -27,7 +27,9 @@ const themeLabels = {
     </a>
 
     <nav aria-label={t(locale, 'nav.apps')} class="flex items-center gap-4">
-      <a href={apps} class="hover:underline">{t(locale, 'nav.apps')}</a>
+      <a href={apps} class="hover:underline">
+        {t(locale, 'nav.apps')}
+      </a>
       <a href={localePath(locale, '/categories')} class="hover:underline">
         {t(locale, 'nav.categories')}
       </a>
@@ -37,23 +39,19 @@ const themeLabels = {
       {t(locale, 'search.hint')}
     </span>
 
-    {
-      /*
+    {/*
       client:idle — both are preferences, not gates: the page is fully usable
       before they hydrate, and /theme.js has already applied the right theme
       pre-paint (docs/02 §5, docs/05 §A8).
-    */
-    }
+    */}
     <div class="ml-auto flex items-center gap-3 lg:ml-0">
-      {
-        /*
+      {/*
       The suggestion banner is resolved with t('vi', …) regardless of page
       locale — deliberately. It only ever renders to someone whose browser is
       Vietnamese while they are on an EN page (docs/07 §2), so addressing them
       in English would be exactly backwards. The EN entries for those keys
       exist for dictionary parity and are never rendered.
-    */
-      }
+    */}
       <ShLangSwitch
         client:idle
         label={t(locale, 'lang.label')}

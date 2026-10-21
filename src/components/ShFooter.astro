@@ -28,17 +28,13 @@ const built = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
 ---
 
 <footer class="border-sh-border mt-16 border-t-2">
-  <div
-    class="mx-auto flex max-w-[1360px] flex-col gap-4 px-4 py-8 md:flex-row md:justify-between md:px-6"
-  >
+  <div class="mx-auto flex max-w-[1360px] flex-col gap-4 px-4 py-8 md:flex-row md:justify-between md:px-6">
     <nav aria-label={t(locale, 'footer.legal.heading')} class="flex flex-wrap gap-x-4 gap-y-2">
-      {
-        legal.map(([path, key]) => (
-          <a href={localePath(locale, path)} class="hover:underline">
-            {t(locale, key)}
-          </a>
-        ))
-      }
+      {legal.map(([path, key]) => (
+        <a href={localePath(locale, path)} class="hover:underline">
+          {t(locale, key)}
+        </a>
+      ))}
     </nav>
 
     <div class="text-sh-muted flex flex-col gap-1 md:items-end">
@@ -50,11 +46,9 @@ const built = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
       >
         {t(locale, 'footer.github')}
       </a>
-      {
-        /* client:visible — it lives at the bottom and nothing depends on it
+      {/* client:visible — it lives at the bottom and nothing depends on it
           until seen. The ring buffer it reads is filled from /errors.js, which
-          loads early, so scrolling late does not lose errors (docs/05 §A5). */
-      }
+          loads early, so scrolling late does not lose errors (docs/05 §A5). */}
       <span class="font-mono text-[var(--text-badge)]">
         <ShBugReport
           client:visible
