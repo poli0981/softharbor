@@ -26,6 +26,15 @@ const DIST = join(process.cwd(), 'dist');
 
 const CSP_META = /<meta http-equiv="content-security-policy" content="([^"]+)"/i;
 const STYLE_EL = /<style[^>]*>([\s\S]*?)<\/style>/gi;
+/** Every start tag. `[^>]*` is a single linear run — no nested quantifiers. */
+const START_TAG = /<[a-z][^>]*>/gi;
+/**
+ * A `style` attribute in any of HTML's three value syntaxes — double-quoted,
+ * single-quoted or unquoted — and any letter case. Applied to one bounded tag
+ * string at a time, which keeps it linear (SonarCloud S8786 flagged the old
+ * whole-document pattern for super-linear backtracking).
+ */
+const STYLE_ATTR = /\sstyle\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
 const sha256 = (s) => `sha256-${createHash('sha256').update(s, 'utf8').digest('base64')}`;
 
 function walk(dir) {
@@ -39,6 +48,8 @@ function walk(dir) {
 }
 
 const offenders = [];
+/** Pages with no CSP meta at all — every other check would skip them silently. */
+const missingCsp = [];
 /** `<style>` elements whose hash is absent from their own page's CSP. */
 const unhashed = [];
 /** hash -> a page that emits it; and every page's allowed set, for the
@@ -48,10 +59,13 @@ const allowedBy = new Map();
 
 for (const file of walk(DIST)) {
   const html = readFileSync(file, 'utf8');
-  for (const m of html.matchAll(/<[^>]*\sstyle="([^"]*)"[^>]*>/g)) {
+  for (const [tag] of html.matchAll(START_TAG)) {
+    const m = STYLE_ATTR.exec(tag);
+    if (!m) continue;
+    const decl = m[1] ?? m[2] ?? m[3] ?? '';
     // An empty style="" is harmless noise from a framework; a declaration is not.
-    if (m[1].trim() === '') continue;
-    offenders.push({ file: relative(process.cwd(), file), decl: m[1].slice(0, 70) });
+    if (decl.trim() === '') continue;
+    offenders.push({ file: relative(process.cwd(), file), decl: decl.slice(0, 70) });
   }
 
   // The attribute sweep above misses a whole second category: a `<style>`
@@ -59,9 +73,14 @@ for (const file of walk(DIST)) {
   // exactly that — 1.5 MB of CSS the browser refused on every page, with all
   // eight gates green, because nothing compared the emitted styles against the
   // policy that governs them.
-  const csp = CSP_META.exec(html)?.[1];
-  if (!csp) continue;
   const rel = relative(process.cwd(), file);
+  const csp = CSP_META.exec(html)?.[1];
+  if (!csp) {
+    // Used to be a bare `continue`: a markup change in how Astro emits the
+    // meta tag would have skipped every page and still printed "OK".
+    missingCsp.push(rel);
+    continue;
+  }
   allowedBy.set(rel, new Set(csp.match(/'sha256-[^']+'/g)?.map((h) => h.slice(1, -1)) ?? []));
   for (const m of html.matchAll(STYLE_EL)) {
     const hash = sha256(m[1]);
@@ -132,7 +151,31 @@ if (pageSpecific.length > 0) {
   process.exitCode = 1;
 }
 
-if (offenders.length === 0 && unhashed.length === 0 && pageSpecific.length === 0) {
+if (missingCsp.length > 0) {
+  console.error(`check-no-inline-styles — ${missingCsp.length} page(s) carry no CSP meta tag:\n`);
+  for (const f of missingCsp.slice(0, 10)) console.error(`  ✗ ${f}`);
+  if (missingCsp.length > 10) console.error(`  … and ${missingCsp.length - 10} more`);
+  console.error(
+    "\n  Astro's security.csp emits the policy per page; a page without it is unprotected",
+  );
+  console.error('  and invisible to every other check in this script (docs/09 §4).');
+  process.exitCode = 1;
+}
+
+if (allowedBy.size === 0) {
+  console.error(
+    'check-no-inline-styles — found no HTML pages under dist/. Run `astro build` first.',
+  );
+  process.exitCode = 1;
+}
+
+if (
+  offenders.length === 0 &&
+  unhashed.length === 0 &&
+  pageSpecific.length === 0 &&
+  missingCsp.length === 0 &&
+  allowedBy.size > 0
+) {
   console.log(
     `check-no-inline-styles — OK (no style attributes; ${universal.length} <style> hash(es), ` +
       `allowed on all ${allowedBy.size} pages)`,
