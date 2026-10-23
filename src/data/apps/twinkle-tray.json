@@ -17,7 +17,7 @@
     "download": "https://github.com/xanderfrangos/twinkle-tray/releases/latest"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/95eb4fe24288fde9aa1ffa67a8268b49696add6f575475f95216aeb46ffb6a14",
     "checkedAt": "2026-10-23"
   },

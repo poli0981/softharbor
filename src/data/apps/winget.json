@@ -17,7 +17,7 @@
     "download": "https://learn.microsoft.com/windows/package-manager/winget/"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/7ebb138907fd6c22fc0cc5f854f841911982b0a4df7d8e9c358a5137ec336853",
     "checkedAt": "2026-10-23"
   },

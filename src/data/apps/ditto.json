@@ -17,7 +17,7 @@
     "download": "https://github.com/sabrogden/Ditto/releases"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/4459d100223abbec310450d221ee7f9f815536948d808bd752d59910c855d252",
     "checkedAt": "2026-10-23"
   },

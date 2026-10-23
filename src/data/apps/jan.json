@@ -25,7 +25,7 @@
     "download": "https://www.jan.ai/download"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/d57bd4cf44722b56f1d065140e84cd13be515788eae6da196afd93e2847cc0bb",
     "checkedAt": "2026-10-23"
   },

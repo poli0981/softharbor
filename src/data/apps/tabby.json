@@ -17,7 +17,7 @@
     "download": "https://github.com/Eugeny/tabby/releases"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/7e9e99637cbc6be37e75baac91894c5e2f1259f0bdc38d8b17a2f7043058110a",
     "checkedAt": "2026-10-23"
   },

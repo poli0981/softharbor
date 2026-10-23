@@ -17,7 +17,7 @@
     "download": "https://shottr.cc"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/cc0647071cbe638a9c54fd45eb1dc2d30b204f5e691774ebcb692979b7090872",
     "checkedAt": "2026-10-23"
   },

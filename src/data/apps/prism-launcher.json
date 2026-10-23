@@ -17,7 +17,7 @@
     "download": "https://prismlauncher.org/download/"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/ba940ac9e36faf1e4c2704b2c5735f43fd04abeb3c393c6d57731a4a180e8fbb",
     "checkedAt": "2026-10-23"
   },

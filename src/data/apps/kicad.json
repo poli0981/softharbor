@@ -17,7 +17,7 @@
     "download": "https://www.kicad.org/download/"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/3015cb51f0a0fa7cc0bf8065868bcd45664503f8d2848c88454ddb6e13f515b2",
     "checkedAt": "2026-10-23"
   },

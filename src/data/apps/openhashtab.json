@@ -24,7 +24,7 @@
     "download": "https://github.com/namazso/OpenHashTab/releases/latest"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/2b460e47d86ddb7e124a934d2321050bf94ac0cc59b94ed59f6a732a7e7f8816",
     "checkedAt": "2026-10-23"
   },

@@ -24,7 +24,7 @@
     "download": "https://github.com/p0deje/Maccy/releases"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/16f7c0bb3bcec890c8bb53657f49f6ada8d273150823be22f5665e77b7dc0cd3",
     "checkedAt": "2026-10-23"
   },

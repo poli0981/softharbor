@@ -25,7 +25,7 @@
     "download": "https://github.com/MonitorControl/MonitorControl/releases"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/139ebda472465aa1e2522a598b9f0b155118236415e9d51c9887e1163698221e",
     "checkedAt": "2026-10-23"
   },

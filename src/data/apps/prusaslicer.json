@@ -17,7 +17,7 @@
     "download": "https://www.prusa3d.com/p/prusaslicer/"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/a98ba727df8141459701c279e802a0e7a73aff589f72e543c978edda97a8a12c",
     "checkedAt": "2026-10-23"
   },

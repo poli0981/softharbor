@@ -17,7 +17,7 @@
     "download": "https://scoop.sh"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/76452af8247139f723358a93fd25f373283671062f0788869d0103278cac3161",
     "checkedAt": "2026-10-23"
   },

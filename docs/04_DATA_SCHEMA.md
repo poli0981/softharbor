@@ -111,7 +111,7 @@ duplicates, link provenance, invisible characters, quarantine) are L2,
 
 | Value | Meaning | Examples |
 |---|---|---|
-| `free` | Fully usable forever at $0. Includes freemium products **whose free tier alone is self-sufficient** even if the paid upgrade is a subscription (criterion C3). | VLC, 7-Zip, Bitwarden (free tier) — 331 entries |
+| `free` | Fully usable forever at $0. Includes freemium products **whose free tier alone is self-sufficient** even if the paid upgrade is a subscription (criterion C3). | VLC, 7-Zip, Bitwarden (free tier) — 330 entries |
 | `free-onetime` | Free tier + optional **single lifetime payment** unlock. | FreeFileSync, eM Client, HWiNFO, Shottr, AltTab — 16 entries |
 | `onetime` | Paid once, perpetual license, optional paid major upgrades allowed. | Sublime Text, REAPER, Total Commander, Fork — 18 entries |
 | *(excluded)* | Subscription required for core desktop use; time-limited trials; crippled demos. | Adobe CC, MS 365 |
@@ -244,7 +244,7 @@ and the renderer draws the initials (D23). VSCodium itself now resolves to
 ```
 
 As of v1.2 no entry uses `local:` (`src/assets/logos/` does not exist yet):
-127 entries use `simple-icons:`, 238 `monogram` (365 in all).
+127 entries use `simple-icons:`, 237 `monogram` (364 in all).
 
 ## 6. Quarantine files
 

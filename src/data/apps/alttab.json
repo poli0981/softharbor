@@ -25,7 +25,7 @@
     "download": "https://github.com/lwouis/alt-tab-macos/releases"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/50e65202604e4421240fbdd308e6484a88bfb187004a6b4cece27794172dd5d3",
     "checkedAt": "2026-10-23"
   },

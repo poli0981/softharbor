@@ -24,7 +24,7 @@
     "download": "https://kdeconnect.kde.org/download.html"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/d9edea46aa34e9e727476448147385e8d88116eb14fe808fc758caefc4db4e1d",
     "checkedAt": "2026-10-23"
   },

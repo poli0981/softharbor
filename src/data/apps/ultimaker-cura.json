@@ -17,7 +17,7 @@
     "download": "https://ultimaker.com/software/ultimaker-cura/"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/9285234c5fd52a378eead2ee13fad52f815ed037eafc415c93a65808d9acf31e",
     "checkedAt": "2026-10-23"
   },

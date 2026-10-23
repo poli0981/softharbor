@@ -17,7 +17,7 @@
     "download": "https://eartrumpet.app"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/736e45d6b5870cc96e7d6568b04e8fe6c5b2fe980660ca5bdbd1a4f001e5ed94",
     "checkedAt": "2026-10-23"
   },

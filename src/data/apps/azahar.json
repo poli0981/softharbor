@@ -17,7 +17,7 @@
     "download": "https://azahar-emu.org/pages/download/"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/caf89bb9b977df2472b7102cfaca664dc65bf957aa798ecb17065bb55ecd3e34",
     "checkedAt": "2026-10-23"
   },

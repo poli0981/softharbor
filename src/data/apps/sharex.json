@@ -17,7 +17,7 @@
     "download": "https://github.com/ShareX/ShareX/releases/latest"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/c1c56337e7b1457ccbdb67a9268f3f5332ca34de42efacfd89c0cf7fd040a72b",
     "checkedAt": "2026-10-23"
   },
