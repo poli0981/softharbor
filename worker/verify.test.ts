@@ -219,4 +219,26 @@ describe('the Worker entry', () => {
     expect(api.status).toBe(503);
     expect(assets).toHaveBeenCalledTimes(1);
   });
+
+  it('hands the handler the real fetch, clock and logger', async () => {
+    const siteverify = vi.fn(async (input: RequestInfo | URL) => {
+      expect(String(input)).toBe(SITEVERIFY);
+      return Response.json({ ...PASSED, challenge_ts: new Date().toISOString() });
+    });
+    vi.stubGlobal('fetch', siteverify);
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+    try {
+      const env: Env = {
+        ASSETS: { fetch: async () => new Response('page') },
+        TURNSTILE_SECRET: SECRET,
+      };
+      const res = await worker.fetch(request(), env);
+      expect(res.status).toBe(200);
+      expect(siteverify).toHaveBeenCalledTimes(1);
+      expect(JSON.parse(String(log.mock.calls[0]?.[0]))).toMatchObject({ outcome: 'ok' });
+    } finally {
+      vi.unstubAllGlobals();
+      log.mockRestore();
+    }
+  });
 });

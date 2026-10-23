@@ -9,31 +9,47 @@ import { getViteConfig } from 'astro/config';
 
 export default getViteConfig({
   test: {
-    // `pnpm coverage`. Scoped to the code that ships to visitors; the build
-    // scripts run as child processes in their tests (scripts/fixture.ts), which
-    // V8 coverage cannot see, so they are judged by those tests' assertions.
+    // `pnpm coverage`, also read by SonarQube Cloud (sonar-project.properties).
+    // Every analysed source is measured: the code that ships to visitors, the
+    // Worker, and the build scripts. Those run as child processes in their
+    // tests (scripts/fixture.ts); `autoAttachSubprocess` hands each child
+    // NODE_V8_COVERAGE, so their real runs count. Do not also import a script
+    // in-process: Vitest merges the two kinds of coverage for one file wrongly.
     // Thresholds sit just under the measured numbers: a ratchet, not a goal —
     // raise them when coverage rises, never lower them to land a change.
     coverage: {
       provider: 'v8',
+      autoAttachSubprocess: true,
       include: [
         'src/lib/**/*.ts',
         'src/i18n/**/*.ts',
+        'src/scripts/**/*.js',
+        'src/pages/**/*.ts',
+        'src/content.config.ts',
         'src/components/islands/**/*.svelte',
         'worker/**/*.ts',
+        'scripts/**/*.mjs',
       ],
       exclude: ['**/*.test.ts'],
       reporter: ['text-summary', 'html', 'lcov'],
-      thresholds: { statements: 93, branches: 78, functions: 90, lines: 93 },
+      thresholds: { statements: 96, branches: 85, functions: 95, lines: 97 },
     },
     projects: [
       {
-        // Pure logic — src/lib/**. No DOM, so a DOM bug can never hide here.
+        // Pure logic — src/lib/** — plus the schema, the endpoints and the
+        // head scripts. No DOM by default, so a DOM bug can never hide here;
+        // a file that needs one says so with `@vitest-environment happy-dom`.
+        // Endpoint tests sit in src/pages/ behind a leading `_`, which keeps
+        // them out of Astro's routing.
         extends: true,
         test: {
           name: 'unit',
           environment: 'node',
-          include: ['src/{lib,i18n,styles}/**/*.test.ts'],
+          include: [
+            'src/{lib,i18n,styles,scripts}/**/*.test.ts',
+            'src/pages/**/_*.test.ts',
+            'src/*.test.ts',
+          ],
         },
       },
       {
