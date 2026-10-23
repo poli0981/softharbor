@@ -71,12 +71,33 @@ describe('extract-urls', () => {
     expect(r.stdout).toBe('https://a.test/\nhttps://b.test/\nhttps://vt.test/a\n');
   });
 
-  it('limits itself to the files named on stdin with --changed', () => {
-    const r = run('extract-urls.mjs', project(apps), {
-      args: ['--changed'],
-      input: 'src/data/apps/b.json\nREADME.md\n',
-    });
-    expect(r.stdout).toBe('https://a.test/\nhttps://b.test/\n');
+  it('with --added, checks only the URLs on lines a diff adds', () => {
+    // A re-check PR rewrites evidence; a data PR adds a whole new file.
+    const diff = [
+      'diff --git a/src/data/apps/a.json b/src/data/apps/a.json',
+      '--- a/src/data/apps/a.json',
+      '+++ b/src/data/apps/a.json',
+      '@@ -19,2 +19,2 @@',
+      '-    "evidence": "https://vt.test/old",',
+      '+    "evidence": "https://vt.test/new",',
+      '-    "checkedAt": "2026-07-30"',
+      '+    "checkedAt": "2026-10-23"',
+      'diff --git a/src/data/apps/new.json b/src/data/apps/new.json',
+      '+++ b/src/data/apps/new.json',
+      '+    "homepage": "https://new.test",',
+      '+    "repo": null,',
+      '+    "download": "https://new.test/get?os=win",',
+      ' unchanged "https://context.test/"',
+    ].join('\n');
+    const r = run('extract-urls.mjs', project(apps), { args: ['--added'], input: diff });
+    expect(r.code).toBe(0);
+    expect(r.stdout).toBe('https://new.test\nhttps://new.test/get?os=win\nhttps://vt.test/new\n');
+  });
+
+  it('with --added and an empty diff, prints nothing', () => {
+    const r = run('extract-urls.mjs', project(apps), { args: ['--added'], input: '' });
+    expect(r.code).toBe(0);
+    expect(r.stdout).toBe('');
   });
 
   it('keeps going past a malformed file, but fails the run', () => {
