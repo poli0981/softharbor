@@ -1,0 +1,25 @@
+{
+  "name": "Twinkle Tray",
+  "developer": "Xander Frangos",
+  "logo": "monogram",
+  "summary": {
+    "en": "Tray slider that sets the brightness of external monitors over DDC/CI alongside a laptop screen, with hotkeys and schedules.",
+    "vi": "Thanh trượt ở khay hệ thống chỉnh độ sáng màn hình rời qua DDC/CI cùng màn hình laptop, có phím tắt và lịch theo giờ."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["brightness", "ddc-ci", "multi-monitor", "system-tray"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://twinkletray.com",
+    "repo": "https://github.com/xanderfrangos/twinkle-tray",
+    "download": "https://github.com/xanderfrangos/twinkle-tray/releases/latest"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

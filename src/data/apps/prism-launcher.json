@@ -1,0 +1,25 @@
+{
+  "name": "Prism Launcher",
+  "developer": "Prism Launcher Contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Minecraft: Java Edition launcher that keeps separate instances, each with its own game version and mods, and installs modpacks.",
+    "vi": "Trình khởi chạy Minecraft: Java Edition quản lý nhiều bản cài riêng, mỗi bản có phiên bản game và mod riêng, cài được modpack."
+  },
+  "categories": ["gaming"],
+  "tags": ["minecraft", "multi-instance", "modpacks", "mod-manager"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://prismlauncher.org",
+    "repo": "https://github.com/PrismLauncher/PrismLauncher",
+    "download": "https://prismlauncher.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

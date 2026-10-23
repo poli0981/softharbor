@@ -1,0 +1,25 @@
+{
+  "name": "ReShade",
+  "developer": "crosire",
+  "logo": "monogram",
+  "summary": {
+    "en": "Injector that adds shader effects such as ambient occlusion, depth of field and colour grading to games; some anti-cheat systems block it.",
+    "vi": "Công cụ chèn hiệu ứng shader như ambient occlusion, độ sâu trường ảnh và chỉnh màu vào game; một số hệ thống chống gian lận chặn nó."
+  },
+  "categories": ["gaming", "graphics"],
+  "tags": ["shaders", "post-processing", "injector", "add-ons", "signed-releases"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "BSD-3-Clause",
+  "links": {
+    "homepage": "https://reshade.me",
+    "repo": "https://github.com/crosire/reshade",
+    "download": "https://reshade.me/#download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

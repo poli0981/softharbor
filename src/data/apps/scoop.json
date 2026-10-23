@@ -1,0 +1,25 @@
+{
+  "name": "Scoop",
+  "developer": "Scoop contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Command-line installer that puts apps in your user profile without admin prompts, driven by JSON manifests from community buckets.",
+    "vi": "Trình cài đặt dòng lệnh đặt ứng dụng vào hồ sơ người dùng mà không cần quyền admin, dựa trên manifest JSON từ các bucket cộng đồng."
+  },
+  "categories": ["system", "developer-tools"],
+  "tags": ["package-manager", "cli", "no-admin", "buckets"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "Unlicense OR MIT",
+  "links": {
+    "homepage": "https://scoop.sh",
+    "repo": "https://github.com/ScoopInstaller/Scoop",
+    "download": "https://scoop.sh"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

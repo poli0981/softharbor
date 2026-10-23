@@ -1,0 +1,33 @@
+{
+  "name": "LocalSend",
+  "developer": "Tien Nam Do",
+  "logo": "simple-icons:localsend",
+  "summary": {
+    "en": "Sends files and text between nearby devices over the local network, with no internet connection or account; apps for desktop and mobile.",
+    "vi": "Gửi tệp và văn bản giữa các thiết bị gần nhau qua mạng nội bộ, không cần internet hay tài khoản; có ứng dụng cho máy tính và điện thoại."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": [
+    "file-transfer",
+    "local-network",
+    "airdrop-alternative",
+    "peer-to-peer",
+    "no-account",
+    "offline",
+    "signed-releases"
+  ],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://localsend.org",
+    "repo": "https://github.com/localsend/localsend",
+    "download": "https://localsend.org/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

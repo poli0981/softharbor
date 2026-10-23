@@ -1,0 +1,25 @@
+{
+  "name": "Ditto",
+  "developer": "Scott Brogden",
+  "logo": "monogram",
+  "summary": {
+    "en": "Clipboard manager that keeps everything you copy, images and rich text included, in a searchable local history behind a hotkey.",
+    "vi": "Trình quản lý clipboard lưu mọi thứ bạn sao chép, kể cả ảnh và văn bản định dạng, thành lịch sử cục bộ tìm được, gọi bằng phím tắt."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": ["clipboard", "search", "portable", "no-telemetry", "signed-releases"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://sabrogden.github.io/Ditto/",
+    "repo": "https://github.com/sabrogden/Ditto",
+    "download": "https://github.com/sabrogden/Ditto/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

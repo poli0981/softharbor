@@ -1,0 +1,25 @@
+{
+  "name": "Greenshot",
+  "developer": "Thomas Braun, Jens Klingen and Robin Krom",
+  "logo": "monogram",
+  "summary": {
+    "en": "Lightweight screenshot tool with an editor for arrows, highlights and blurring, exporting to printers, Office apps or upload plugins.",
+    "vi": "Công cụ chụp màn hình gọn nhẹ, có trình chỉnh sửa để thêm mũi tên, tô sáng, làm mờ và xuất ra máy in, Office hoặc plugin tải lên."
+  },
+  "categories": ["utilities", "graphics"],
+  "tags": ["screenshot", "annotations", "lightweight", "plugins", "signed-releases"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://getgreenshot.org",
+    "repo": "https://github.com/greenshot/greenshot",
+    "download": "https://getgreenshot.org/downloads/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

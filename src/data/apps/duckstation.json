@@ -1,0 +1,25 @@
+{
+  "name": "DuckStation",
+  "developer": "Connor McLaughlin",
+  "logo": "monogram",
+  "summary": {
+    "en": "PlayStation emulator aimed at speed and accuracy, with resolution upscaling, PGXP geometry correction, save states and rewind.",
+    "vi": "Trình giả lập PlayStation hướng tới tốc độ và độ chính xác, có tăng độ phân giải, sửa hình học PGXP, lưu trạng thái và tua lại."
+  },
+  "categories": ["gaming"],
+  "tags": ["playstation", "upscaling", "save-states", "rewind"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "CC-BY-NC-ND-4.0",
+  "links": {
+    "homepage": "https://www.duckstation.org",
+    "repo": "https://github.com/stenzek/duckstation",
+    "download": "https://github.com/stenzek/duckstation/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

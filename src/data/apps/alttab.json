@@ -1,0 +1,33 @@
+{
+  "name": "AltTab",
+  "developer": "lwouis",
+  "logo": "monogram",
+  "summary": {
+    "en": "Windows-style Alt-Tab for macOS that switches between individual windows with live thumbnails; search and extra styles need Pro.",
+    "vi": "Alt-Tab kiểu Windows cho macOS, chuyển giữa từng cửa sổ với ảnh thu nhỏ trực tiếp; tìm kiếm và kiểu hiển thị thêm cần bản Pro."
+  },
+  "categories": ["system", "productivity"],
+  "tags": [
+    "window-switcher",
+    "alt-tab",
+    "window-management",
+    "keyboard-shortcuts",
+    "thumbnails",
+    "macos-native",
+    "signed-releases"
+  ],
+  "platforms": ["macos"],
+  "pricing": "free-onetime",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://alt-tab.app",
+    "repo": "https://github.com/lwouis/alt-tab-macos",
+    "download": "https://github.com/lwouis/alt-tab-macos/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "LibreCAD",
+  "developer": "LibreCAD Team",
+  "logo": "monogram",
+  "summary": {
+    "en": "2D CAD drafting program forked from QCAD Community Edition that works natively with DXF files and can import DWG drawings.",
+    "vi": "Phần mềm vẽ kỹ thuật CAD 2D tách nhánh từ QCAD Community Edition, làm việc trực tiếp với tệp DXF và nhập được bản vẽ DWG."
+  },
+  "categories": ["cad-3d", "graphics"],
+  "tags": ["cad", "2d", "drafting", "dxf", "technical-drawing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only",
+  "links": {
+    "homepage": "https://librecad.org",
+    "repo": "https://github.com/LibreCAD/LibreCAD",
+    "download": "https://github.com/LibreCAD/LibreCAD/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

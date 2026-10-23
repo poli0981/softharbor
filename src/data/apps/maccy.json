@@ -1,0 +1,32 @@
+{
+  "name": "Maccy",
+  "developer": "Alex Rodionov",
+  "logo": "monogram",
+  "summary": {
+    "en": "Lightweight menu-bar clipboard history for macOS: open it with a hotkey, type to search, and pin the items you reuse.",
+    "vi": "Lịch sử clipboard gọn nhẹ trên thanh menu macOS: mở bằng phím tắt, gõ để tìm và ghim những mục hay dùng."
+  },
+  "categories": ["productivity", "utilities"],
+  "tags": [
+    "clipboard",
+    "clipboard-history",
+    "menu-bar",
+    "keyboard-driven",
+    "search",
+    "macos-native"
+  ],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://maccy.app",
+    "repo": "https://github.com/p0deje/Maccy",
+    "download": "https://github.com/p0deje/Maccy/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

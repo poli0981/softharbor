@@ -1,0 +1,25 @@
+{
+  "name": "LM Studio",
+  "developer": "Element Labs, Inc.",
+  "logo": "simple-icons:lmstudio",
+  "summary": {
+    "en": "Desktop app for downloading and running open-weight language models locally, with a chat window and an OpenAI-compatible local API.",
+    "vi": "Ứng dụng desktop để tải và chạy mô hình ngôn ngữ mở ngay trên máy, có cửa sổ chat và API cục bộ tương thích OpenAI."
+  },
+  "categories": ["ai-local", "developer-tools"],
+  "tags": ["local-llm", "offline-ai", "chat", "api", "openai-compatible", "gguf", "mlx"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://lmstudio.ai",
+    "repo": null,
+    "download": "https://lmstudio.ai/download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

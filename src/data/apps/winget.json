@@ -1,0 +1,25 @@
+{
+  "name": "WinGet",
+  "developer": "Microsoft",
+  "logo": "monogram",
+  "summary": {
+    "en": "Microsoft's command-line package manager, included with current Windows, for finding, installing and upgrading apps from a community catalogue.",
+    "vi": "Trình quản lý gói dòng lệnh của Microsoft, có sẵn trên Windows hiện nay, để tìm, cài và nâng cấp ứng dụng từ một kho cộng đồng."
+  },
+  "categories": ["system", "developer-tools"],
+  "tags": ["package-manager", "cli", "preinstalled"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://learn.microsoft.com/windows/package-manager/",
+    "repo": "https://github.com/microsoft/winget-cli",
+    "download": "https://learn.microsoft.com/windows/package-manager/winget/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

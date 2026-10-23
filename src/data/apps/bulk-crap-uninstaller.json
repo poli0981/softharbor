@@ -1,0 +1,25 @@
+{
+  "name": "Bulk Crap Uninstaller",
+  "developer": "Marcin Szeniak",
+  "logo": "monogram",
+  "summary": {
+    "en": "Uninstaller that removes many programs in one queued run, then looks for leftover files and registry keys; Store apps and Steam games too.",
+    "vi": "Trình gỡ cài đặt gỡ nhiều chương trình trong một lượt xếp hàng, rồi tìm tệp và khoá registry còn sót; xử lý cả ứng dụng Store và game Steam."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["uninstaller", "leftovers", "batch-processing", "cleanup", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://www.bcuninstaller.com",
+    "repo": "https://github.com/BCUninstaller/Bulk-Crap-Uninstaller",
+    "download": "https://github.com/BCUninstaller/Bulk-Crap-Uninstaller/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

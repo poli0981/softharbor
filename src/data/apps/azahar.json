@@ -1,0 +1,25 @@
+{
+  "name": "Azahar",
+  "developer": "Azahar Emulator Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Nintendo 3DS emulator that carries on the Citra codebase, with higher internal resolutions, save states and modern controller support.",
+    "vi": "Trình giả lập Nintendo 3DS tiếp nối mã nguồn Citra, hỗ trợ độ phân giải nội bộ cao hơn, lưu trạng thái và tay cầm hiện đại."
+  },
+  "categories": ["gaming"],
+  "tags": ["nintendo-3ds", "upscaling", "save-states", "citra-fork"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://azahar-emu.org",
+    "repo": "https://github.com/azahar-emu/azahar",
+    "download": "https://azahar-emu.org/pages/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

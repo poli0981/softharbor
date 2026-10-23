@@ -1,0 +1,25 @@
+{
+  "name": "Tabby",
+  "developer": "Tabby Developers",
+  "logo": "monogram",
+  "summary": {
+    "en": "Terminal emulator with a built-in SSH and SFTP client, serial and Telnet sessions, split panes and an encrypted vault for secrets.",
+    "vi": "Trình giả lập terminal có sẵn SSH và SFTP, phiên serial và Telnet, chia khung và kho mã hoá để giữ thông tin bí mật."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["terminal", "ssh", "sftp", "serial", "telnet", "plugins", "portable", "signed-releases"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://tabby.sh",
+    "repo": "https://github.com/Eugeny/tabby",
+    "download": "https://github.com/Eugeny/tabby/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

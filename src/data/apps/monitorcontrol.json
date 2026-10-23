@@ -1,0 +1,33 @@
+{
+  "name": "MonitorControl",
+  "developer": "MonitorControl",
+  "logo": "monogram",
+  "summary": {
+    "en": "Menu-bar app that sets external monitors' hardware brightness, contrast and volume over DDC, from the keyboard's media keys.",
+    "vi": "Ứng dụng thanh menu chỉnh độ sáng, độ tương phản và âm lượng phần cứng của màn hình rời qua DDC, bằng phím media trên bàn phím."
+  },
+  "categories": ["system", "utilities"],
+  "tags": [
+    "external-display",
+    "brightness",
+    "ddc",
+    "volume",
+    "menu-bar",
+    "keyboard-shortcuts",
+    "macos-native"
+  ],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://github.com/MonitorControl/MonitorControl",
+    "repo": "https://github.com/MonitorControl/MonitorControl",
+    "download": "https://github.com/MonitorControl/MonitorControl/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

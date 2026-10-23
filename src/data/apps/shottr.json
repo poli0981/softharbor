@@ -1,0 +1,25 @@
+{
+  "name": "Shottr",
+  "developer": "Electric Endeavors LLC",
+  "logo": "monogram",
+  "summary": {
+    "en": "Mac screenshot tool with markup, scrolling capture, OCR and a pixel ruler; free with reminders after 30 days, a licence for work.",
+    "vi": "Công cụ chụp màn hình cho Mac có chú thích, chụp cuộn, OCR và thước đo pixel; miễn phí kèm lời nhắc sau 30 ngày, dùng cho công việc cần mua."
+  },
+  "categories": ["utilities", "graphics"],
+  "tags": ["screenshot", "annotations", "scrolling-capture", "ocr", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://shottr.cc",
+    "repo": null,
+    "download": "https://shottr.cc"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

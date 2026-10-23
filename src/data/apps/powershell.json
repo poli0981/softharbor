@@ -1,0 +1,33 @@
+{
+  "name": "PowerShell",
+  "developer": "Microsoft",
+  "logo": "simple-icons:powershell",
+  "summary": {
+    "en": "Microsoft's open-source shell and scripting language for Windows, macOS and Linux, where commands pass .NET objects instead of text.",
+    "vi": "Shell và ngôn ngữ kịch bản mã nguồn mở của Microsoft cho Windows, macOS và Linux, các lệnh truyền đối tượng .NET thay vì văn bản."
+  },
+  "categories": ["developer-tools", "system"],
+  "tags": [
+    "shell",
+    "scripting",
+    "automation",
+    "cross-platform",
+    "dotnet",
+    "object-pipeline",
+    "signed-releases"
+  ],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://learn.microsoft.com/powershell/",
+    "repo": "https://github.com/PowerShell/PowerShell",
+    "download": "https://learn.microsoft.com/powershell/scripting/install/install-powershell"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

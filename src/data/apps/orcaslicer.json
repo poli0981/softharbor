@@ -1,0 +1,25 @@
+{
+  "name": "OrcaSlicer",
+  "developer": "SoftFever",
+  "logo": "monogram",
+  "summary": {
+    "en": "FDM slicer grown out of Bambu Studio and PrusaSlicer, with built-in calibration tests and fine control over walls and seams.",
+    "vi": "Slicer FDM phát triển từ Bambu Studio và PrusaSlicer, có sẵn các bài thử hiệu chuẩn và cho tinh chỉnh kỹ thành vách, đường nối."
+  },
+  "categories": ["cad-3d", "utilities"],
+  "tags": ["3d-printing", "slicer", "gcode", "fdm", "calibration", "portable", "signed-releases"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://www.orcaslicer.com",
+    "repo": "https://github.com/OrcaSlicer/OrcaSlicer",
+    "download": "https://www.orcaslicer.com/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

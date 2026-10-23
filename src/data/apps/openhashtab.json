@@ -1,0 +1,32 @@
+{
+  "name": "OpenHashTab",
+  "developer": "namazso",
+  "logo": "monogram",
+  "summary": {
+    "en": "Windows shell extension that adds a Hashes tab to file Properties, computing and checking checksums in about 28 algorithms.",
+    "vi": "Tiện ích mở rộng shell Windows thêm thẻ Hashes vào cửa sổ Properties của tệp, tính và kiểm tra checksum với khoảng 28 thuật toán."
+  },
+  "categories": ["utilities", "security-privacy", "file-management"],
+  "tags": [
+    "hashing",
+    "checksum",
+    "shell-integration",
+    "file-properties",
+    "context-menu",
+    "signed-releases"
+  ],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://github.com/namazso/OpenHashTab",
+    "repo": "https://github.com/namazso/OpenHashTab",
+    "download": "https://github.com/namazso/OpenHashTab/releases/latest"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

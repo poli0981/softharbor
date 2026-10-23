@@ -1,0 +1,32 @@
+{
+  "name": "Parsec",
+  "developer": "Unity Technologies SF",
+  "logo": "monogram",
+  "summary": {
+    "en": "Low-latency remote desktop built for game streaming; the free plan is for personal use, and Linux can connect but not host.",
+    "vi": "Điều khiển máy tính từ xa độ trễ thấp, dành cho stream game; gói miễn phí dùng cho mục đích cá nhân, Linux chỉ kết nối chứ không làm máy chủ."
+  },
+  "categories": ["gaming", "utilities"],
+  "tags": [
+    "remote-desktop",
+    "game-streaming",
+    "low-latency",
+    "remote-play",
+    "account-required",
+    "personal-use"
+  ],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://parsec.app",
+    "repo": null,
+    "download": "https://parsec.app/downloads"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}
