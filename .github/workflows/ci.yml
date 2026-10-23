@@ -147,9 +147,13 @@ jobs:
       - name: Audit production deps
         run: pnpm audit --prod
 
-      # PR-time link check over changed data files only; link-check.yml owns
-      # the weekly full sweep (docs/12 §5). git runs HERE, under pipefail, so a
-      # failed diff stops the job instead of silently widening the sweep.
+      # PR-time link check over the links a PR adds or edits — the URLs on the
+      # diff's added lines — not every link in every touched file: a re-check
+      # PR that rewrote 198 security blocks once had to re-verify ~700
+      # unrelated vendor links, and one vendor's bad minute blocked it.
+      # link-check.yml owns the weekly full sweep (docs/12 §5). git runs HERE,
+      # under pipefail, so a failed diff stops the job instead of silently
+      # narrowing the check.
       - name: Collect changed official links
         id: urls
         if: github.event_name == 'pull_request'
@@ -157,8 +161,8 @@ jobs:
           BASE_REF: ${{ github.base_ref }}
         run: |
           set -euo pipefail
-          git diff --name-only "origin/${BASE_REF}...HEAD" -- src/data/apps \
-            | node scripts/extract-urls.mjs --changed > /tmp/urls.txt
+          git diff -U0 "origin/${BASE_REF}...HEAD" -- src/data/apps \
+            | node scripts/extract-urls.mjs --added > /tmp/urls.txt
           count=$(grep -c . /tmp/urls.txt || true)
           echo "count=$count" >> "$GITHUB_OUTPUT"
           echo "$count changed URL(s) to check"

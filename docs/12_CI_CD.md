@@ -463,13 +463,19 @@ live vendor sites. 404/5xx/connection failures still fail. Do **not** add
 `--user-agent`: spoofing a browser cleared the 403s but made other vendors
 answer 406/400.
 
-PR-time link checking covers only the data files the PR changed. It runs as
-the last two steps of `ci.yml`'s **`gates` job** (§2): `git diff` runs in
-the workflow under `set -euo pipefail` and pipes the changed paths into
-`extract-urls.mjs --changed` (a failed diff stops the job rather than
-silently widening the sweep), and lychee is **skipped** when the PR changes
-no app data — an empty input is a configuration error to lychee, and a
-skipped step stays visible where a green "0 links" would not.
+PR-time link checking covers only the links the PR adds or edits — the URLs
+on the added lines of its diff. It runs as the last two steps of `ci.yml`'s
+**`gates` job** (§2): `git diff -U0` runs in the workflow under
+`set -euo pipefail` and pipes into `extract-urls.mjs --added` (a failed diff
+stops the job rather than silently narrowing the check), and lychee is
+**skipped** when there is nothing to check — an empty input is a
+configuration error to lychee, and a skipped step stays visible where a
+green "0 links" would not. A new entry is all added lines, so every one of
+its links is checked; a re-check PR adds only evidence URLs. *Changed
+2026-10-23:* it used to check every link of every touched file
+(`--changed`), and the first `vt/recheck` PR — 198 rewritten security
+blocks — failed three times on ~700 unrelated vendor links (a timeout at
+gitlab.linphone.org, a 522 at godotengine.org, a 520 at activitywatch.net).
 
 ## 6. Dependency & scanning automation
 
