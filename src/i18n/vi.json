@@ -42,7 +42,7 @@
   "detail.related": "Thêm trong {category}",
   "detail.repo": "Kho mã nguồn",
   "detail.security": "Bảo mật",
-  "detail.securityNote.clean": "Vào ngày được ghi, mục này đã qua quy trình kiểm tra công khai của chúng tôi và không phát hiện điều gì đáng lo. Đây không phải kiểm toán hay bảo đảm — phần mềm có thể thay đổi sau lần kiểm tra. Chỉ tải từ liên kết chính thức, và xác minh chữ ký hoặc checksum nếu nhà phát triển cung cấp.",
+  "detail.securityNote.clean": "Mục này đã qua quy trình kiểm tra công khai của chúng tôi, và vào ngày được ghi, lần quét trang tải về của nó không phát hiện cảnh báo nào. Đây không phải kiểm toán hay bảo đảm — phần mềm có thể thay đổi sau lần kiểm tra. Chỉ tải từ liên kết chính thức, và xác minh chữ ký hoặc checksum nếu nhà phát triển cung cấp.",
   "detail.securityNote.title": "Trạng thái này nghĩa là gì",
   "detail.securityNote.unverified": "Quy trình kiểm tra chưa hoàn tất cho mục này, hoặc có điều cần xem kỹ hơn. Mục này đáp ứng mọi quy tắc khác của danh sách. Hãy cẩn trọng như với bất kỳ tệp tải về nào, và ưu tiên liên kết chính thức.",
   "detail.tags": "Thẻ",

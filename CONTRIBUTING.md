@@ -60,6 +60,13 @@ in both English and Vietnamese — that is what lets the dataset carry CC BY-SA
 at all. Vietnamese is reviewed by a native speaker; machine translation is not
 accepted.
 
+A new entry starts as `"security": { "status": "unverified", "evidence": null,
+"checkedAt": "<today>" }`. You do not need a VirusTotal key: the maintainer
+dispatches `vt-recheck.yml` on the PR branch, which scans the new entry's
+download page and records the permalink, and only the maintainer moves an
+entry to `clean` (docs/09 §6). If you change an existing entry's
+`links.download`, the old scan no longer describes it — say so in the PR.
+
 If you are unsure whether something is wanted, open a discussion first. A
 short question costs everyone less than a large rejected PR.
 

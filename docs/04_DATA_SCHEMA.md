@@ -104,7 +104,7 @@ duplicates, link provenance, invisible characters, quarantine) are L2,
 | `links.download` | https URL | Official download page (page, not direct binary, when both exist). |
 | `security.status` | enum | `unverified` (default at entry) · `clean` (vetting checklist passed, docs/09 §6) · `flagged` (blocks listing → quarantine, docs/03 §5). |
 | `security.evidence` | https URL \| null | VirusTotal scan of the download page/file, or vendor advisory. **Required by the schema when `clean` or `flagged`** (since v1.1); optional for `unverified`, though held entries carry theirs too. Linked from the detail page ("View scan", docs/06 §5). |
-| `security.checkedAt` | date | Date the status was last verified — rendered on the card ("checked 30 Jul 2026"). A real date, not in the future; `validate:data` warns once it is older than 180 days. |
+| `security.checkedAt` | date | Date of the latest scan behind the status — rendered on the card ("checked 30 Jul 2026"). The full docs/09 §6 checklist runs when an entry is first marked `clean` and whenever its links change; `vt-recheck.yml` re-scans at least every 90 days and moves this date (never `addedAt`/`updatedAt`). A real date, not in the future; `validate:data` warns once it is older than 180 days. |
 | `addedAt` / `updatedAt` | date | Drive RSS, the "Newest" sort and category-page order. Real dates, not in the future; `updatedAt` ≥ `addedAt`. |
 
 ## 3. Pricing semantics (rulings)

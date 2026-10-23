@@ -318,7 +318,7 @@ jobs:
           labels: security, quarantine
       - if: steps.cpr.outputs.pull-request-branch != ''
         env: { GH_TOKEN: '${{ github.token }}', BRANCH: '${{ steps.cpr.outputs.pull-request-branch }}' }
-        run: |                             # a GITHUB_TOKEN PR triggers no workflows
+        run: |                             # a GITHUB_TOKEN PR's own runs wait for approval
           gh workflow run ci.yml     --ref "$BRANCH"
           gh workflow run codeql.yml --ref "$BRANCH"
       - if: steps.sweep.outputs.moved != ''
@@ -340,10 +340,13 @@ cron guarantees a flagged entry never survives more than 24 h even if a PR
 reviewer missed it. Normally it never fires: `validate:data` fails a PR
 that flags an entry without moving it.
 
-Hardened 2026-10-21: a PR opened with `GITHUB_TOKEN` triggers no
+Hardened 2026-10-21: a PR opened with `GITHUB_TOKEN` triggered no
 `pull_request` workflows, so its required checks never ran and it could not
 merge — the job now dispatches `ci.yml` and `codeql.yml` on the PR branch
-(`workflow_dispatch` is the documented exception). The commit is **signed**
+(`workflow_dispatch` always runs). *Corrected 2026-10-23:* since GitHub's
+2026-06-11 change such a PR **does** get `pull_request` runs, but they wait
+for a maintainer's approval — the dispatch stays, and approving those runs
+would only duplicate CI. The commit is **signed**
 via the API (`sign-commits`). Issues are created only when none is open
 (every nightly run used to re-open them). Step outputs reach shell bodies
 only through `env:`, never `${{ }}` inside `run:` (expression injection).
@@ -353,6 +356,59 @@ only through `env:`, never `${{ }}` inside `run:` (expression injection).
 `permissions:` block — unless *Settings → Actions → General → **Allow GitHub
 Actions to create and approve pull requests*** is enabled. Without it the
 nightly sweep silently cannot open its PR, which defeats hard rule 5.
+
+## 4b. VirusTotal re-check (repo-local)
+
+`.github/workflows/vt-recheck.yml` + `scripts/vt-recheck.mjs` (added
+2026-10-23, D30) — docs/09 §6 step 5 made assisted, so no dated security
+claim can go stale unnoticed. Every check in the v1.0 catalogue was dated
+2026-07-30, so all 326 would have crossed `validate:data`'s 180-day warning
+together on 2027-01-27.
+
+- **What it scans:** each entry's `links.download` page — the URL every
+  recorded scan was of (318 of 326 evidence ids equal the SHA-256 of that
+  link's canonical form; 8 had drifted to a newer link). `POST /urls`
+  submits it, a second pass reads `GET /analyses/{id}`, and the permalink is
+  `https://www.virustotal.com/gui/url/<sha256>`.
+- **What it writes:** only the three `security` lines, patched in place so
+  Prettier's layout survives; never `addedAt`/`updatedAt` — the feed orders
+  by `addedAt`, and notify.py announces anything it has not seen.
+- **The rules:** zero malicious/suspicious ⇒ fresh `evidence` + `checkedAt`,
+  status unchanged; any detection ⇒ `clean` becomes `unverified` and a
+  `[vt] <slug>` issue (label `security`) asks the maintainer to decide;
+  `promote` slugs go `unverified` → `clean` only on a clean scan. It never
+  sets `flagged` — quarantine stays a human `pnpm quarantine` (§4). An
+  analysis in which no engine answered is "not checked", not clean.
+- **Who is due:** the `slugs` input first, then never-scanned entries, then
+  drifted evidence (at most weekly), then checks older than `max_age`
+  (default 90 days), oldest first.
+- **Limits:** the Public API allows 4 requests a minute and 500 a day, and
+  counts every call. The script paces at 15.5 s, spends at most `budget`
+  (default 440, capped at 500) with no more than half of it on submissions,
+  backs off 60 s once on a 429 and treats a second as the day's quota —
+  keeping what it finished. A refused key fails the step; a missing key
+  (forks, Dependabot) is a no-op that says so. `concurrency: vt-recheck`
+  keeps two runs off one key. The schedule, 00:41 UTC, follows the daily
+  quota reset.
+- **On `main` (daily cron, or dispatch):** one PR, `vt/recheck`, opened by
+  `peter-evans/create-pull-request` with `add-paths: src/data/apps` and
+  API-signed commits. While it is open, each run first **carries** its
+  results (`git archive` of the branch into `$RUNNER_TEMP`; a block is
+  adopted only if its download link is unchanged and its check is newer), so
+  the PR accumulates day by day instead of re-scanning the same entries. The
+  repository deletes merged branches, and a PR closed unmerged is never
+  carried. CI is dispatched on the branch when the action created or updated
+  the PR (same reason as §4).
+- **On any other branch (preview):** dispatch `vt-recheck.yml --ref
+  <branch>` and it scans only the `slugs` given — or, with none, the entries
+  without a scan, i.e. a data PR's new apps — then uploads the patched files
+  and the report as the `vt-preview` artifact (7 days). No PR, no issues: the
+  maintainer reviews and commits them into the data PR before it merges.
+- **Terms:** VirusTotal offers the Public API to sites "free to consumers";
+  it "must not be used in business workflows that do not contribute new
+  files" and "can not be used as a substitute for antivirus products".
+  SoftHarbor is free, carries no ads and only submits public download URLs;
+  the site copy keeps making no safety claim (hard rule 4).
 
 ## 5. Link check (repo-local)
 

@@ -29,9 +29,10 @@ on:
   pull_request:
   push:
     branches: [main]
-  # Lets quarantine.yml run the required checks on the PR it opens: a PR
-  # created with GITHUB_TOKEN triggers no `pull_request` workflows, but a
-  # `workflow_dispatch` is the documented exception (docs/12 §4).
+  # Lets quarantine.yml and vt-recheck.yml run the required checks on the PRs
+  # they open. A PR created with GITHUB_TOKEN gets `pull_request` runs that
+  # wait for a maintainer's approval (GitHub, since 2026-06-11); a
+  # `workflow_dispatch` always runs (docs/12 §4).
   workflow_dispatch:
 
 # Explicit least privilege. This repository's default workflow token is

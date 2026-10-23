@@ -92,6 +92,7 @@ pnpm test               # vitest run (unit, islands, scripts, worker)
 pnpm coverage           # vitest run --coverage (thresholds in vitest.config.ts)
 pnpm e2e                # playwright + axe against astro preview (build first)
 pnpm validate:data      # node scripts/validate-data.mjs   (L2 data rules)
+pnpm vt:recheck         # VirusTotal re-check (needs VT_API_KEY; docs/12 §4b)
 pnpm i18n:check         # node scripts/check-i18n-parity.mjs (EN/VI key parity)
 pnpm deploy             # build + wrangler deploy (Workers Builds does this on main)
 ```
@@ -124,7 +125,7 @@ pnpm deploy             # build + wrangler deploy (Workers Builds does this on m
 | `docs/09_SECURITY_PRIVACY.md` | Threat model, `_headers`/CSP, security.txt, data-vetting policy, privacy |
 | `docs/10_CODING_STANDARDS.md` | TS/ESLint/Prettier/Knip/lefthook, naming, commits, DoD |
 | `docs/11_TESTING.md` | Test pyramid, P0 spikes S1–S5, coverage targets |
-| `docs/12_CI_CD.md` | Workflows (validate/deploy/quarantine/link-check), `poli0981/.github` wiring, issue forms |
+| `docs/12_CI_CD.md` | Workflows (ci incl. SonarQube Cloud / quarantine / vt-recheck / link-check), `poli0981/.github` wiring, issue forms |
 | `docs/13_RELEASE.md` | Launch checklist, seed list, versioning, notify.py announcement |
 | `docs/14_LEGAL.md` | Licensing model, legal-gate spec, bilingual drafts (Disclaimer/Privacy/Terms/Trademarks/Third-party) |
 | `docs/15_ROADMAP.md` | Milestones, post-v1 backlog, decision log, open questions |

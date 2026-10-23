@@ -348,18 +348,18 @@ can only carry CC BY-SA 4.0 because the summaries are the project's own words
 Must name **each model whose work lands, its version identifier, and its
 developer** — currently Claude models by Anthropic, used through Claude
 Code: **Claude Opus 5** (`claude-opus-5`) for the site and catalogue
-through v1.0, and **Claude Opus 5.5** (`claude-opus-5-5`) for the v1.1 work
-of October 2026; no other AI system contributed. Every claim on the page
+through v1.0, and **Claude Opus 5.5** (`claude-opus-5-5`) for the v1.1 and
+v1.2 work of October 2026; no other AI system contributed. Every claim on the page
 must stay literally true — update it when a process changes (two false
 claims were corrected on 2026-10-21).
 
-| Area | Position (as shipped, v1.1) |
+| Area | Position (as shipped, v1.2) |
 |---|---|
 | Source code | AI-assisted, reviewed and run by the maintainer; the same automated gates as any change — lint, type-check, unit and browser tests, schema validation, EN/VI parity, a build, a CSP guard |
 | Tests | Drafted with AI assistance, reviewed against the behaviour they describe; run on every change, and nothing merges while one fails |
 | Finding the software | Candidate list AI-assisted; **inclusion is a human decision** against docs/00 §3; links machine-checked per PR (changed entries) and weekly (whole catalogue), with "forbidden"/"too many requests" counted as reachable |
 | Summaries | Written from scratch in both locales, never pasted; VI reviewed by a native speaker, not machine-translated |
-| Security status | **Not AI-decided** — maintainer runs docs/09 §6, and the scan is linked from the app page; where a link changed after its scan, the linked scan is of the earlier link until the next re-check |
+| Security status | **Not AI-decided** — "no known warnings" only after the maintainer ran docs/09 §6; from then on `vt-recheck.yml` re-scans every download page on VirusTotal at least every 90 days and moves the date (a fixed rule, not a model: any warning drops the entry to "unverified" and opens an issue; only the maintainer marks clean, flags or removes). The scan is linked from the app page; where a link changed after its scan, the linked scan is of the earlier link until the next re-check. Updated 2026-10-23 (`LEGAL_UPDATED.aiDisclosure`; not an accepted document, so `LEGAL_VERSION` and the gate are unchanged) |
 
 Closes with the limits being unchanged: AI assistance is neither a warranty
 nor an excuse, and a mistake here belongs to the maintainer, not a tool.

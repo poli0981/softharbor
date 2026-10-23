@@ -46,16 +46,16 @@ them (item 9 especially), so new work is appended, never renumbered.
    Errors) only if abuse or 403/429 UX ever becomes real (docs/16 §9);
    plus a `SearchAction` JSON-LD node (docs/16 §7) — its prerequisite, the
    `/apps?q=` deep link, **shipped in v1.1** (`src/lib/urlstate.ts`).
-2. **VirusTotal automation — deadline 2027-01-26.** Every entry was
-   checked on 2026-07-30, so all 326 cross the 180-day staleness line
-   (`validate-data.mjs` warns) together around 2027-01-26. A scheduled
-   workflow re-scans each entry's official links through the VT API in
-   batches inside the public limits (4/min, 500/day), refreshes
-   `checkedAt` + `evidence`, and opens a signed-commit PR — dispatching
-   `ci.yml`/`codeql.yml` itself, as quarantine.yml does — plus flag issues
-   on detections (docs/09 §6.5 from manual to assisted; a confirmed
-   detection goes through `pnpm quarantine`, never deletion). Also re-scan
-   the ~11 entries whose evidence is a scan of an earlier link.
+2. ~~**VirusTotal automation — deadline 2027-01-26.**~~ **Done 2026-10-23
+   (D30, docs/12 §4b):** `vt-recheck.yml` re-scans every check older than
+   90 days daily, inside the Public API limits, into one accumulating
+   signed-commit PR that dispatches `ci.yml`/`codeql.yml`; a detection drops
+   `clean` to `unverified` and opens an issue (a confirmed one goes through
+   `pnpm quarantine`, never deletion); dispatched on a data branch it scans a
+   PR's new entries first. The drifted scans turned out to be 8, not ~11
+   (dosbox-staging, forklift, netbird, nomacs, unity scanned an earlier
+   link; beeper, spyder, nextcloud-desktop a trailing-slash variant) — the
+   other six suspected ones were `#fragment` links, which VirusTotal drops.
 3. **Install-command snippets** — optional `install.winget` /
    `install.brew` fields rendered as copy buttons.
 4. **Favorites** — localStorage star + "my list" view (stays static).
@@ -269,6 +269,7 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-10-21 | **Suite v2.0** (site v1.1) — a MAJOR bump by §6's rule, because D25/D26 amend hard rules 1 and 7: docs/00–16 brought in line with the code — D25–D27, the rows above, superseded statuses marked; claims that could not be checked from the repository or a live probe are marked "⚠ verify" | ✅ |
 | 2026-10-23 | **D28 — Node 26, and TypeScript 6 and 7 side by side** (amends D7, D21). `.nvmrc` `26`, engines `>=26 <27`, `@types/node` 26 — five days before Node 26's LTS promotion (2026-10-28), at the owner's request; Node 24 had entered maintenance on 2026-10-20. TypeScript follows Microsoft's documented pair: `typescript` → `npm:@typescript/typescript6` (re-exports TS 6.0.3: the API `astro check`'s language server asserts, typescript-eslint's project service and svelte2tsx load) and `@typescript/native` → `npm:typescript@7` (bin `tsc`). `pnpm check` is now `astro check && tsc --noEmit` — and that second half is the first type-check `.ts` files ever had: astro check reports `.astro` diagnostics only. Node 25+ ships no Corepack, so laptops reinstall it (`npm i -g corepack`) and Workers Builds downloads Node 26 per build (`PNPM_VERSION` is the fallback) | ✅ (owner, 2026-10-23) |
 | 2026-10-23 | **D29 — SonarQube Cloud: CI-based analysis with coverage**, replacing Automatic Analysis (which cannot import coverage and must stay off). `ci.yml` job `sonar`, not a required check; `sonar-project.properties` replaces `.sonarcloud.properties`; `sonarqube-scan-action` 8.3 with the newest CLI (8.2); `sonar.projectVersion` from `package.json` so the "previous version" new-code period finally has a baseline (every analysis until now was "not provided"). Coverage now measures what Sonar analyses instead of excluding it: the build scripts through Vitest 5's `autoAttachSubprocess` (their child-process runs count), the head scripts, the endpoints and the schema through new tests — ratchet 93/78/90/93 → **96/85/95/97**. The schema tests caught a real bug: an impossible or malformed date made `toISOString()` throw, crashing `astro build` with a bare RangeError instead of naming the field | ✅ |
+| 2026-10-23 | **D30 — VirusTotal re-check, assisted not decided** (docs/09 §6 step 5; docs/12 §4b). `scripts/vt-recheck.mjs` + `vt-recheck.yml`: daily on `main`, checks older than 90 days are re-scanned (download page, VT API v3, 4/min, ≤ 440 of 500 requests a day) and only the three `security` lines change; `checkedAt` now means "latest scan" (docs/04, docs/09 §6). The bot never flags and never promotes on its own: a detection turns `clean` into `unverified` plus a `[vt] <slug>` issue, and `unverified` → `clean` happens only for slugs the maintainer passes as `promote`. Dispatched on a data branch it previews a PR's new entries as an artifact. Terms fit: the Public API is offered to sites free to consumers; SoftHarbor is free and ad-free and submits only public URLs. The site's own copy moved with it — the "no known warnings" note and the AI Disclosure now describe the re-scan (`LEGAL_UPDATED.aiDisclosure` 2026-10-23; `LEGAL_VERSION` unchanged) | ✅ (owner, 2026-10-23) |
 
 ## 5. Open questions for Kokone
 

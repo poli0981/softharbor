@@ -289,8 +289,11 @@ apps themselves* → report to their vendors, but tell us too so we can flag.
 
 ## 6. Data-vetting checklist (before `security.status: "clean"`)
 
-Run all steps; record date in `checkedAt`; link scan in `evidence` when
-available. This checklist is the *definition* of "clean".
+Run all steps before an entry is first marked `clean`, and again whenever
+its links change; link the scan in `evidence`. This checklist is the
+*definition* of "clean". Since 2026-10-23 `checkedAt` is the date of the
+**latest scan** (step 5): `vt-recheck.yml` re-runs that step at least every 90
+days and moves the date, while steps 1–4 stay with the maintainer (D30).
 
 1. **Domain authenticity** — homepage/download domain matches the vendor's
    known official domain (cross-check the project's repo, Wikipedia infobox,
@@ -303,10 +306,18 @@ available. This checklist is the *definition* of "clean".
 4. **Installer hygiene** — release notes/installer page shows no bundled
    third-party offers; if the vendor publishes checksums/signatures, note
    that on the entry's `tags` (`signed-releases`) — optional.
-5. **VirusTotal (when feasible)** — scan the download-page URL; for
-   directly-linked binaries of less-known apps, scan the file. Paste the
-   permalink into `evidence` — **required**: since v1.1 the schema refuses
-   `clean` (and `flagged`) without an `evidence` URL (docs/04 §2).
+5. **VirusTotal** — scan the download-page URL; for directly-linked
+   binaries of less-known apps, scan the file. The permalink goes into
+   `evidence` — **required**: since v1.1 the schema refuses `clean` (and
+   `flagged`) without an `evidence` URL (docs/04 §2). **Assisted since
+   2026-10-23** (docs/12 §4b): `scripts/vt-recheck.mjs` submits
+   `links.download` through the VirusTotal API and writes the permalink and
+   date; dispatched on a data branch it scans a PR's new entries before
+   merge, and daily on `main` it re-scans every check older than 90 days. It
+   never decides `clean` or `flagged`: zero detections keep the status, any
+   detection drops `clean` to `unverified` and opens a `[vt] <slug>` issue,
+   and a promotion to `clean` happens only for slugs the maintainer lists
+   (`promote`).
 6. **Judgment call** — anything uneasy ⇒ leave `unverified` (listable) or
    `flagged` (quarantine) — never "clean by default".
 

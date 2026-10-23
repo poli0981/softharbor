@@ -221,7 +221,7 @@ shape or the 50-item window's order without meaning to announce.
 | daily (auto) | quarantine sweep (docs/12 §4) |
 | weekly (auto) | link-check triage — the one `link-rot` issue is refreshed or closed (docs/12 §5); fix, replace with official mirror, or flag |
 | weekly (auto, Monday) | Dependabot PRs (npm + actions, 2-day cooldown) — merge when CI is green; osv/audit findings fail CI on their own |
-| monthly (manual, ~30 min) | re-verify the 10 oldest `checkedAt` entries; refresh dates (`validate:data` warns once a check is older than 180 days) |
+| daily (auto, 00:41 UTC) | VirusTotal re-check (docs/12 §4b): checks older than 90 days are re-scanned into the one `vt/recheck` PR — review and merge it; triage any `[vt] <slug>` issue (false positive → back to `clean` with a note; confirmed → `flagged` + `pnpm quarantine`). GitHub disables a public repo's schedules after 60 days without activity — re-enable the workflow if it ever goes quiet |
 | monthly (manual, ~10 min) | GSC review: Coverage, Core Web Vitals, hreflang errors; skim DMARC reports (docs/16 §6/§8) |
 | **annually (manual, ~2 min)** | **Roll `Expires` in `public/.well-known/security.txt` forward one year** (docs/09 §5). An expired `security.txt` is treated as invalid by scanners and researchers — and nothing else in this repo would notice. |
 | once, post-launch | HSTS phase transitions P1 → P2 (+2 weeks) → optional P3/preload (H9) — docs/16 §5. Observed 2026-10-21: already at P3 (`preload` in the header) — docs/15 §5 |

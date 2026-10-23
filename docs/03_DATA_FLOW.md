@@ -80,9 +80,12 @@ of 2026-10-21; `pnpm build` then checks the output — docs/02 §4):
 ## 4. Update & re-verification flow
 
 - Editing an app = PR touching its one file; bump `updatedAt`.
-- Monthly batch (docs/13 §6): oldest `security.checkedAt` entries get
-  re-vetted; refresh `checkedAt` even when nothing changed — the dated
-  status is the product's honesty mechanism.
+- Re-checks are automated since 2026-10-23 (docs/12 §4b): `vt-recheck.yml`
+  re-scans every entry whose `checkedAt` is older than 90 days, a few
+  hundred requests a day within VirusTotal's Public API limits, into one
+  accumulating PR. It refreshes `checkedAt` even when nothing changed — the
+  dated status is the product's honesty mechanism — and turns any detection
+  into `unverified` plus an issue, never into a flag.
 
 ## 5. Quarantine state machine (hard rules 4–5)
 

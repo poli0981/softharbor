@@ -1,0 +1,200 @@
+# docs/12 §4b — VirusTotal re-check (docs/09 §6 step 5, assisted).
+#
+# Daily on main: scripts/vt-recheck.mjs re-scans the entries whose check is
+# due and the bot opens — or updates — ONE pull request, `vt/recheck`. While
+# that PR is open, each run first carries its results over, so the next day
+# continues with the next entries instead of re-scanning the same stalest
+# ones (main still shows them as stale until the PR merges). A detection
+# never flags anything: a `clean` entry becomes `unverified` and gets a
+# tracking issue, and the maintainer decides (quarantine stays a reviewed
+# `pnpm quarantine`, hard rule 5).
+#
+# Dispatched on any other branch it is a PREVIEW: it scans only the listed
+# slugs — or, with none, the entries that were never scanned, i.e. a data
+# PR's new apps — and uploads the patched files as the `vt-preview` artifact
+# for the maintainer to review and commit. No PR, no issues.
+#
+# VirusTotal's Public API allows 4 requests a minute and 500 a day (reset at
+# 00:00 UTC, hence the schedule). The script paces itself, spends at most the
+# `budget`, and stops cleanly at the quota; the next run continues. The
+# concurrency group keeps two runs from sharing the key's per-minute limit.
+name: vt-recheck
+
+on:
+  schedule:
+    - cron: '41 0 * * *'
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: 'Slugs to scan first, space or comma separated (on a branch other than main: only these, or the never-scanned when empty)'
+        required: false
+        default: ''
+      promote:
+        description: "Slugs to move unverified → clean IF their scan comes back clean — the maintainer's docs/09 §6 call"
+        required: false
+        default: ''
+      max_age:
+        description: 'Re-scan checks older than this many days'
+        required: false
+        default: '90'
+      budget:
+        description: 'VirusTotal requests this run may spend (500/day; each URL costs at least 2)'
+        required: false
+        default: '440'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vt-recheck
+  cancel-in-progress: false
+
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    # 440 requests at 15.5 s each is about two hours.
+    timeout-minutes: 150
+    permissions:
+      contents: write # create-pull-request commits to vt/recheck
+      pull-requests: write # …and opens or updates the PR
+      issues: write # one tracking issue per detection
+      actions: write # dispatch the required checks onto the PR branch
+    steps:
+      # No persisted token while repository code runs; create-pull-request
+      # authenticates with its own `token` input.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      # Only an OPEN pull request's results are carried: the repository
+      # deletes merged branches, and a PR closed without merging was a
+      # rejection, never to be re-adopted.
+      - name: Carry the open re-check PR
+        id: carry
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head vt/recheck --state open --json number --jq 'length')
+          if [ "$open" = "0" ]; then
+            echo "No open re-check PR — nothing to carry."
+            exit 0
+          fi
+          git fetch --no-tags --depth=1 origin vt/recheck
+          mkdir -p "$RUNNER_TEMP/carry"
+          git archive FETCH_HEAD src/data/apps | tar -x -C "$RUNNER_TEMP/carry"
+          echo "dir=$RUNNER_TEMP/carry/src/data/apps" >> "$GITHUB_OUTPUT"
+
+      # Everything reaches the script through env (never `${{ }}` inside
+      # `run:`); it validates slugs and numbers itself.
+      - name: Re-check on VirusTotal
+        id: scan
+        env:
+          VT_API_KEY: ${{ secrets.VT_API_KEY }}
+          VT_SLUGS: ${{ inputs.slugs }}
+          VT_PROMOTE: ${{ inputs.promote }}
+          VT_MAX_AGE: ${{ inputs.max_age }}
+          VT_BUDGET: ${{ inputs.budget }}
+          VT_ONLY_LISTED: ${{ github.ref != 'refs/heads/main' && '1' || '' }}
+          VT_CARRY: ${{ steps.carry.outputs.dir }}
+          VT_SUMMARY: ${{ runner.temp }}/vt-summary.md
+          VT_REVIEW_JSON: ${{ runner.temp }}/vt-review.json
+        run: node scripts/vt-recheck.mjs
+
+      - name: Job summary
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/vt-summary.md" ]; then
+            cat "$RUNNER_TEMP/vt-summary.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # ── preview (any branch but main) ─────────────────────────────────────
+      - name: Collect the preview
+        if: github.ref != 'refs/heads/main' && steps.scan.outputs.changed != '0'
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/vt-preview"
+          git diff --name-only -- src/data/apps | while read -r f; do
+            cp --parents "$f" "$RUNNER_TEMP/vt-preview/"
+          done
+          cp "$RUNNER_TEMP/vt-summary.md" "$RUNNER_TEMP/vt-preview/"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: github.ref != 'refs/heads/main' && steps.scan.outputs.changed != '0'
+        with:
+          name: vt-preview
+          path: ${{ runner.temp }}/vt-preview/
+          retention-days: 7
+
+      # ── main: one accumulating PR ─────────────────────────────────────────
+      # NOTE: requires Settings → Actions → General → "Allow GitHub Actions to
+      # create and approve pull requests" (H10 — enabled for quarantine.yml).
+      - id: cpr
+        if: github.ref == 'refs/heads/main' && steps.scan.outputs.changed != '0'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          branch: vt/recheck
+          add-paths: src/data/apps
+          sign-commits: true
+          title: 'data: VirusTotal re-check'
+          commit-message: 'data: refresh VirusTotal scans'
+          labels: security
+          body-path: ${{ runner.temp }}/vt-summary.md
+
+      # A PR opened with GITHUB_TOKEN gets `pull_request` runs that wait for a
+      # maintainer's approval; `workflow_dispatch` always runs. Dispatch only
+      # when the branch actually moved.
+      - name: Run the required checks on the PR branch
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.cpr.outputs.pull-request-branch }}
+        run: |
+          set -euo pipefail
+          gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"
+          gh workflow run codeql.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"
+
+      - name: Open one tracking issue per entry with detections
+        if: github.ref == 'refs/heads/main' && steps.scan.outputs.review != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REVIEW_JSON: ${{ runner.temp }}/vt-review.json
+        run: |
+          set -euo pipefail
+          jq -c '.[]' "$REVIEW_JSON" | while read -r row; do
+            slug=$(jq -r '.slug' <<<"$row")
+            # Same shape validate:data enforces on filenames; anything else is
+            # not ours and must not reach a command or an issue title.
+            if ! [[ "$slug" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+              echo "::warning::skipping unexpected slug '$slug'"
+              continue
+            fi
+            title="[vt] $slug"
+            # </dev/null: the loop's stdin is jq's output, which gh must not eat.
+            open=$(gh issue list --repo "$GITHUB_REPOSITORY" --label security --state open \
+              --json title --jq "map(select(.title == \"$title\")) | length" </dev/null)
+            if [ "$open" != "0" ]; then
+              echo "$title already tracked"
+              continue
+            fi
+            evidence=$(jq -r '.evidence' <<<"$row")
+            malicious=$(jq -r '.malicious' <<<"$row")
+            suspicious=$(jq -r '.suspicious' <<<"$row")
+            was=$(jq -r '.was' <<<"$row")
+            now=$(jq -r '.status' <<<"$row")
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" \
+              --label security --body-file - <<EOF
+          VirusTotal re-scanned \`$slug\`'s download page: **$malicious malicious, $suspicious suspicious** — [the scan]($evidence).
+
+          Status in the re-check PR: \`$was\` → \`$now\`. Nothing was flagged or removed (docs/09 §6).
+
+          Decide and record here:
+          - [ ] Look at which engines said what, and whether the vendor or a second scan agrees
+          - [ ] False positive → set \`status\` back to \`clean\` in a PR and note why here
+          - [ ] Confirmed → \`status: "flagged"\` + \`pnpm quarantine\` in one PR (docs/03 §5)
+          - [ ] Whether users were plausibly exposed (docs/13 §7)
+          EOF
+          done

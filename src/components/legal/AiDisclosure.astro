@@ -51,8 +51,8 @@ const rows = [
   {
     area: { en: 'Security status', vi: 'Trạng thái bảo mật' },
     how: {
-      en: 'Not AI-decided. Each entry is checked by the maintainer against the published vetting checklist, and the scan behind every status is linked from the app page so you can read it yourself. Where a link has changed since its scan, the linked scan is of the earlier link until the next re-check.',
-      vi: 'Không do AI quyết định. Mỗi mục được người bảo trì kiểm tra theo quy trình đã công bố, và kết quả quét đứng sau mỗi trạng thái đều có liên kết ngay trên trang ứng dụng để bạn tự đọc. Nếu một liên kết đã đổi sau lần quét, kết quả được liên kết là của liên kết cũ cho tới lần kiểm tra lại kế tiếp.',
+      en: 'Not AI-decided. An entry is marked "no known warnings" only after the maintainer has checked it against the published vetting checklist. From then on, a scheduled job re-scans every entry’s download page on VirusTotal at least every 90 days and moves the date forward. That job is a fixed rule, not a model: any warning sends the entry back to "unverified" and opens an issue for the maintainer, and only the maintainer ever marks an entry clean or removes one. The scan behind every status is linked from the app page so you can read it yourself. Where a link has changed since its scan, the linked scan is of the earlier link until the next re-check.',
+      vi: 'Không do AI quyết định. Một mục chỉ được ghi "Không có cảnh báo đã biết" sau khi người bảo trì đã kiểm tra nó theo quy trình đã công bố. Từ đó trở đi, một tác vụ định kỳ quét lại trang tải về của mọi mục trên VirusTotal ít nhất 90 ngày một lần và cập nhật ngày kiểm tra. Tác vụ đó là một quy tắc cố định, không phải mô hình AI: chỉ cần một cảnh báo là mục bị đưa về "Chưa kiểm chứng" và một issue được mở cho người bảo trì, và chỉ người bảo trì mới đánh dấu một mục là an toàn hoặc gỡ nó khỏi danh sách. Kết quả quét đứng sau mỗi trạng thái đều có liên kết ngay trên trang ứng dụng để bạn tự đọc. Nếu một liên kết đã đổi sau lần quét, kết quả được liên kết là của liên kết cũ cho tới lần kiểm tra lại kế tiếp.',
     },
   },
 ];
@@ -68,8 +68,8 @@ const rows = [
 
 <p>
   {en
-    ? 'Claude models developed by Anthropic, used through Claude Code — Anthropic’s command-line coding tool: Claude Opus 5 (model identifier claude-opus-5) for the site and catalogue through v1.0, and Claude Opus 5.5 (claude-opus-5-5) for the v1.1 work of October 2026. Earlier work on the project used Claude models through the same tool. No other AI system contributed to this site.'
-    : 'Các mô hình Claude do Anthropic phát triển, sử dụng qua Claude Code — công cụ lập trình dòng lệnh của Anthropic: Claude Opus 5 (mã định danh mô hình claude-opus-5) cho trang web và danh mục đến hết v1.0, và Claude Opus 5.5 (claude-opus-5-5) cho phần việc v1.1 vào tháng 10/2026. Các giai đoạn trước của dự án cũng dùng mô hình Claude qua chính công cụ này. Không có hệ thống AI nào khác tham gia vào trang web này.'}
+    ? 'Claude models developed by Anthropic, used through Claude Code — Anthropic’s command-line coding tool: Claude Opus 5 (model identifier claude-opus-5) for the site and catalogue through v1.0, and Claude Opus 5.5 (claude-opus-5-5) for the v1.1 and v1.2 work of October 2026. Earlier work on the project used Claude models through the same tool. No other AI system contributed to this site.'
+    : 'Các mô hình Claude do Anthropic phát triển, sử dụng qua Claude Code — công cụ lập trình dòng lệnh của Anthropic: Claude Opus 5 (mã định danh mô hình claude-opus-5) cho trang web và danh mục đến hết v1.0, và Claude Opus 5.5 (claude-opus-5-5) cho phần việc v1.1 và v1.2 vào tháng 10/2026. Các giai đoạn trước của dự án cũng dùng mô hình Claude qua chính công cụ này. Không có hệ thống AI nào khác tham gia vào trang web này.'}
 </p>
 
 <h2>{en ? 'Where it was used' : 'Đã dùng ở đâu'}</h2>
