@@ -12,12 +12,21 @@
 | **M5 — Resilience & pipes** | 404/offline/PWA, dormant errors, /api/apps.json, rss, bug-report button, _headers (08, 09) | launch-checklist infra section fully green | 2–3 d | ✅ |
 | **M6 — Ship** | CI/CD wiring, branch protection, 30 seed apps, checklist, v1.0.0 (12, 13) | public announcement sent | 3–4 d | ✅ 2026-07-30 — v1.0.0 tagged and released with 326 apps |
 | **M7 — v1.1 review** | post-launch audit: native view transitions, CSP-first head, Harbor UI, display menu, search/URL state, data rules, Playwright e2e, Dependabot; Turnstile + `/api/verify` Worker (D25), Web Analytics (D26), contacts (D27), legal rewrite (all docs) | every gate green in CI; production verified after merge (docs/13 §3) | — | ✅ 2026-10-21 — PRs #23–#25 merged and deployed; v1.1.0 released |
+| **M8 — v1.2 upkeep** | VirusTotal re-check automation (D30), SonarQube Cloud CI analysis with coverage (D29), Node 26 + TypeScript 6/7 (D28), catalogue batch 2 + two categories (D31) | every gate green in CI, Sonar gate passed; production verified after each merge (docs/13 §3) | — | ✅ 2026-10-23 — PRs #28 #29 #30 #31 #32 and the release PR merged; v1.2.0 released |
 
 Total ≈ 17–20 focused days, **plus ~1 day for the `softharbor.net` domain
 package** (docs/16 §10) slotted between M5 and M6. Data entry (M6)
 parallelizes with earlier milestones once M2 lands.
 
-**Where it stands (2026-10-21).** v1.0.0 shipped on 2026-07-30: 326 apps in
+**Where it stands (2026-10-23).** v1.2.0, released 2026-10-23: **364 apps in
+14 categories**, 341 `clean` and 23 `unverified` — each with its VirusTotal
+scan linked and re-scanned at least every 90 days by `vt-recheck.yml`
+(D30; nine popular apps went `unverified` on a single engine's warning in
+the first run and wait for the maintainer's triage, issues #33–#41). CI adds
+a `sonar` job (D29) and type-checks `.ts` with TypeScript 7 (D28); the
+build covers 781 pages.
+
+*Where it stood (2026-10-21), for the record:* v1.0.0 shipped on 2026-07-30: 326 apps in
 12 categories, 320 `clean` and 6 held at `unverified`, every one with its
 scan linked. v1.1.0 (`package.json` 1.1.0, CHANGELOG.md), released on
 2026-10-21, is the post-launch review recorded in §4's 2026-10-21 rows.

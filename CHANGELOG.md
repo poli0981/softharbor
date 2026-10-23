@@ -4,6 +4,52 @@ All notable changes to SoftHarbor. The site is continuously deployed; a
 version marks a release announced in the repository (docs/13). Dates are
 UTC.
 
+## [1.2.0] — 2026-10-23
+
+Upkeep of everything behind the list — security checks that keep
+themselves current, a newer toolchain, deeper code analysis — and the
+catalogue's second batch.
+
+### Security status — what changed
+
+- **Re-checks are automatic now.** Every app's download page is re-scanned
+  on VirusTotal at least every 90 days, and the date on its security line
+  moves with it. Any warning moves an app back to "Unverified" and opens an
+  issue for the maintainer to look at; nothing is ever marked safe or
+  removed automatically. The note under "No known warnings" now says what
+  it rests on: the published checklist when the app was listed, and a scan
+  of its download page on the date shown.
+- The first runs re-scanned 198 of the earlier apps, including eight whose
+  linked scan was of an older download link. Nine of them — 7-Zip, Android
+  Studio, DBeaver, DevToys, Helium, itch, KeePassXC, LuLu and Meld — drew a
+  single warning from one engine and show "Unverified" until the maintainer
+  has looked at each one. The remaining apps follow automatically from
+  28 October.
+
+### Added
+
+- **38 apps** in a second batch — screenshot, clipboard and window tools,
+  package managers, file sharing and remote access, emulators, local AI,
+  CAD and 3D printing. The [RSS feed](https://softharbor.net/rss.xml) lists
+  each one. 30 of them carry "No known warnings"; 8 stay "Unverified" for
+  now, each for a stated reason.
+- **Two categories:** Local AI and CAD & 3D (14 in all).
+
+### Changed
+
+- The AI Disclosure describes the automatic re-check and names the model
+  used for this release.
+- Built and tested on **Node.js 26**; TypeScript files are now also
+  type-checked by **TypeScript 7**, beside the TypeScript 6 that Astro's
+  checker still needs.
+- **SonarQube Cloud** analyses every change from CI, with test coverage —
+  which now also measures the build scripts and the in-page scripts.
+
+### Fixed
+
+- A malformed date in an app's data stopped the build with an unhelpful
+  error instead of naming the field.
+
 ## [1.1.0] — 2026-10-21
 
 A full review of the site after launch: security advisories closed, real

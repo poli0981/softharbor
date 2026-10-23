@@ -6,6 +6,8 @@ The **site** deploys continuously from `main` — no version numbers on
 content. Git tags mark milestones only: **`v1.0.0`** at public launch
 (tagged and released 2026-07-30), **`v1.1.0`** for the post-launch review
 (tagged and released 2026-10-21; `package.json` `version` follows the tag),
+**`v1.2.0`** for the upkeep release — re-check automation, Node 26 /
+TypeScript 7, CI-based SonarQube Cloud, catalogue batch 2 (2026-10-23),
 minor tags when a feature phase ships. Publishing a GitHub Release fires `notify.yml` →
 Discord (docs/12 §2). Data changes never tag. `CHANGELOG.md`
 (Keep-a-Changelog, dates UTC) records feature work and anything a visitor
