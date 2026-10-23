@@ -161,14 +161,16 @@ afterEach(() => {
 });
 
 describe('canonicalUrl / urlId — VirusTotal URL identifiers', () => {
-  it('reproduces the ids recorded in the catalogue', () => {
-    // Two real entries: a plain page and a bare origin.
-    for (const slug of ['7-zip', 'homebrew']) {
-      const app = JSON.parse(
-        readFileSync(join(process.cwd(), `src/data/apps/${slug}.json`), 'utf8'),
-      );
-      expect(app.security.evidence, slug).toBe(`${GUI}${urlId(app.links.download)}`);
-    }
+  it('reproduces ids VirusTotal recorded', () => {
+    // Constants, not the live data files: the bot rewrites those, and a data
+    // PR that moves a link must not fail a unit test (docs/04 §5 example).
+    expect(urlId('https://www.7-zip.org/download.html')).toBe(
+      '273d0beedb411e020dd6ce34a46330b626a4ed56df427f806c4c552ea5c287e7',
+    );
+    // A bare origin gets its root path.
+    expect(urlId('https://brew.sh')).toBe(
+      'fea617439e19357bfe0e6404897583535935265b1301c5e3c5bdc8313fa7e697',
+    );
   });
 
   it('keeps the fragment, as the API does', () => {
@@ -205,19 +207,22 @@ describe('parseSlugs', () => {
 
 describe('patchSecurity', () => {
   it('changes the three security lines of a real entry and not one byte more', () => {
+    // The real file's layout, whatever its security values are today (the
+    // bot changes them): the patch picks values that differ from all three.
+    const current = (JSON.parse(SEVEN_ZIP) as { security: Security }).security;
     const security = {
-      status: 'unverified',
+      status: current.status === 'clean' ? 'unverified' : 'clean',
       evidence: `${GUI}${'f'.repeat(64)}`,
-      checkedAt: TODAY,
+      checkedAt: '2000-01-01',
     };
     const before = SEVEN_ZIP.split('\n');
     const after = patchSecurity(SEVEN_ZIP, security).split('\n');
     expect(after).toHaveLength(before.length);
     const changed = before.flatMap((line, i) => (line === after[i] ? [] : [after[i]]));
     expect(changed).toEqual([
-      '    "status": "unverified",',
+      `    "status": "${security.status}",`,
       `    "evidence": "${GUI}${'f'.repeat(64)}",`,
-      `    "checkedAt": "${TODAY}"`,
+      '    "checkedAt": "2000-01-01"',
     ]);
   });
 
