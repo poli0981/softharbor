@@ -70,5 +70,17 @@
     "label": { "en": "System Tools", "vi": "Công cụ hệ thống" },
     "icon": "cpu",
     "order": 12
+  },
+  {
+    "id": "ai-local",
+    "label": { "en": "Local AI", "vi": "AI cục bộ" },
+    "icon": "brain-circuit",
+    "order": 13
+  },
+  {
+    "id": "cad-3d",
+    "label": { "en": "CAD & 3D", "vi": "CAD & 3D" },
+    "icon": "drafting-compass",
+    "order": 14
   }
 ]

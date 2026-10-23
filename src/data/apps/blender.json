@@ -6,7 +6,7 @@
     "en": "3D suite covering modelling, sculpting, animation, simulation and rendering in one application.",
     "vi": "Bộ công cụ 3D gồm dựng hình, điêu khắc, hoạt hình, mô phỏng và kết xuất trong cùng một ứng dụng."
   },
-  "categories": ["graphics", "media"],
+  "categories": ["graphics", "media", "cad-3d"],
   "tags": ["3d", "modelling", "animation", "rendering"],
   "platforms": ["windows", "macos", "linux"],
   "pricing": "free",
@@ -21,5 +21,6 @@
     "evidence": "https://www.virustotal.com/gui/url/350ceecfe030c9469671bff03194cdf53d3103b35a4dc5f879628a891aa8c2f0",
     "checkedAt": "2026-07-30"
   },
-  "addedAt": "2026-07-28"
+  "addedAt": "2026-07-28",
+  "updatedAt": "2026-10-23"
 }
