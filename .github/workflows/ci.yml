@@ -190,3 +190,58 @@ jobs:
             --max-concurrency 4 --retry-wait-time 5 --max-retries 4 --timeout 45
             --accept '200..=299,403,429'
             /tmp/urls.txt
+
+  # docs/12 §2 — SonarQube Cloud, CI-based analysis (sonar-project.properties).
+  # Deliberately NOT a required check: a Sonar outage must never block a
+  # merge, and a failing quality gate still turns this job red on the PR
+  # (`sonar.qualitygate.wait`).
+  #
+  # The `if:` may only read the `github` context. A `secrets` reference there
+  # makes the WHOLE workflow invalid — and then `build` and `gates`, which are
+  # required, never appear. Runs that would lack SONAR_TOKEN are skipped
+  # instead: Dependabot (its secrets are a separate store), pull requests from
+  # forks, and the bot data PRs that quarantine.yml / vt-recheck.yml dispatch
+  # CI on (`workflow_dispatch`, or `pull_request` runs a maintainer approves).
+  sonar:
+    if: >-
+      github.event_name != 'workflow_dispatch' &&
+      github.actor != 'dependabot[bot]' &&
+      github.actor != 'github-actions[bot]' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Blame and the new-code period come from history: a shallow clone
+          # makes Sonar attribute old lines to the latest commit.
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # The same unit run as the build job's; Sonar reads coverage/lcov.info.
+      - name: Unit tests (coverage report)
+        run: pnpm coverage
+      # "Previous version" is this project's new-code period, so each analysis
+      # carries package.json's version: new code on main is then everything
+      # since the last release instead of everything since the first scan.
+      - name: Project version
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+      # scannerVersion pins the newest SonarScanner CLI (the action's default
+      # trails it); the action verifies the download's signature.
+      - name: SonarQube Cloud scan
+        uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          scannerVersion: 8.2.0.6438
+          args: >-
+            -Dsonar.projectVersion=${{ steps.version.outputs.version }}
+            -Dsonar.qualitygate.wait=true
