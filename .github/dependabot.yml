@@ -26,13 +26,20 @@ updates:
       minor-and-patch:
         update-types: [minor, patch]
     ignore:
-      # D21 — TypeScript 7's native compiler does not expose the API that
-      # `astro check` needs, so `pnpm check` fails on it. Hold at 6.x.
+      # D21 (amended 2026-10-23) — TypeScript runs side by side. `typescript`
+      # is the @typescript/typescript6 wrapper: the TS 6 API that astro check,
+      # typescript-eslint and svelte2tsx load (TS 7 ships none yet). TS 7 itself
+      # is `@typescript/native` (an alias of typescript@7), whose `tsc` checks
+      # the .ts files. Majors of either are a decision, not a weekly bump.
+      # Dependabot's handling of `npm:` aliases is unproven here — ⚠ verify on
+      # the first Monday run after the switch.
       - dependency-name: typescript
         update-types: ['version-update:semver-major']
-      # The Node typings track the Node major in .nvmrc (24 LTS), not the
-      # newest Node: @types/node 26 types APIs the runtime does not have.
-      # Bump both together when .nvmrc moves (docs/01 §4).
+      - dependency-name: '@typescript/native'
+        update-types: ['version-update:semver-major']
+      # The Node typings track the Node major in .nvmrc (26), not the newest
+      # Node: a newer @types/node types APIs the runtime does not have. Bump
+      # both together when .nvmrc moves (docs/01 §5 rule 4).
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
     commit-message:
