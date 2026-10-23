@@ -5,7 +5,7 @@
 import { describe, expect, it } from 'vitest';
 import en from './en.json';
 import vi from './vi.json';
-import { localeFromPath, localePair, localePath, t } from './index';
+import { appCount, localeFromPath, localePair, localePath, t } from './index';
 import { canonicalPath } from '../lib/locale';
 
 describe('t() — lookup and interpolation', () => {
@@ -22,6 +22,19 @@ describe('t() — lookup and interpolation', () => {
   it('leaves an unreplaced placeholder visible rather than blanking it', () => {
     // A missing var should be obvious in review, not silently empty.
     expect(t('en', 'footer.builtAt')).toContain('{date}');
+  });
+});
+
+describe('appCount() — plural rule and digit grouping per language', () => {
+  it('never prints "1 apps"', () => {
+    expect(appCount('en', 1)).toBe('1 app');
+    expect(appCount('en', 0)).toBe('0 apps');
+    expect(appCount('en', 1368)).toBe('1,368 apps');
+  });
+
+  it('uses Vietnamese grouping, which has no plural form', () => {
+    expect(appCount('vi', 1)).toBe('1 ứng dụng');
+    expect(appCount('vi', 1368)).toBe('1.368 ứng dụng');
   });
 });
 

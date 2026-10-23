@@ -8,8 +8,10 @@
 // fails the build (hard rule 2). Cross-file rules Zod cannot see live in L2,
 // scripts/validate-data.mjs (docs/03 §2).
 
-import { defineCollection, reference, z } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { glob, file } from 'astro/loaders';
+// `z` from 'astro:content' is deprecated and goes away in Astro 8.
+import { z } from 'astro/zod';
 
 /** Today in UTC, at build time: data dated after the build is a typo. */
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -17,13 +19,20 @@ const TODAY = new Date().toISOString().slice(0, 10);
 /**
  * A real calendar date in YYYY-MM-DD, not in the future. The regex alone let
  * `2026-02-31` through; round-tripping through Date catches impossible days.
+ * Zod runs this refinement even after the regex failed, and an unparseable
+ * string makes `toISOString()` THROW — which crashed the build with a bare
+ * RangeError instead of naming the field — so the NaN case is answered first.
  */
 const DATE = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, 'YYYY-MM-DD')
-  .refine((d) => new Date(`${d}T00:00:00Z`).toISOString().slice(0, 10) === d, {
-    message: 'not a real calendar date',
-  })
+  .refine(
+    (d) => {
+      const t = Date.parse(`${d}T00:00:00Z`);
+      return !Number.isNaN(t) && new Date(t).toISOString().slice(0, 10) === d;
+    },
+    { message: 'not a real calendar date' },
+  )
   .refine((d) => d <= TODAY, { message: 'date is in the future' });
 const HTTPS = z.url().refine((u) => u.startsWith('https://'), { message: 'https:// only' });
 

@@ -20,12 +20,17 @@
 > Wrangler 4.151.3 · ESLint 10.13 · `typescript-eslint` 8.72 · Prettier
 > 3.9 · knip 6.42 · lefthook 2.2.2. `package.json` is the authority; this
 > line is a snapshot.
+>
+> **Changed for v1.2 (2026-10-23):** Node 26.12 · `@types/node` 26.6 ·
+> TypeScript 7.0.2 (`tsc`, as `@typescript/native`) beside 6.0.3 (the API, via
+> `@typescript/typescript6` 6.0.2) · SonarScanner CLI 8.2 through
+> `sonarqube-scan-action` 8.3.
 
 ## 1. Runtime & toolchain
 
 | Layer | Package | Line (2026-07-15) | Notes |
 |---|---|---|---|
-| Runtime | Node.js | **24 LTS "Krypton"** (24.x) | Active LTS; maintenance until 2028-04. Node 26 is Current only — do not use until it reaches LTS (2026-10) and CI passes on it. Pin via `.nvmrc` = `24` and `"engines": { "node": ">=24 <25" }`; CI reads `.nvmrc` (`node-version-file`), and `@types/node` majors are held to the same line (Dependabot ignore, §5). |
+| Runtime | Node.js | **26** (26.12 at v1.2; was 24 LTS "Krypton" until 2026-10-23) | LTS from 2026-10-28, maintenance from 2027-10, end of life 2029-04. Taken five days before the LTS label at the owner's request (D7 amended) — Node 24 had entered maintenance on 2026-10-20, and CI, the e2e suite and a Workers Builds preview all passed on 26 first. Pin via `.nvmrc` = `26` and `"engines": { "node": ">=26 <27" }`; CI and Workers Builds read `.nvmrc`, and `@types/node` majors are held to the same line (Dependabot ignore, §5). **Node 25+ ships no Corepack**: a laptop whose `pnpm` came from Corepack needs `npm install -g corepack` (or a standalone pnpm) after upgrading, or `pnpm` and the lefthook hooks stop working. |
 | Package manager | pnpm | **11.x** (`11.15.1`, `packageManager`) | `packageManager` field pinned; CI's `pnpm/action-setup` reads it (no `version:`), so CI, Dependabot, Workers Builds and laptops run the same pnpm. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). pnpm 11's default **24 h `minimumReleaseAge`** refuses day-old releases — hence Dependabot's 2-day cooldown (§5). |
 | Deploy CLI | Wrangler | **4.x** (4.151 at v1.1) | Workers Builds runs `npx wrangler deploy` (main) and `wrangler versions upload` (PRs); CI runs `wrangler deploy --dry-run` to bundle `worker/` and validate `wrangler.jsonc`. Since D25 there **is** a Worker script (`worker/index.ts`), tested under Vitest in Node — the local `workerd` runtime stays blocked in `allowBuilds` (docs/09 §7). Types for the Worker are written by hand (`worker/env.ts`), not `@cloudflare/workers-types`. |
 
@@ -36,7 +41,7 @@
 | Framework | `astro` | **7.x** (7.0.9 at P1; 7.4.1 at v1.1) | Static output. Ships Vite 8 + Rolldown (Rust bundler). Content Layer + Zod validation is the backbone of the data pipeline. `security.csp` provides the per-page meta policy (docs/09 §4); `<ClientRouter />` is **not** used — Astro does not support it with `security.csp` (docs/02 §6). |
 | Islands | `svelte` + `@astrojs/svelte` | Svelte **5.x** (5.57 at v1.1) | Runes mode. Only 6 islands exist (docs/02 §5). |
 | Styling | `tailwindcss` + `@tailwindcss/vite` | **4.3.x** (≥ 4.3.2) | CSS-first config via `@theme`; tokens in docs/06 §2. |
-| Language | `typescript` | **6.x — pinned, do not take 7** | `strict` + `noUncheckedIndexedAccess` (docs/10 §1). **TypeScript 7's native compiler does not expose the programmatic API `astro check` needs**, so `pnpm check` fails outright on it (reproduced in P1, 2026-07-27; upstream tracking: withastro/roadmap discussion 1321). Dependabot ignores this major until Astro says so — see §5.4. |
+| Language | `typescript` + `@typescript/native` | **6.x API + 7.x compiler, side by side** (since 2026-10-23) | `strict` + `noUncheckedIndexedAccess` (docs/10 §1). TypeScript 7's native compiler still ships no programmatic API, and `astro check` (its language server asserts `ts.findConfigFile`/`ts.sys`), typescript-eslint's project service and svelte2tsx all load one — so Microsoft's documented pair is used: `"typescript": "npm:@typescript/typescript6@^6"` (re-exports TS 6; bin `tsc6`) and `"@typescript/native": "npm:typescript@^7"` (bin `tsc`). `pnpm check` = `astro check` (TS 6, `.astro` files) **then** `tsc --noEmit` (TS 7, every `.ts` file — which nothing type-checked before: astro check reports `.astro` diagnostics only). `.svelte` script blocks are still checked by nothing. A TS 7-only setup waits on Astro (withastro/astro #18471, roadmap discussion 1321) and typescript-eslint (#10940). Dependabot ignores both majors (§5.4). |
 | State | `nanostores` **only** | 1.x | Cross-island filter/search state (~1 KB). **There is no `@nanostores/svelte` package** — it returns 404 on the registry (verified in P1, 2026-07-27). None is needed: a nanostores atom already satisfies Svelte's store contract (`.subscribe(cb)` fires immediately and returns an unsubscribe), so `$atom` auto-subscription works directly. Bindings exist for React/Vue/Solid/Preact/Lit/Angular precisely because those frameworks lack that contract. |
 | Search | `minisearch` | **7.x** | Client-side index; options in docs/05 §A2. Loaded with a dynamic `import()` on first search, so it is not in any page's static bundle. |
 | Icons | `unplugin-icons` + `@iconify-json/simple-icons` + `@iconify-json/lucide` | latest | Simple Icons = app logos (SVG, CC0 set — trademark caveat in docs/14 §3d); Lucide = UI icons. In islands: `~icons/lucide/<name>` via `unplugin-icons` (`compiler: 'svelte'`). In `.astro`: `ShIcon.astro` / `src/lib/icon.ts`, which read the same vendored JSON at build time (data-driven names cannot be static imports). Nothing fetched at runtime. |
@@ -58,7 +63,7 @@
 | Git hooks | `lefthook` | **2.x** |
 | Link checking (CI) | `lychee` via `lycheeverse/lychee-action` | v2 line (v2.9.0) |
 | Dep updates | **Dependabot** (`.github/dependabot.yml`) | npm + github-actions, weekly — docs/12 §6 (replaced the never-installed Renovate) |
-| CVE / code scanning | `osv-scanner` action + `pnpm audit --prod`; CodeQL (org reusable workflow); SonarCloud automatic analysis | latest |
+| CVE / code scanning | `osv-scanner` action + `pnpm audit --prod`; CodeQL (org reusable workflow); SonarQube Cloud **CI-based** analysis with coverage (`ci.yml` `sonar` job, `sonarqube-scan-action` 8.3, CLI 8.2 — docs/12 §2) | latest |
 
 ## 4. Rationale for the contested picks
 
@@ -99,11 +104,13 @@ unbilled asset path and no SSR exists.
    release of the direct dependency is fixed with an `overrides` floor in
    `pnpm-workspace.yaml`, the advisory ids in a comment (docs/09 §7), or a
    tracking issue.
-4. Node upgrades follow LTS promotions only (next window: Node 26 → LTS
-   2026-10; adopt after CI passes on it), and `@types/node` moves with
-   `.nvmrc` — Dependabot ignores its majors until then. **TypeScript is
-   exempt from rule 1 until Astro supports TS 7** (§2) — hold at 6.x;
-   Dependabot ignores TypeScript majors (D21).
+4. Node upgrades follow LTS lines, adopted once CI, the e2e suite and a
+   Workers Builds preview pass on them; `@types/node` moves with `.nvmrc` and
+   Dependabot ignores its majors in between. (Node 26 was taken on
+   2026-10-23, five days before its LTS promotion — the owner's call, D7.)
+   **TypeScript is exempt from rule 1 while Astro needs the TS 6 API** (§2):
+   `typescript` stays the TS 6 wrapper and `@typescript/native` is TS 7;
+   Dependabot ignores both majors (D21).
 5. Every dependency bump that touches Astro/Vite/Tailwind majors must re-run
    spike S1 (docs/11 §3) before merge — in practice, the full CI including
    the e2e suite on the built site.

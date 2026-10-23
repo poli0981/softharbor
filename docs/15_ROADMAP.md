@@ -114,10 +114,12 @@ them (item 9 especially), so new work is appended, never renumbered.
     the Worker files a GitHub issue with a fine-grained token (runtime
     secret), rate-limited like D25. A second Worker route, so it needs its
     own decision-log entry under hard rule 1.
-16. **Platform upkeep** — Node 26 LTS (from 2026-10-28) together with
-    `.nvmrc`, `engines` and the `@types/node` major Dependabot holds back;
-    TypeScript 7 once `astro check` supports it (D21); an OpenSearch
-    description; a versioned `/api/v1` with a published JSON Schema.
+16. **Platform upkeep** — ~~Node 26 together with `.nvmrc`, `engines` and
+    the `@types/node` major~~ **done 2026-10-23 (D28)**; TypeScript 7
+    **partly done** — it type-checks every `.ts` file beside the TS 6 API
+    that `astro check` still needs (D28; a TS 7-only setup waits on Astro
+    #18471 and typescript-eslint #10940); still open: an OpenSearch
+    description, a versioned `/api/v1` with a published JSON Schema.
 
 ## 3. Explicitly rejected (for the record)
 
@@ -265,6 +267,8 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-10-21 | **Recorded late: v1.0.0 tagged and released on 2026-07-30** — 326 apps, 320 `clean`, 6 `unverified`. Supersedes the 2026-07-28 "v1.0.0 NOT tagged" row | ✅ |
 | 2026-10-21 | **v1.1.0 tagged and released** after #23–#25 (merge 2c40baf: `Workers Builds: softharbor`, `build`, `gates`, `codeql` green; production checked — `/contact`, the v1.1 CSP meta, single immutable `Cache-Control`, `/api/verify` answering from the Worker with the runtime secret set) | ✅ |
 | 2026-10-21 | **Suite v2.0** (site v1.1) — a MAJOR bump by §6's rule, because D25/D26 amend hard rules 1 and 7: docs/00–16 brought in line with the code — D25–D27, the rows above, superseded statuses marked; claims that could not be checked from the repository or a live probe are marked "⚠ verify" | ✅ |
+| 2026-10-23 | **D28 — Node 26, and TypeScript 6 and 7 side by side** (amends D7, D21). `.nvmrc` `26`, engines `>=26 <27`, `@types/node` 26 — five days before Node 26's LTS promotion (2026-10-28), at the owner's request; Node 24 had entered maintenance on 2026-10-20. TypeScript follows Microsoft's documented pair: `typescript` → `npm:@typescript/typescript6` (re-exports TS 6.0.3: the API `astro check`'s language server asserts, typescript-eslint's project service and svelte2tsx load) and `@typescript/native` → `npm:typescript@7` (bin `tsc`). `pnpm check` is now `astro check && tsc --noEmit` — and that second half is the first type-check `.ts` files ever had: astro check reports `.astro` diagnostics only. Node 25+ ships no Corepack, so laptops reinstall it (`npm i -g corepack`) and Workers Builds downloads Node 26 per build (`PNPM_VERSION` is the fallback) | ✅ (owner, 2026-10-23) |
+| 2026-10-23 | **D29 — SonarQube Cloud: CI-based analysis with coverage**, replacing Automatic Analysis (which cannot import coverage and must stay off). `ci.yml` job `sonar`, not a required check; `sonar-project.properties` replaces `.sonarcloud.properties`; `sonarqube-scan-action` 8.3 with the newest CLI (8.2); `sonar.projectVersion` from `package.json` so the "previous version" new-code period finally has a baseline (every analysis until now was "not provided"). Coverage now measures what Sonar analyses instead of excluding it: the build scripts through Vitest 5's `autoAttachSubprocess` (their child-process runs count), the head scripts, the endpoints and the schema through new tests — ratchet 93/78/90/93 → **96/85/95/97**. The schema tests caught a real bug: an impossible or malformed date made `toISOString()` throw, crashing `astro build` with a bare RangeError instead of naming the field | ✅ |
 
 ## 5. Open questions for Kokone
 
@@ -293,8 +297,8 @@ Status as of 2026-10-21: v1.0.0 shipped on 2026-07-30 and v1.1.0 on
 5. **Speed Brain off** (H12) — production still sent `Speculation-Rules:
    "/cdn-cgi/speculation"` on 2026-10-21, and Cloudflare answers prefetch
    on Worker requests with a 503 (docs/16 §9).
-6. **Delete `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`** — unused since
-   deployment moved to Workers Builds (docs/12 §1). ⚠ verify whether done.
+6. ~~**Delete `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`**~~ — done:
+   neither secret exists on 2026-10-23 (docs/12 §1).
 7. **GSC Domain property + sitemap + Bing import + Crawler Hints** (docs/16
    §8, H8) — the `google-site-verification` TXT is published (observed
    2026-10-21); the rest ⚠ verify.
