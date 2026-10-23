@@ -11,7 +11,7 @@ The site hosts **no binaries**. It is a map, not a mirror.
 
 ## What is in it
 
-**326 apps** across 12 categories, each one file in `src/data/apps/`. Every
+**365 apps** across 14 categories, each one file in `src/data/apps/`. Every
 entry carries:
 
 - original two-line summaries in English _and_ Vietnamese — written from

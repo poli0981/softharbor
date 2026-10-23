@@ -111,14 +111,14 @@ duplicates, link provenance, invisible characters, quarantine) are L2,
 
 | Value | Meaning | Examples |
 |---|---|---|
-| `free` | Fully usable forever at $0. Includes freemium products **whose free tier alone is self-sufficient** even if the paid upgrade is a subscription (criterion C3). | VLC, 7-Zip, Bitwarden (free tier) — 296 entries |
-| `free-onetime` | Free tier + optional **single lifetime payment** unlock. | FreeFileSync, eM Client, HWiNFO — 14 entries |
-| `onetime` | Paid once, perpetual license, optional paid major upgrades allowed. | Sublime Text, REAPER, Total Commander — 16 entries |
+| `free` | Fully usable forever at $0. Includes freemium products **whose free tier alone is self-sufficient** even if the paid upgrade is a subscription (criterion C3). | VLC, 7-Zip, Bitwarden (free tier) — 331 entries |
+| `free-onetime` | Free tier + optional **single lifetime payment** unlock. | FreeFileSync, eM Client, HWiNFO, Shottr, AltTab — 16 entries |
+| `onetime` | Paid once, perpetual license, optional paid major upgrades allowed. | Sublime Text, REAPER, Total Commander, Fork — 18 entries |
 | *(excluded)* | Subscription required for core desktop use; time-limited trials; crippled demos. | Adobe CC, MS 365 |
 
 Ambiguous cases → decision log (docs/15 §4) before merge.
 
-## 4. Category registry (initial 12)
+## 4. Category registry (12 at launch, 14 since 2026-10-23)
 
 `src/data/categories.json` — id · EN · VI · lucide icon:
 
@@ -136,9 +136,14 @@ Ambiguous cases → decision log (docs/15 §4) before merge.
 | `file-management` | File Management | Quản lý tệp | `folder` |
 | `gaming` | Gaming Tools | Công cụ chơi game | `gamepad-2` |
 | `system` | System Tools | Công cụ hệ thống | `cpu` |
+| `ai-local` | Local AI | AI cục bộ | `brain-circuit` |
+| `cad-3d` | CAD & 3D | CAD & 3D | `drafting-compass` |
 
 Adding a category = PR editing this file + decision-log line (keeps the
-taxonomy from sprawling).
+taxonomy from sprawling). `ai-local` and `cad-3d` came with catalogue
+batch 2 (D31): models that run on your own machine, and CAD/EDA/3D-printing
+tools. The categories page counts them itself (`categories.intro` and
+`meta.categories` take `{n}`), so a new row needs no copy change.
 
 ## 5. Example files
 
@@ -238,8 +243,8 @@ and the renderer draws the initials (D23). VSCodium itself now resolves to
 }
 ```
 
-As of v1.1 no entry uses `local:` (`src/assets/logos/` does not exist yet):
-118 entries use `simple-icons:`, 208 `monogram`.
+As of v1.2 no entry uses `local:` (`src/assets/logos/` does not exist yet):
+127 entries use `simple-icons:`, 238 `monogram` (365 in all).
 
 ## 6. Quarantine files
 
