@@ -1,0 +1,25 @@
+{
+  "name": "Flameshot",
+  "developer": "Flameshot contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Screenshot tool for drawing arrows, boxes and blur straight onto the selected area before saving, also driven from the command line.",
+    "vi": "Công cụ chụp màn hình cho phép vẽ mũi tên, khung và làm mờ ngay trên vùng đã chọn trước khi lưu, điều khiển được bằng dòng lệnh."
+  },
+  "categories": ["utilities", "graphics"],
+  "tags": ["screenshot", "annotations", "cross-platform", "cli", "signed-releases"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://flameshot.org",
+    "repo": "https://github.com/flameshot-org/flameshot",
+    "download": "https://flameshot.org/#download"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/95707fe983a07c4a17ea04b94ce50a9397bfe77002a56fb064015cda3273487a",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

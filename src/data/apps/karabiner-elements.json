@@ -1,0 +1,25 @@
+{
+  "name": "Karabiner-Elements",
+  "developer": "Takayama Fumihiko",
+  "logo": "monogram",
+  "summary": {
+    "en": "Key remapper for macOS built on a virtual keyboard driver, from single key swaps to JSON rules for layers and per-app behaviour.",
+    "vi": "Công cụ đổi phím cho macOS dựa trên driver bàn phím ảo, từ hoán đổi một phím đến quy tắc JSON cho lớp phím và hành vi theo ứng dụng."
+  },
+  "categories": ["system", "utilities"],
+  "tags": ["key-mapping", "keyboard", "complex-modifications", "macos-native"],
+  "platforms": ["macos"],
+  "pricing": "free",
+  "license": "Unlicense",
+  "links": {
+    "homepage": "https://karabiner-elements.pqrs.org",
+    "repo": "https://github.com/pqrs-org/Karabiner-Elements",
+    "download": "https://karabiner-elements.pqrs.org"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/defdeabf600444ff7d299804a60e2a9752ccedfef83f26352fc377fed35f6004",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

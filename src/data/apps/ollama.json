@@ -6,7 +6,7 @@
     "en": "Runs open-weight language models on your own machine and exposes them over a local API.",
     "vi": "Chạy các mô hình ngôn ngữ mã nguồn mở ngay trên máy và cung cấp chúng qua một API cục bộ."
   },
-  "categories": ["developer-tools"],
+  "categories": ["ai-local", "developer-tools"],
   "tags": ["local-llm", "offline-ai", "cli", "api"],
   "platforms": ["windows", "macos", "linux"],
   "pricing": "free",
@@ -21,5 +21,6 @@
     "evidence": "https://www.virustotal.com/gui/url/9e4573e4becec354dd735eb36a5a78d7cea87e067a07dc5e247fd55160901cad",
     "checkedAt": "2026-10-23"
   },
-  "addedAt": "2026-07-28"
+  "addedAt": "2026-07-28",
+  "updatedAt": "2026-10-23"
 }

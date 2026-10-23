@@ -1,0 +1,25 @@
+{
+  "name": "ShareX",
+  "developer": "ShareX Team",
+  "logo": "simple-icons:sharex",
+  "summary": {
+    "en": "Screenshot and screen-recording tool that sends each capture through steps you choose: annotate, save, read text, upload.",
+    "vi": "Công cụ chụp và quay màn hình, cho mỗi lần chụp đi qua chuỗi bước tự chọn: chú thích, lưu, nhận dạng chữ, tải lên."
+  },
+  "categories": ["utilities", "graphics", "media"],
+  "tags": ["screenshot", "screen-recording", "annotations", "ocr", "uploader", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://getsharex.com",
+    "repo": "https://github.com/ShareX/ShareX",
+    "download": "https://github.com/ShareX/ShareX/releases/latest"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/c1c56337e7b1457ccbdb67a9268f3f5332ca34de42efacfd89c0cf7fd040a72b",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

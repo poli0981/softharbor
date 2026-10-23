@@ -1,0 +1,25 @@
+{
+  "name": "kitty",
+  "developer": "Kovid Goyal",
+  "logo": "monogram",
+  "summary": {
+    "en": "GPU-rendered terminal with built-in tabs and split layouts, plus its own protocols for inline images and keyboard input.",
+    "vi": "Terminal kết xuất bằng GPU có sẵn tab và bố cục chia khung, cùng giao thức riêng cho ảnh hiển thị trong terminal và bàn phím."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["terminal", "gpu-accelerated", "graphics-protocol", "splits", "signed-releases"],
+  "platforms": ["macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://sw.kovidgoyal.net/kitty/",
+    "repo": "https://github.com/kovidgoyal/kitty",
+    "download": "https://sw.kovidgoyal.net/kitty/binary/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/30cf587869da30d3167611be4290ed9a80883f87636fd4fb21827a56545f305a",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

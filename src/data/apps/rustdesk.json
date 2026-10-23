@@ -1,0 +1,32 @@
+{
+  "name": "RustDesk",
+  "developer": "Purslane Tech Pte. Ltd.",
+  "logo": "simple-icons:rustdesk",
+  "summary": {
+    "en": "Open-source remote desktop and support tool whose ID and relay servers can be self-hosted instead of using the vendor's public ones.",
+    "vi": "Công cụ điều khiển máy tính từ xa mã nguồn mở, có thể tự dựng máy chủ ID và relay thay vì dùng máy chủ công cộng của nhà phát triển."
+  },
+  "categories": ["utilities", "system"],
+  "tags": [
+    "remote-desktop",
+    "remote-support",
+    "self-hosted",
+    "relay-server",
+    "unattended-access",
+    "file-transfer"
+  ],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://rustdesk.com",
+    "repo": "https://github.com/rustdesk/rustdesk",
+    "download": "https://github.com/rustdesk/rustdesk/releases/latest"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/8a872675858fc291c0c1222ad1c6523aa95dcd02a5604bfef31732ced7d4a115",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Insomnia",
+  "developer": "Kong Inc.",
+  "logo": "simple-icons:insomnia",
+  "summary": {
+    "en": "API client for REST, GraphQL and gRPC with an OpenAPI editor; work stays local or in Git, and the free plan caps Git Sync at three users.",
+    "vi": "Ứng dụng thử API cho REST, GraphQL và gRPC có trình soạn OpenAPI; dữ liệu giữ cục bộ hoặc trong Git, gói miễn phí giới hạn Git Sync ở ba người."
+  },
+  "categories": ["developer-tools"],
+  "tags": ["api-client", "rest", "graphql", "grpc", "local-vault"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://insomnia.rest",
+    "repo": "https://github.com/Kong/insomnia",
+    "download": "https://insomnia.rest/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/f3f71d78bb7b383f7ce3f0755f98e28d90ae7c095ed4f29546a088a86baf0d77",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

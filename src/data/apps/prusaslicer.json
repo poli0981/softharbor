@@ -1,0 +1,25 @@
+{
+  "name": "PrusaSlicer",
+  "developer": "Prusa Research",
+  "logo": "monogram",
+  "summary": {
+    "en": "Slicer derived from Slic3r that prepares print files for filament and resin printers of many brands, with organic supports.",
+    "vi": "Phần mềm slicer phát triển từ Slic3r, chuẩn bị tệp in cho máy in sợi nhựa và resin của nhiều hãng, có support dạng cây."
+  },
+  "categories": ["cad-3d", "utilities"],
+  "tags": ["3d-printing", "slicer", "gcode", "fdm", "msla", "multi-material", "cli"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "AGPL-3.0-only",
+  "links": {
+    "homepage": "https://www.prusa3d.com/p/prusaslicer/",
+    "repo": "https://github.com/prusa3d/PrusaSlicer",
+    "download": "https://www.prusa3d.com/p/prusaslicer/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/a98ba727df8141459701c279e802a0e7a73aff589f72e543c978edda97a8a12c",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

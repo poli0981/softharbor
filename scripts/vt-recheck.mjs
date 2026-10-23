@@ -63,14 +63,14 @@ export class AuthError extends Error {}
 
 /**
  * VirusTotal's URL identifier is the SHA-256 of its canonical form. WHATWG
- * parsing does what the catalogue's 326 recorded scans show it does:
- * lowercase scheme and host, an empty path becomes "/", the query is kept —
- * and the fragment, which a browser never sends, is dropped.
+ * parsing does what the recorded scans show: lowercase scheme and host, an
+ * empty path becomes "/", the query is kept — and so is the fragment. The
+ * API keeps `#download` in the id (measured on the first batch-2 run, 2026-10-23);
+ * only the 2026-07-30 scans, submitted from a browser that never sends the
+ * fragment, lack it, so those six entries count as drifted until re-scanned.
  */
 export function canonicalUrl(raw) {
-  const url = new URL(raw);
-  url.hash = '';
-  return url.href;
+  return new URL(raw).href;
 }
 
 export const urlId = (raw) => createHash('sha256').update(canonicalUrl(raw)).digest('hex');
