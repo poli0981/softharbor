@@ -6,10 +6,12 @@
 # checks still apply.
 #
 # Fixed 2026-10-21 (audit):
-#  - A PR opened with GITHUB_TOKEN triggers no `pull_request` workflows, so its
-#    required checks (build, gates, codeql) never ran and it could not merge.
-#    The job now dispatches ci.yml and codeql.yml on the PR branch —
-#    `workflow_dispatch` is the documented exception to that rule.
+#  - A PR opened with GITHUB_TOKEN triggered no `pull_request` workflows, so
+#    its required checks (build, gates, codeql) never ran and it could not
+#    merge. The job dispatches ci.yml and codeql.yml on the PR branch —
+#    `workflow_dispatch` always runs. (Since GitHub's 2026-06-11 change such
+#    a PR does get `pull_request` runs, but they wait for a maintainer's
+#    approval, so the dispatch is still what makes the checks appear.)
 #  - The ruleset requires signed commits: create-pull-request now signs via the
 #    API (`sign-commits`).
 #  - Every nightly run re-opened `[quarantine] <slug>` issues while the PR was
