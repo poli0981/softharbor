@@ -18,7 +18,7 @@
   },
   "security": {
     "status": "unverified",
-    "evidence": null,
+    "evidence": "https://www.virustotal.com/gui/url/30cf587869da30d3167611be4290ed9a80883f87636fd4fb21827a56545f305a",
     "checkedAt": "2026-10-23"
   },
   "addedAt": "2026-10-23"
