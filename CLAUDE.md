@@ -19,8 +19,9 @@ googling every tool one by one.
   route disabled, PR previews only — see `docs/16`), deployed by Cloudflare
   Workers Builds when `main` changes. One tiny Worker answers
   `POST /api/verify` only (D25); no backend, no database.
-- Stack: Node 24 LTS · pnpm 11 · Astro 7 (static output) · Svelte 5 islands ·
-  Tailwind CSS 4.3 · TypeScript strict · Wrangler 4 — full table in `docs/01`
+- Stack: Node 26 · pnpm 11 · Astro 7 (static output) · Svelte 5 islands ·
+  Tailwind CSS 4.3 · TypeScript strict (TS 7 `tsc` beside the TS 6 API that
+  `astro check` needs — D28) · Wrangler 4 — full table in `docs/01`
 
 ## Hard rules (never violate)
 
@@ -81,11 +82,12 @@ criteria (`docs/15`) are met.
 ## Commands
 
 ```bash
-pnpm install            # Node 24 LTS required (see .nvmrc / engines)
+pnpm install            # Node 26 required (see .nvmrc / engines)
 pnpm dev                # astro dev
 pnpm build              # astro build → dist/
 pnpm preview            # astro preview
 pnpm lint               # eslint + prettier --check
+pnpm check              # astro check (TS 6) + tsc --noEmit (TS 7)
 pnpm test               # vitest run (unit, islands, scripts, worker)
 pnpm coverage           # vitest run --coverage (thresholds in vitest.config.ts)
 pnpm e2e                # playwright + axe against astro preview (build first)

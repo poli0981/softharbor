@@ -358,8 +358,9 @@ does not read issue labels.
   Dependabot security updates are enabled in the repository settings.
   `osv-scanner` + `pnpm audit --prod` gate every PR and push to `main`
   (`ci.yml` `gates` job — docs/01 §5, docs/12 §2). CodeQL runs on PRs,
-  pushes and weekly; SonarCloud's automatic analysis covers workflows and
-  scripts (`.sonarcloud.properties`).
+  pushes and weekly; SonarQube Cloud's CI-based analysis (`ci.yml` `sonar`
+  job, `sonar-project.properties`) covers workflows, scripts and the site
+  code, with coverage, on every PR and push to `main`.
 - All GitHub Actions in this repository's workflows pinned to **commit
   SHAs** with a version comment (Dependabot bumps both); the org's own
   reusable workflows (`poli0981/.github`) are tracked at `@main` on purpose.

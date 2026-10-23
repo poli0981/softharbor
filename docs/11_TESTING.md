@@ -27,19 +27,26 @@ resolve and compile exactly like the build):
 
 | Project | Environment | Includes | Asserts |
 |---|---|---|---|
-| `unit` | node | `src/{lib,i18n,styles}/**/*.test.ts` | pure logic, plus `contrast.test.ts` reading `global.css` (docs/06 §2) |
+| `unit` | node (a file may opt into happy-dom) | `src/{lib,i18n,styles,scripts}/**/*.test.ts`, `src/pages/**/_*.test.ts`, `src/*.test.ts` | pure logic, plus `contrast.test.ts` reading `global.css` (docs/06 §2); the Zod schema (`content.config.test.ts`) and the three data endpoints (`src/pages/_endpoints.test.ts` — the `_` keeps it out of routing) with `astro:content` stubbed; the verbatim head scripts re-imported per test in happy-dom (`src/scripts/head.test.ts`) |
 | `islands` | happy-dom, `resolve.conditions: ['browser']` (else Svelte resolves to its SSR build and `mount()` throws) | `src/components/**/*.test.ts` | island *state machines* — open/close, keyboard interception, storage, fail-open paths — never layout or the top layer (that is e2e) |
 | `scripts` | node | `scripts/**/*.test.ts` | the **real** build scripts, run as child processes inside throwaway project trees (`scripts/fixture.ts`), exit code and all |
 | `worker` | node | `worker/**/*.test.ts` | `/api/verify` against a stubbed Siteverify — Node has every Web API it uses |
 
-**Coverage** (`pnpm coverage`, V8): scoped to code that ships —
-`src/lib/**`, `src/i18n/**`, the island `.svelte` files and `worker/**`.
-The build scripts run as child processes, which V8 coverage cannot see, so
-their tests' assertions are the measure. Thresholds are a **ratchet**:
-statements 93 · branches 78 · functions 90 · lines 93, just under the
-measured ≈ 94.6 / 81.9 / 92.1 / 95.6 (2026-10-21). Raise them when coverage
+**Coverage** (`pnpm coverage`, V8) measures every analysed source since
+2026-10-23: `src/lib/**`, `src/i18n/**`, `src/scripts/*.js`, the endpoints
+in `src/pages/**/*.ts`, `src/content.config.ts`, the island `.svelte` files,
+`worker/**` **and the build scripts** — they run as child processes, and
+`coverage.autoAttachSubprocess` (Vitest 5) hands each child
+`NODE_V8_COVERAGE`, so their real runs count. Never also import a script
+in-process: Vitest merges the two kinds of coverage for one file wrongly.
+Thresholds are a **ratchet**: statements 96 · branches 85 · functions 95 ·
+lines 97, just under the measured 96.7 / 85.6 / 95.5 / 97.6 (2026-10-23;
+they were 93/78/90/93 over the narrower scope). Raise them when coverage
 rises; never lower them to land a change. CI runs `pnpm coverage` as *the*
-unit step, so a drop fails the PR.
+unit step, so a drop fails the PR, and the `sonar` job sends the same
+`coverage/lcov.info` to SonarQube Cloud (docs/12 §2), which indexes no
+`.svelte`/`.astro` file — the islands' entries are reported unresolved — and
+excludes only the root `*.config.*` files.
 
 ## 2. Unit targets (`vitest`)
 
@@ -70,9 +77,8 @@ spelled `gimp` from being an exact match (table in docs/05 §A2). It was
 also pins the *precision* side — `gimp` → only GIMP, `archiver` → only 7-Zip
 — so a future fuzzy miss cannot be "fixed" by raising the constant.
 
-Coverage gates: the global ratchet in §1 (statements 93 · branches 78 ·
-functions 90 · lines 93) over `src/lib`, `src/i18n`, the islands and
-`worker/`. `.astro` files carry no coverage gate — their rendered output is
+Coverage gates: the global ratchet in §1 (statements 96 · branches 85 ·
+functions 95 · lines 97) over everything listed there. `.astro` files carry no coverage gate — their rendered output is
 checked by the build gates and the e2e suite.
 
 ## 3. P0 spikes — run before feature work (phase P1)
@@ -100,7 +106,8 @@ changed the spec:
 2. Island hydration emits inline scripts ⇒ D18 unachievable, replaced by the
    split CSP of D20 (docs/09 §4). ClientRouter itself is external, so View
    Transitions are safe.
-3. TypeScript 7 breaks `astro check` ⇒ hold at 6.x (D21).
+3. TypeScript 7 breaks `astro check` ⇒ hold at 6.x (D21; since 2026-10-23
+   TS 6 and TS 7 run side by side — docs/01 §2).
 4. `ignore-scripts=true` does **not** "break nothing" — it stops the build
    outright, and pnpm ≥ 10 supersedes it anyway (docs/09 §7).
 

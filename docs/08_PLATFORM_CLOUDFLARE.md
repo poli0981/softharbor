@@ -80,8 +80,11 @@ serves (`workers_dev: false`). Full domain checklist: docs/16 §10.
   3. never "help" with a manual `wrangler deploy` while builds are queued
      (A3).
 - The **build environment is Cloudflare's**: it must match `.nvmrc`
-  (Node 24) and `packageManager` (pnpm 11), or production can differ from
-  what CI validated — re-check after any toolchain bump (docs/13 §2).
+  (Node 26 since 2026-10-23; the image preinstalls only 22 and 24, so 26 is
+  downloaded per build) and `packageManager` (pnpm 11), or production can
+  differ from what CI validated — re-check after any toolchain bump
+  (docs/13 §2). Node 25+ ships no Corepack; should a build ever fail to find
+  pnpm, the Workers Builds variable `PNPM_VERSION=11.15.1` is the fix.
 - Rollback: dashboard → the Worker → **Deployments** → promote a previous
   version, or `wrangler rollback`.
 

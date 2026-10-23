@@ -39,13 +39,16 @@ Consequences worth knowing:
   a `main` commit only once its build starts. Hence the release step: wait
   for that check to go green, *then* verify production (§3, docs/13 §3).
 - The **build environment is Cloudflare's**, not a GitHub runner. It must
-  match `.nvmrc` (Node 24) and `packageManager` (pnpm 11), or the deployed
+  match `.nvmrc` (Node 26 since 2026-10-23 — downloaded per build, the image
+  preinstalls 22 and 24) and `packageManager` (pnpm 11), or the deployed
   output can differ from what CI validated. CI runs the same `pnpm build`
   composite, so the gates are identical; verify after any toolchain bump
-  (docs/13 §2).
+  (docs/13 §2). Node 25+ ships no Corepack — if a build ever cannot find
+  pnpm, set the Workers Builds variable `PNPM_VERSION=11.15.1`.
 - `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repo secrets (action item
-  H3) are **no longer used by any workflow**. They can be deleted, and should
-  be if nothing else claims them — an unused deploy credential is pure risk.
+  H3) were **deleted** — not present on 2026-10-23, when the repository's
+  Actions secrets were `DISCORD_RELEASES_WEBHOOK`, `SONAR_TOKEN` and
+  `VT_API_KEY`. No workflow deploys.
 - A local `pnpm deploy` (build + `wrangler deploy`) still works for the
   maintainer, but it bypasses `ci` — and **must never run while Workers
   Builds builds are queued**: a queued older build would land after it and
@@ -87,12 +90,15 @@ deliberately: first-party org workflows (`poli0981/.github`) are tracked at
 `@main` so org-wide fixes land everywhere at once, and how *they* pin their
 internal actions is the ops repo's call — do not file it as a defect here.
 
-Pinned as of 2026-10-21: `actions/checkout` v7.0.1 · `pnpm/action-setup`
+Pinned as of 2026-10-23: `actions/checkout` v7.0.1 · `pnpm/action-setup`
 v6.1.0 (no `version:` — it reads `packageManager`) · `actions/setup-node`
 v7.1.0 (`node-version-file: .nvmrc`) · `actions/cache` v6.1.0 ·
 `actions/upload-artifact` v7.0.2 · `google/osv-scanner-action` v2.7.0 ·
 `lycheeverse/lychee-action` v2.9.0 · `peter-evans/create-pull-request`
-v8.1.1.
+v8.1.1 · `SonarSource/sonarqube-scan-action` v8.3.0 (with
+`scannerVersion: 8.2.0.6438`, the newest CLI — Dependabot bumps the action,
+not that input; the deprecated `sonarcloud-github-action` must not come
+back).
 
 ## 2. Callers to `poli0981/.github` reusable workflows
 
@@ -104,7 +110,7 @@ v8.1.1.
 > would have failed on the first CI run. Re-check the listing before adding
 > any new caller.
 
-`.github/workflows/ci.yml` — **self-contained, two jobs (`build`, `gates`).**
+`.github/workflows/ci.yml` — **self-contained, three jobs (`build`, `gates`, `sonar`).**
 
 It is deliberately NOT a caller. An earlier version delegated to
 `reusable-web-react.yml` and every run ended in `startup_failure`, for two
@@ -143,6 +149,26 @@ cancels superseded runs except on `main`. Jobs:
 - **`gates`** (15 min cap) — `validate:data`, `i18n:check`, `osv-scanner`
   (lockfile mode), `pnpm audit --prod`, and on PRs the changed-files lychee
   sweep (§5).
+- **`sonar`** (20 min cap, **not** a required check — a SonarQube Cloud outage
+  must never block a merge) — CI-based analysis since 2026-10-23, replacing
+  Automatic Analysis (which cannot import coverage, and which must stay off:
+  a CI scan fails while it is on). Full-history checkout (blame and the
+  new-code period need it) → install → `pnpm coverage` →
+  `SonarSource/sonarqube-scan-action` with `scannerVersion` pinned to the
+  newest SonarScanner CLI, `-Dsonar.projectVersion=<package.json version>`
+  (the project's new-code period is "previous version", so new code on
+  `main` is everything since the last release) and
+  `-Dsonar.qualitygate.wait=true`, so a failed **Sonar way** gate turns the
+  job red. Scope lives in `sonar-project.properties` (organization
+  `poli0981`, project `poli0981_softharbor`): sources rooted at the repo so
+  `.github/` workflows are analysed, the dataset/docs/build output excluded,
+  tests (and `scripts/fixture.ts`) judged by test rules, coverage from
+  `coverage/lcov.info` with only the root `*.config.*` files excluded
+  (docs/11 §1). The job's `if:` reads **only** the `github` context — a
+  `secrets` reference there invalidates the whole workflow, and the
+  required `build`/`gates` would never appear — and skips runs that lack
+  `SONAR_TOKEN`: Dependabot (separate secret store), fork PRs, and the bot
+  data PRs (`workflow_dispatch`, or `github-actions[bot]`).
 
 Two action references that do not work the obvious way: the OSV scanner lives
 in a **subdirectory** of its repo and publishes **no rolling major tag**, so it
@@ -397,7 +423,7 @@ transitive packages. One bot, configured here, instead of two.
 
 | Ecosystem | Schedule | Policy |
 |---|---|---|
-| `npm` | weekly, Monday 05:00 Asia/Ho_Chi_Minh | **2-day cooldown**; `minor` + `patch` grouped (`minor-and-patch`); up to 10 open PRs; `versioning-strategy: increase`; **ignores TypeScript majors** (D21 — TS 7 breaks `astro check`) and **`@types/node` majors** (the typings track the Node major in `.nvmrc`, docs/01 §4); commit prefixes `fix(deps)` / `chore(deps)` (dev) |
+| `npm` | weekly, Monday 05:00 Asia/Ho_Chi_Minh | **2-day cooldown**; `minor` + `patch` grouped (`minor-and-patch`); up to 10 open PRs; `versioning-strategy: increase`; **ignores the majors of `typescript` and `@typescript/native`** (D21 as amended — the TS 6 API wrapper and TS 7 run side by side; how Dependabot treats `npm:` aliases is ⚠ unverified) and **`@types/node` majors** (the typings track the Node major in `.nvmrc`, docs/01 §5 rule 4); commit prefixes `fix(deps)` / `chore(deps)` (dev) |
 | `github-actions` | same | 2-day cooldown; all actions in one group; bumps the pinned SHA and its `# vX.Y.Z` comment together; prefix `ci` |
 
 **Why the cooldown:** pnpm 11 refuses any release younger than its default
@@ -408,9 +434,10 @@ policy — a PR opened on release day failed before a single test ran (#14,
 Plus `osv-scanner` (`google/osv-scanner-action`, lockfile mode) and
 `pnpm audit --prod`, both steps of `ci.yml`'s **`gates` job** (§2), on every
 PR and push to `main`; a finding fails the job (policy docs/01 §5).
-CodeQL (§2) and SonarCloud's automatic analysis (`.sonarcloud.properties` —
-sources rooted at the repo so `.github/` workflows are analysed too; the
-dataset, docs and build output excluded) complete the scanning.
+CodeQL (§2) and SonarQube Cloud's CI-based analysis (`ci.yml` `sonar` job,
+`sonar-project.properties` — sources rooted at the repo so `.github/`
+workflows are analysed too; the dataset, docs and build output excluded;
+coverage imported) complete the scanning.
 
 ## 7. Issue forms
 

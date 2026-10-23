@@ -64,7 +64,8 @@ softharbor/
 ├── eslint.config.js / prettier.config.mjs / .prettierignore
 ├── knip.json / lefthook.yml       # docs/10 §4
 ├── .dev.vars.example              # Turnstile TEST secret for `wrangler dev`
-├── .sonarcloud.properties / .gitattributes / .gitignore
+├── sonar-project.properties      # SonarQube Cloud CI analysis (docs/12 §2)
+├── .gitattributes / .gitignore
 ├── .github/
 │   ├── CODEOWNERS                 # * @poli0981 + .github/ scripts/ src/data/ worker/ (T6)
 │   ├── dependabot.yml             # npm + github-actions, weekly (docs/12 §6)

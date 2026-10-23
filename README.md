@@ -37,9 +37,9 @@ Control. The [Privacy Policy](https://softharbor.net/legal/privacy) has the
 details.
 
 Astro 7 (static) · Svelte 5 islands · Tailwind CSS 4 · TypeScript strict ·
-Node 24 · pnpm 11 · Cloudflare Workers Static Assets (+ one Worker route).
+Node 26 · pnpm 11 · Cloudflare Workers Static Assets (+ one Worker route).
 Tested with Vitest (unit, islands, build scripts, the Worker) and Playwright +
-axe on the built site.
+axe on the built site; analysed by CodeQL and SonarQube Cloud.
 
 ```bash
 pnpm install
