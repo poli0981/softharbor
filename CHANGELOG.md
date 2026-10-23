@@ -19,7 +19,7 @@ catalogue's second batch.
   removed automatically. The note under "No known warnings" now says what
   it rests on: the published checklist when the app was listed, and a scan
   of its download page on the date shown.
-- The first runs re-scanned 198 of the earlier apps, including eight whose
+- The first runs re-scanned 197 of the earlier apps, including eight whose
   linked scan was of an older download link. Nine of them — 7-Zip, Android
   Studio, DBeaver, DevToys, Helium, itch, KeePassXC, LuLu and Meld — drew a
   single warning from one engine and show "Unverified" until the maintainer
