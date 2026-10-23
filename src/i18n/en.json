@@ -42,7 +42,7 @@
   "detail.related": "More in {category}",
   "detail.repo": "Repository",
   "detail.security": "Security",
-  "detail.securityNote.clean": "On the date shown, this entry went through our published checklist and nothing worrying turned up. It is not an audit or a guarantee — software can change after a check. Download only from the official link, and verify signatures or checksums where the developer offers them.",
+  "detail.securityNote.clean": "This entry passed our published checklist, and on the date shown a scan of its download page raised no warnings. It is not an audit or a guarantee — software can change after a check. Download only from the official link, and verify signatures or checksums where the developer offers them.",
   "detail.securityNote.title": "What this status means",
   "detail.securityNote.unverified": "The checklist has not been completed for this entry, or something it found needs a closer look. It meets every other rule of the list. Take the care you would with any download, and prefer the official link.",
   "detail.tags": "Tags",

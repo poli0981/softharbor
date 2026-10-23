@@ -38,7 +38,7 @@ export const ACCEPTED_DOCS = [
  * One date for all six used to stamp documents that had not changed.
  */
 export const LEGAL_UPDATED: Readonly<Record<LegalDoc, string>> = {
-  aiDisclosure: '2026-10-21',
+  aiDisclosure: '2026-10-23',
   disclaimer: '2026-10-21',
   privacy: '2026-10-21',
   terms: '2026-10-21',
