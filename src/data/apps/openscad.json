@@ -1,0 +1,25 @@
+{
+  "name": "OpenSCAD",
+  "developer": "The OpenSCAD Developers",
+  "logo": "simple-icons:openscad",
+  "summary": {
+    "en": "CAD modeller where a part is written as a script of solids and transforms, then rendered to STL, so designs are easy to parameterise.",
+    "vi": "Phần mềm CAD trong đó chi tiết được viết thành script gồm khối và phép biến đổi rồi xuất ra STL, nên dễ tham số hoá thiết kế."
+  },
+  "categories": ["cad-3d", "developer-tools"],
+  "tags": ["cad", "3d", "parametric", "scripting", "csg", "3d-printing"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://openscad.org",
+    "repo": "https://github.com/openscad/openscad",
+    "download": "https://openscad.org/downloads.html"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/d671adfc83cac2a266c02d7db6810fe5b1070f59826533d609d235f2e6bf5ace",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

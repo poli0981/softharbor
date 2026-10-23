@@ -1,0 +1,25 @@
+{
+  "name": "EarTrumpet",
+  "developer": "File-New-Project",
+  "logo": "monogram",
+  "summary": {
+    "en": "Tray volume control for Windows with a per-app mixer that can also send one app's sound to a different output device.",
+    "vi": "Bộ chỉnh âm lượng ở khay hệ thống Windows, có bộ trộn theo từng ứng dụng và chuyển âm thanh của một ứng dụng sang thiết bị phát khác."
+  },
+  "categories": ["system", "media"],
+  "tags": ["audio", "volume-mixer", "system-tray"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "LicenseRef-EarTrumpet",
+  "links": {
+    "homepage": "https://eartrumpet.app",
+    "repo": "https://github.com/File-New-Project/EarTrumpet",
+    "download": "https://eartrumpet.app"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/736e45d6b5870cc96e7d6568b04e8fe6c5b2fe980660ca5bdbd1a4f001e5ed94",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

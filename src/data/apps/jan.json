@@ -1,0 +1,33 @@
+{
+  "name": "Jan",
+  "developer": "Menlo Research",
+  "logo": "monogram",
+  "summary": {
+    "en": "Open-source chat app that runs open models on your own machine or uses cloud providers with your own key, and serves a local API.",
+    "vi": "Ứng dụng chat mã nguồn mở chạy mô hình mở ngay trên máy hoặc dùng nhà cung cấp đám mây bằng khoá của bạn, kèm API cục bộ."
+  },
+  "categories": ["ai-local", "productivity"],
+  "tags": [
+    "local-llm",
+    "offline-ai",
+    "chat",
+    "openai-compatible",
+    "mcp",
+    "privacy",
+    "signed-releases"
+  ],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "Apache-2.0",
+  "links": {
+    "homepage": "https://www.jan.ai",
+    "repo": "https://github.com/janhq/jan",
+    "download": "https://www.jan.ai/download"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d57bd4cf44722b56f1d065140e84cd13be515788eae6da196afd93e2847cc0bb",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

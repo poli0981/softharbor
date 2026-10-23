@@ -1,0 +1,32 @@
+{
+  "name": "KDE Connect",
+  "developer": "KDE",
+  "logo": "monogram",
+  "summary": {
+    "en": "Pairs phones and computers on the same network to share files and the clipboard, mirror notifications and use the phone as a remote.",
+    "vi": "Ghép nối điện thoại với máy tính trong cùng mạng để chia sẻ tệp, clipboard, hiện thông báo và dùng điện thoại làm điều khiển từ xa."
+  },
+  "categories": ["utilities", "communication", "file-management"],
+  "tags": [
+    "phone-integration",
+    "notifications",
+    "file-transfer",
+    "clipboard-sync",
+    "remote-control",
+    "local-network"
+  ],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-2.0-only OR GPL-3.0-only",
+  "links": {
+    "homepage": "https://kdeconnect.kde.org",
+    "repo": "https://invent.kde.org/network/kdeconnect-kde",
+    "download": "https://kdeconnect.kde.org/download.html"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/d9edea46aa34e9e727476448147385e8d88116eb14fe808fc758caefc4db4e1d",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "PowerToys",
+  "developer": "Microsoft",
+  "logo": "monogram",
+  "summary": {
+    "en": "Set of Windows add-ons, each switched on separately: window layouts, a launcher, key remapping, bulk rename and OCR.",
+    "vi": "Bộ tiện ích bổ sung cho Windows, bật riêng từng công cụ: sắp xếp cửa sổ, trình khởi chạy, đổi phím, đổi tên hàng loạt và OCR."
+  },
+  "categories": ["utilities", "productivity", "system"],
+  "tags": ["window-management", "launcher", "key-mapping", "bulk-rename", "ocr", "signed-releases"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://learn.microsoft.com/windows/powertoys/",
+    "repo": "https://github.com/microsoft/PowerToys",
+    "download": "https://github.com/microsoft/PowerToys/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/090449b4750f26315a9df98c2297e0328ed4309728ce3b3021c0de1497fac042",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

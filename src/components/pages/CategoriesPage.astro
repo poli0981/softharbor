@@ -25,12 +25,14 @@ const SAMPLE = 3;
 
 <Base
   title={`${t(locale, 'categories.title')} — ${t(locale, 'site.name')}`}
-  description={t(locale, 'meta.categories')}
+  description={t(locale, 'meta.categories', { n: categories.length })}
   {locale}
 >
   <p class="sh-eyebrow">{t(locale, 'welcome.manifest')}</p>
   <h1 class="mt-2 text-[length:var(--text-h1)] font-semibold">{t(locale, 'categories.title')}</h1>
-  <p class="text-sh-muted mt-2 max-w-2xl">{t(locale, 'categories.intro')}</p>
+  <p class="text-sh-muted mt-2 max-w-2xl">
+    {t(locale, 'categories.intro', { n: categories.length })}
+  </p>
 
   <ul class="sh-stagger mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {categories.map((c) => {

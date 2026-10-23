@@ -1,0 +1,25 @@
+{
+  "name": "KiCad",
+  "developer": "KiCad Development Team",
+  "logo": "simple-icons:kicad",
+  "summary": {
+    "en": "Electronics design suite for schematic capture and PCB layout, with SPICE simulation, a 3D board viewer and Gerber output.",
+    "vi": "Bộ thiết kế điện tử để vẽ sơ đồ nguyên lý và bố trí mạch in, có mô phỏng SPICE, xem bo mạch 3D và xuất tệp Gerber."
+  },
+  "categories": ["cad-3d", "developer-tools"],
+  "tags": ["eda", "pcb", "schematic", "electronics", "spice", "gerber", "signed-releases"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://www.kicad.org",
+    "repo": "https://gitlab.com/kicad/code/kicad",
+    "download": "https://www.kicad.org/download/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/3015cb51f0a0fa7cc0bf8065868bcd45664503f8d2848c88454ddb6e13f515b2",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}

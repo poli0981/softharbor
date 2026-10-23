@@ -1,0 +1,25 @@
+{
+  "name": "UltiMaker Cura",
+  "developer": "UltiMaker",
+  "logo": "monogram",
+  "summary": {
+    "en": "Slicer with tested print profiles, hundreds of custom settings and a marketplace for plugins and materials, for many FDM printers.",
+    "vi": "Phần mềm slicer có hồ sơ in đã thử nghiệm, hàng trăm thiết lập tuỳ chỉnh và chợ plugin, vật liệu, dùng được với nhiều máy in FDM."
+  },
+  "categories": ["cad-3d", "utilities"],
+  "tags": ["3d-printing", "slicer", "gcode", "fdm", "plugins", "print-profiles"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "LGPL-3.0-or-later",
+  "links": {
+    "homepage": "https://ultimaker.com/software/ultimaker-cura/",
+    "repo": "https://github.com/Ultimaker/Cura",
+    "download": "https://ultimaker.com/software/ultimaker-cura/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/9285234c5fd52a378eead2ee13fad52f815ed037eafc415c93a65808d9acf31e",
+    "checkedAt": "2026-10-23"
+  },
+  "addedAt": "2026-10-23"
+}
