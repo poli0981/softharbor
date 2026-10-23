@@ -162,8 +162,8 @@ afterEach(() => {
 
 describe('canonicalUrl / urlId — VirusTotal URL identifiers', () => {
   it('reproduces the ids recorded in the catalogue', () => {
-    // Three real entries: a plain page, a bare origin and a #fragment link.
-    for (const slug of ['7-zip', 'homebrew', 'vlc']) {
+    // Two real entries: a plain page and a bare origin.
+    for (const slug of ['7-zip', 'homebrew']) {
       const app = JSON.parse(
         readFileSync(join(process.cwd(), `src/data/apps/${slug}.json`), 'utf8'),
       );
@@ -171,10 +171,20 @@ describe('canonicalUrl / urlId — VirusTotal URL identifiers', () => {
     }
   });
 
-  it('lowercases the host, adds the root path, drops the fragment and keeps the query', () => {
+  it('keeps the fragment, as the API does', () => {
+    // Ids VirusTotal's API returned for two batch-2 links on 2026-10-23.
+    expect(urlId('https://flameshot.org/#download')).toBe(
+      '95707fe983a07c4a17ea04b94ce50a9397bfe77002a56fb064015cda3273487a',
+    );
+    expect(urlId('https://reshade.me/#download')).toBe(
+      '7db7d74ab8287c611844154d1f0d915b1dd92cce3ccfbf3f09178c0797be1d36',
+    );
+  });
+
+  it('lowercases the host, adds the root path and keeps query and fragment', () => {
     expect(canonicalUrl('HTTPS://Brew.SH')).toBe('https://brew.sh/');
     expect(canonicalUrl('https://www.videolan.org/vlc/#download')).toBe(
-      'https://www.videolan.org/vlc/',
+      'https://www.videolan.org/vlc/#download',
     );
     expect(canonicalUrl('https://x.test/get?os=win')).toBe('https://x.test/get?os=win');
     expect(canonicalUrl('https://x.test/download/')).not.toBe(

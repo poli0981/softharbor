@@ -369,7 +369,10 @@ together on 2027-01-27.
   recorded scan was of (318 of 326 evidence ids equal the SHA-256 of that
   link's canonical form; 8 had drifted to a newer link). `POST /urls`
   submits it, a second pass reads `GET /analyses/{id}`, and the permalink is
-  `https://www.virustotal.com/gui/url/<sha256>`.
+  `https://www.virustotal.com/gui/url/<sha256>`. The canonical form keeps a
+  `#fragment`: the API puts it in the id (measured 2026-10-23), while the six
+  2026-07-30 scans of `#download` links were submitted from a browser, which
+  never sends one — those six count as drifted until their next scan.
 - **What it writes:** only the three `security` lines, patched in place so
   Prettier's layout survives; never `addedAt`/`updatedAt` — the feed orders
   by `addedAt`, and notify.py announces anything it has not seen.
