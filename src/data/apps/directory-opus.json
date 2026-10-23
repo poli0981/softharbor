@@ -18,8 +18,8 @@
   },
   "security": {
     "status": "clean",
-    "evidence": "https://www.virustotal.com/gui/url/3d935b1b200525731c67e81f7c191cbd91f72b8926cba64dd7d86088b6016d17",
-    "checkedAt": "2026-07-30"
+    "evidence": "https://www.virustotal.com/gui/url/37801f3af001df3efb1a5d8512135d953195161ff5531a7b79710f33417c87d3",
+    "checkedAt": "2026-10-23"
   },
   "addedAt": "2026-07-28"
 }
