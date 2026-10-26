@@ -144,14 +144,14 @@ may be skipped (docs/12 §3).
      → `403 {"error":"rejected"}` (a `503 not_configured` means the runtime
      secret is missing; a bare `405` from the asset server means the Worker
      is not deployed);
-   - the site-wide rate limit (D32, docs/08 Part F) answers a burst from
-     one machine (it spends that address's budget for one 10 s window):
-     `seq 1 120 | xargs -P 12 -I{} curl -s -o /dev/null -w "%{http_code}\n"
-     https://softharbor.net/robots.txt | sort | uniq -c` → mostly `200`,
-     then `429`s (counts are per location and approximate); one refused
-     page (`curl -sI https://softharbor.net/apps` during the burst) carries
-     `Retry-After: 10`, `Cache-Control: no-store` and the `_headers` set;
-     ten seconds later everything is `200` again;
+   - the site-wide rate limit (D32, docs/08 Part F) answers a burst over
+     **one connection** — one `curl` with many URLs reuses its connection;
+     parallel `curl`s would land on different machines and pass (Part F):
+     `curl -s $(for i in $(seq 70); do printf -- '-o /dev/null https://softharbor.net/robots.txt '; done) -w "%{http_code}\n" | sort | uniq -c`
+     → about 60 × `200`, then `429`s; add `--next -s -D - -o /dev/null
+     https://softharbor.net/apps` to the same command to see a refused
+     page: `429`, `Retry-After: 10`, `Cache-Control: no-store` and the
+     `_headers` set. Ten seconds later everything is `200` again;
    - `/rss.xml` serves the expected items (guid = slug, docs/05 §A4).
 3. **Never run `wrangler deploy` by hand while builds are queued** — the
    queued older build would land after it and roll production back

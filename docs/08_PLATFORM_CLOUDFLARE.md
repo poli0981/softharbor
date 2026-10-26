@@ -338,9 +338,27 @@ the same key as Part E), per Cloudflare location, namespace `4102`. That is
 six a second, sustained: a person reading spends one per page, and what it
 stops is a flood or a scraper running flat out. Generous on purpose,
 because a school, an office or a mobile carrier's NAT puts many people
-behind one address. Approximate by design — counts are local to a location
-and synchronise in the background, so a burst can overshoot a little.
-`/api/verify` keeps its own 20 per 60 s on top (Part E).
+behind one address. `/api/verify` keeps its own 20 per 60 s on top
+(Part E).
+
+**What it really counts — measured on the PR preview, 2026-10-26.**
+Cloudflare calls the binding "permissive, eventually consistent": each
+machine counts locally and shares its counts in the background. In
+practice that sharing barely shows:
+
+| Burst (one client address) | Result |
+|---|---|
+| 120 requests over **one keep-alive connection**, ~11 s | 61 × `200`, then 59 × `429` — the limit, almost to the request |
+| 1 500 requests, **a new connection each** (30 in parallel), ~20 a second for 79 s | 0 × `429` (1 487 × `200`, 12 local connection errors, one `500` whose cause version URLs cannot log) |
+| Production `VERIFY_LIMITER`, 40 `POST /api/verify` in 33 s, a new connection each | 0 × `429` against 20 per 60 s |
+
+So the Worker's limit holds a client that **reuses its connection** —
+every browser (one HTTP/2 connection per origin) and most scrapers — and
+answers it with our own page. A flood that opens a fresh connection per
+request spreads over many machines and mostly slips past it; stopping that
+is the job of the zone rule, which counts per IP at the edge before the
+Worker runs: **layer 1, recommended** (docs/16 §9.1). Neither layer locks
+out a person reading normally.
 
 **Over the limit:**
 
@@ -360,9 +378,11 @@ limiter that throws: the request is served as if there were no limit.
 
 **`_headers` still apply.** What `env.ASSETS.fetch()` returns carries
 `public/_headers` exactly as a direct asset response does — measured under
-`wrangler dev` on 2026-10-26 (frame-ancestors, `X-Frame-Options`, the
-`/_astro/*` and `/api/apps.json` `Cache-Control`). Moving pages behind the
-Worker changed no header.
+`wrangler dev` and on the PR preview on 2026-10-26 (frame-ancestors,
+`X-Frame-Options`, nosniff, the workers.dev `X-Robots-Tag`, the `/_astro/*`
+and `/api/apps.json` `Cache-Control`; and on a refused page the same set
+plus `Retry-After: 10` and `no-store`). Moving pages behind the Worker
+changed no header.
 
 **Billing.** Every routed request is now a billed Worker invocation. The
 account is on Workers Paid: 10 million requests and 30 million
@@ -374,9 +394,9 @@ millisecond of CPU, and the files a page loads stay free ("requests to
 static assets are free and unlimited"). A refused request
 is billed too — the limit makes a flood cheap to answer, not free. A flood
 large enough to matter is the job of Cloudflare's automatic DDoS
-protection, which acts before the Worker runs; the zone rate-limiting rule
-(docs/16 §9) stays available as an outer layer that blocks before the
-Worker, at the price of Cloudflare's default block page.
+protection and of the zone rate-limiting rule (docs/16 §9.1), both of
+which act before the Worker runs, so what they block is never billed —
+the rule at the price of Cloudflare's default block page.
 
 **Logs.** One line per refusal, `{event: "rate_limited", kind: "page" |
 "api"}` — never the address; a request that passes logs nothing. Rate

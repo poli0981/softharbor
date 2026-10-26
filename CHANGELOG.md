@@ -18,10 +18,10 @@ ask for it, and says so plainly when it does.
 
 ### Added
 
-- **A rate limit for the whole site.** Far more requests than anyone
-  reading would make — over 60 in ten seconds from one address — get a
-  "Too many requests" page in English and Vietnamese for about ten seconds
-  instead of the page asked for. The public dataset at `/api/apps.json` and
+- **A rate limit for the whole site.** A browser or tool that asks for
+  far more than anyone reading would — over 60 requests in ten seconds —
+  gets a "Too many requests" page in English and Vietnamese for about ten
+  seconds instead of the page asked for. The public dataset at `/api/apps.json` and
   the bot-check endpoint answer in JSON under the same limit, and the
   dataset's answer is readable from other sites, so tools see the refusal
   and when to retry. What a page loads — styles, scripts, fonts, icons — is

@@ -271,7 +271,7 @@ hreflang errors) — added to docs/13 §6.
 
 | Feature | Status & reason | Recipe if ever needed |
 |---|---|---|
-| **Rate limiting** (zone) | **Optional edge layer since D32 — owner step, ⚠ verify once deployed.** The site's rate limit lives in the Worker (docs/08 Part F: 60 page requests per 10 s, our own 429 page). The zone rule can sit in front of it as layer 1: it blocks a flood before the Worker runs (so before it is billed), but on the Free zone only with **Cloudflare's default 429 page** (custom responses need Pro), which is why it must stay looser than the Worker's limit. | §9.1 — one rule, URI Path starts with `/` and not a verified bot, **150 per 10 s per IP**, Block 10 s. (The pre-D32 recipe here named `http.host` and a 1-minute block, neither of which the Free plan offers.) |
+| **Rate limiting** (zone) | **Recommended edge layer since D32 — owner step, ⚠ verify once deployed.** The site's rate limit lives in the Worker (docs/08 Part F: 60 page requests per 10 s, our own 429 page), but measured, it holds only a client that reuses its connection; a flood opening a new connection per request slips past it. The zone rule in front of it, layer 1, counts per IP at the edge and blocks before the Worker runs (so before it is billed) — on the Free zone only with **Cloudflare's default 429 page** (custom responses need Pro), which is why it must stay looser than the Worker's limit. | §9.1 — one rule, URI Path starts with `/` and not a verified bot, **150 per 10 s per IP**, Block 10 s. (The pre-D32 recipe here named `http.host` and a 1-minute block, neither of which the Free plan offers.) |
 | **Bot Fight Mode** | OFF. It challenges automated clients — which would break exactly what we publish for automation: `/api/apps.json` consumers and the `notify.py` RSS cron. The legal gate's Turnstile check (D25) is no substitute and no conflict: it runs in visitors' browsers, after consent, and fails open. | Only with a scoped WAF exception for `/api/*` and `/rss.xml` — and only in response to actual abuse. |
 | **Speed Brain** (speculative prefetch) | **Should be OFF.** Cloudflare refuses speculative requests on Worker requests — a `Sec-Purpose: prefetch` GET gets a bare **503** with `Cf-Speculation-Refused: prefetch refused: disabled for worker requests` — which is why `astro.config.ts` sets `prefetch: false` (docs/02 §4). **Observed 2026-10-21: production still sends `Speculation-Rules: "/cdn-cgi/speculation"`**, i.e. the zone feature appears to be on (H12, ⚠ verify and turn off). | Turn the zone's Speed Brain toggle off (Speed settings in the dashboard). Revisit only if Cloudflare ever allows speculation on Worker routes. |
 | **Cloudflare Custom Errors** | Unavailable on Free zone (paid-plans feature; also never applies to 500/501/503/505). `/errors/{403,429,500}` templates stay **dormant** as designed. | Upgrade zone to Pro → Rules → Custom Error Rules → point 403/429 at the templates. Decision logged if taken. |
@@ -282,8 +282,11 @@ hreflang errors) — added to docs/13 §6.
 Since D32 there are two layers. **Layer 1**, this zone rule, throws a
 flood out at the edge before the Worker runs — not billed, but answered
 with Cloudflare's default 429 page. **Layer 2**, the Worker's limit
-(docs/08 Part F), answers moderate over-use with our own page. Layer 1 must
-be the looser of the two, or nobody would ever see our page.
+(docs/08 Part F), answers over-use from a browser or a keep-alive client
+with our own page. Layer 1 must be the looser of the two, or nobody would
+ever see our page — and it is the only one that stops a flood that opens
+a new connection per request, which the Worker's per-machine counters
+mostly miss (measured, docs/08 Part F). Recommended, not optional.
 
 Free-zone constraints (Cloudflare's docs, read 2026-10-26): **one** rule;
 counted **per IP** only; the expression may use only **URI Path** and
