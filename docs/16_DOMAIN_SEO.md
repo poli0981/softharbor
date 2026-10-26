@@ -19,9 +19,9 @@
 | N1 | Canonical origin | **`https://softharbor.net`** — apex, no `www` |
 | N2 | `www.softharbor.net` | 301 → apex, path + query preserved (zone Redirect Rule) |
 | N3 | `workers.dev` main route | **Disabled** (`workers_dev: false`); PR previews stay on versioned preview URLs (`preview_urls: true` — must be explicit, since it defaults to follow `workers_dev`) |
-| N4 | Zone plan | **Free** (Workers Paid is account-level and unrelated). Consequence: Cloudflare **Custom Errors stays unavailable** (paid-zone feature) → our `/errors/*` templates remain dormant |
+| N4 | Zone plan | **Free** (Workers Paid is account-level and unrelated). Consequence: Cloudflare **Custom Errors stays unavailable** (paid-zone feature) → `/errors/403` and `/errors/500` remain dormant; `/errors/429` is served by the Worker since D32, not by the zone |
 | N5 | HSTS | Zone-level, phased rollout (§5) — **not** in `_headers` |
-| N6 | Rate limiting & Bot Fight Mode | **OFF** at launch, with a ready-made activation recipe (§9) |
+| N6 | Rate limiting & Bot Fight Mode | Bot Fight Mode **OFF** (§9). Rate limiting: the Worker's site-wide limit since D32 (docs/08 Part F), plus the zone rule as an optional edge layer — recipe §9.1 |
 | N7 | Contact email | ~~`contact@softharbor.net` via Cloudflare Email Routing (§6) — resolves H5~~ — ⛔ **superseded 2026-10-21 by D27**: one address per purpose at `@poli0981.dev`, mail hosted by Google (§6) |
 | N8 | Search plumbing | GSC **Domain property** + sitemap; Bing via GSC import; Crawler Hints (IndexNow) ON |
 
@@ -73,12 +73,12 @@ the `www` record (§2.2).* Today `wrangler.jsonc` (full reference: docs/02
 ```jsonc
 {
   "name": "softharbor",
-  "main": "./worker/index.ts",            // D25 — /api/verify only
+  "main": "./worker/index.ts",            // D25 + D32 — rate limit, /api/verify
   "compatibility_date": "2026-10-01",
   "assets": { "directory": "./dist", "binding": "ASSETS",
               "not_found_handling": "404-page",
               "html_handling": "drop-trailing-slash",
-              "run_worker_first": ["/api/verify"] },
+              "run_worker_first": ["/*", "!/_astro/*", …] }, // D32, docs/02 §7
   // No "routes": softharbor.net and www.softharbor.net are Custom Domains
   // attached in the dashboard; with no routes key a deploy leaves them be.
   "workers_dev": false,     // kills softharbor.<account>.workers.dev
@@ -271,11 +271,62 @@ hreflang errors) — added to docs/13 §6.
 
 | Feature | Status & reason | Recipe if ever needed |
 |---|---|---|
-| **Rate limiting** (zone) | OFF. Static assets are unbilled and edge-served — there is nothing costly to protect; and on the Free zone the Block action serves **Cloudflare's default 429 page** (custom responses are Business+), undermining our error-page polish. *Not to be confused with the Worker's own Workers Rate Limiting binding, which guards only `/api/verify` (20/60 s per IP or /64, docs/08 Part E).* | Free zone includes **1 rule**: Security → WAF → Rate limiting rules → e.g. `(http.host eq "softharbor.net")`, 100 req / 10 s per IP, Block 1 min. Accept the default 429 page, or upgrade zone for custom response. |
+| **Rate limiting** (zone) | **Optional edge layer since D32 — owner step, ⚠ verify once deployed.** The site's rate limit lives in the Worker (docs/08 Part F: 60 page requests per 10 s, our own 429 page). The zone rule can sit in front of it as layer 1: it blocks a flood before the Worker runs (so before it is billed), but on the Free zone only with **Cloudflare's default 429 page** (custom responses need Pro), which is why it must stay looser than the Worker's limit. | §9.1 — one rule, URI Path starts with `/` and not a verified bot, **150 per 10 s per IP**, Block 10 s. (The pre-D32 recipe here named `http.host` and a 1-minute block, neither of which the Free plan offers.) |
 | **Bot Fight Mode** | OFF. It challenges automated clients — which would break exactly what we publish for automation: `/api/apps.json` consumers and the `notify.py` RSS cron. The legal gate's Turnstile check (D25) is no substitute and no conflict: it runs in visitors' browsers, after consent, and fails open. | Only with a scoped WAF exception for `/api/*` and `/rss.xml` — and only in response to actual abuse. |
 | **Speed Brain** (speculative prefetch) | **Should be OFF.** Cloudflare refuses speculative requests on Worker requests — a `Sec-Purpose: prefetch` GET gets a bare **503** with `Cf-Speculation-Refused: prefetch refused: disabled for worker requests` — which is why `astro.config.ts` sets `prefetch: false` (docs/02 §4). **Observed 2026-10-21: production still sends `Speculation-Rules: "/cdn-cgi/speculation"`**, i.e. the zone feature appears to be on (H12, ⚠ verify and turn off). | Turn the zone's Speed Brain toggle off (Speed settings in the dashboard). Revisit only if Cloudflare ever allows speculation on Worker routes. |
 | **Cloudflare Custom Errors** | Unavailable on Free zone (paid-plans feature; also never applies to 500/501/503/505). `/errors/{403,429,500}` templates stay **dormant** as designed. | Upgrade zone to Pro → Rules → Custom Error Rules → point 403/429 at the templates. Decision logged if taken. |
 | **Cache tuning / Page Rules / Snippets** | Defaults. Workers Static Assets already serves from the edge; `_headers` (docs/09 §4) owns per-path `Cache-Control` — `/*` sets none and each specific rule detaches with `! Cache-Control`, because Cloudflare comma-joins a header set by several matching rules. | — |
+
+### 9.1 Layer 1 at the edge — the zone rate-limiting rule (owner step)
+
+Since D32 there are two layers. **Layer 1**, this zone rule, throws a
+flood out at the edge before the Worker runs — not billed, but answered
+with Cloudflare's default 429 page. **Layer 2**, the Worker's limit
+(docs/08 Part F), answers moderate over-use with our own page. Layer 1 must
+be the looser of the two, or nobody would ever see our page.
+
+Free-zone constraints (Cloudflare's docs, read 2026-10-26): **one** rule;
+counted **per IP** only; the expression may use only **URI Path** and
+**Verified Bot** (no Host); period **10 s**; block duration **10 s**; the
+Block response is Cloudflare's default 429 (a custom response needs Pro).
+Use Block, not a challenge: a challenge would break `/api/apps.json` and
+RSS consumers, which cannot solve one.
+
+Dashboard → the `softharbor.net` zone → **Security** → **Security rules** →
+**Create rule** → **Rate limiting rules** (older dashboards: Security → WAF
+→ Rate limiting rules):
+
+1. **Rule name:** `Edge flood guard (layer 1, D32)`.
+2. **If incoming requests match:** Field **URI Path**, Operator **starts
+   with**, Value `/` (every request) — **And** Field **Verified Bot**,
+   Value **Off**, so search engines' verified crawlers are left to the
+   Worker's limit and their own crawl-rate control. The expression preview
+   should read `(starts_with(http.request.uri.path, "/") and not
+   cf.client.bot)`.
+3. **Cache status:** if **Also apply rate limiting to cached assets** is
+   offered, leave it **on** — every request counts.
+4. **With the same characteristics:** **IP** (the only choice on Free).
+5. **When rate exceeds:** **150** requests per **10 seconds**.
+6. **Then take action:** **Block**; **Duration:** **10 seconds**.
+7. **Deploy.**
+
+**Why 150.** The rule counts everything — each page's CSS, JS and fonts
+(about fifteen requests for a first page load, cached afterwards) and the
+Worker's own 429s — while the Worker allows 60 page requests per 10 s. 150
+is out of reach for any person, above the Worker's limit so over-use meets
+our page first, and far below a flood. Never set it under ~100.
+
+**Verify** once it is deployed, from one machine — hammer a file the
+Worker never sees (an asset-first path), so only layer 1 can answer:
+
+```bash
+seq 1 200 | xargs -P 20 -I{} curl -s -o /dev/null -w "%{http_code}\n" https://softharbor.net/favicon.svg | sort | uniq -c
+```
+
+Expect roughly 150 × `200` and the rest `429` (Cloudflare's page, not
+ours); ten seconds later the file answers `200` again. **Roll back** by
+turning the rule off on the same page — nothing in the repository depends
+on it.
 
 ## 10. Rollout sequence & verification
 

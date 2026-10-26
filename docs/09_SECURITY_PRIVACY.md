@@ -22,7 +22,7 @@ honest-privacy story.
 | T4 | Site integrity | XSS via data fields | All rendering through Astro's default escaping; `set:html` lint-banned (`astro/no-set-html-directive`) except five named files that inline build-time SVG, JSON-LD or one constant (docs/10 §3); JSON-LD escapes `<`; schema constrains URLs to https; CSP §4 as backstop |
 | T5 | Visitors | Clickjacking / framing on a look-alike site | `frame-ancestors 'none'` + `X-Frame-Options: DENY` (and on Worker responses, §4a) |
 | T6 | Repo | Malicious PR alters workflows/scripts/the Worker | Ruleset on `main`: PR required, **signed commits**, required checks (docs/12 §8); CODEOWNERS on `.github/**`, `scripts/**`, `src/data/**`, `worker/**`; every workflow declares least `permissions:` (the repo default token is read-write); `persist-credentials: false` on checkout; step outputs reach shell only via `env:` (no `${{ }}` in `run:`) |
-| T7 | Availability | DDoS | Cloudflare edge absorbs; static assets, nothing to exhaust. The one endpoint is rate-limited per IP or /64 and fails open, so exhausting it locks nobody out (§4a) |
+| T7 | Availability | DDoS, floods, runaway scrapers | Cloudflare's edge DDoS protection absorbs volumetric attacks before any code runs. Above that, the Worker's site-wide limit (D32, docs/08 Part F): 60 requests per 10 s per IPv4 or IPv6 /64 for every page, feed and data file, answered with our own 429 page or JSON; optional zone rule as an outer layer (docs/16 §9.1). The files a page loads are never limited, so a page that passed loads whole; the limit and `/api/verify` both fail open, so an outage of either locks nobody out (§4a) |
 | T8 | Users' privacy | Tracking/leakage | No cookies, no ads, no fingerprinting by us. Two Cloudflare services only, both started by our code: Web Analytics (cookieless; never under Global Privacy Control or off the production host) and Turnstile (only after the documents are accepted). The CSP allows exactly their origins (§4); storage inventory §8 |
 | T9 | The domain itself | `softharbor.net` hijack (registrar/DNS) or email spoofing "from" the domain | Registrar transfer lock + auto-renew, DNSSEC enabled, zone changes only via the dashboard (custom domains are attached there, docs/16 §3); SPF + DMARC `p=quarantine` observed 2026-10-21 (→ `reject` planned) — docs/16 §2/§6 |
 | T10 | The endpoint | `/api/verify` abused: cross-site POSTs, replayed or foreign tokens, oversized bodies, burning the Siteverify allowance | Same-origin check; `application/json` only; body ≤ 4 KB counted while streaming; token ≤ 2048 chars; Siteverify verdict re-checked for host, `action: legal_gate` and age ≤ 300 s; idempotency key; Workers Rate Limiting 20/60 s per IPv4 or IPv6 /64; `no-store` — all in §4a |
@@ -256,8 +256,10 @@ the gate's step 2 links to it.
 (`src/lib/turnstile.test.ts`). The e2e suite stands in for Cloudflare:
 `api.js` is served from its real URL (so the page CSP is exercised) and
 `/api/verify` — which `astro preview` does not run — answers 200, 503 or is
-blocked (docs/11 §5). What only production can show: the Worker, the
-secret and `_headers` — verified after each deploy (docs/13 §3).
+blocked (docs/11 §5). The Worker itself — routing, both limiters, `_headers` on
+what it passes through — runs under `wrangler dev` in the e2e project
+`worker` (docs/11 §5). What only production can show: the real edge, the
+secret — verified after each deploy (docs/13 §3).
 
 ## 5. Vulnerability reporting
 
@@ -410,6 +412,7 @@ what — the list the Privacy Policy mirrors (`/legal/privacy`):
 | Party | When | What |
 |---|---|---|
 | Cloudflare (hosting) | every request | connection data such as IP addresses, as infrastructure provider under its own policy; we see aggregate counts only |
+| Our Worker's rate limit (D32) | every page, feed and data request | the IP address (IPv6: its /64) as the key of a counter Cloudflare's rate limiter keeps for 10 s; never logged — a refusal logs only its kind (docs/08 Part F) |
 | Cloudflare Web Analytics (D26) | page loads on `softharbor.net` only, **never** when `navigator.globalPrivacyControl === true` | page URL, referrer, load timings, user-agent; cookieless; we see totals |
 | Cloudflare Turnstile (D25) | once, after the documents are accepted | browser/device signals inside its iframe; the token plus IP go to Siteverify via our Worker (§4a) |
 | GitHub | only if the visitor opens "Report a bug" | the prefilled URL carries page URL, user-agent and recent error lines — GitHub receives them **when the link is opened**; nothing is filed until the visitor submits (docs/05 §A6) |

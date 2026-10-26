@@ -51,7 +51,7 @@
   "error.403.title": "Truy cập bị từ chối",
   "error.404.body": "Liên kết có thể đã cũ, hoặc mục tương ứng đã được gỡ — ứng dụng bị gắn cờ sẽ được đưa vào khu cách ly thay vì giữ lại.",
   "error.404.title": "Không tìm thấy trang",
-  "error.429.body": "Bạn đã bị giới hạn tần suất truy cập. Bộ dữ liệu công khai tại /api/apps.json tồn tại để công cụ không phải quét từng trang.",
+  "error.429.body": "Mạng của bạn vừa gửi quá nhiều yêu cầu trong thời gian ngắn. Hãy đợi khoảng mười giây rồi tải lại trang. Nếu bạn đang viết công cụ: bộ dữ liệu công khai tại /api/apps.json chứa mọi ứng dụng trong một lần tải — không cần quét từng trang.",
   "error.429.title": "Quá nhiều yêu cầu",
   "error.500.body": "SoftHarbor là trang tĩnh nên lỗi này gần như không thể xảy ra. Nếu bạn gặp, hãy dùng nút báo lỗi ở chân trang.",
   "error.500.title": "Đã xảy ra lỗi",

@@ -29,15 +29,17 @@ explaining it away. The scan is linked either way — judge it yourself.
 ## How it is built
 
 Static. No database, no accounts, no cookies; fonts, icons and scripts are
-self-hosted. The exceptions are deliberate and small: one tiny Worker endpoint
-that checks the legal gate's Cloudflare Turnstile token (`worker/`, and the
-gate lets you in even if the check cannot run), and cookieless Cloudflare Web
+self-hosted. The exceptions are deliberate and small: one tiny Worker
+(`worker/`) that rate-limits floods — over the limit you get a "Too many
+requests" page for a few seconds — and checks the legal gate's Cloudflare
+Turnstile token (the gate lets you in even if the check cannot run), and
+cookieless Cloudflare Web
 Analytics, which does not load at all when your browser sends Global Privacy
 Control. The [Privacy Policy](https://softharbor.net/legal/privacy) has the
 details.
 
 Astro 7 (static) · Svelte 5 islands · Tailwind CSS 4 · TypeScript strict ·
-Node 26 · pnpm 11 · Cloudflare Workers Static Assets (+ one Worker route).
+Node 26 · pnpm 11 · Cloudflare Workers Static Assets (+ one small Worker).
 Tested with Vitest (unit, islands, build scripts, the Worker) and Playwright +
 axe on the built site; analysed by CodeQL and SonarQube Cloud.
 

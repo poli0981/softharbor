@@ -1,15 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "softharbor",
-  // D25 (docs/15): ONE small Worker, for POST /api/verify (the legal gate's
-  // Turnstile check) and nothing else. Pages, assets and feeds are still
-  // served by the asset server without invoking it, so they stay unbilled;
-  // see `run_worker_first` below and worker/index.ts.
+  // D25 + D32 (docs/15): ONE small Worker. It runs the site-wide rate limit
+  // and answers POST /api/verify (the legal gate's Turnstile check); every
+  // page, feed and file it lets through is still served by the asset server
+  // (env.ASSETS). See `run_worker_first` below and worker/index.ts.
   "main": "./worker/index.ts",
-  // ≥ 2025-04-01 matters: from that date a NAVIGATION request that matches no
-  // asset gets dist/404.html straight from the asset server instead of
-  // invoking the Worker. (Other misses — a missing image or JSON — do reach
-  // the Worker, which hands them to ASSETS.fetch() for the same 404.)
+  // ≥ 2025-04-01 still matters on the asset-first paths below: there a
+  // NAVIGATION that matches no asset gets dist/404.html from the asset server
+  // directly, and any other miss reaches the Worker, which counts it and
+  // hands it to ASSETS.fetch() for the same 404.
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist",
@@ -21,21 +21,47 @@
     // alternate we emit. "drop-trailing-slash" makes the no-slash URL the one
     // that serves 200 and redirects the slashed variant to it.
     "html_handling": "drop-trailing-slash",
-    // The only path that runs the Worker before the asset server. Add to it
-    // only with a decision-log entry: every match is a billed invocation.
-    "run_worker_first": ["/api/verify"],
+    // D32: the Worker runs FIRST for every request — so each one passes the
+    // site-wide rate limit — EXCEPT the files below, which stay asset-first:
+    // never limited, never billed. A page fetches them only after it passed
+    // itself, so limiting them could only leave a page half-loaded, and
+    // content-hashed files are cached for a year anyway. Negative patterns
+    // win over `/*` regardless of order. Change this list only with a
+    // decision-log entry: every request it routes is a billed invocation.
+    "run_worker_first": [
+      "/*",
+      "!/_astro/*", // content-hashed JS, CSS and the self-hosted fonts
+      "!/icons/*",
+      "!/favicon.ico",
+      "!/favicon.svg",
+      "!/apple-touch-icon.png",
+      "!/manifest.webmanifest",
+      "!/sw.js",
+      "!/registerSW.js",
+      "!/workbox-*.js",
+    ],
   },
-  // Workers Rate Limiting for /api/verify: 20 verifications per minute per
-  // IPv4 address or IPv6 /64, per Cloudflare location. Generous on purpose —
-  // a school or office behind one NAT address is many people. namespace_id is
-  // account-wide; 4101 is not used by any other Worker on this account.
+  // Workers Rate Limiting, counted per IPv4 address or IPv6 /64 and per
+  // Cloudflare location (worker/http.ts rateKey). Generous on purpose: a
+  // school, an office or a mobile carrier's NAT puts many people behind one
+  // address. namespace_id is account-wide; 4101 and 4102 are used by no
+  // other Worker on this account (checked 2026-10-26).
   "ratelimits": [
+    // Every request that runs the Worker (D32): 60 per 10 s is six a second,
+    // sustained — far above anyone reading the site, low enough to stop a
+    // flood or a runaway scraper. Over it: the branded 429 page (or JSON
+    // under /api/), Retry-After 10. Keep `period` equal to RETRY_AFTER_S in
+    // worker/limit.ts (a test holds them together).
+    { "name": "SITE_LIMITER", "namespace_id": "4102", "simple": { "limit": 60, "period": 10 } },
+    // /api/verify on top of that (D25): 20 verifications per minute.
     { "name": "VERIFY_LIMITER", "namespace_id": "4101", "simple": { "limit": 20, "period": 60 } },
   ],
-  // Workers Logs keep the Worker's own one-line JSON events (outcome and
-  // duration, never an IP or token — worker/verify.ts). Invocation logs are
-  // off: they would add per-request metadata the Privacy Policy does not
-  // need us to hold.
+  // Workers Logs keep the Worker's own one-line JSON events — a verification's
+  // outcome and duration (worker/verify.ts), a rate-limit refusal's kind
+  // (worker/limit.ts) — never an IP or token. A request that passes logs
+  // nothing. Invocation logs stay off: now that every page runs the Worker
+  // they would be a log line per page view, holding per-request metadata the
+  // Privacy Policy does not need us to hold.
   "observability": {
     "enabled": true,
     "logs": { "enabled": true, "invocation_logs": false },

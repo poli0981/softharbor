@@ -1,9 +1,9 @@
 ---
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
-// Dormant (docs/08 Part C): rate limiting is deliberately OFF in v1
-// (docs/16 §9), and on a Free zone a block would show Cloudflare's own page
-// anyway. Kept as a config-only switch-on.
+// Live since D32 (docs/08 Part C): the Worker's site-wide rate limit answers
+// an over-limit page request with this page, status 429 and Retry-After
+// (worker/limit.ts). Requested directly it is an ordinary 200, like /404.
 import ErrorPage from '../../components/pages/ErrorPage.astro';
 ---
 
