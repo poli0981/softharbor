@@ -355,12 +355,16 @@ does not read issue labels.
   Whether `wrangler dev` (with `.dev.vars`) runs with the script blocked:
   ⚠ verify. Flipping any entry to `true` requires a decision-log line.
 - **`overrides`** in `pnpm-workspace.yaml` force patched floors for
-  `brace-expansion` and `fast-uri`, each with the advisory ids in a comment;
-  both reach us only through build tooling (`@vite-pwa/astro` →
-  `workbox-build`), nothing ships to a visitor. Remove a line once
-  upstream's own range moves past it. `peerDependencyRules` accepts
-  `@vite-pwa/astro`'s stale Astro peer range explicitly (it works on
-  Astro 7; `check:sw` proves it every build).
+  `brace-expansion`, `fast-uri` and `serialize-javascript`, and for the
+  `undici` 7 copy that `miniflare` pins exactly (`miniflare>undici`; added
+  2026-10-26), each with the advisory ids in a comment. All of them reach
+  us only through build or dev tooling (`@vite-pwa/astro` →
+  `workbox-build`, `wrangler` → `miniflare`); nothing ships to a visitor.
+  CI's OSV-Scanner step fails `gates` on any of them, so a new transitive
+  advisory blocks every PR — Dependabot's included — until it is handled
+  here. Remove a line once upstream's own range moves past it.
+  `peerDependencyRules` accepts `@vite-pwa/astro`'s stale Astro peer range
+  explicitly (it works on Astro 7; `check:sw` proves it every build).
 - **pnpm 11's default 24 h `minimumReleaseAge`** refuses any release younger
   than a day; Dependabot's 2-day cooldown keeps its PRs installable under
   `--frozen-lockfile` (docs/12 §6).
