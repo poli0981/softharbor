@@ -103,7 +103,10 @@ dictionaries into the island would bundle every key (docs/07 §3).
   Disclosure) · **2026-10-21** (v1.1: Privacy covers Web Analytics and the
   Turnstile check and names the operator; Terms gained the operator and a
   copyright-complaint procedure; nine EN/VI wording gaps and two false AI
-  Disclosure claims fixed).
+  Disclosure claims fixed) · **2026-10-26** (v1.3: Privacy gains
+  `#rate-limit` for the site-wide rate limit, D32 — our own code now
+  processes every visitor's address, if only for seconds, which the gate
+  asks everyone to accept once more).
 
 ### Contacts (D27)
 
@@ -225,6 +228,13 @@ analytics") stopped being true with D25/D26 and is not reproduced here
   success and duration. A pass is remembered 48 h (`sh:human`); if the
   check cannot run the visitor is let in and it is retried after an hour.
   Basis: legitimate interest.
+- **`#rate-limit`** *(2026-10-26, D32)* — the site's own code counts
+  requests for pages, feeds and data per IP (per /64 for IPv6) over a few
+  seconds; a network far above any reader's pace gets a "Too many
+  requests" page until the window passes; counts live only in
+  Cloudflare's rate limiter for that window; no address is recorded — a
+  refusal is logged without it. Basis: legitimate interest. Also one
+  sentence in the short version.
 - **`#hosting`** — Cloudflare serves the site and the endpoint and
   processes connection data under its own policy; we see aggregate counts.
 - **`#email`** — `@poli0981.dev` mail is delivered to a Google-hosted
@@ -389,7 +399,7 @@ Terms, contacts, AI Disclosure) re-opens these items — sign-off on it:
       legalese beyond necessity.
 - [ ] Confirm comfort with C3 free-tier ruling as written in Disclaimer
       context (pricing can change → covered by 3a(3)).
-- [ ] `LEGAL_VERSION` follows the Part 2 policy (2026-10-21 as of v1.1); a
+- [ ] `LEGAL_VERSION` follows the Part 2 policy (2026-10-26 as of v1.3); a
       later material change to Disclaimer, Terms or Privacy bumps it, and
       `legal.test.ts` fails if one is dated after it.
 - [ ] Optional (recommended eventually): a qualified local review of Terms

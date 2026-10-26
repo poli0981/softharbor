@@ -19,9 +19,10 @@
  * this constant still dated every page, it moved with the new AI
  * Disclosure); 2026-10-21 (v1.1: the Privacy Policy now covers Cloudflare
  * Web Analytics and the Turnstile check, and Terms gained the operator and a
- * copyright-complaint procedure).
+ * copyright-complaint procedure); 2026-10-26 (v1.3: the Privacy Policy
+ * covers the site-wide rate limit, D32).
  */
-export const LEGAL_VERSION = '2026-10-21';
+export const LEGAL_VERSION = '2026-10-26';
 
 export type LegalDoc =
   'aiDisclosure' | 'disclaimer' | 'privacy' | 'terms' | 'thirdParty' | 'trademarks';
@@ -38,9 +39,9 @@ export const ACCEPTED_DOCS = [
  * One date for all six used to stamp documents that had not changed.
  */
 export const LEGAL_UPDATED: Readonly<Record<LegalDoc, string>> = {
-  aiDisclosure: '2026-10-23',
+  aiDisclosure: '2026-10-26',
   disclaimer: '2026-10-21',
-  privacy: '2026-10-21',
+  privacy: '2026-10-26',
   terms: '2026-10-21',
   thirdParty: '2026-10-21',
   trademarks: '2026-10-21',

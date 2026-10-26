@@ -4,7 +4,8 @@
 
 Static-first. The repository *is* the database; a deploy *is* a data
 migration. Everything a visitor reads is a prebuilt static asset; since
-v1.1 one small Worker answers exactly one endpoint (D25).
+v1.1 one small Worker answers exactly one endpoint (D25), and since v1.3
+it also stands in front of every page as the site-wide rate limit (D32).
 
 ```
  maintainer PR ──▶ CI (ci.yml build + gates, codeql) ──▶ squash to main
@@ -14,8 +15,11 @@ v1.1 one small Worker answers exactly one endpoint (D25).
                                         │  dist/ + worker/
                                         ▼
                      Cloudflare Workers Static Assets — softharbor.net
-                       pages, assets, feeds ─▶ asset server (unbilled)
-                       POST /api/verify ─────▶ worker/index.ts (D25)
+                       /_astro/*, icons, SW ─▶ asset server (unbilled)
+                       pages, feeds, /api/* ─▶ worker/index.ts: rate limit (D32)
+                                                 ├─ over it → 429
+                                                 ├─ POST /api/verify (D25)
+                                                 └─ else → asset server
                                         │
                                         ▼
                                      Browser
@@ -29,21 +33,25 @@ v1.1 one small Worker answers exactly one endpoint (D25).
 Consequences (accepted, documented):
 
 - No SSR, no database, no page ever produced by server code. The only
-  server code is `worker/`, which answers `POST /api/verify` (the legal
-  gate's Turnstile check) and runs only for the paths in
-  `assets.run_worker_first`; every page, asset and feed is served by the
-  asset server without invoking it (§7, docs/08 Part E).
+  server code is `worker/`, which runs for the paths in
+  `assets.run_worker_first` — everything but the files a page loads — and
+  does two things: the site-wide rate limit (D32) and `POST /api/verify`
+  (the legal gate's Turnstile check, D25). Every page, asset and feed it
+  lets through is served by the asset server unchanged (§7, docs/08
+  Parts E and F).
 - "Dynamic" behaviors are relocated: data mutation → Git + GitHub Actions;
   personalization → localStorage; search → client-side index; shareable
   view state → the URL (docs/05 §A3).
 - Logs: Cloudflare's dashboard metrics for the site, plus Workers Logs for
-  the Worker's own one-line JSON events (outcome and duration — never an IP
-  or a token; invocation logs off).
-- 403/429 can now come from us, but only as JSON answers from
-  `/api/verify` that the gate consumes and fails open on — never as a page.
-  Page-level 403/429 still cannot happen: the zone's security features
-  (rate limiting, Bot Fight Mode) are deliberately OFF (docs/16 §9), so the
-  templates stay dormant (docs/08 Part C).
+  the Worker's own one-line JSON events (a verification's outcome and
+  duration, a rate-limit refusal's kind — never an IP or a token;
+  invocation logs off).
+- 429 comes from us since D32: our own `/errors/429` page for a page
+  request over the site-wide limit, JSON under `/api/` (docs/08 Part F).
+  403 still comes only as a JSON answer from `/api/verify`, which the gate
+  consumes and fails open on. Page-level 403 cannot happen — Bot Fight Mode
+  and the zone's WAF rules are off (docs/16 §9) — so `/errors/403` and
+  `/errors/500` stay dormant (docs/08 Part C).
 
 ## 2. Project tree
 
@@ -77,13 +85,15 @@ softharbor/
 ├── data/
 │   └── quarantine/                # flagged apps parked here (docs/03 §5);
 │                                  #   created by `pnpm quarantine` on first use
-├── worker/                        # the ONE Worker (D25, docs/08 Part E)
-│   ├── index.ts                   # /api/verify → verify.ts, else ASSETS.fetch()
+├── worker/                        # the ONE Worker (D25, D32 — docs/08 E, F)
+│   ├── index.ts                   # rate limit → /api/verify → else ASSETS.fetch()
+│   ├── limit.ts                   # site-wide rate limit, 429 page / JSON
 │   ├── verify.ts                  # POST /api/verify → Turnstile Siteverify
 │   ├── http.ts                    # JSON responses, body cap, rate-limit key
 │   ├── env.ts                     # bindings, typed by hand
 │   └── *.test.ts                  # Vitest `worker` project (docs/11)
-├── e2e/                           # Playwright + axe on the build (docs/11 §5)
+├── e2e/                           # Playwright + axe on the build, and the
+│                                  #   Worker under `wrangler dev` (docs/11 §5)
 ├── scripts/
 │   ├── validate-data.mjs          # L2 cross-file data rules (docs/03 §2)
 │   ├── check-i18n-parity.mjs      # EN/VI key parity (docs/07 §3)
@@ -156,7 +166,7 @@ softharbor/
         ├── legal/{disclaimer,privacy,terms,trademarks,third-party,
         │         ai-disclosure}.astro
         ├── contact.astro                     # one address per purpose (D27)
-        ├── errors/{403,429,500}.astro        # dormant templates
+        ├── errors/{403,429,500}.astro        # 429 live (D32); 403, 500 dormant
         ├── 404.astro                         # → dist/404.html
         ├── offline.astro                     # SW fallback
         ├── api/apps.json.ts                  # static JSON export
@@ -178,11 +188,12 @@ softharbor/
 | `/contact` | `/vi/contact` | `contact.astro` | One address per purpose (D27); gate-exempt |
 | `/404` | — | `404.astro` | Served via `not_found_handling`; one bilingual page; gate-exempt |
 | `/offline` | — | `offline.astro` | SW navigation fallback; one bilingual page; gate-exempt |
-| `/errors/{403,429,500}` | — | templates | Dormant — Free zone, nothing issues them (docs/08 Part C) |
+| `/errors/429` | — | template | **Live** (D32): the Worker serves it with status 429 to a client over the site-wide limit (docs/08 Part F) |
+| `/errors/{403,500}` | — | templates | Dormant — Free zone, nothing issues them (docs/08 Part C) |
 | `/api/apps.json` | — | endpoint | Full dataset export (docs/03 §6) |
 | `/search-index.json` | — | endpoint | Serialized MiniSearch index, lazy-loaded |
 | `/rss.xml` | — | endpoint | Latest additions feed |
-| `POST /api/verify` | — | `worker/` | The only route that runs code (D25, docs/09 §4a) |
+| `POST /api/verify` | — | `worker/` | The only endpoint answered by code (D25, docs/09 §4a); like every routed request it passes the site-wide limit first (D32) |
 
 Every page route is prebuilt: 701 HTML files in `dist/` as of 2026-10-21
 (326 apps × 2 locales plus the rest). Pages without a VI mirror (404,
@@ -343,9 +354,9 @@ document load with its own CSP and its own island tree.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "softharbor",
-  "main": "./worker/index.ts",            // D25 — POST /api/verify only
-  // ≥ 2025-04-01: a NAVIGATION that matches no asset gets dist/404.html from
-  // the asset server without invoking the Worker (docs/08 Part C).
+  "main": "./worker/index.ts",            // D25 + D32 — rate limit, /api/verify
+  // ≥ 2025-04-01: on an asset-first path, a NAVIGATION that matches no asset
+  // gets dist/404.html from the asset server directly (docs/08 Part C).
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist",
@@ -355,13 +366,17 @@ document load with its own CSP and its own island tree.
     // Measured in S1 on a real deploy: "auto-trailing-slash" 307s /apps to
     // /apps/, contradicting every canonical; this makes /apps the 200.
     "html_handling": "drop-trailing-slash",
-    // The only path that runs the Worker before the asset server.
-    "run_worker_first": ["/api/verify"]
+    // D32: every request runs the Worker first EXCEPT what a page loads.
+    "run_worker_first": ["/*", "!/_astro/*", "!/icons/*", "!/favicon.ico",
+      "!/favicon.svg", "!/apple-touch-icon.png", "!/manifest.webmanifest",
+      "!/sw.js", "!/registerSW.js", "!/workbox-*.js"]
   },
-  // Workers Rate Limiting for /api/verify: 20 per 60 s per IPv4 address or
-  // IPv6 /64, per Cloudflare location. namespace_id is account-wide.
+  // Workers Rate Limiting, per IPv4 address or IPv6 /64, per Cloudflare
+  // location; namespace_id is account-wide (docs/08 Part F).
   "ratelimits": [
-    { "name": "VERIFY_LIMITER", "namespace_id": "4101",
+    { "name": "SITE_LIMITER", "namespace_id": "4102",     // D32
+      "simple": { "limit": 60, "period": 10 } },
+    { "name": "VERIFY_LIMITER", "namespace_id": "4101",   // D25
       "simple": { "limit": 20, "period": 60 } }
   ],
   // Workers Logs keep the Worker's own JSON lines; invocation logs are off.
@@ -379,10 +394,12 @@ document load with its own CSP and its own island tree.
 
 Rules:
 
-- `main` exists since D25 and serves **only** `/api/verify`. Adding any
-  path to `run_worker_first` — or letting the Worker serve, gate or rewrite
-  a page — needs a decision-log entry: every match is a billed invocation,
-  and hard rule 1 allows one route.
+- `main` exists since D25 and does exactly two things (hard rule 1): the
+  site-wide rate limit (D32) and `/api/verify`. Changing what
+  `run_worker_first` routes, the limits, or letting the Worker serve,
+  render or rewrite a page needs a decision-log entry: every routed request
+  is a billed invocation. Keep the negative patterns covering everything a
+  page loads, so a page that passed never half-loads.
 - Never re-enable `workers_dev` (duplicate-content hazard — docs/16 §1/N3).
 - Do not re-add `routes` without re-reading docs/16 §2.2: a deploy
   reconciles the Worker's triggers, which is how `www` was lost once.

@@ -51,7 +51,7 @@
   "error.403.title": "Access denied",
   "error.404.body": "The link may be old, or the entry may have been removed — flagged apps are quarantined rather than kept live.",
   "error.404.title": "That page isn't here",
-  "error.429.body": "You have been rate limited. The public dataset at /api/apps.json exists precisely so tools do not have to scrape the pages.",
+  "error.429.body": "Too many requests came from your network in a short time. Wait about ten seconds, then reload the page. Writing a tool? The public dataset at /api/apps.json has every app in one request — no need to scrape the pages.",
   "error.429.title": "Too many requests",
   "error.500.body": "SoftHarbor is a static site, so this should be impossible. If you are seeing it, the report button in the footer helps.",
   "error.500.title": "Something broke",

@@ -6,7 +6,8 @@
         ▲  manual: launch checklist (docs/13 §2) — screen readers, visual VI
         │          diacritics, real-device offline, production-only checks
         │  e2e (Playwright + axe): the BUILT site under `astro preview`,
-        │          desktop Chrome + Pixel 7 — docs/11 §5
+        │          desktop Chrome + Pixel 7, and the Worker under
+        │          `wrangler dev` — docs/11 §5
         │  build-as-integration-test: `pnpm build` and its gates —
         │          validate:data, i18n:check, check:csp, check:assets,
         │          check:sw, check:feed (docs/12 §2)
@@ -65,7 +66,7 @@ excludes only the root `*.config.*` files.
 | `licenses.ts` / `logo.ts` / `paths.ts` | generated package table (installed versions, legacy and missing licenses); logo forms incl. monogram, no `style` attribute, escaped initials; category-page order (`byAddedDesc`) |
 | `contrast.test.ts` | WCAG ratios for every token pair, both themes; no-JS dark block identical to the dark theme (docs/06 §2) |
 | `scripts/*` (scripts project) | `validate-data` (each rule → its error row), `check-csp`, `check-i18n-parity`, `check-service-worker`, `check-feed`, `quarantine` — real script, temp tree, exit code |
-| `worker/*` (worker project) | method, origin, media type, size (declared and streamed), token shape, rate limit, Siteverify verdicts (host, action, age, test secrets), retry with the same idempotency key, 503 without a secret, security headers on every response |
+| `worker/*` (worker project) | `/api/verify`: method, origin, media type, size (declared and streamed), token shape, rate limit, Siteverify verdicts (host, action, age, test secrets), retry with the same idempotency key, 503 without a secret, security headers on every response. The site-wide limit (`limit.test.ts`, D32): key per IPv4 or /64, the 429 page (status, `Retry-After`, `no-store`, no `ETag`, the asset server's headers kept, `HEAD`), JSON under `/api/` with CORS on the dataset only, plain-text fallback, fail-open (no binding, no address, a throwing limiter), one log line without the address; `wrangler.jsonc` read back to hold `period` = `RETRY_AFTER_S` and the negative patterns |
 | islands | one test file per island (`Sh*.test.ts`): gate steps and Esc handling, search races and URL writes, filter sheet counts, language switch carrying the query, display menu storage, bug-report URL |
 
 **Fuzzy vectors — resolved by S2 (2026-07-27), decision D22.** The old
@@ -284,9 +285,12 @@ references, and page-to-page links are covered by the e2e page set.
 `playwright.config.ts`, specs in `e2e/`. Runs against the **built** site
 served by `astro preview` on `127.0.0.1:4321` — the per-page meta CSP is
 exactly as shipped (`ASTRO_PREVIEW_BACKGROUND=0` keeps the server in the
-foreground; Astro ≥ 7.2 backgrounds it under CI). Two projects: `desktop`
-(Desktop Chrome) and `mobile` (Pixel 7 — bottom sheets, the wrapped header,
-touch targets). CI: one retry, traces kept on failure, report artifact.
+foreground; Astro ≥ 7.2 backgrounds it under CI). Three projects:
+`desktop` (Desktop Chrome) and `mobile` (Pixel 7 — bottom sheets, the
+wrapped header, touch targets) against `astro preview`, and `worker`
+(D32), which alone runs `e2e/worker.spec.ts` against a second server:
+`wrangler dev` on `127.0.0.1:8799` serving the same `dist/` with the real
+`wrangler.jsonc`. CI: one retry, traces kept on failure, report artifact.
 
 **Shared fixture** (`e2e/fixtures.ts`, auto-applied): a test **fails** if
 its page logged a console error, threw an uncaught exception, or fired a
@@ -305,8 +309,11 @@ animations before axe measures contrast.
 |---|---|
 | `smoke.spec.ts` | 15 pages in both locales (home, grid, detail, categories, legal, offline, contact): status < 400, an `h1`, a resolved `data-theme`, **no horizontal overflow**; an unknown URL → real 404 without the gate; **axe** (WCAG 2.0/2.1 A+AA, 2.2 AA tags) on five pages in **light and dark**, serious/critical findings fail |
 | `gate.spec.ts` | blocks a first visit until accepted *and* checked; Esc twice cannot dismiss; **no Cloudflare request before acceptance**; check remembered ~48 h across a reload; blocked script or 503 → visitor let through with the "skipped" note and a 1 h retry; a lapsed check re-runs step 2 only; linked documents and error/offline pages are exempt |
+| `worker.spec.ts` (project `worker`) | pages pass through the Worker with `_headers`, the 404 page and the trailing-slash redirect intact; a flood gets **exactly** the configured budget of 200s, then 429s — the branded page with `Retry-After` and `no-store`; while refused, `/api/apps.json` and `/api/verify` answer JSON (the dataset CORS-readable) and a page's CSS, the service worker and the favicon still load; the 429 page renders styled in Chrome with no CSP violation and no gate; everyone is back in when the window passes. Serial, and each test first waits for a fresh window (Miniflare counts in fixed windows aligned to the clock, refusals not counted) |
 | `prefs-search.spec.ts` | display choices apply at once and are restored pre-paint on the next document; `/` from any page lands focused in `/apps#search`; Vietnamese search ignores diacritics, writes `?q=` and switches to "Best match"; a shared URL restores the view and "Clear all" really clears it |
 
-**Not covered here, by design:** `_headers` and the Worker — `astro
-preview` applies neither. They are verified on the Workers Builds preview
-URL and in production after each merge (docs/13 §3).
+**Not covered by `astro preview`:** `_headers` and the Worker — which is
+why the `worker` project exists. What neither server can show — the real
+edge, the production secret, Cloudflare's distributed counters — is
+verified on the Workers Builds preview URL and in production after each
+merge (docs/13 §3).

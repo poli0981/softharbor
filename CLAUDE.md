@@ -2,7 +2,7 @@
 
 > Root instruction file for AI-assisted development (Claude Code).
 > Read this first. Detailed specs live in `docs/00–16`.
-> Suite version: 2.0 (2026-10-21, site v1.1) · Author: poli0981 / SkullMute
+> Suite version: 3.0 (2026-10-26, site v1.3) · Author: poli0981 / SkullMute
 
 ## What this project is
 
@@ -17,8 +17,9 @@ googling every tool one by one.
 - Hosting: **Cloudflare Workers Static Assets** on canonical
   **`https://softharbor.net`** (Free zone; `www` 301s to apex; workers.dev
   route disabled, PR previews only — see `docs/16`), deployed by Cloudflare
-  Workers Builds when `main` changes. One tiny Worker answers
-  `POST /api/verify` only (D25); no backend, no database.
+  Workers Builds when `main` changes. One tiny Worker runs the site-wide
+  rate limit (D32) and answers `POST /api/verify` (D25); no backend, no
+  database.
 - Stack: Node 26 · pnpm 11 · Astro 7 (static output) · Svelte 5 islands ·
   Tailwind CSS 4.3 · TypeScript strict (TS 7 `tsc` beside the TS 6 API that
   `astro check` needs — D28) · Wrangler 4 — full table in `docs/01`
@@ -26,13 +27,16 @@ googling every tool one by one.
 ## Hard rules (never violate)
 
 1. **Static-first.** No SSR, no database, no serverless functions; all
-   interactivity is client-side Svelte islands. The ONE exception (D25) is
-   `worker/`: a minimal Worker that answers only `POST /api/verify` (the
-   legal gate's Turnstile check) and runs only for the paths in
-   `assets.run_worker_first`. It never serves pages, never gates content, and
-   every failure on its side must fail OPEN. Anything else that seems to need
-   a server: redesign it or move it to a GitHub Actions workflow — a second
-   Worker route needs a decision-log entry.
+   interactivity is client-side Svelte islands. The ONE exception is
+   `worker/`, a minimal Worker that does exactly two things: the site-wide
+   rate limit (D32 — over it, a 429; otherwise the request goes to the asset
+   server untouched) and `POST /api/verify` (D25, the legal gate's Turnstile
+   check). It runs only for the paths in `assets.run_worker_first`, never
+   renders or rewrites a page, never withholds one from a person reading at
+   a normal pace, and every failure on its side must fail OPEN. Anything else
+   that seems to need a server: redesign it or move it to a GitHub Actions
+   workflow — a second Worker route, or a change to what runs it first,
+   needs a decision-log entry.
 2. **Data is law.** Every listed app is exactly one JSON file in
    `src/data/apps/<slug>.json`, validated by the Zod schema in
    `src/content.config.ts`. Invalid data must fail the build. Never bypass the

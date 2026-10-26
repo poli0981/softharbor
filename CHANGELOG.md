@@ -4,6 +4,37 @@ All notable changes to SoftHarbor. The site is continuously deployed; a
 version marks a release announced in the repository (docs/13). Dates are
 UTC.
 
+## [1.3.0] — 2026-10-26
+
+Protection against floods: the site now limits how fast one network can
+ask for it, and says so plainly when it does.
+
+### Privacy — what changed
+
+- To keep floods and runaway scripts off the site, requests for its pages,
+  feeds and data are now counted per network address for a few seconds,
+  then forgotten. No address is kept. The Privacy Policy has a new section,
+  "Rate limiting", so the consent dialog asks you to accept once more.
+
+### Added
+
+- **A rate limit for the whole site.** A browser or tool that asks for
+  far more than anyone reading would — over 60 requests in ten seconds —
+  gets a "Too many requests" page in English and Vietnamese for about ten
+  seconds instead of the page asked for. The public dataset at `/api/apps.json` and
+  the bot-check endpoint answer in JSON under the same limit, and the
+  dataset's answer is readable from other sites, so tools see the refusal
+  and when to retry. What a page loads — styles, scripts, fonts, icons — is
+  never limited, so a page that loads, loads whole.
+
+### Changed
+
+- The "Too many requests" page says how long to wait and points tools at
+  the dataset.
+- The end-to-end tests also run the site's Worker locally and flood it on
+  purpose: the limit, the 429 page, and everyone let back in afterwards.
+- The AI Disclosure names the model used for this release.
+
 ## [1.2.0] — 2026-10-23
 
 Upkeep of everything behind the list — security checks that keep

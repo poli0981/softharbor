@@ -8,6 +8,7 @@ content. Git tags mark milestones only: **`v1.0.0`** at public launch
 (tagged and released 2026-10-21; `package.json` `version` follows the tag),
 **`v1.2.0`** for the upkeep release — re-check automation, Node 26 /
 TypeScript 7, CI-based SonarQube Cloud, catalogue batch 2 (2026-10-23),
+**`v1.3.0`** for the site-wide rate limit (D32, 2026-10-26),
 minor tags when a feature phase ships. Publishing a GitHub Release fires `notify.yml` →
 Discord (docs/12 §2). Data changes never tag. `CHANGELOG.md`
 (Keep-a-Changelog, dates UTC) records feature work and anything a visitor
@@ -143,6 +144,14 @@ may be skipped (docs/12 §3).
      → `403 {"error":"rejected"}` (a `503 not_configured` means the runtime
      secret is missing; a bare `405` from the asset server means the Worker
      is not deployed);
+   - the site-wide rate limit (D32, docs/08 Part F) answers a burst over
+     **one connection** — one `curl` with many URLs reuses its connection;
+     parallel `curl`s would land on different machines and pass (Part F):
+     `curl -s $(for i in $(seq 70); do printf -- '-o /dev/null https://softharbor.net/robots.txt '; done) -w "%{http_code}\n" | sort | uniq -c`
+     → about 60 × `200`, then `429`s; add `--next -s -D - -o /dev/null
+     https://softharbor.net/apps` to the same command to see a refused
+     page: `429`, `Retry-After: 10`, `Cache-Control: no-store` and the
+     `_headers` set. Ten seconds later everything is `200` again;
    - `/rss.xml` serves the expected items (guid = slug, docs/05 §A4).
 3. **Never run `wrangler deploy` by hand while builds are queued** — the
    queued older build would land after it and roll production back

@@ -2,9 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/14 §3b. The storage inventory here must stay in step with docs/09 §8,
-// and the two Cloudflare sections with src/scripts/analytics.js and
-// src/lib/turnstile.ts + worker/verify.ts. Section ids are link targets:
-// the gate's step 2 links to #turnstile.
+// the two Cloudflare sections with src/scripts/analytics.js and
+// src/lib/turnstile.ts + worker/verify.ts, and #rate-limit with
+// worker/limit.ts. Section ids are link targets: the gate's step 2 links to
+// #turnstile.
 import { CONTACTS } from '../../lib/contacts';
 import type { Locale } from '../../i18n';
 interface Props {
@@ -20,7 +21,8 @@ const PRIVACY = CONTACTS.privacy;
       <strong>Short version:</strong> no accounts, no ads, no cookies, and nothing sold or shared
       for advertising. Two Cloudflare services see limited data — visitor statistics that skip you
       if your browser sends Global Privacy Control, and a bot check that runs only after you accept
-      these documents. Your settings stay in your browser.
+      these documents. To keep floods off the site, requests are counted per network address for a
+      few seconds, then forgotten. Your settings stay in your browser.
     </p>
 
     <h2 id="who">Who runs this site</h2>
@@ -91,6 +93,17 @@ const PRIVACY = CONTACTS.privacy;
       service.
     </p>
 
+    <h2 id="rate-limit">Rate limiting</h2>
+    <p>
+      So that one runaway script cannot crowd everyone else out, this site's own code counts the
+      requests for its pages, feeds and data per IP address (per /64 network for IPv6) over a window
+      of a few seconds. A network that sends far more than anyone reading the site would gets a "Too
+      many requests" page until the window passes. The counts are held by Cloudflare's rate limiter
+      for that window only; we keep no record of addresses — when a request is refused, the log says
+      only that it happened. We do this out of a legitimate interest in keeping a public service
+      available to everyone.
+    </p>
+
     <h2 id="hosting">Hosting</h2>
     <p>
       Cloudflare serves the site and the endpoint above. As a network provider it processes
@@ -139,7 +152,8 @@ const PRIVACY = CONTACTS.privacy;
       <strong>Tóm tắt:</strong> không tài khoản, không quảng cáo, không cookie, và không bán hay
       chia sẻ dữ liệu cho quảng cáo. Hai dịch vụ của Cloudflare thấy một ít dữ liệu — thống kê truy
       cập sẽ bỏ qua bạn nếu trình duyệt gửi tín hiệu Global Privacy Control, và một bước kiểm tra
-      bot chỉ chạy sau khi bạn chấp nhận các văn bản này. Các tuỳ chọn của bạn nằm lại trong trình
+      bot chỉ chạy sau khi bạn chấp nhận các văn bản này. Để chặn lưu lượng dồn dập, số yêu cầu được
+      đếm theo địa chỉ mạng trong vài giây rồi bỏ đi. Các tuỳ chọn của bạn nằm lại trong trình
       duyệt.
     </p>
 
@@ -210,6 +224,17 @@ const PRIVACY = CONTACTS.privacy;
       bước kiểm tra không chạy được — bị chặn, mất mạng, hoặc điểm xác minh của chúng tôi gặp sự cố
       — bạn vẫn được vào trang, và việc kiểm tra sẽ được thử lại sau một giờ. Chúng tôi dùng nó vì
       lợi ích chính đáng: giữ cho một dịch vụ công cộng không bị lạm dụng tự động.
+    </p>
+
+    <h2 id="rate-limit">Giới hạn tần suất truy cập</h2>
+    <p>
+      Để một đoạn mã chạy mất kiểm soát không chiếm hết chỗ của mọi người khác, mã của chính trang
+      này đếm số yêu cầu tới các trang, nguồn tin (feed) và dữ liệu theo từng địa chỉ IP (theo dải
+      /64 với IPv6) trong một khoảng vài giây. Mạng nào gửi nhiều hơn hẳn mức của một người đọc bình
+      thường sẽ thấy trang "Quá nhiều yêu cầu" cho tới khi hết khoảng đó. Số đếm chỉ được bộ giới
+      hạn của Cloudflare giữ trong đúng khoảng thời gian ấy; chúng tôi không lưu lại địa chỉ nào —
+      khi một yêu cầu bị từ chối, nhật ký chỉ ghi rằng việc đó đã xảy ra. Chúng tôi làm vậy vì lợi
+      ích chính đáng: giữ cho một dịch vụ công cộng luôn dùng được với mọi người.
     </p>
 
     <h2 id="hosting">Lưu trữ và phân phối</h2>

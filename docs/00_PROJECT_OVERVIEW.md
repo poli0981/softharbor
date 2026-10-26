@@ -1,10 +1,10 @@
 # 00 — Project Overview
 
 > **Project:** SoftHarbor
-> **Doc suite version:** 2.0 (2026-10-21, site v1.1)
+> **Doc suite version:** 3.0 (2026-10-26, site v1.3)
 > **Author:** poli0981 / SkullMute · **License:** code GPL-3.0-only · data CC BY-SA 4.0
 > **Platform:** Web (static), Cloudflare Workers Static Assets, canonical `https://softharbor.net`
-> — plus one Worker route, `POST /api/verify` (D25)
+> — plus one Worker: the site-wide rate limit (D32) and `POST /api/verify` (D25)
 
 ## 1. Elevator pitch
 
@@ -104,10 +104,11 @@ consistent over time.
 | D19 | Suite correctness | Spec claims about external systems are **verified against the real system** before they enter the docs | 2026-07-27 | The 2026-07-27 audit found two ops-repo workflows that never existed and four stale tool majors — all cheap to catch on paper, all expensive to catch in CI |
 | D23 | Logo fallback | Third `logo` form `monogram` (initials) when no brand mark is available | 2026-07-29 | Simple Icons covers only part of the catalogue; docs/14 §3d sanctions no other source than the vendor's own assets (docs/15 §4) |
 | D24 | Seed import | The seed batch was exempt from one-app-per-PR | 2026-07-29 | 286 machine-uniform files; the rule resumes for every later entry (docs/15 §4) |
-| D25 | Server code | **One Worker, for `POST /api/verify` only** (amends hard rule 1): the legal gate's step 2 — Turnstile after acceptance, token checked server-side, rate-limited, everything fails **open**; `run_worker_first` keeps pages and assets on the unbilled asset path | 2026-10-21 | Consent-first human check on a public site without ever locking a person out (docs/09 §4a, docs/08 Part E) |
+| D25 | Server code | **One Worker, for `POST /api/verify` only** (amends hard rule 1): the legal gate's step 2 — Turnstile after acceptance, token checked server-side, rate-limited, everything fails **open**; `run_worker_first` keeps pages and assets on the unbilled asset path — *amended 2026-10-26 by D32: the Worker now runs first for pages, feeds and data too, for the site-wide rate limit; content-hashed assets stay asset-first* | 2026-10-21 | Consent-first human check on a public site without ever locking a person out (docs/09 §4a, docs/08 Part E) |
 | D26 | Analytics | **Cloudflare Web Analytics, honouring Global Privacy Control** (supersedes D14; amends hard rule 7): cookieless beacon, never under GPC, production host only | 2026-10-21 | Knowing whether the site works and is used, with the least data and a privacy signal honoured (docs/09 §8) |
 | D27 | Contacts | **One address per purpose at `@poli0981.dev`** — `src/lib/contacts.ts`; `contact@softharbor.net` retired; mail hosted by Google | 2026-10-21 | A message reaches the right queue; `sponsor@` deliberately unused (docs/14 Part 2) |
 | D28 | Toolchain | **Node 26 + TypeScript 6/7 side by side** (amends D7 and D21) — `.nvmrc` 26; `typescript` = the `@typescript/typescript6` API wrapper, `@typescript/native` = TS 7, whose `tsc --noEmit` now type-checks every `.ts` file in `pnpm check` | 2026-10-23 | Node 24 entered maintenance 2026-10-20; TS 7 ships no API yet, which astro check, typescript-eslint and svelte2tsx need (docs/01 §2) |
+| D32 | Rate limiting | **Site-wide rate limit in the Worker** (amends hard rule 1 and D25): `run_worker_first` is `/*` minus the files a page loads (`/_astro/*`, icons, service worker); every request it routes spends one unit of `SITE_LIMITER` — 60 per 10 s per IPv4 or IPv6 /64, per location — and over it gets the branded `/errors/429` page (JSON under `/api/`), `Retry-After: 10`; fails **open** | 2026-10-26 | A flood or a runaway scraper gets refused cheaply with our own page instead of the Free zone's default; configured and tested in the repo (wrangler.jsonc, e2e/worker.spec.ts), not in a dashboard (docs/08 Part F) |
 | D29 | Code analysis | **SonarQube Cloud CI-based analysis with coverage** (`ci.yml` `sonar` job, not a required check) replaces Automatic Analysis | 2026-10-23 | Automatic Analysis cannot import coverage; a CI scan measures the same lcov the ratchet gates (docs/12 §2, docs/11 §1) |
 
 ## 6. Identifiers (locked)
@@ -116,7 +117,7 @@ consistent over time.
 |---|---|
 | Repo slug | `poli0981/softharbor` |
 | Canonical origin | `https://softharbor.net` (apex; `www` 301s to it) |
-| Worker name | `softharbor` — code in `worker/`, one endpoint `POST /api/verify` (D25); workers.dev route disabled; versioned preview URLs only (docs/16 §3) |
+| Worker name | `softharbor` — code in `worker/`: the site-wide rate limit (D32) and one endpoint, `POST /api/verify` (D25); workers.dev route disabled; versioned preview URLs only (docs/16 §3) |
 | Contact email | One address per purpose at `@poli0981.dev` — `src/lib/contacts.ts`, page `/contact` (D27; `contact@softharbor.net` retired) |
 | Component prefix | `Sh*` (islands: `ShLegalGate`, `ShSearch`, `ShFilterSheet`, `ShLangSwitch`, `ShPrefs`, `ShBugReport`) |
 | CSS custom property prefix | `--sh-*` |
@@ -133,9 +134,10 @@ binary · automatic scraping of vendor metadata (all entries are hand-written)
 · mobile-app listings · package-manager command snippets (winget/brew —
 post-v1 backlog) · zone security add-ons kept deliberately OFF at launch:
 rate limiting, Bot Fight Mode, paid Custom Errors (reasons & activation
-recipes in docs/16 §9 — the Worker's own rate-limit binding on
-`/api/verify` is not a zone feature) · server-rendered or gated pages of
-any kind (D25 allows one verification endpoint, nothing more) · a third
+recipes in docs/16 §9 — the Worker's own rate limits, site-wide since
+D32, are not a zone feature) · server-rendered or gated pages of any kind
+(D25 allows one verification endpoint and D32 one rate limit, nothing
+more: a flood gets a 429, a person reading never does) · a third
 locale (JP is a v1.2 candidate, docs/15).
 
 ## 8. Document map
@@ -159,3 +161,4 @@ See `CLAUDE.md` for the full table. Reading order for a new contributor:
 | H10 | Enable *Settings → Actions → General → **Allow GitHub Actions to create and approve pull requests*** — without it the nightly quarantine sweep cannot open its PR and hard rule 5 stops being enforced mechanically (docs/12 §4) — ✅ enabled | P6 |
 | H11 | Set the Worker's runtime secret **`TURNSTILE_SECRET`** (dashboard → Variables and Secrets, or `wrangler secret put`) — without it every check answers 503 and the gate silently fails open for everyone (docs/08 Part E) — ✅ set (verified 2026-10-21: a junk token gets `403 rejected`); redo whenever the Worker is re-created | v1.1 |
 | H12 | Turn the zone's **Speed Brain** off — Cloudflare refuses speculative prefetch on Worker requests (503); production still sent a `Speculation-Rules` header on 2026-10-21 (docs/16 §9) | v1.1 |
+| H13 | **Recommended:** deploy the zone **rate-limiting rule as layer 1** in front of the Worker's limit — one rule, URI Path starts with `/` and not a verified bot, 150 requests per 10 s per IP, Block 10 s (step-by-step and a verification command: docs/16 §9.1). It is the layer that stops a many-connection flood, which the Worker's per-machine counters mostly miss (docs/08 Part F), and it blocks before the Worker is billed; nothing in the repository depends on it | v1.3 |

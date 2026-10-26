@@ -142,8 +142,9 @@ cancels superseded runs except on `main`. Jobs:
   check:csp → check:assets → check:sw → check:feed` → **`wrangler deploy
   --dry-run`** (bundles `worker/` and validates `wrangler.jsonc` — bindings,
   assets, `run_worker_first` — without credentials) → `pnpm knip` →
-  **Playwright e2e** on that build (docs/11 §5): the Chromium download is
-  cached per Playwright version (on a hit only the OS libraries are
+  **Playwright e2e** on that build (docs/11 §5) — `astro preview` for the
+  pages, `wrangler dev` for the Worker and its rate limits; the Chromium
+  download is cached per Playwright version (on a hit only the OS libraries are
   installed), and the HTML report is uploaded as an artifact (7 days) when
   the job fails.
 - **`gates`** (15 min cap) — `validate:data`, `i18n:check`, `osv-scanner`

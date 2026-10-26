@@ -2,7 +2,8 @@
 
 > This is the operator's guide Kokone asked for. Part A is the click-by-click
 > setup; Part C answers "can Cloudflare make our error pages?" definitively;
-> Part E is the one Worker the site runs since v1.1 (D25).
+> Part E is the one Worker the site runs since v1.1 (D25), and Part F the
+> site-wide rate limit it has run since v1.3 (D32).
 
 ## Part A — Setup guide (account + zone + first deploy)
 
@@ -96,13 +97,15 @@ serves (`workers_dev: false`). Full domain checklist: docs/16 §10.
   §A5–A6).
 - **Workers Logs** (`observability.enabled`, invocation logs **off**) hold
   only the Worker's own one-line JSON events: `{event: "verify", outcome,
-  ms}` per request, `verify.secret_refused` when Siteverify rejects our
-  secret, `verify.crash` on an unexpected exception — never an IP address
-  or a token (Part E). `wrangler tail` shows the same lines live.
+  ms}` per verification, `verify.secret_refused` when Siteverify rejects our
+  secret, `verify.crash` on an unexpected exception, `{event:
+  "rate_limited", kind}` per refused request — never an IP address or a
+  token (Parts E and F). A request that passes logs nothing. `wrangler tail` shows the same lines live.
 - **Billing:** only requests that run the Worker are billed Worker
-  requests — `run_worker_first` paths (`/api/verify`) and the rare
-  non-navigation request that matches no asset (Part C). Pages, assets and
-  feeds are served by the asset server and are **not billed**.
+  requests. Since D32 that is every page, feed and data file —
+  `run_worker_first` is `/*` minus the files a page loads (Part F) — while
+  `/_astro/*`, icons and the service worker stay on the asset server and
+  are **not billed**.
 - Asset limits to respect (check current values in CF docs at setup time;
   documented limits as of writing): max ~20 000 files per deploy, 25 MiB
   per file. SoftHarbor's footprint (local build, 2026-10-21): 763 files in
@@ -121,9 +124,11 @@ feature). HSTS **is** configured — zone-level, now at phase P3 (docs/16
 §5). Do not "pre-enable" anything beyond that.
 
 Two things that look similar but are not zone features: the Worker's
-**Workers Rate Limiting binding** (`VERIFY_LIMITER`, Part E) guards only
-`/api/verify`, and **Turnstile** (D25) is a widget our own page loads after
-consent — neither touches how pages are served. Conversely, the zone's
+**Workers Rate Limiting bindings** — `SITE_LIMITER` for every page, feed
+and data request (Part F, D32) and `VERIFY_LIMITER` for `/api/verify`
+(Part E) — and **Turnstile** (D25), a widget our own page loads after
+consent. The zone's rate-limiting rule stays off; the Worker's limit is
+configured in `wrangler.jsonc` and answers with our own 429 page. Conversely, the zone's
 **Speed Brain** speculative prefetch should be **off**: Cloudflare refuses
 prefetch on Worker requests with a 503, which is why `astro.config.ts` sets
 `prefetch: false` (docs/16 §9 — ⚠ verify the zone setting; production still
@@ -135,22 +140,24 @@ Background (re-verified 2026-07-20): Cloudflare **Custom Errors** is a
 **paid zone-plan** feature — our zone is Free (docs/16 §1/N4) — and even
 where available it does not apply to 500/501/503/505 responses. Therefore
 **every error page a user can see must come from our own build output**,
-and anything Cloudflare itself emits shows Cloudflare's default page. The
-v1.1 Worker (Part E) changes nothing for pages: its error statuses are JSON
-answers to the gate's own `fetch`, never a document.
+and anything Cloudflare itself emits shows Cloudflare's default page.
+`/api/verify` (Part E) answers the gate's own `fetch` in JSON, never with a
+document. Since D32 the Worker runs first for pages too (Part F), and its
+one page-level answer is our own 429.
 
 | Status | Who generates it | What the user sees | Our artifact |
 |---|---|---|---|
-| 404 (navigation) | Asset server, URL matches nothing. With `compatibility_date` ≥ 2025-04-01 a navigation miss gets `404.html` **without invoking the Worker** | Our branded, bilingual page, real HTTP 404, no legal gate | `dist/404.html` via `not_found_handling: "404-page"` |
-| 404 (other) | A non-navigation miss (an image, a JSON file) reaches the Worker, which returns `env.ASSETS.fetch(request)` — the same `not_found_handling` | Same 404 | same |
-| 500-class (pages) | Practically cannot originate from us — no code runs for a page. Cloudflare infra errors (52x) show Cloudflare's page — not customizable on a Free zone | CF default (rare) | `/errors/500` template kept **dormant** |
+| 404 | The asset server, URL matches nothing. Since D32 the request reaches it through the Worker's `env.ASSETS.fetch(request)`, which applies the same `not_found_handling`; a miss under an asset-first pattern (`/_astro/*`, icons) gets it directly | Our branded, bilingual page, real HTTP 404, no legal gate | `dist/404.html` via `not_found_handling: "404-page"` |
+| 500-class (pages) | Practically cannot originate from us: the Worker in front of pages only counts and hands over, and catches every limiter failure (Part F); an uncaught exception would show Cloudflare's 1101 page. Cloudflare infra errors (52x) show Cloudflare's page — not customizable on a Free zone | CF default (rare) | `/errors/500` template kept **dormant** |
 | 403 (pages) | Nothing issues 403 for a page — WAF features deliberately OFF (docs/16 §9). If ever enabled on the Free zone, blocks render **Cloudflare's default page** (custom responses are paid features) | n/a | `/errors/403` dormant template |
-| 429 (pages) | Nothing issues 429 for a page — zone rate limiting deliberately OFF (docs/16 §9); same Free-zone caveat as 403 | n/a | `/errors/429` dormant template |
-| 4xx/5xx from `/api/verify` | The Worker: `400 invalid_json`/`invalid_token`, `403 bad_origin`/`rejected`, `405`, `413`, `415`, `429 rate_limited` (`Retry-After: 60`), `503 not_configured`/`unavailable`, `500 internal_error` | Nothing — the gate reads the status; 403 asks Turnstile for a fresh challenge, every other failure **fails open** (docs/05 §A9) | JSON body `{ "error": "<code>" }` |
+| 429 (pages) | The Worker's site-wide rate limit (Part F, D32): over 60 requests per 10 s from one address. The zone rule stays OFF (docs/16 §9) | Our branded, bilingual page, real HTTP 429, `Retry-After: 10`, no legal gate | `/errors/429` — **live** since D32 |
+| 429 (`/api/*`) | The same limit, for the data endpoints and `/api/verify` | JSON `{ "error": "rate_limited" }`, `Retry-After: 10`; CORS-readable on the dataset | — |
+| 4xx/5xx from `/api/verify` | The Worker: `400 invalid_json`/`invalid_token`, `403 bad_origin`/`rejected`, `405`, `413`, `415`, `429 rate_limited` (`Retry-After: 60` from its own limit, 10 from the site-wide one), `503 not_configured`/`unavailable`, `500 internal_error` | Nothing — the gate reads the status; 403 asks Turnstile for a fresh challenge, every other failure **fails open** (docs/05 §A9) | JSON body `{ "error": "<code>" }` |
 | No internet | Client-side | Our offline page | `offline.html` via service worker (Part D) |
 
-The dormant templates cost three static pages and make a future Pro-zone
-Custom Errors switch-on a config-only task (docs/16 §9 recipe). Like
+The two dormant templates (403, 500) cost two static pages and make a
+future Pro-zone Custom Errors switch-on a config-only task (docs/16 §9
+recipe); the 429 one has been live since D32. Like
 `/404` and `/offline` they are gate-exempt, `noindex` and bilingual on one
 page (docs/06 §5).
 
@@ -245,23 +252,24 @@ the final pass runs on the real origin), fallback fires in airplane mode,
 on the offline page (it is exempt — the page declares `gateExempt`, docs/14
 Part 2).
 
-## Part E — The `/api/verify` Worker (D25)
+## Part E — The `/api/verify` endpoint (D25)
 
 The one piece of server code (CLAUDE.md hard rule 1 as amended). Threat
 model and the client half: docs/09 §4a, docs/05 §A9.
 
-**Files.** `worker/index.ts` (entry: `/api/verify` → `handleVerify`,
-anything else → `env.ASSETS.fetch(request)`), `worker/verify.ts` (the
-endpoint), `worker/http.ts` (JSON responses, streamed body cap, rate-limit
+**Files.** `worker/index.ts` (entry: the site-wide limit first — Part F —
+then `/api/verify` → `handleVerify`, anything else →
+`env.ASSETS.fetch(request)`), `worker/limit.ts` (Part F), `worker/verify.ts`
+(the endpoint), `worker/http.ts` (JSON responses, streamed body cap, rate-limit
 key), `worker/env.ts` (bindings, typed by hand — `@cloudflare/workers-types`
 would collide with the DOM lib the site compiles against). Tested by the
 Vitest `worker` project against a stubbed Siteverify (docs/11 §2); CI also
 runs `wrangler deploy --dry-run` so a config error fails before production.
 
-**Routing.** `assets.run_worker_first: ["/api/verify"]` is the only path
-that runs the Worker before the asset server. Pages, assets and feeds never
-invoke it; a navigation that matches nothing gets `404.html` from the asset
-server (Part C).
+**Routing.** Until D32 `/api/verify` was the only path that ran the
+Worker before the asset server. Now every request except the files a page
+loads does (Part F), and each one passes the site-wide limit before it
+reaches this endpoint — whose own, stricter limit comes on top.
 
 **Contract — `POST /api/verify`**, body `{"token": "<turnstile token>"}`:
 
@@ -312,6 +320,106 @@ sitekey itself is public by design and lives in `src/lib/turnstile.ts`.
 `verify.crash`. Never an IP address, never a token; invocation logs are off
 in `wrangler.jsonc`.
 
+## Part F — The site-wide rate limit (D32)
+
+**What runs it.** `assets.run_worker_first` is `/*` minus the files a page
+loads once it has passed: `/_astro/*` (content-hashed JS, CSS and fonts),
+`/icons/*`, the two favicons, `apple-touch-icon.png`,
+`manifest.webmanifest`, `sw.js`, `registerSW.js` and `workbox-*.js`.
+Negative patterns win over `/*` whatever the order. Every other request —
+every page in both locales, `/rss.xml`, the sitemaps, `/search-index.json`,
+`/api/apps.json`, `/api/verify`, `robots.txt`, `security.txt`, a miss that
+ends on the 404 page — runs `worker/index.ts` first, which spends one unit
+of `SITE_LIMITER` (`worker/limit.ts`) and, under the limit, hands the
+request to `env.ASSETS.fetch()` unchanged.
+
+**The limit.** 60 requests per 10 s per IPv4 address or IPv6 /64 (`rateKey`,
+the same key as Part E), per Cloudflare location, namespace `4102`. That is
+six a second, sustained: a person reading spends one per page, and what it
+stops is a flood or a scraper running flat out. Generous on purpose,
+because a school, an office or a mobile carrier's NAT puts many people
+behind one address. `/api/verify` keeps its own 20 per 60 s on top
+(Part E).
+
+**What it really counts — measured on the PR preview, 2026-10-26.**
+Cloudflare calls the binding "permissive, eventually consistent": each
+machine counts locally and shares its counts in the background. In
+practice that sharing barely shows:
+
+| Burst (one client address) | Result |
+|---|---|
+| 120 requests over **one keep-alive connection**, ~11 s | 61 × `200`, then 59 × `429` — the limit, almost to the request |
+| 1 500 requests, **a new connection each** (30 in parallel), ~20 a second for 79 s | 0 × `429` (1 487 × `200`, 12 local connection errors, one `500` whose cause version URLs cannot log) |
+| Production `VERIFY_LIMITER`, 40 `POST /api/verify` in 33 s, a new connection each | 0 × `429` against 20 per 60 s |
+
+So the Worker's limit holds a client that **reuses its connection** —
+every browser (one HTTP/2 connection per origin) and most scrapers — and
+answers it with our own page. A flood that opens a fresh connection per
+request spreads over many machines and mostly slips past it; stopping that
+is the job of the zone rule, which counts per IP at the edge before the
+Worker runs: **layer 1, recommended** (docs/16 §9.1). Neither layer locks
+out a person reading normally.
+
+**Over the limit:**
+
+| Request | Answer |
+|---|---|
+| `/api/*` | `429 {"error":"rate_limited"}`, `Retry-After: 10`, `no-store`, the Worker's own security headers — plus `Access-Control-Allow-Origin: *` and `Access-Control-Expose-Headers: Retry-After` on everything but `/api/verify`: the dataset is CORS-open, so its refusal must be readable cross-origin, or a consumer sees a network error instead |
+| anything else | The built `/errors/429` page (bilingual, gate-exempt, `noindex`) with status **429**, `Retry-After: 10`, `Cache-Control: no-store` and no `ETag`; every other header is the asset server's (`_headers`). `HEAD` gets the headers only. If that page cannot be fetched, a plain-text 429 |
+
+The 429 page's own CSS, JS and fonts are under `/_astro/` and never
+limited, so it renders whole. The service worker's navigation route is
+NetworkOnly and a 429 is a response, not a failure, so the visitor sees
+our page rather than the offline fallback.
+
+**Fails open.** No `SITE_LIMITER` binding, no `CF-Connecting-IP` (no client
+to tell apart — one shared bucket would throttle strangers together), or a
+limiter that throws: the request is served as if there were no limit.
+
+**`_headers` still apply.** What `env.ASSETS.fetch()` returns carries
+`public/_headers` exactly as a direct asset response does — measured under
+`wrangler dev` and on the PR preview on 2026-10-26 (frame-ancestors,
+`X-Frame-Options`, nosniff, the workers.dev `X-Robots-Tag`, the `/_astro/*`
+and `/api/apps.json` `Cache-Control`; and on a refused page the same set
+plus `Retry-After: 10` and `no-store`). Moving pages behind the Worker
+changed no header.
+
+**Billing.** Every routed request is now a billed Worker invocation. The
+account is on Workers Paid: 10 million requests and 30 million
+CPU-milliseconds a month included, then $0.30 per million requests and
+$0.02 per million CPU-ms; Workers Logs include 20 million events a month
+(Cloudflare's pricing page, read 2026-10-26 — Logs move to Observability
+pricing on 2026-12-01). A page view costs one invocation and well under a
+millisecond of CPU, and the files a page loads stay free ("requests to
+static assets are free and unlimited"). A refused request
+is billed too — the limit makes a flood cheap to answer, not free. A flood
+large enough to matter is the job of Cloudflare's automatic DDoS
+protection and of the zone rate-limiting rule (docs/16 §9.1), both of
+which act before the Worker runs, so what they block is never billed —
+the rule at the price of Cloudflare's default block page.
+
+**Logs.** One line per refusal, `{event: "rate_limited", kind: "page" |
+"api"}` — never the address; a request that passes logs nothing. Rate
+limiting bindings have no dashboard of their own, so these lines (Workers
+Logs, `wrangler tail`) are the only record of how often the limit fires —
+read them before tuning it.
+
+**Tests.** Unit: `worker/limit.test.ts` (stubbed limiter and asset server;
+`wrangler.jsonc` is read with wrangler's `unstable_readConfig` to hold
+`period` equal to `RETRY_AFTER_S` and keep the negative patterns). End to
+end: the Playwright project `worker` (`e2e/worker.spec.ts`) starts `wrangler
+dev` on `dist/` with the real config — Miniflare simulates the binding in
+fixed windows aligned to the clock, without counting refusals — and floods
+it: exactly the configured 60 × 200 and then 429s, the 429 page rendered
+and styled in Chrome, `/api/*` answering JSON, a page's own files still
+200, everyone back in when the window passes. On a deployed version: the
+burst check in docs/13 §2.
+
+**Tuning.** Change `limit` in `wrangler.jsonc` with a decision-log line;
+`period` must stay equal to `RETRY_AFTER_S` (a test holds them together).
+Keep namespace ids unique on the account — bindings that share one share
+their counters, across Workers too.
+
 ## Appendix — Future custom-domain package (superseded in v1.1)
 
 `softharbor.net` was purchased pre-launch (2026-07-20); the package was
@@ -323,8 +431,9 @@ sit in this appendix, for the record:
   into `_headers`, and `preload` is a separate explicit decision (H9).
 - `www` → apex uses **zone Redirect Rules** — the static `_redirects` file
   cannot match hostnames and stays reserved for path-level slug renames.
-- Rate limiting and Bot Fight Mode are **deliberately OFF**, not enabled by
-  default (reasons + recipes: docs/16 §9); on the Free zone their block
-  pages would be Cloudflare defaults anyway.
+- Rate limiting and Bot Fight Mode are **deliberately OFF** at the zone,
+  not enabled by default (reasons + recipes: docs/16 §9); on the Free zone
+  their block pages would be Cloudflare defaults anyway. Since D32 rate
+  limiting lives in the Worker instead (Part F), with our own 429 page.
 - The workers.dev route is **disabled** (`workers_dev: false`) rather than
   served-with-noindex — cleaner than the old "decide then" note.
