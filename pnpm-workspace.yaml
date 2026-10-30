@@ -51,6 +51,18 @@ overrides:
   serialize-javascript: '^7.1.3'
   'miniflare>undici': '^7.30.1'
 
+# Advisories that NO release fixes yet, so no override can reach them. CI's
+# `pnpm audit --prod` skips exactly these ids; `osv-scanner.toml` lists the same
+# ids for OSV-Scanner, with an expiry date and the reasoning. Remove a line (in
+# both files) once a fixed release exists — then it becomes an override above.
+#
+# deepmerge <= 4.3.1 — GHSA-gcqx-w48m-w2h4 (low). Build tooling only, merging
+# our own config: @astrojs/svelte -> @sveltejs/vite-plugin-svelte, and
+# @vite-pwa/astro -> workbox-build -> @rollup/plugin-node-resolve.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-gcqx-w48m-w2h4
+
 # @vite-pwa/astro 1.2.0 is the latest release (2025-11) and its peer range stops
 # at Astro 5. It works on Astro 7 — `pnpm build` and `check:sw` exercise the
 # generated service worker on every CI run — so the mismatch is accepted
