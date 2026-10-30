@@ -367,6 +367,19 @@ does not read issue labels.
   here. Remove a line once upstream's own range moves past it.
   `peerDependencyRules` accepts `@vite-pwa/astro`'s stale Astro peer range
   explicitly (it works on Astro 7; `check:sw` proves it every build).
+- **Advisories no release fixes yet** cannot get an override, so they are
+  skipped by id instead — narrowly, in two places that must agree:
+  `osv-scanner.toml` (`[[IgnoredVulns]]`, each with an `ignoreUntil`
+  expiry and a reason, so the gate fails again and makes someone look) and
+  `auditConfig.ignoreGhsas` in `pnpm-workspace.yaml` for
+  `pnpm audit --prod`. Only for code that merges or reads our own input at
+  build time and ships nothing to a visitor. Current entry (added
+  2026-10-30, expires 2027-01-31): `deepmerge` ≤ 4.3.1,
+  GHSA-gcqx-w48m-w2h4 (low) — 4.3.1 is the latest release; it reaches us
+  through `@sveltejs/vite-plugin-svelte` (merging `svelte.config.js`) and
+  `workbox-build` → `@rollup/plugin-node-resolve` (merging plugin
+  options). Once a fixed release exists, remove both lines and add an
+  override floor if upstream's range does not reach it.
 - **pnpm 11's default 24 h `minimumReleaseAge`** refuses any release younger
   than a day; Dependabot's 2-day cooldown keeps its PRs installable under
   `--frozen-lockfile` (docs/12 §6).
