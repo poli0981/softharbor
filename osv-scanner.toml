@@ -1,0 +1,20 @@
+# OSV-Scanner exceptions for CI's `gates` job (docs/09 §7). The scanner reads
+# this file because it sits next to the scanned `pnpm-lock.yaml`.
+#
+# An entry here is for an advisory that NO release fixes yet — anything with a
+# patched version gets a floor in `pnpm-workspace.yaml` `overrides` instead.
+# Every entry carries an expiry, so the gate fails again and makes someone look;
+# `pnpm-workspace.yaml` `auditConfig.ignoreGhsas` lists the same ids for
+# `pnpm audit --prod`. Remove both lines once a fixed release exists.
+
+# deepmerge <= 4.3.1 (CVE-2026-93753, GitHub severity low): mergeObject() lets a
+# crafted source object set the prototype of the object it returns. 4.3.1 is
+# the latest release. It reaches us only through build tooling —
+# @astrojs/svelte -> @sveltejs/vite-plugin-svelte (merging our own
+# svelte.config.js) and @vite-pwa/astro -> workbox-build ->
+# @rollup/plugin-node-resolve (merging plugin options) — so every input it
+# merges is ours, and it is not part of anything the site ships.
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+ignoreUntil = 2027-01-31
+reason = "No fixed deepmerge release; build tooling merging our own config only (docs/09 §7)"
