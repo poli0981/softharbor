@@ -17,9 +17,9 @@
     "download": "https://getsession.org/download"
   },
   "security": {
-    "status": "clean",
+    "status": "unverified",
     "evidence": "https://www.virustotal.com/gui/url/c079f68c268425c334897c23e54e352d097da2813fc2a41440760dba2a18d7d2",
-    "checkedAt": "2026-07-30"
+    "checkedAt": "2026-10-29"
   },
   "addedAt": "2026-07-28"
 }
