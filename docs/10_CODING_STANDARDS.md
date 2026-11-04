@@ -108,10 +108,11 @@ hand-aligned tables.
 ## 4. Dead code & hooks
 
 `knip.json`: entries = `src/pages/**/*.{astro,ts}`, `scripts/*.mjs`,
-`src/scripts/*.js`; project = `src/**`, `scripts/**`, `e2e/**`,
-`worker/**`; the Fontsource packages and `tailwindcss` are ignored as
-dependencies (they are imported from CSS, which knip does not read). knip
-runs in CI (`build` job); unused files, exports or deps fail it.
+`src/scripts/*.js`; project = `src/**` (CSS included, so knip follows
+`global.css`'s `@import`s to Fontsource and `tailwindcss` — until
+2026-11-04 those were listed under `ignoreDependencies` instead), `scripts/**`,
+`e2e/**`, `worker/**`. knip runs in CI (`build` job); unused files, exports
+or deps fail it.
 
 `lefthook.yml` (lefthook 2 `jobs:` syntax):
 

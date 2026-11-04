@@ -357,16 +357,27 @@ does not read issue labels.
   Whether `wrangler dev` (with `.dev.vars`) runs with the script blocked:
   ⚠ verify. Flipping any entry to `true` requires a decision-log line.
 - **`overrides`** in `pnpm-workspace.yaml` force patched floors for
-  `brace-expansion`, `fast-uri` and `serialize-javascript`, and for the
-  `undici` 7 copy that `miniflare` pins exactly (`miniflare>undici`; added
-  2026-10-26), each with the advisory ids in a comment. All of them reach
-  us only through build or dev tooling (`@vite-pwa/astro` →
-  `workbox-build`, `wrangler` → `miniflare`); nothing ships to a visitor.
-  CI's OSV-Scanner step fails `gates` on any of them, so a new transitive
-  advisory blocks every PR — Dependabot's included — until it is handled
-  here. Remove a line once upstream's own range moves past it.
-  `peerDependencyRules` accepts `@vite-pwa/astro`'s stale Astro peer range
-  explicitly (it works on Astro 7; `check:sw` proves it every build).
+  `glob`, `minimatch`, `fast-uri` and `serialize-javascript`, each with the
+  advisory ids in a comment. All of them reach us only through build or dev
+  tooling (`@vite-pwa/astro` → `workbox-build`, the eslint toolchain,
+  `@astrojs/check`'s language server); nothing ships to a visitor. `glob`
+  (GHSA-3g3m-2fjr-6pw4, ≥ 14.0.2) and `minimatch` (GHSA-g3hv-75wg-m249,
+  ≥ 11.0.1) were added 2026-11-04 and cross majors — workbox-build asks
+  for glob 11, eslint and typescript-eslint for minimatch 10 — which is
+  accepted only because every caller uses API the new majors kept, the
+  service worker's precache list came out identical (16 entries) and lint
+  covers the same 157 files with the same rules. Every minimatch 11
+  requires brace-expansion ≥ 5.0.12, so that floor was retired the same
+  day, as was `miniflare>undici` once miniflare itself pinned the fixed
+  7.30.1. CI's OSV-Scanner step fails `gates` on any of them, so a new
+  transitive advisory blocks every PR — Dependabot's included — until it
+  is handled here. Remove a line once upstream's own range moves past it.
+  `peerDependencyRules` accepts `@vite-pwa/astro` 1.2.0's stale Astro peer
+  range explicitly (it works on Astro 7; `check:sw` proves it every build).
+  Its 2.0.0 (2026-10-31, a rewrite on `@unplugin-pwa` 0.0.x) was tried
+  and refused on 2026-11-04: under pnpm's strict layout it emitted a
+  service worker with bare `@vite-pwa/workbox-swkit/*` imports and an
+  empty precache, which `check:sw` failed six ways.
 - **Advisories no release fixes yet** cannot get an override, so they are
   skipped by id instead — narrowly, in two places that must agree:
   `osv-scanner.toml` (`[[IgnoredVulns]]`, each with an `ignoreUntil`

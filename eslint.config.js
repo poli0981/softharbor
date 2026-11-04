@@ -2,6 +2,7 @@
 // Copyright (C) 2026 poli0981 (SkullMute)
 // docs/10 §3. ESLint covers correctness only — Prettier owns style.
 
+import { defineConfig } from 'eslint/config';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import astro from 'eslint-plugin-astro';
@@ -9,7 +10,9 @@ import svelte from 'eslint-plugin-svelte';
 import svelteParser from 'svelte-eslint-parser';
 import globals from 'globals';
 
-export default tseslint.config(
+// ESLint core's defineConfig, not `tseslint.config()` — typescript-eslint
+// deprecated its own helper in favour of this one (TS hint 6387, 2026-11).
+export default defineConfig(
   // `.claude/` holds agent worktrees — full copies of the repo that `eslint .`
   // would otherwise lint a second (or third) time.
   {

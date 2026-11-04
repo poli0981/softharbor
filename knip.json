@@ -3,15 +3,9 @@
   "ignoreExportsUsedInFile": true,
   "entry": ["src/pages/**/*.{astro,ts}", "scripts/*.mjs", "src/scripts/*.js"],
   "project": [
-    "src/**/*.{ts,astro,svelte}",
+    "src/**/*.{ts,astro,svelte,css}",
     "scripts/**/*.{mjs,ts}",
     "e2e/**/*.ts",
     "worker/**/*.ts"
-  ],
-  "ignoreDependencies": [
-    "tailwindcss",
-    "@fontsource-variable/bricolage-grotesque",
-    "@fontsource/be-vietnam-pro",
-    "@fontsource/ibm-plex-mono"
   ]
 }

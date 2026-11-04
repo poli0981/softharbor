@@ -24,7 +24,7 @@ interface IconSet {
 }
 
 const SETS: Record<string, IconSet> = {
-  'simple-icons': simpleIcons as IconSet,
+  'simple-icons': simpleIcons,
   lucide,
 };
 
