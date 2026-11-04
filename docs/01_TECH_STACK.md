@@ -25,13 +25,21 @@
 > TypeScript 7.0.2 (`tsc`, as `@typescript/native`) beside 6.0.3 (the API, via
 > `@typescript/typescript6` 6.0.2) · SonarScanner CLI 8.2 through
 > `sonarqube-scan-action` 8.3.
+>
+> **Upkeep 2026-11-04:** pnpm 11.28.9 · Astro 7.4.5 · Svelte 5.57.3 ·
+> `@astrojs/svelte` 9.1.2 · Tailwind 4.3.4 · Vitest 5.1.0 · Wrangler 4.156 ·
+> ESLint 10.14 · `typescript-eslint` 8.72.1 · knip 6.44 · `pnpm/action-setup`
+> 6.1.1 · `sonarqube-scan-action` 8.4.1 (CLI 8.3.1). `@vite-pwa/astro` stays
+> on 1.2.0 — 2.0.0 was tried and refused (docs/09 §7) — and pnpm stays on
+> the 11 line although 12 is out: a pnpm major is a decision, not an upkeep
+> bump.
 
 ## 1. Runtime & toolchain
 
 | Layer | Package | Line (2026-07-15) | Notes |
 |---|---|---|---|
 | Runtime | Node.js | **26** (26.12 at v1.2; was 24 LTS "Krypton" until 2026-10-23) | LTS from 2026-10-28, maintenance from 2027-10, end of life 2029-04. Taken five days before the LTS label at the owner's request (D7 amended) — Node 24 had entered maintenance on 2026-10-20, and CI, the e2e suite and a Workers Builds preview all passed on 26 first. Pin via `.nvmrc` = `26` and `"engines": { "node": ">=26 <27" }`; CI and Workers Builds read `.nvmrc`, and `@types/node` majors are held to the same line (Dependabot ignore, §5). **Node 25+ ships no Corepack**: a laptop whose `pnpm` came from Corepack needs `npm install -g corepack` (or a standalone pnpm) after upgrading, or `pnpm` and the lefthook hooks stop working. |
-| Package manager | pnpm | **11.x** (`11.15.1`, `packageManager`) | `packageManager` field pinned; CI's `pnpm/action-setup` reads it (no `version:`), so CI, Dependabot, Workers Builds and laptops run the same pnpm. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). pnpm 11's default **24 h `minimumReleaseAge`** refuses day-old releases — hence Dependabot's 2-day cooldown (§5). |
+| Package manager | pnpm | **11.x** (`11.28.9` since 2026-11-04, `packageManager`; `11.15.1` until then) | `packageManager` field pinned; CI's `pnpm/action-setup` reads it (no `version:`), so CI, Dependabot, Workers Builds and laptops run the same pnpm. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). pnpm 11's default **24 h `minimumReleaseAge`** refuses day-old releases — hence Dependabot's 2-day cooldown (§5). |
 | Deploy CLI | Wrangler | **4.x** (4.151 at v1.1) | Workers Builds runs `npx wrangler deploy` (main) and `wrangler versions upload` (PRs); CI runs `wrangler deploy --dry-run` to bundle `worker/` and validate `wrangler.jsonc`. Since D25 there **is** a Worker script (`worker/index.ts`), tested under Vitest in Node — the local `workerd` runtime stays blocked in `allowBuilds` (docs/09 §7). Types for the Worker are written by hand (`worker/env.ts`), not `@cloudflare/workers-types`. |
 
 ## 2. Framework & UI
@@ -46,7 +54,7 @@
 | Search | `minisearch` | **7.x** | Client-side index; options in docs/05 §A2. Loaded with a dynamic `import()` on first search, so it is not in any page's static bundle. |
 | Icons | `unplugin-icons` + `@iconify-json/simple-icons` + `@iconify-json/lucide` | latest | Simple Icons = app logos (SVG, CC0 set — trademark caveat in docs/14 §3d); Lucide = UI icons. In islands: `~icons/lucide/<name>` via `unplugin-icons` (`compiler: 'svelte'`). In `.astro`: `ShIcon.astro` / `src/lib/icon.ts`, which read the same vendored JSON at build time (data-driven names cannot be static imports). Nothing fetched at runtime. |
 | Fonts | `@fontsource-variable/bricolage-grotesque`, `@fontsource/be-vietnam-pro`, `@fontsource/ibm-plex-mono` | latest | `latin` + `vietnamese` subsets only (Bricolage's single stylesheet relies on `unicode-range`, docs/06 §3). |
-| PWA / offline | `@vite-pwa/astro` | 1.2.x | Installable (manifest linked, PNG icons) with an offline fallback page — not a full precache PWA (docs/08 Part D). Its peer range stops at Astro 5; accepted explicitly in `pnpm-workspace.yaml` because `check:sw` proves the output every build. |
+| PWA / offline | `@vite-pwa/astro` | 1.2.x | Installable (manifest linked, PNG icons) with an offline fallback page — not a full precache PWA (docs/08 Part D). Its peer range stops at Astro 5; accepted explicitly in `pnpm-workspace.yaml` because `check:sw` proves the output every build. 2.0.0 (a rewrite on `@unplugin-pwa` 0.0.x) emitted a broken service worker under pnpm on 2026-11-04 — held back until a 2.x fixes it (docs/09 §7). |
 | Feeds & SEO | `@astrojs/rss`, `@astrojs/sitemap` | latest | `/rss.xml` (new apps) + sitemap with hreflang. |
 | Third-party runtime (not packages) | Cloudflare Web Analytics beacon · Cloudflare Turnstile `api.js` | — | Loaded by our own code from their origins — the only third-party requests (hard rule 7, D25/D26, docs/09 §4). |
 
@@ -57,13 +65,13 @@
 | Lint | `eslint` **10.x** flat config + `typescript-eslint` 8.x + `eslint-plugin-astro` 3.x + `eslint-plugin-svelte` 3.x | latest |
 | Format | `prettier` 3.x + `prettier-plugin-astro` + `prettier-plugin-svelte` + `prettier-plugin-tailwindcss` | latest |
 | Dead code | `knip` | **6.x** |
-| Unit / island / script / Worker tests | `vitest` + `@vitest/coverage-v8` + `happy-dom` | **5.x** (5.0.5) — four projects, coverage ratchet (docs/11 §1) |
+| Unit / island / script / Worker tests | `vitest` + `@vitest/coverage-v8` + `happy-dom` | **5.x** (5.1.0) — four projects, coverage ratchet (docs/11 §1) |
 | End-to-end + a11y | `@playwright/test` + `@axe-core/playwright` | 1.64 / 4.14 — Chromium, desktop + Pixel 7 (docs/11 §5) |
 | Icon generation | `sharp` (dev only, `pnpm icons`) | 0.35 — output committed, builds never need it |
 | Git hooks | `lefthook` | **2.x** |
 | Link checking (CI) | `lychee` via `lycheeverse/lychee-action` | v2 line (v2.9.0) |
 | Dep updates | **Dependabot** (`.github/dependabot.yml`) | npm + github-actions, weekly — docs/12 §6 (replaced the never-installed Renovate) |
-| CVE / code scanning | `osv-scanner` action + `pnpm audit --prod`; CodeQL (org reusable workflow); SonarQube Cloud **CI-based** analysis with coverage (`ci.yml` `sonar` job, `sonarqube-scan-action` 8.3, CLI 8.2 — docs/12 §2) | latest |
+| CVE / code scanning | `osv-scanner` action + `pnpm audit --prod`; CodeQL (org reusable workflow); SonarQube Cloud **CI-based** analysis with coverage (`ci.yml` `sonar` job, `sonarqube-scan-action` 8.4, CLI 8.3 — docs/12 §2) | latest |
 
 ## 4. Rationale for the contested picks
 

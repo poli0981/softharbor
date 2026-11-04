@@ -90,13 +90,13 @@ deliberately: first-party org workflows (`poli0981/.github`) are tracked at
 `@main` so org-wide fixes land everywhere at once, and how *they* pin their
 internal actions is the ops repo's call — do not file it as a defect here.
 
-Pinned as of 2026-10-23: `actions/checkout` v7.0.1 · `pnpm/action-setup`
-v6.1.0 (no `version:` — it reads `packageManager`) · `actions/setup-node`
+Pinned as of 2026-11-04: `actions/checkout` v7.0.1 · `pnpm/action-setup`
+v6.1.1 (no `version:` — it reads `packageManager`) · `actions/setup-node`
 v7.1.0 (`node-version-file: .nvmrc`) · `actions/cache` v6.1.0 ·
 `actions/upload-artifact` v7.0.2 · `google/osv-scanner-action` v2.7.0 ·
 `lycheeverse/lychee-action` v2.9.0 · `peter-evans/create-pull-request`
-v8.1.1 · `SonarSource/sonarqube-scan-action` v8.3.0 (with
-`scannerVersion: 8.2.0.6438`, the newest CLI — Dependabot bumps the action,
+v8.1.1 · `SonarSource/sonarqube-scan-action` v8.4.1 (with
+`scannerVersion: 8.3.1.16491`, the newest CLI — Dependabot bumps the action,
 not that input; the deprecated `sonarcloud-github-action` must not come
 back).
 
