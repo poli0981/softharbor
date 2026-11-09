@@ -365,8 +365,9 @@ can only carry CC BY-SA 4.0 because the summaries are the project's own words
 Must name **each model whose work lands, its version identifier, and its
 developer** — currently Claude models by Anthropic, used through Claude
 Code: **Claude Opus 5** (`claude-opus-5`) for the site and catalogue
-through v1.0, and **Claude Opus 5.5** (`claude-opus-5-5`) for the v1.1 and
-v1.2 work of October 2026; no other AI system contributed. Every claim on the page
+through v1.0, and **Claude Opus 5.5** (`claude-opus-5-5`) for the v1.1–v1.3
+work of October 2026 and the v1.4 work of November 2026; no other AI system
+contributed. Every claim on the page
 must stay literally true — update it when a process changes (two false
 claims were corrected on 2026-10-21).
 

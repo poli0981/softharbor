@@ -9,6 +9,8 @@ content. Git tags mark milestones only: **`v1.0.0`** at public launch
 **`v1.2.0`** for the upkeep release — re-check automation, Node 26 /
 TypeScript 7, CI-based SonarQube Cloud, catalogue batch 2 (2026-10-23),
 **`v1.3.0`** for the site-wide rate limit (D32, 2026-10-26),
+**`v1.4.0`** for accessibility — the statement, the "/" switch, the WCAG
+2.2 fixes and the Accessibility category (D33, D34, 2026-11-09),
 minor tags when a feature phase ships. Publishing a GitHub Release fires `notify.yml` →
 Discord (docs/12 §2). Data changes never tag. `CHANGELOG.md`
 (Keep-a-Changelog, dates UTC) records feature work and anything a visitor

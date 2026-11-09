@@ -1,7 +1,7 @@
 # 00 — Project Overview
 
 > **Project:** SoftHarbor
-> **Doc suite version:** 3.0 (2026-10-26, site v1.3)
+> **Doc suite version:** 3.1 (2026-11-09, site v1.4)
 > **Author:** poli0981 / SkullMute · **License:** code GPL-3.0-only · data CC BY-SA 4.0
 > **Platform:** Web (static), Cloudflare Workers Static Assets, canonical `https://softharbor.net`
 > — plus one Worker: the site-wide rate limit (D32) and `POST /api/verify` (D25)

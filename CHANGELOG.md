@@ -4,6 +4,64 @@ All notable changes to SoftHarbor. The site is continuously deployed; a
 version marks a release announced in the repository (docs/13). Dates are
 UTC.
 
+## [1.4.0] — 2026-11-09
+
+Accessibility: a public statement of what the site aims for and how to
+report a barrier, a round of fixes, and a new category of assistive
+software.
+
+### Privacy — what changed
+
+- The display menu has a new switch for the "/" search shortcut. Your
+  choice is remembered in your browser as `sh:keys`, like the other display
+  choices, and never sent anywhere. The Privacy Policy lists it, so the
+  consent dialog asks you to accept once more.
+
+### Added
+
+- **[Accessibility Statement](https://softharbor.net/legal/accessibility)**
+  in English and Vietnamese: the target (WCAG 2.2 level AA — a goal, not a
+  claim that every page meets it), what the site does, how it is tested,
+  what is known not to work yet, and how to report a barrier — by email to
+  accessibility@poli0981.dev, no GitHub account needed, or with the new
+  Accessibility issue form. `ACCESSIBILITY.md` in the repository says the
+  same for contributors, and pull requests now come with an accessibility
+  checklist.
+- **"Keyboard shortcut “/”: On / Off"** in the display menu, for anyone who
+  sets it off by accident — with speech input, for example. Turned off, the
+  "/" hints disappear too.
+- **An Accessibility category** with eight apps: the NVDA screen reader,
+  Optikey for typing and controlling the computer with your eyes, Balabolka
+  and eSpeak NG for speech, Thorium Reader and Bookworm for reading, and
+  Colour Contrast Analyser and Accessibility Insights for checking your own
+  work. Also new: Orkas, a desktop AI workspace. 15 categories in all.
+
+### Changed
+
+- On a narrow phone (320 px wide) or at a large zoom, the language and
+  display buttons move to a second header row instead of off the screen,
+  and whatever you tab to no longer hides under the header.
+- The focused choice in the display menu has a visible focus ring of its
+  own, and the language switch no longer clips its ring.
+- With a Windows contrast theme, the current section, your display choices
+  and the current language stay marked.
+- Category links on app cards are bigger targets; screen readers hear the
+  filter button as "Filters 2 active" and a search error as soon as it
+  happens; tables have captions and scroll with the keyboard; "Report a
+  bug" says it opens a new tab.
+- The automated accessibility checks now also fail on moderate findings and
+  cover every kind of page in both languages, plus the open dialogs.
+- The AI Disclosure names the model used for this release.
+
+### Security status — what changed
+
+- Every app still marked "Unverified" was scanned again. Twenty now show
+  "No known warnings": eight came back with no detections, and twelve whose
+  only warning came from one or two URL-reputation services were reviewed
+  by the maintainer and judged false positives — their linked scans still
+  show that warning. Nine stay "Unverified", each for a stated reason.
+  364 of the 373 apps carry "No known warnings".
+
 ## [1.3.0] — 2026-10-26
 
 Protection against floods: the site now limits how fast one network can
@@ -21,8 +79,9 @@ ask for it, and says so plainly when it does.
 - **A rate limit for the whole site.** A browser or tool that asks for
   far more than anyone reading would — over 60 requests in ten seconds —
   gets a "Too many requests" page in English and Vietnamese for about ten
-  seconds instead of the page asked for. The public dataset at `/api/apps.json` and
-  the bot-check endpoint answer in JSON under the same limit, and the
+  seconds instead of the page asked for. The public dataset at
+  `/api/apps.json` and the bot-check endpoint answer in JSON under the same
+  limit, and the
   dataset's answer is readable from other sites, so tools see the refusal
   and when to retry. What a page loads — styles, scripts, fonts, icons — is
   never limited, so a page that loads, loads whole.
@@ -167,5 +226,8 @@ First public release: 326 apps in 12 categories, English and Vietnamese,
 official links only, dated security statuses with their scans linked. See the
 [release notes](https://github.com/poli0981/softharbor/releases/tag/v1.0.0).
 
+[1.4.0]: https://github.com/poli0981/softharbor/releases/tag/v1.4.0
+[1.3.0]: https://github.com/poli0981/softharbor/releases/tag/v1.3.0
+[1.2.0]: https://github.com/poli0981/softharbor/releases/tag/v1.2.0
 [1.1.0]: https://github.com/poli0981/softharbor/releases/tag/v1.1.0
 [1.0.0]: https://github.com/poli0981/softharbor/releases/tag/v1.0.0
