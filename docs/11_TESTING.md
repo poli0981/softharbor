@@ -256,6 +256,15 @@ rendering both languages, online navigation still serving real pages.
 fonts, `/offline` cache-servable, online navigation still serving real pages,
 zero console errors.
 
+**Re-verified after the move to `@vite-pwa/astro` 2.0.1** (2026-11-09, local
+`astro preview`, Chromium): SW active **and controlling**, the same 16
+precache entries as 1.2.0, zero console errors; with the preview server
+stopped, a navigation to `/apps/7-zip` was answered by the styled `/offline`
+page (stylesheet and fonts from the precache). The upgrade first produced two
+more silent failures of the S5 kind — bare ES imports in `sw.js` and in
+`registerSW.js`, which both run as classic scripts — so `check:sw` now fails on
+those too (docs/09 §7).
+
 **Still outstanding:** the actual airplane-mode pass on desktop **and Android
 Chrome**, which is a device test. The software wiring above is what can be
 verified without one.

@@ -33,13 +33,22 @@
 > on 1.2.0 — 2.0.0 was tried and refused (docs/09 §7) — and pnpm stays on
 > the 11 line although 12 is out: a pnpm major is a decision, not an upkeep
 > bump.
+>
+> **Upkeep 2026-11-09:** pnpm 11.28.11 · Astro 7.4.7 (Rolldown 1.3.0) ·
+> Tailwind 4.3.5 · Wrangler 4.158 · Playwright 1.65.0 · knip 6.44.2 ·
+> `eslint-plugin-svelte` 3.24.1 · **`@vite-pwa/astro` 2.0.1** (on
+> `@unplugin-pwa` 0.0.4 and `@vite-pwa/workbox-*` 8.0.14), which needs
+> `rolldown`, `magicast`, `@vite-pwa/workbox-swkit` and
+> `@vite-pwa/workbox-window` as direct devDependencies under pnpm (docs/09 §7)
+> and drops workbox-build 7 with ~270 transitive packages. Node 26.13.0 is the
+> newest 26.x (LTS since 2026-10-28).
 
 ## 1. Runtime & toolchain
 
 | Layer | Package | Line (2026-07-15) | Notes |
 |---|---|---|---|
 | Runtime | Node.js | **26** (26.12 at v1.2; was 24 LTS "Krypton" until 2026-10-23) | LTS from 2026-10-28, maintenance from 2027-10, end of life 2029-04. Taken five days before the LTS label at the owner's request (D7 amended) — Node 24 had entered maintenance on 2026-10-20, and CI, the e2e suite and a Workers Builds preview all passed on 26 first. Pin via `.nvmrc` = `26` and `"engines": { "node": ">=26 <27" }`; CI and Workers Builds read `.nvmrc`, and `@types/node` majors are held to the same line (Dependabot ignore, §5). **Node 25+ ships no Corepack**: a laptop whose `pnpm` came from Corepack needs `npm install -g corepack` (or a standalone pnpm) after upgrading, or `pnpm` and the lefthook hooks stop working. |
-| Package manager | pnpm | **11.x** (`11.28.9` since 2026-11-04, `packageManager`; `11.15.1` until then) | `packageManager` field pinned; CI's `pnpm/action-setup` reads it (no `version:`), so CI, Dependabot, Workers Builds and laptops run the same pnpm. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). pnpm 11's default **24 h `minimumReleaseAge`** refuses day-old releases — hence Dependabot's 2-day cooldown (§5). |
+| Package manager | pnpm | **11.x** (`11.28.11` since 2026-11-09, `packageManager`; `11.28.9` from 2026-11-04, `11.15.1` before) | `packageManager` field pinned; CI's `pnpm/action-setup` reads it (no `version:`), so CI, Dependabot, Workers Builds and laptops run the same pnpm. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). pnpm 11's default **24 h `minimumReleaseAge`** refuses day-old releases — hence Dependabot's 2-day cooldown (§5). |
 | Deploy CLI | Wrangler | **4.x** (4.151 at v1.1) | Workers Builds runs `npx wrangler deploy` (main) and `wrangler versions upload` (PRs); CI runs `wrangler deploy --dry-run` to bundle `worker/` and validate `wrangler.jsonc`. Since D25 there **is** a Worker script (`worker/index.ts`), tested under Vitest in Node — the local `workerd` runtime stays blocked in `allowBuilds` (docs/09 §7). Types for the Worker are written by hand (`worker/env.ts`), not `@cloudflare/workers-types`. |
 
 ## 2. Framework & UI
@@ -54,7 +63,7 @@
 | Search | `minisearch` | **7.x** | Client-side index; options in docs/05 §A2. Loaded with a dynamic `import()` on first search, so it is not in any page's static bundle. |
 | Icons | `unplugin-icons` + `@iconify-json/simple-icons` + `@iconify-json/lucide` | latest | Simple Icons = app logos (SVG, CC0 set — trademark caveat in docs/14 §3d); Lucide = UI icons. In islands: `~icons/lucide/<name>` via `unplugin-icons` (`compiler: 'svelte'`). In `.astro`: `ShIcon.astro` / `src/lib/icon.ts`, which read the same vendored JSON at build time (data-driven names cannot be static imports). Nothing fetched at runtime. |
 | Fonts | `@fontsource-variable/bricolage-grotesque`, `@fontsource/be-vietnam-pro`, `@fontsource/ibm-plex-mono` | latest | `latin` + `vietnamese` subsets only (Bricolage's single stylesheet relies on `unicode-range`, docs/06 §3). |
-| PWA / offline | `@vite-pwa/astro` | 1.2.x | Installable (manifest linked, PNG icons) with an offline fallback page — not a full precache PWA (docs/08 Part D). Its peer range stops at Astro 5; accepted explicitly in `pnpm-workspace.yaml` because `check:sw` proves the output every build. 2.0.0 (a rewrite on `@unplugin-pwa` 0.0.x) emitted a broken service worker under pnpm on 2026-11-04 — held back until a 2.x fixes it (docs/09 §7). |
+| PWA / offline | `@vite-pwa/astro` | **2.x** (2.0.1 since 2026-11-09; 1.2.0 before) | Installable (manifest linked, PNG icons) with an offline fallback page — not a full precache PWA (docs/08 Part D). 2.x is a rewrite on `@unplugin-pwa` 0.0.x: named export `AstroPWAIntegration`, `generateSW` instead of `workbox`. Under pnpm it needs four direct devDependencies — `rolldown` and `magicast` (or the SW build stops) and `@vite-pwa/workbox-swkit` + `@vite-pwa/workbox-window` (or `sw.js`/`registerSW.js` keep bare ES imports a classic script cannot run, while the build reports success). The SW is emitted unminified so `check:sw` can read it. 2.0.0 was refused on 2026-11-04 for exactly those silent failures (docs/09 §7). |
 | Feeds & SEO | `@astrojs/rss`, `@astrojs/sitemap` | latest | `/rss.xml` (new apps) + sitemap with hreflang. |
 | Third-party runtime (not packages) | Cloudflare Web Analytics beacon · Cloudflare Turnstile `api.js` | — | Loaded by our own code from their origins — the only third-party requests (hard rule 7, D25/D26, docs/09 §4). |
 

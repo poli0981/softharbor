@@ -357,27 +357,47 @@ does not read issue labels.
   Whether `wrangler dev` (with `.dev.vars`) runs with the script blocked:
   ⚠ verify. Flipping any entry to `true` requires a decision-log line.
 - **`overrides`** in `pnpm-workspace.yaml` force patched floors for
-  `glob`, `minimatch`, `fast-uri` and `serialize-javascript`, each with the
-  advisory ids in a comment. All of them reach us only through build or dev
-  tooling (`@vite-pwa/astro` → `workbox-build`, the eslint toolchain,
-  `@astrojs/check`'s language server); nothing ships to a visitor. `glob`
-  (GHSA-3g3m-2fjr-6pw4, ≥ 14.0.2) and `minimatch` (GHSA-g3hv-75wg-m249,
-  ≥ 11.0.1) were added 2026-11-04 and cross majors — workbox-build asks
-  for glob 11, eslint and typescript-eslint for minimatch 10 — which is
-  accepted only because every caller uses API the new majors kept, the
-  service worker's precache list came out identical (16 entries) and lint
-  covers the same 157 files with the same rules. Every minimatch 11
-  requires brace-expansion ≥ 5.0.12, so that floor was retired the same
-  day, as was `miniflare>undici` once miniflare itself pinned the fixed
-  7.30.1. CI's OSV-Scanner step fails `gates` on any of them, so a new
-  transitive advisory blocks every PR — Dependabot's included — until it
-  is handled here. Remove a line once upstream's own range moves past it.
-  `peerDependencyRules` accepts `@vite-pwa/astro` 1.2.0's stale Astro peer
-  range explicitly (it works on Astro 7; `check:sw` proves it every build).
-  Its 2.0.0 (2026-10-31, a rewrite on `@unplugin-pwa` 0.0.x) was tried
-  and refused on 2026-11-04: under pnpm's strict layout it emitted a
-  service worker with bare `@vite-pwa/workbox-swkit/*` imports and an
-  empty precache, which `check:sw` failed six ways.
+  `minimatch` and `fast-uri`, each with the advisory ids in a comment.
+  Both reach us only through dev tooling (the eslint toolchain,
+  `@astrojs/check`'s language server); nothing ships to a visitor.
+  `minimatch` (GHSA-g3hv-75wg-m249, ≥ 11.0.1, added 2026-11-04) crosses a
+  major — eslint and typescript-eslint ask for 10 — which is accepted only
+  because every caller uses API 11 kept and lint covers the same 157 files
+  with the same rules either side. Every minimatch 11 requires
+  brace-expansion ≥ 5.0.12, so that floor was retired the same day, as was
+  `miniflare>undici` once miniflare itself pinned the fixed 7.30.1.
+  `glob` (GHSA-3g3m-2fjr-6pw4) and `serialize-javascript`
+  (GHSA-m5mm-p8h7-m29v) were retired on 2026-11-09: both came in through
+  `@vite-pwa/astro` 1 → `workbox-build` 7, which left the tree with
+  `@vite-pwa/astro` 2 (nothing depends on glob any more;
+  `@vite-pwa/workbox-build` 8 asks for serialize-javascript ≥ 7.1.4 itself).
+  CI's OSV-Scanner step fails `gates` on any of them, so a new transitive
+  advisory blocks every PR — Dependabot's included — until it is handled
+  here. Remove a line once upstream's own range moves past it.
+- **`packageExtensions`** (since 2026-11-09) give `@astrojs/astro2tsx`
+  0.1.3 the `@emnapi/runtime` 1.11.3 that matches the `@emnapi/core` it
+  pins. Rolldown 1.3.0 (Astro 7.4.7) brought `@emnapi/runtime`
+  2.0.0-beta.2 into the graph, pnpm resolved astro2tsx's peer to it, and
+  the mismatched pair threw on import — which `astro check` reports as
+  "`@astrojs/check` is not installed" (Dependabot #67). Remove the entry
+  once an astro2tsx release declares the runtime itself.
+- **`@vite-pwa/astro` 2** (adopted 2026-11-09 at 2.0.1, a rewrite on
+  `@unplugin-pwa` 0.0.x). 2.0.0 was refused on 2026-11-04: under pnpm's
+  strict layout it emitted a service worker with bare
+  `@vite-pwa/workbox-swkit/*` imports and an empty precache, and the build
+  still reported success. The cause is resolution, not the plugin: the SW
+  and `registerSW.js` are bundled from the project root, where pnpm does
+  not hoist the plugin's own dependencies. So four packages are direct
+  devDependencies — `rolldown`, `magicast`, `@vite-pwa/workbox-swkit`,
+  `@vite-pwa/workbox-window` (knip ignores the last two: nothing imports
+  them by name) — and the two workbox packages must resolve to the exact
+  version `@vite-pwa/workbox-build` pins. `check:sw` now also fails on an
+  ES `import` in `sw.js` or `registerSW.js` (both run as classic scripts),
+  on an `importScripts()` target the build did not emit, and on a missing
+  `cleanupOutdatedCaches()` (a 1.x default, opt-in in 2.x). Verified in a
+  browser: the SW registers and controls the page, precaches the same 16
+  entries as 1.2.0, and serves the styled `/offline` page when the server
+  is gone.
 - **Advisories no release fixes yet** cannot get an override, so they are
   skipped by id instead — narrowly, in two places that must agree:
   `osv-scanner.toml` (`[[IgnoredVulns]]`, each with an `ignoreUntil`
@@ -387,9 +407,9 @@ does not read issue labels.
   build time and ships nothing to a visitor. Current entry (added
   2026-10-30, expires 2027-01-31): `deepmerge` ≤ 4.3.1,
   GHSA-gcqx-w48m-w2h4 (low) — 4.3.1 is the latest release; it reaches us
-  through `@sveltejs/vite-plugin-svelte` (merging `svelte.config.js`) and
-  `workbox-build` → `@rollup/plugin-node-resolve` (merging plugin
-  options). Once a fixed release exists, remove both lines and add an
+  through `@sveltejs/vite-plugin-svelte` (merging `svelte.config.js`); its
+  second path, `workbox-build` 7 → `@rollup/plugin-node-resolve`, left with
+  `@vite-pwa/astro` 2 on 2026-11-09. Once a fixed release exists, remove both lines and add an
   override floor if upstream's range does not reach it.
 - **pnpm 11's default 24 h `minimumReleaseAge`** refuses any release younger
   than a day; Dependabot's 2-day cooldown keeps its PRs installable under
