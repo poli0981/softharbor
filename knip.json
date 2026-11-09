@@ -1,6 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreExportsUsedInFile": true,
+  "ignoreDependencies": ["@vite-pwa/workbox-swkit", "@vite-pwa/workbox-window"],
   "entry": ["src/pages/**/*.{astro,ts}", "scripts/*.mjs", "src/scripts/*.js"],
   "project": [
     "src/**/*.{ts,astro,svelte,css}",

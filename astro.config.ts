@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
-import AstroPWA from '@vite-pwa/astro';
+import { AstroPWAIntegration } from '@vite-pwa/astro';
 import tailwindcss from '@tailwindcss/vite';
 import Icons from 'unplugin-icons/vite';
 import { VIEW_TRANSITION_OPT_IN } from './src/lib/inlineCss';
@@ -118,7 +118,16 @@ export default defineConfig({
       i18n: { defaultLocale: 'en', locales: { en: 'en', vi: 'vi' } },
       filter: (page) => !NON_INDEXED.test(page),
     }),
-    AstroPWA({
+    // @vite-pwa/astro 2 (on @unplugin-pwa) since 2026-11-09. Under pnpm it
+    // needs four packages as DIRECT dependencies. Without `rolldown` or
+    // `magicast` the SW build stops with an error. Without
+    // `@vite-pwa/workbox-swkit` the classic sw.js keeps bare ES imports and an
+    // empty precache; without `@vite-pwa/workbox-window` registerSW.js starts
+    // with an ES import the page cannot run as a classic script — and in both
+    // cases the build reports success (docs/09 §7; `check:sw` catches them).
+    // The two workbox packages must resolve to the version
+    // @vite-pwa/workbox-build pins (`pnpm why @vite-pwa/workbox-swkit`).
+    AstroPWAIntegration({
       registerType: 'autoUpdate',
       // MUST be explicit. Without it the build still emits registerSW.js but
       // never references it from any page, so the service worker never
@@ -128,6 +137,14 @@ export default defineConfig({
       // plus hashes Astro generates, and a PWA-injected inline snippet is not
       // one of them (docs/09 §4, D20).
       injectRegister: 'script',
+      // Unminified on purpose: `check:sw` asserts the SW by the names in it
+      // (NetworkOnly, precacheAndRoute, skipWaiting), which minification
+      // mangles. Cost: ~1.6 kB sw.js plus a ~38 kB workbox runtime chunk,
+      // both compressed in transit.
+      minify: false,
+      // 1.x never precached the manifest icons; 2.x defaults to doing so.
+      // Keep the precache to what the offline page needs (16 entries).
+      includeManifestIcons: false,
       manifest: {
         id: '/',
         name: 'SoftHarbor',
@@ -153,7 +170,9 @@ export default defineConfig({
           { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
         ],
       },
-      workbox: {
+      // `generateSW` (1.x called it `workbox`; the old key still works but is
+      // deprecated).
+      generateSW: {
         // These globs are coupled to build.format — 'file' emits offline.html,
         // 'directory' would emit offline/index.html. And fonts are
         // content-hashed into _astro/, never a /fonts/ directory. Both of the
@@ -188,6 +207,10 @@ export default defineConfig({
         // activation, so a first-time visitor who loses connection mid
         // session gets the browser's error page instead of ours (S5).
         clientsClaim: true,
+        // Explicit since 2.x: 1.x emitted cleanupOutdatedCaches() by default,
+        // 2.x does not, so caches left by older Workbox precache formats would
+        // stay on visitors' disks.
+        cleanupOutdatedCaches: true,
 
         // `navigateFallback: ''` DISABLES it. Leaving the key out does not:
         // vite-plugin-pwa's `defaultWorkbox` sets `navigateFallback:

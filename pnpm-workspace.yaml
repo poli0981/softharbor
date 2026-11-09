@@ -21,27 +21,19 @@ allowBuilds:
   workerd: false
 
 # Security overrides. Every package here reaches us only through BUILD or DEV
-# tooling — @vite-pwa/astro -> vite-plugin-pwa -> workbox-build, the eslint
-# toolchain, or @astrojs/check's language server; nothing here ships to a
-# visitor. Each floor is the first release that fixes every advisory listed.
-# Remove a line once upstream's own range moves past it (`pnpm why <pkg>` shows
-# who still pins the old version).
-#
-# glob — GHSA-3g3m-2fjr-6pw4 (>=9 <14.0.2). workbox-build 7.4.1 (the latest)
-# asks for `^11.0.1`, so 14 is forced across three majors; acceptable only
-# because workbox-build's one call is `globSync(pattern, { cwd, follow,
-# ignore })` with ignores that do not start with `/` — nothing glob 12–14
-# changed — and `check:sw` asserts the precache list it produces on every build.
+# tooling — the eslint toolchain or @astrojs/check's language server; nothing
+# here ships to a visitor. Each floor is the first release that fixes every
+# advisory listed. Remove a line once upstream's own range moves past it
+# (`pnpm why <pkg>` shows who still pins the old version).
 #
 # minimatch — GHSA-g3hv-75wg-m249 (<11.0.1). Callers: eslint, @eslint/config-array
 # and typescript-eslint (`^10.2.x`, matching our own config globs against our
-# own paths), glob 14 above, and filelist via ejs -> jake (`^5`, the ejs CLI
-# only; never run by the build). No patched 10.x or 5.x exists, so 11 is
-# forced across a major; acceptable only because every caller uses nothing 11
-# removed — `minimatch()`, `minimatch.match()` and `new Minimatch().match()`,
-# never makeRe/regexp/AST/debug — and `pnpm lint` lints the same 157 files with
-# the same result either side of the override (checked 2026-11-04). Every 11.x
-# requires brace-expansion ^5.0.12, which retired that package's own floor
+# own paths). No patched 10.x exists, so 11 is forced across a major;
+# acceptable only because every caller uses nothing 11 removed — `minimatch()`,
+# `minimatch.match()` and `new Minimatch().match()`, never makeRe/regexp/AST/
+# debug — and `pnpm lint` lints the same 157 files with the same result either
+# side of the override (checked 2026-11-04). Every 11.x requires
+# brace-expansion ^5.0.12, which retired that package's own floor
 # (GHSA-mh99-v99m-4gvg … GHSA-q2hr-2g5m-vwhr, <5.0.12).
 #
 # fast-uri — GHSA-7p8r-x3mc-p8w7, GHSA-5jgf-p345-68v8, GHSA-f65p-4m7j-42xc,
@@ -49,16 +41,14 @@ allowBuilds:
 # GHSA-hrr3-gc8f-f4qj (<3.1.8). Same major as ajv@8's `^3.0.1` range; pnpm kept
 # the locked 3.1.4 even under `update --depth Infinity`, hence the override.
 #
-# serialize-javascript — GHSA-m5mm-p8h7-m29v (<7.1.3), via workbox-build ->
-# @rollup/plugin-terser, whose `^7.0.3` range already allows the fix.
-#
-# (Retired 2026-11-04: `miniflare>undici` — miniflare 5.20261102.0-beta pins
-# the fixed 7.30.1 itself.)
+# (Retired 2026-11-09 with @vite-pwa/astro 2, which drops workbox-build 7 and
+# its 270-odd packages: `glob` ^14.0.2 — GHSA-3g3m-2fjr-6pw4, nothing depends
+# on glob any more — and `serialize-javascript` ^7.1.3 — GHSA-m5mm-p8h7-m29v,
+# @vite-pwa/workbox-build 8 asks for ^7.1.4 itself. Retired 2026-11-04:
+# `miniflare>undici` — miniflare pins the fixed 7.30.1 itself.)
 overrides:
-  glob: '^14.0.2'
   minimatch: '^11.0.1'
   fast-uri: '^3.1.9'
-  serialize-javascript: '^7.1.3'
 
 # Advisories that NO release fixes yet, so no override can reach them. CI's
 # `pnpm audit --prod` skips exactly these ids; `osv-scanner.toml` lists the same
@@ -66,8 +56,8 @@ overrides:
 # both files) once a fixed release exists — then it becomes an override above.
 #
 # deepmerge <= 4.3.1 — GHSA-gcqx-w48m-w2h4 (low). Build tooling only, merging
-# our own config: @astrojs/svelte -> @sveltejs/vite-plugin-svelte, and
-# @vite-pwa/astro -> workbox-build -> @rollup/plugin-node-resolve.
+# our own config: @astrojs/svelte -> @sveltejs/vite-plugin-svelte (the
+# @vite-pwa/astro -> workbox-build 7 path left with @vite-pwa/astro 2).
 auditConfig:
   ignoreGhsas:
     - GHSA-gcqx-w48m-w2h4
@@ -85,16 +75,3 @@ packageExtensions:
   '@astrojs/astro2tsx@0.1.3':
     dependencies:
       '@emnapi/runtime': '1.11.3'
-
-# @vite-pwa/astro stays on 1.2.0, whose peer range stops at Astro 5. It works
-# on Astro 7 — `pnpm build` and `check:sw` exercise the generated service
-# worker on every CI run — so the mismatch is accepted explicitly here instead
-# of surfacing as an unexplained install warning. 2.0.0 (2026-10-31, a rewrite
-# on @unplugin-pwa 0.0.x) was tried on 2026-11-04 and refused: it needs
-# rolldown and magicast installed directly, renames `workbox` to `generateSW`,
-# and under pnpm's strict layout emitted a 1.8 kB sw.js that still imported
-# bare `@vite-pwa/workbox-swkit/*` specifiers with an empty precache —
-# `check:sw` failed six ways. Retry once a 2.x release fixes that.
-peerDependencyRules:
-  allowedVersions:
-    '@vite-pwa/astro>astro': '7'

@@ -85,7 +85,7 @@ serves (`workers_dev: false`). Full domain checklist: docs/16 §10.
   downloaded per build) and `packageManager` (pnpm 11), or production can
   differ from what CI validated — re-check after any toolchain bump
   (docs/13 §2). Node 25+ ships no Corepack; should a build ever fail to find
-  pnpm, the Workers Builds variable `PNPM_VERSION=11.28.9` (the
+  pnpm, the Workers Builds variable `PNPM_VERSION=11.28.11` (the
   `packageManager` version) is the fix.
 - Rollback: dashboard → the Worker → **Deployments** → promote a previous
   version, or `wrangler rollback`.
@@ -171,13 +171,17 @@ has proper icons, so the site is installable; navigation still always goes
 to the network.
 
 ```ts
-// astro.config.ts — AstroPWA(…) (abridged)
-AstroPWA({
+// astro.config.ts — AstroPWAIntegration(…) (abridged; @vite-pwa/astro 2,
+// which under pnpm needs rolldown, magicast, @vite-pwa/workbox-swkit and
+// @vite-pwa/workbox-window as direct devDependencies — docs/09 §7)
+AstroPWAIntegration({
   registerType: 'autoUpdate',
   // MUST be explicit: without it registerSW.js is emitted but referenced by
   // no page, and the SW silently never registers (S5). 'script', not
   // 'inline': an injected inline snippet would not be in the CSP hashes.
   injectRegister: 'script',
+  minify: false,                // check:sw reads the SW by its names
+  includeManifestIcons: false,  // 2.x default; 1.x never precached them
   manifest: {
     id: '/', name: 'SoftHarbor', short_name: 'SoftHarbor', lang: 'en',
     description: 'Free & buy-once desktop software, one page.',
@@ -191,7 +195,7 @@ AstroPWA({
       { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
     ],
   },
-  workbox: {
+  generateSW: {  // `workbox` in 1.x
     // What /offline needs, and nothing more. Coupled to build.format
     // ('offline.html', never 'offline/**') and to Astro hashing fonts and
     // CSS into _astro/ (never a /fonts/ dir) — both mistakes once matched
@@ -206,6 +210,7 @@ AstroPWA({
     ],
     skipWaiting: true,    // registerSW.js never posts SKIP_WAITING
     clientsClaim: true,   // control the page that installed the SW (S5)
+    cleanupOutdatedCaches: true,  // a 1.x default, opt-in since 2.x
     // MUST be the empty string, and must be present. Omitting the key does
     // NOT disable it: vite-plugin-pwa's `defaultWorkbox` sets
     // navigateFallback: 'index.html', which emitted

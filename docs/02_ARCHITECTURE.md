@@ -208,7 +208,7 @@ import { createHash } from 'node:crypto';
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
-import AstroPWA from '@vite-pwa/astro';
+import { AstroPWAIntegration } from '@vite-pwa/astro';
 import tailwindcss from '@tailwindcss/vite';
 import Icons from 'unplugin-icons/vite';
 import { VIEW_TRANSITION_OPT_IN } from './src/lib/inlineCss';
@@ -270,7 +270,7 @@ export default defineConfig({
       i18n: { defaultLocale: 'en', locales: { en: 'en', vi: 'vi' } },
       filter: (page) => !NON_INDEXED.test(page),
     }),
-    AstroPWA(/* docs/08 Part D */),
+    AstroPWAIntegration(/* docs/08 Part D */),
   ],
   vite: {
     // ~icons/<set>/<name> compiles to Svelte components (islands); .astro

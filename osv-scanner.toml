@@ -11,9 +11,9 @@
 # crafted source object set the prototype of the object it returns. 4.3.1 is
 # the latest release. It reaches us only through build tooling —
 # @astrojs/svelte -> @sveltejs/vite-plugin-svelte (merging our own
-# svelte.config.js) and @vite-pwa/astro -> workbox-build ->
-# @rollup/plugin-node-resolve (merging plugin options) — so every input it
-# merges is ours, and it is not part of anything the site ships.
+# svelte.config.js; the second path, @vite-pwa/astro 1 -> workbox-build 7 ->
+# @rollup/plugin-node-resolve, left with @vite-pwa/astro 2 on 2026-11-09) — so
+# every input it merges is ours, and it is not part of anything the site ships.
 [[IgnoredVulns]]
 id = "GHSA-gcqx-w48m-w2h4"
 ignoreUntil = 2027-01-31
