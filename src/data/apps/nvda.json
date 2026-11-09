@@ -17,8 +17,8 @@
     "download": "https://www.nvaccess.org/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/bead57e2a8b5ba6dedecdf8e6a8e7523deb2f3d464fff9803eb8b62ff9d804b5",
     "checkedAt": "2026-11-09"
   },
   "addedAt": "2026-11-09"

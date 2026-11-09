@@ -17,8 +17,8 @@
     "download": "https://github.com/OptiKey/OptiKey/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/54bd376bc17509fca8f66064863afe7193a0b1d7d64f4c3654025c621483a5c4",
     "checkedAt": "2026-11-09"
   },
   "addedAt": "2026-11-09"

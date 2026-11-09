@@ -17,8 +17,8 @@
     "download": "https://github.com/blindpandas/bookworm/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b171e4359ffb01eef1edbaae0e226094da3ae35c813476cef0374e2aa12ebd63",
     "checkedAt": "2026-11-09"
   },
   "addedAt": "2026-11-09"

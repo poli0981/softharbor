@@ -17,8 +17,8 @@
     "download": "https://www.cross-plus-a.com/balabolka.htm"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2ccab1b1bfe13790e911b395cf2f877a5e4f2e5e7b355e3515315905e1378a78",
     "checkedAt": "2026-11-09"
   },
   "addedAt": "2026-11-09"

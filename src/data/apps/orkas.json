@@ -17,8 +17,8 @@
     "download": "https://orkas.ai/download/"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/856bef961530a205b9fe0cd8d822d7c463b112c8fa1ac37ffed0e2894fbeef27",
     "checkedAt": "2026-11-09"
   },
   "addedAt": "2026-11-09"

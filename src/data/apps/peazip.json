@@ -17,7 +17,7 @@
     "download": "https://peazip.github.io/peazip-64bit.html"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/650bd36089edfe582f792b2cce4b1fdf46c43abdaad83038152db4cf4253f539",
     "checkedAt": "2026-11-09"
   },

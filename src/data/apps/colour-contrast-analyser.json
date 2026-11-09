@@ -1,6 +1,6 @@
 {
   "name": "Colour Contrast Analyser",
-  "developer": "TPGi",
+  "developer": "Vispero (TPGi)",
   "logo": "monogram",
   "summary": {
     "en": "Picks text and background colours from anywhere on screen and reports their contrast against the WCAG thresholds.",
@@ -12,13 +12,13 @@
   "pricing": "free",
   "license": "GPL-3.0-only",
   "links": {
-    "homepage": "https://www.tpgi.com/color-contrast-checker/",
+    "homepage": "https://vispero.com/color-contrast-checker/",
     "repo": "https://github.com/ThePacielloGroup/CCAe",
     "download": "https://github.com/ThePacielloGroup/CCAe/releases"
   },
   "security": {
-    "status": "unverified",
-    "evidence": null,
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8a07e9837dc4628c0f358075852c44508fbcca928310bcb61672e070d7493581",
     "checkedAt": "2026-11-09"
   },
   "addedAt": "2026-11-09"
