@@ -61,6 +61,7 @@ softharbor/
 ├── LICENSE                        # GPL-3.0-only (GitHub picker)
 ├── LICENSE-DATA.md                # CC BY-SA 4.0 for src/data/** (docs/14 §1)
 ├── SECURITY.md                    # reporting policy (docs/09 §5)
+├── ACCESSIBILITY.md               # a11y statement for contributors (D33; twin of /legal/accessibility)
 ├── CONTRIBUTING.md / CODE_OF_CONDUCT.md
 ├── CHANGELOG.md                   # Keep-a-Changelog, features only (docs/13 §1)
 ├── README.md                      # overview, commands, contacts
@@ -77,9 +78,10 @@ softharbor/
 ├── .github/
 │   ├── CODEOWNERS                 # * @poli0981 + .github/ scripts/ src/data/ worker/ (T6)
 │   ├── dependabot.yml             # npm + github-actions, weekly (docs/12 §6)
-│   ├── ISSUE_TEMPLATE/            # bug_report.yml · app_request.yml · config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md   # checks + accessibility + data-PR checklists (docs/12 §7)
+│   ├── ISSUE_TEMPLATE/            # bug_report.yml · app_request.yml · accessibility.yml · config.yml
 │   └── workflows/                 # docs/12: ci.yml · codeql.yml · notify.yml
-│                                  #   quarantine.yml · link-check.yml
+│                                  #   quarantine.yml · link-check.yml · vt-recheck.yml
 │                                  #   (NO deploy/preview — Cloudflare Workers
 │                                  #    Builds owns deployment, docs/12 §3)
 ├── data/
@@ -148,7 +150,7 @@ softharbor/
     ├── components/
     │   ├── Sh*.astro              # static: ShAppCard, ShHeader, ShFooter,
     │   │                          #   ShIcon (Lucide, build-time), ShJsonLd
-    │   ├── legal/*.astro          # the six documents, EN + VI (docs/14)
+    │   ├── legal/*.astro          # the seven documents, EN + VI (docs/14)
     │   ├── pages/*.astro          # shared page bodies, one per route shape;
     │   │                          #   src/pages/** are thin locale wrappers
     │   │                          #   so EN and VI cannot drift (docs/07 §2)
@@ -164,7 +166,7 @@ softharbor/
         ├── categories/index.astro            # category index
         ├── categories/[id].astro
         ├── legal/{disclaimer,privacy,terms,trademarks,third-party,
-        │         ai-disclosure}.astro
+        │         ai-disclosure,accessibility}.astro
         ├── contact.astro                     # one address per purpose (D27)
         ├── errors/{403,429,500}.astro        # 429 live (D32); 403, 500 dormant
         ├── 404.astro                         # → dist/404.html
@@ -184,7 +186,7 @@ softharbor/
 | `/apps/[slug]` | `/vi/apps/[slug]` | `[slug].astro` | One page per app; `getStaticPaths` over the collection |
 | `/categories` | `/vi/categories` | `categories/index.astro` | One tile per category |
 | `/categories/[id]` | `/vi/categories/[id]` | `[id].astro` | SEO landing per category |
-| `/legal/*` | `/vi/legal/*` | `LegalPage` + `components/legal/*` | Six documents; gate-exempt (docs/14 Part 2) |
+| `/legal/*` | `/vi/legal/*` | `LegalPage` + `components/legal/*` | Seven documents (the Accessibility Statement since v1.4); gate-exempt (docs/14 Part 2) |
 | `/contact` | `/vi/contact` | `contact.astro` | One address per purpose (D27); gate-exempt |
 | `/404` | — | `404.astro` | Served via `not_found_handling`; one bilingual page; gate-exempt |
 | `/offline` | — | `offline.astro` | SW navigation fallback; one bilingual page; gate-exempt |

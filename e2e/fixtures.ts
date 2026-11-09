@@ -12,6 +12,7 @@
 // enforces its own CSP and logs violations for probes it makes itself
 // (hagen./brunhild.challenges.cloudflare.com), which no page can change.
 
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test as base, type Page } from '@playwright/test';
 import { PASS_TTL_MS } from '../src/lib/human';
 import { LEGAL_VERSION } from '../src/lib/legal';
@@ -96,6 +97,28 @@ export async function settled(page: Page): Promise<void> {
         .map((a) => a.finished.catch(() => undefined)),
     ),
   );
+}
+
+/** The WCAG A/AA rule sets the site targets (ACCESSIBILITY.md, WCAG 2.2 AA). */
+const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
+
+/**
+ * axe findings that fail a test: critical, serious AND moderate (v1.4; minor
+ * ones are left to review). One line per rule, so a failure names the rule
+ * and the first offending node. `include` narrows the scan to one component.
+ */
+export async function axeViolations(
+  page: Page,
+  { include }: { include?: string } = {},
+): Promise<string[]> {
+  let builder = new AxeBuilder({ page }).withTags(WCAG_TAGS);
+  if (include) builder = builder.include(include);
+  const results = await builder.analyze();
+  return results.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious' || v.impact === 'moderate')
+    .map(
+      (v) => `${v.id} (${v.impact}): ${v.nodes.length} node(s) — ${v.nodes[0]?.target.join(' ')}`,
+    );
 }
 
 /**

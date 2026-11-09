@@ -12,6 +12,7 @@ import ShFilterSheet from './ShFilterSheet.svelte';
 
 const PROPS = {
   openLabel: 'Filters',
+  activeLabel: 'active',
   clearLabel: 'Clear all',
   showLabel: 'Show {n} apps',
   showLabelOne: 'Show {n} app',
@@ -71,7 +72,13 @@ describe('ShFilterSheet', () => {
     flushSync();
     expect(categories.get()).toEqual(new Set(['browser']));
     expect(pricing.get()).toEqual(new Set(['free']));
-    expect(button(/^\s*Filters/).textContent).toContain('2');
+    // Read as "Filters 2 active", not a bare "Filters 2" (WCAG 4.1.3 / 2.5.3:
+    // the visible "Filters 2" stays at the start of the name).
+    expect(
+      button(/^\s*Filters/)
+        .textContent?.replace(/\s+/g, ' ')
+        .trim(),
+    ).toBe('Filters 2 active');
   });
 
   it('"Clear all" is only enabled with something to clear, and clears it everywhere', () => {

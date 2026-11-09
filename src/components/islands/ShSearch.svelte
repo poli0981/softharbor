@@ -5,12 +5,16 @@
   import { onMount } from 'svelte';
   import IconSearch from '~icons/lucide/search';
   import { mountGrid, type GridHandle } from '../../lib/grid';
+  import { shortcutsEnabled } from '../../lib/prefs';
   import { loadSearchIndex } from '../../lib/searchIndex';
   import { categories, platforms, pricing, query, sort, type SortOrder } from '../../lib/stores';
   import { parseViewState, serializeViewState } from '../../lib/urlstate';
 
   interface Props {
+    /** Mentions the "/" shortcut… */
     placeholder: string;
+    /** …and this one does not: shown while the shortcut is turned off. */
+    placeholderPlain: string;
     label: string;
     loadingLabel: string;
     /** Shown when the index cannot be loaded; facet filters keep working. */
@@ -22,6 +26,7 @@
   }
   const {
     placeholder,
+    placeholderPlain,
     label,
     loadingLabel,
     errorLabel,
@@ -37,6 +42,8 @@
   const URL_DEBOUNCE_MS = 300;
 
   let value = $state('');
+  // SSR shows the shortcut hint (the default); corrected on mount.
+  let keysOn = $state(true);
   let loading = $state(false);
   let failed = $state(false);
   let input: HTMLInputElement | undefined = $state();
@@ -108,6 +115,8 @@
   /** `/` focuses search from anywhere on /apps (docs/06 §9). */
   function onGlobalKeydown(e: KeyboardEvent): void {
     if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+    // Turned off in the display menu (WCAG 2.1.4).
+    if (!shortcutsEnabled()) return;
     // Never steal the key from a field the user is typing in...
     const t = e.target as HTMLElement | null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
@@ -174,7 +183,15 @@
     ];
 
     document.addEventListener('keydown', onGlobalKeydown);
+
+    // The display menu flips <html data-keys> on this page (or theme.js on a
+    // later one); keep the placeholder's "( / )" hint honest either way.
+    keysOn = shortcutsEnabled();
+    const keysWatch = new MutationObserver(() => (keysOn = shortcutsEnabled()));
+    keysWatch.observe(document.documentElement, { attributeFilter: ['data-keys'] });
+
     return () => {
+      keysWatch.disconnect();
       clearTimeout(searchTimer);
       clearTimeout(urlTimer);
       for (const off of unsubs) off();
@@ -194,7 +211,7 @@
     <input
       id="sh-search"
       bind:this={input}
-      {placeholder}
+      placeholder={keysOn ? placeholder : placeholderPlain}
       type="search"
       autocomplete="off"
       spellcheck="false"
@@ -229,9 +246,11 @@
   </select>
 </div>
 
-{#if failed}
-  <p id="sh-search-status" class="text-sh-muted text-small mt-2" role="status">{errorLabel}</p>
-{/if}
+<!-- The live region is always in the DOM and only its text changes: a region
+     inserted together with its message is often not announced (WCAG 4.1.3). -->
+<p id="sh-search-status" class={['text-sh-muted text-small', failed && 'mt-2']} role="status">
+  {failed ? errorLabel : ''}
+</p>
 
 <style>
   .sr-only {

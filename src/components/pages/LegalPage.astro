@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 poli0981 (SkullMute)
 //
-// docs/14 — shared chrome for the six legal documents. Prose lives per
+// docs/14 — shared chrome for the seven legal documents. Prose lives per
 // locale in src/components/legal/, not in the i18n dictionaries: docs/07 §1
 // puts legal in its own layer precisely because multi-paragraph documents are
 // content, not UI strings, and the English text is canonical (docs/07 §8).
@@ -29,7 +29,7 @@ const updated = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
 
 {/* Suffixed like every other page: an unbranded <title> in a SERP reads as
     someone else's document. The description names the document too, so the
-    six legal pages are not six copies of the site tagline. */}
+    legal pages are not seven copies of the site tagline. */}
 <Base
   title={`${title} — ${t(locale, 'site.name')}`}
   description={t(locale, 'meta.legal', { title })}

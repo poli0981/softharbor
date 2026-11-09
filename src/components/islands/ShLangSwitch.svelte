@@ -87,7 +87,7 @@
 
 {#if showSuggestion}
   <div
-    class="sh-panel fixed inset-x-4 bottom-4 z-40 flex flex-wrap items-center gap-3 p-4 md:left-auto md:max-w-md"
+    class="sh-lang-suggest sh-panel fixed inset-x-4 bottom-4 z-40 flex flex-wrap items-center gap-3 p-4 md:left-auto md:max-w-md"
     lang="vi"
     data-testid="sh-lang-suggest"
   >
@@ -123,6 +123,19 @@
   }
   .sh-lang > a:hover {
     background: var(--sh-surface-2);
+  }
+  /* The control clips its corners (overflow: hidden), which also clipped the
+     global ring drawn 2px OUTSIDE the link — keep it inside instead. */
+  .sh-lang > a:focus-visible {
+    outline-offset: -3px;
+  }
+  /* Forced colours repaint the filled segment as Canvas; keep it marked. */
+  @media (forced-colors: active) {
+    .sh-lang > [aria-current='true'] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
   }
   /* The endonym is read after the visible code ("VI — Tiếng Việt"), so the
      visible text stays part of the accessible name (WCAG 2.5.3). Its leading

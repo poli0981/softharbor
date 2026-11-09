@@ -155,7 +155,9 @@ Conventional Commits, lowercase, imperative: `feat:`, `fix:`, `data:`
 (dataset changes — custom type, allowed), `docs:`, `chore:`, `ci:`,
 `refactor:`, `test:`. Scope optional (`feat(search): …`); Dependabot uses
 `fix(deps)` / `chore(deps)` / `ci`. One logical change per PR; PR
-description links the doc section it implements.
+description links the doc section it implements and follows
+`.github/PULL_REQUEST_TEMPLATE.md` (checks, the accessibility checklist,
+data-PR checklist — v1.4).
 
 Commits are **signed** — the `main` ruleset rejects unsigned ones (docs/12
 §8). **Squash is the only merge method**: GitHub cannot sign a rebase merge
@@ -206,5 +208,10 @@ same PR — divergence is a defect.
 7. Legal text changed materially (Disclaimer, Terms, Privacy) →
    `LEGAL_VERSION` bumped with `LEGAL_UPDATED` (docs/14 Part 2); a test
    enforces it.
-8. After the squash merge: the "Workers Builds" check on the merge commit
+8. **Accessibility** (ACCESSIBILITY.md, docs/06 §9): anything a visitor sees
+   or operates passes axe in the e2e suite (critical/serious/moderate fail),
+   gets one keyboard-only pass and a screen-reader spot check, and keeps
+   working at 320 px, at 200 % zoom and in forced colours. A rule that
+   cannot be met is explained in the PR, never disabled silently.
+9. After the squash merge: the "Workers Builds" check on the merge commit
    is green and production is verified (docs/13 §3).

@@ -568,10 +568,26 @@ body:
         - { label: 'Actively maintained or stable-and-finished', required: true }
 ```
 
+`.github/ISSUE_TEMPLATE/accessibility.yml` (v1.4, D33) — label
+`accessibility`; only the two first fields are required (what got in the
+way, the page address); steps, environment (device, OS, browser, assistive
+technology), a severity dropdown matching ACCESSIBILITY.md (Critical /
+Serious / Moderate / Minor — confirmed in triage) and a screenshot or
+recording are optional. It names the email route,
+`accessibility@poli0981.dev`, for anyone without a GitHub account, and
+never asks about disability.
+
 `.github/ISSUE_TEMPLATE/config.yml`: `blank_issues_enabled: false`; contact
-links → GitHub Discussions for questions, and **Report a security issue** →
-the repository's private vulnerability reporting
-(`/security/advisories/new`) — never a public issue.
+links → GitHub Discussions for questions, the **Accessibility statement**
+(`/legal/accessibility`), and **Report a security issue** → the
+repository's private vulnerability reporting (`/security/advisories/new`)
+— never a public issue.
+
+`.github/PULL_REQUEST_TEMPLATE.md` (v1.4): what and why with the linked
+issue, the CI gates, docs and i18n parity, the **accessibility checklist**
+(keyboard, names and states, screen-reader spot check, colour/contrast/
+forced colours, 320 px and 200 %, motion) and a data-PR block (docs/00 §3,
+docs/09 §6, original EN/VI summaries, `unverified` entry, official links).
 
 ## 8. Branch protection (ruleset "Run" on `main`)
 

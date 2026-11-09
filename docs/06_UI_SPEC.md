@@ -105,7 +105,8 @@ menu icon button, docs/05 §A8).
 **Footer — five columns** (two on phones): **brand** (mark, tagline, license
 line "Code GPL-3.0 · Data CC BY-SA 4.0", build date) · **Browse** (Apps,
 Categories, Search) · **Open data** (`/api/apps.json`, `/rss.xml`, the CC
-BY-SA 4.0 data licence) · **Legal** (all six documents) · **Project**
+BY-SA 4.0 data licence) · **Legal** (all seven documents, the
+Accessibility Statement last) · **Project**
 (Contact, GitHub ↗, Releases ↗, `ShBugReport` "Report a bug").
 
 ## 5. Pages
@@ -178,7 +179,7 @@ label, "Developer", now lives in the facts ledger.)
 (`LEGAL_UPDATED`, docs/14 Part 2), the fixed VI notice on the VI side, then
 the document (`.sh-prose`: numbered clauses keep their numbers, links are
 underlined). **No inter-document nav in the page body**: the footer already
-lists all six on every page, and repeating them a screen apart is noise.
+lists all seven on every page, and repeating them a screen apart is noise.
 
 **Contact `/contact`** — one card per purpose (nine `@poli0981.dev`
 addresses from `src/lib/contacts.ts`, ordered by urgency: security first,
@@ -325,18 +326,33 @@ The e2e suite fails any page whose document overflows sideways (docs/11
 
 ## 9. Accessibility checklist
 
+**Target: WCAG 2.2 level AA** (D33) — a goal, not a conformance claim; no
+independent audit has been done. The public statement is
+`/legal/accessibility` (docs/14 §3g), the contributor-facing one
+`ACCESSIBILITY.md`; both list the test record and known limitations below.
+
 - Contrast ≥ 4.5:1 text, ≥ 3:1 control boundaries — **enforced** for every
   token pair in both themes by `src/styles/contrast.test.ts` (§2; adjust L
   values, keep hues), and checked on rendered pages by axe in the e2e suite
-  (light and dark, serious/critical findings fail — docs/11 §5).
+  (light and dark; critical, serious and moderate findings fail — docs/11
+  §5).
 - Keyboard: `/` jumps to search from **any** page — on `/apps` `ShSearch`
   focuses its box, elsewhere `ShPrefs` navigates to `/apps#search`.
-  Suppressed inside text fields, with modifier keys, **and while the legal
-  gate is open** (`body[data-sh-gate="open"]`) — a global shortcut that
-  reaches through a modal defeats the focus trap and can scroll content the
-  user hasn't accepted yet. Esc in search clears, then blurs. A skip link
-  ("Skip to content") comes first; `scroll-padding-top` keeps focused or
-  anchored content out from under the sticky header (WCAG 2.4.11). Tab order
+  Suppressed inside text fields, with modifier keys, **while the legal gate
+  is open** (`body[data-sh-gate="open"]`) — a global shortcut that reaches
+  through a modal defeats the focus trap and can scroll content the user
+  hasn't accepted yet — **and when the visitor turned it off**: a bare
+  printable-key shortcut must be possible to switch off (WCAG 2.1.4, level
+  A), so the display menu has "Keyboard shortcut “/”: On / Off" (`sh:keys`
+  → `html[data-keys="off"]`, applied pre-paint by theme.js; the header's
+  `/` hint and the search placeholder's "( / )" disappear with it, v1.4).
+  Esc in search clears, then blurs. A skip link ("Skip to content") comes
+  first; `scroll-padding-top` keeps focused or anchored content out from
+  under the sticky header (WCAG 2.4.11) — it is `--sh-header-h` + 1 rem,
+  the header's real height measured by `ShPrefs` (a ResizeObserver),
+  because the header wraps to two rows on narrow screens and grows with
+  zoom; `scroll-padding-bottom` clears the fixed language banner while it
+  shows. Tab order
   header → toolbar → cards → footer, and the grid's DOM order always equals
   its visual order (docs/05 §A3).
 - Overlays use the platform: the filter sheet and the legal gate are native
@@ -344,19 +360,43 @@ The e2e suite fails any page whose document overflows sideways (docs/11
   the gate also sets `closedby="none"` and re-opens if Esc or the browser
   closes it early (docs/14 Part 2). The gate focuses its heading first, so a
   screen reader reads the notice before any control. The display menu is a
-  `popover`.
-- `aria-live="polite"` result count; `aria-current` on the current nav
-  section (with an underline, not colour alone); icons decorative
+  `popover`. Closing the sheet or the menu with Esc returns focus to the
+  button that opened it (the platform's, pinned by e2e). Focus is always
+  visible: the global 2 px accent ring, and in the display menu's segmented
+  controls — where arrow keys move focus and choice together, so the
+  focused radio is the accent-filled one — a ring in the fill's ink colour
+  (WCAG 2.4.7).
+- `aria-live="polite"` result count; the search error lives in a
+  `role="status"` region that is always in the DOM (only its text changes,
+  so it is announced — WCAG 4.1.3); the filter button reads "Filters 2
+  active". `aria-current` on the current nav section (with an underline,
+  not colour alone); icons decorative
   (`aria-hidden`) unless they are a control's only name; status shown by
   icon shape *and* colour; links in running text (legal prose, the gate)
   are underlined (WCAG 1.4.1).
+- **Forced colours** (Windows contrast themes, v1.4): backgrounds and box
+  shadows are repainted, so the current section gets a text underline, and
+  the chosen segment in the display menu and the current language keep a
+  `Highlight` fill (`forced-color-adjust: none`); focus outlines survive on
+  their own. Pinned by e2e (`emulateMedia({ forcedColors: 'active' })`).
+- Targets: buttons 44 px, header controls 38–40 px, and inline category
+  links on cards at least 24 px tall (WCAG 2.5.8).
+- Data tables (third-party notices, AI disclosure) have a visually hidden
+  `<caption>`, `scope="col"` headers, and sit in a labelled
+  `role="region" tabindex="0"` wrapper so their sideways scroll is
+  reachable from the keyboard. The one link that opens a new tab ("Report a
+  bug") says so to screen readers.
 - Visible text stays inside the accessible name (WCAG 2.5.3): the language
   switch reads "EN — English" / "VI — Tiếng Việt" (the endonym appended in
   a matching `lang`, never replacing "EN"/"VI"), and the filter sheet's
   submit button is named by its own "Show N apps" text.
 - `lang` attribute correct per locale, including the `lang="vi"` panel on
   bilingual error pages and the VI suggestion banner on EN pages.
-- Zoom to 200 % without horizontal scroll (the e2e suite fails any sideways
-  overflow at desktop and Pixel 7 sizes); VoiceOver + NVDA on the grid, the
-  filter sheet and the gate remain a manual launch-checklist item (docs/13
-  §2).
+- Reflow and zoom to 200 % without horizontal scroll: the e2e suite fails
+  any sideways overflow at desktop and Pixel 7 sizes, and at **320 CSS px**
+  (WCAG 1.4.10) — where the header's controls drop to a second row instead
+  of leaving the screen (`flex-wrap`, v1.4).
+- Manual record: keyboard only + Narrator on Windows 11 (Chrome, Brave,
+  Firefox) by the owner, 2026-11-09 — no barriers found. VoiceOver + NVDA
+  on the grid, the filter sheet and the gate remain a manual
+  launch-checklist item (docs/13 §2).

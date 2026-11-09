@@ -18,6 +18,8 @@ const PROPS = {
   scrollbars: { auto: 'Default', thin: 'Thin', hidden: 'Hidden' },
   motionLabel: 'Motion',
   motions: { system: 'System', reduce: 'Reduce' },
+  keysLabel: 'Keyboard shortcut “/”',
+  keys: { on: 'On', off: 'Off' },
   searchHref: '/apps#search',
 };
 
@@ -37,8 +39,12 @@ function stubStorage(seed: Record<string, string> = {}) {
 let target: HTMLElement;
 let app: Record<string, unknown> | undefined;
 
+// Matched on the `value` PROPERTY, not the attribute: "on" is a radio's default
+// value, so Svelte never writes value="on" for the shortcut's On choice.
 const radio = (name: string, value: string) =>
-  document.querySelector<HTMLInputElement>(`input[name="${name}"][value="${value}"]`)!;
+  [...document.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`)].find(
+    (i) => i.value === value,
+  )!;
 
 function choose(name: string, value: string) {
   const input = radio(name, value);
@@ -49,7 +55,7 @@ function choose(name: string, value: string) {
 
 beforeEach(() => {
   document.body.innerHTML = '';
-  for (const a of ['data-theme', 'data-scrollbar', 'data-motion']) {
+  for (const a of ['data-theme', 'data-scrollbar', 'data-motion', 'data-keys']) {
     document.documentElement.removeAttribute(a);
   }
   target = document.createElement('div');
@@ -74,12 +80,18 @@ describe('ShPrefs', () => {
   });
 
   it('reflects stored choices once mounted', () => {
-    stubStorage({ 'sh:theme': 'dark', 'sh:scrollbar': 'thin', 'sh:motion': 'reduce' });
+    stubStorage({
+      'sh:theme': 'dark',
+      'sh:scrollbar': 'thin',
+      'sh:motion': 'reduce',
+      'sh:keys': 'off',
+    });
     app = mount(ShPrefs, { target, props: PROPS });
     flushSync();
     expect(radio('sh-theme', 'dark').checked).toBe(true);
     expect(radio('sh-scrollbar', 'thin').checked).toBe(true);
     expect(radio('sh-motion', 'reduce').checked).toBe(true);
+    expect(radio('sh-keys', 'off').checked).toBe(true);
   });
 
   it('applies and persists each choice immediately', () => {
@@ -99,8 +111,26 @@ describe('ShPrefs', () => {
     expect(document.documentElement.dataset['motion']).toBe('reduce');
     expect(store.get('sh:motion')).toBe('reduce');
 
+    choose('sh-keys', 'off');
+    expect(document.documentElement.dataset['keys']).toBe('off');
+    expect(store.get('sh:keys')).toBe('off');
+
     choose('sh-scrollbar', 'auto');
     expect(document.documentElement.dataset['scrollbar']).toBeUndefined();
     expect(store.has('sh:scrollbar')).toBe(false);
+
+    choose('sh-keys', 'on');
+    expect(document.documentElement.dataset['keys']).toBeUndefined();
+    expect(store.has('sh:keys')).toBe(false);
+  });
+
+  it('leaves "/" alone while the shortcut is turned off (WCAG 2.1.4)', () => {
+    stubStorage({ 'sh:keys': 'off' });
+    app = mount(ShPrefs, { target, props: PROPS });
+    flushSync();
+    document.documentElement.dataset['keys'] = 'off';
+    const e = new KeyboardEvent('keydown', { key: '/', bubbles: true, cancelable: true });
+    document.body.dispatchEvent(e);
+    expect(e.defaultPrevented).toBe(false);
   });
 });

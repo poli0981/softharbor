@@ -61,7 +61,7 @@ implement exactly this contract.
 of 2026-10-21; `pnpm build` then checks the output — docs/02 §4):
 
 1. **Pages** — `/apps/<slug>` ×2 locales, category index + category pages,
-   grid, welcome, contact, the six legal documents (the third-party table
+   grid, welcome, contact, the seven legal documents (the third-party table
    generated from `package.json` at build time, docs/14 §3e), 404/offline
    and the dormant error templates.
 2. **`/search-index.json`** — serialized MiniSearch index built in

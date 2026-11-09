@@ -69,7 +69,14 @@ pnpm knip          # dead code and unused deps
 Suggest an app or report a bug with the
 [issue forms](https://github.com/poli0981/softharbor/issues/new/choose).
 Read **[CONTRIBUTING.md](CONTRIBUTING.md)** before opening a pull request — it
-lists the inclusion criteria and what gets closed on sight.
+lists the inclusion criteria and what gets closed on sight. Everyone taking
+part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+Something on the site gets in your way — with a keyboard, a screen reader,
+zoom or a contrast theme? [ACCESSIBILITY.md](ACCESSIBILITY.md) says what we aim
+for and how reports are handled (the
+[site statement](https://softharbor.net/legal/accessibility) is in English and
+Vietnamese).
 
 Found a security problem? [SECURITY.md](SECURITY.md) — please do not open a
 public issue.
@@ -97,14 +104,15 @@ AI was used to build this project; where and how is disclosed at
 Maintained by [@poli0981](https://github.com/poli0981). One address per
 purpose, so a message reaches the right queue:
 
-| About                                               | Address                |
-| --------------------------------------------------- | ---------------------- |
-| A vulnerability, or a hijacked or malicious listing | security@poli0981.dev  |
-| Privacy                                             | privacy@poli0981.dev   |
-| Terms, disclaimer, other legal                      | legal@poli0981.dev     |
-| A copyright complaint                               | dmca@poli0981.dev      |
-| Changing or removing your app's listing or logo     | takedown@poli0981.dev  |
-| Licensing of the code or the dataset                | copyright@poli0981.dev |
-| Code of Conduct                                     | code@poli0981.dev      |
-| Press                                               | press@poli0981.dev     |
-| Collaboration                                       | collab@poli0981.dev    |
+| About                                               | Address                    |
+| --------------------------------------------------- | -------------------------- |
+| A vulnerability, or a hijacked or malicious listing | security@poli0981.dev      |
+| Privacy                                             | privacy@poli0981.dev       |
+| An accessibility barrier on the site                | accessibility@poli0981.dev |
+| Terms, disclaimer, other legal                      | legal@poli0981.dev         |
+| A copyright complaint                               | dmca@poli0981.dev          |
+| Changing or removing your app's listing or logo     | takedown@poli0981.dev      |
+| Licensing of the code or the dataset                | copyright@poli0981.dev     |
+| Code of Conduct                                     | code@poli0981.dev          |
+| Press                                               | press@poli0981.dev         |
+| Collaboration                                       | collab@poli0981.dev        |

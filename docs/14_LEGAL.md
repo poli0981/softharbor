@@ -9,7 +9,8 @@
 > and `/vi/legal/*` (VI); English is canonical (docs/07 §8). The shipped
 > wording lives in `src/components/legal/*.astro` (Part 3); every document
 > carries its **own** "Last updated" date (`LEGAL_UPDATED`) — all six read
-> 2026-10-21 as of v1.1.
+> 2026-10-21 as of v1.1. v1.4 (D33) adds a seventh page, the
+> **Accessibility Statement** (§3g) — informational, not accepted.
 
 ## Part 1 — Licensing model
 
@@ -65,7 +66,7 @@ returning visitor whose check has lapsed sees step 2 only.
 |---|---|
 | Trigger | Shown when `sh:legal ≠ LEGAL_VERSION` (step 1, docs/05 §A7) **or** `sh:human` has lapsed (step 2 only) |
 | Component | `ShLegalGate.svelte`, `client:load`, rendered by `Base.astro` on every non-exempt page — no `transition:persist`: every navigation is a full document load (docs/02 §6), so each page mounts its own gate with its own locale's strings |
-| Exempt pages | Declared by the page with `gateExempt` — the island is simply not rendered: the six legal documents (EN + VI), `/contact` (EN + VI), `/404`, `/offline`, `/errors/*`. The gate links to the very documents it asks users to accept; error and offline pages must never dead-lock (Workers serves `404.html`, and the SW the offline page, at whatever URL was requested — the old path regex never matched them); a security or copyright notice must never wait behind acceptance |
+| Exempt pages | Declared by the page with `gateExempt` — the island is simply not rendered: the seven legal documents (EN + VI, the Accessibility Statement included — someone held up by a barrier, the gate's own included, must be able to read how to report it), `/contact` (EN + VI), `/404`, `/offline`, `/errors/*`. The gate links to the very documents it asks users to accept; error and offline pages must never dead-lock (Workers serves `404.html`, and the SW the offline page, at whatever URL was requested — the old path regex never matched them); a security or copyright notice must never wait behind acceptance |
 | Content, step 1 | Locale-matched summary (below) + links to Disclaimer, Terms and Privacy under the locale's `/legal` base + a single accept button. No decline button: the copy explains that leaving the site is the alternative. A scale icon tile heads the step |
 | Content, step 2 | "One moment" — what Turnstile is for, a spinner, and a link to the Privacy Policy's `#turnstile` section; the widget shows itself only if it needs a click (`interaction-only`). If the check cannot run: "The check could not run, so it was skipped. Come on in." for 1.5 s, then the gate closes. A shield icon tile heads the step |
 | Step 2 outcome | Pass ⇒ `sh:human` = now + 48 h. Anything else — script blocked, widget error, 10 s timeout (120 s once it asks for a click), Worker 429/503/unreachable, three rejected challenges — ⇒ now + 1 h and the visitor is **let in** (fail open, docs/09 §4a) |
@@ -88,10 +89,10 @@ dictionaries into the island would bundle every key (docs/07 §3).
   the three documents the gate asks for. **Bump it when one of those three
   changes materially**: the bump re-opens the gate for everyone, which is
   the intended behaviour. Typos and formatting do not bump it.
-- `LEGAL_UPDATED` gives each of the **six** documents its own "Last
-  updated" date, shown on its page. Trademarks, Third-party notices and the
-  AI Disclosure move only their own date — they are informational and not
-  part of what is accepted.
+- `LEGAL_UPDATED` gives each of the **seven** documents its own "Last
+  updated" date, shown on its page. Trademarks, Third-party notices, the
+  AI Disclosure and the Accessibility Statement move only their own date —
+  they are informational and not part of what is accepted.
 - **A test enforces the link** (`src/lib/legal.test.ts`): every accepted
   document's `LEGAL_UPDATED` must be ≤ `LEGAL_VERSION` — editing Privacy
   without bumping the version fails `pnpm test`. Every date must be a real
@@ -106,7 +107,11 @@ dictionaries into the island would bundle every key (docs/07 §3).
   Disclosure claims fixed) · **2026-10-26** (v1.3: Privacy gains
   `#rate-limit` for the site-wide rate limit, D32 — our own code now
   processes every visitor's address, if only for seconds, which the gate
-  asks everyone to accept once more).
+  asks everyone to accept once more) · **2026-11-09** (v1.4, D33: Privacy
+  `#storage` lists `sh:keys`, the display menu's switch for the "/"
+  shortcut — the storage inventory must stay complete, and the test treats
+  any Privacy change as one the gate asks about; the owner chose this over
+  dropping the switch).
 
 ### Contacts (D27)
 
@@ -120,6 +125,7 @@ another. Mail to `poli0981.dev` is delivered to a **Google-hosted** mailbox
 |---|---|---|
 | `security` | `security@poli0981.dev` | vulnerabilities; hijacked or malicious listing links (`security.txt`, `SECURITY.md`, Disclaimer) |
 | `privacy` | `privacy@poli0981.dev` | the Privacy Policy, data requests |
+| `accessibility` | `accessibility@poli0981.dev` | a barrier on the site — the Accessibility Statement and ACCESSIBILITY.md (D33, alias created 2026-11-09) |
 | `legal` | `legal@poli0981.dev` | Terms, Disclaimer, anything else legal |
 | `dmca` | `dmca@poli0981.dev` | copyright (DMCA-style) notices — the procedure in Terms `#copyright` |
 | `takedown` | `takedown@poli0981.dev` | a developer asking for their listing or logo to be changed or removed; trademark complaints |
@@ -214,7 +220,8 @@ analytics") stopped being true with D25/D26 and is not reproduced here
   (SkullMute), in Vietnam, who decides how the little data described is
   handled; questions to `privacy@poli0981.dev`.
 - **`#storage`** — localStorage `sh:legal`, `sh:human`, `sh:lang`,
-  `sh:theme`, `sh:scrollbar`, `sh:motion`, never sent anywhere; a service
+  `sh:theme`, `sh:scrollbar`, `sh:motion`, `sh:keys` (v1.4), never sent
+  anywhere; a service
   worker stores the offline page, styles and fonts; no cookies (docs/09 §8).
 - **`#analytics`** — Cloudflare Web Analytics: no cookies, nothing stored
   in the browser; reports page address, referrer, load timings and
@@ -377,6 +384,42 @@ nor an excuse, and a mistake here belongs to the maintainer, not a tool.
 **Not part of the accepted set.** The legal gate asks acceptance of the
 Disclaimer, Terms and Privacy only; this page is informational and is reached
 from the footer. It is still gate-exempt like every other `/legal/*` route.
+
+### 3g. Accessibility Statement — `/legal/accessibility`
+
+Added 2026-11-09 (D33, v1.4). The visitor-facing twin of `ACCESSIBILITY.md`
+at the repository root (GitHub's community-profile "Accessibility" file):
+the two must state the same target, test record, limitations and response
+times — change one, change the other in the same PR. Plain language, user
+experiences rather than criterion numbers; English canonical, Vietnamese a
+full translation. Informational, **not accepted**, gate-exempt, linked from
+the footer's legal column and from the Contact page's accessibility row.
+
+Sections (anchors stable — the issue form and ACCESSIBILITY.md link them):
+
+- **intro** — who the site should work for (keyboard only, screen reader,
+  magnification, voice control, high-contrast themes).
+- **`#target`** — WCAG 2.2 AA as a *target*, explicitly not a conformance
+  claim; no independent audit has been done.
+- **`#features`** — keyboard and skip link, semantic structure and `lang`,
+  tested contrast (7:1 / 4.5:1 / 3:1), nothing by colour alone, the display
+  menu (theme, motion, scrollbar, the "/" switch), system reduced motion
+  and forced colours, 200 % zoom and reflow, announced result counts, no
+  images of text.
+- **`#tested`** — automated on every change (axe WCAG 2.0–2.2 A/AA, both
+  themes, desktop and phone, keyboard/reflow/forced-colour/contrast tests);
+  by hand 2026-11-09 (keyboard only + Narrator, Windows 11, Chrome, Brave,
+  Firefox); not yet: NVDA, JAWS, VoiceOver, TalkBack, Safari.
+- **`#limitations`** — Turnstile (third party; fails open after 10 s, or
+  120 s once it asks for a click), vendor sites, two-line card summaries,
+  VI legal pages being translations.
+- **`#report`** — `accessibility@poli0981.dev` (no account needed) or the
+  Accessibility issue form; what helps; screenshots optional; never asks
+  about disability; English or Vietnamese.
+- **`#response`** — one maintainer, so modest promises: reply within
+  7 days; Critical 30 days, Serious 60, Moderate/Minor 90; a slip gets a
+  reason, a workaround and a new date.
+- **`#contributors`** — points to ACCESSIBILITY.md.
 
 ## Part 4 — Review checklist for Kokone (H6)
 

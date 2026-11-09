@@ -1,0 +1,51 @@
+name: Accessibility barrier
+description: Something on the site is hard or impossible to use with your setup
+labels: [accessibility]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — accessibility reports are treated as expertise, not complaints. You never
+        need to tell us about a disability, and every field except the first two is optional.
+        Prefer email? Write to accessibility@poli0981.dev (no GitHub account needed). English
+        or Vietnamese is fine. What happens next: [ACCESSIBILITY.md](https://github.com/poli0981/softharbor/blob/main/ACCESSIBILITY.md#how-we-respond).
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What were you trying to do, and what got in the way?
+      description: For example "I could not reach the Filters button with Tab" or "NVDA reads the search box as 'edit' with no name".
+    validations:
+      required: true
+  - type: input
+    id: page-url
+    attributes:
+      label: Page address
+      placeholder: https://softharbor.net/apps
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Optional. The keys you pressed or the commands you used, if you remember them.
+  - type: input
+    id: environment
+    attributes:
+      label: Device, operating system, browser and assistive technology
+      description: Optional, with versions if you know them.
+      placeholder: Windows 11, Firefox, NVDA
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How much does it get in your way?
+      description: Optional — we confirm severity during triage.
+      options:
+        - Critical — I cannot find an app, read a listing, or open its links
+        - Serious — it is hard, but there is a way around it
+        - Moderate — an annoyance or something inconsistent
+        - Minor — barely affects me
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshot or recording
+      description: Optional — drag a file here if you are comfortable sharing one.

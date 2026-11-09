@@ -26,6 +26,8 @@
   interface Props {
     /** Button text AND the dialog's accessible name ("Filters"). */
     openLabel: string;
+    /** Read after the count chip, so the button says "Filters 2 active". */
+    activeLabel: string;
     clearLabel: string;
     /** "Show {n} apps" (plural "other") and "Show {n} app" (plural "one"). */
     showLabel: string;
@@ -33,7 +35,8 @@
     headings: { categories: string; platforms: string; pricing: string };
     options: { categories: Option[]; platforms: Option[]; pricing: Option[] };
   }
-  const { openLabel, clearLabel, showLabel, showLabelOne, headings, options }: Props = $props();
+  const { openLabel, activeLabel, clearLabel, showLabel, showLabelOne, headings, options }: Props =
+    $props();
 
   let dialog: HTMLDialogElement | undefined = $state();
   /** Resolved on mount from <html lang>; SSR renders the "other" form. */
@@ -81,7 +84,7 @@
   {#if $activeFilterCount > 0}
     <span class="sh-pill bg-sh-accent text-sh-accent-ink border-transparent"
       >{$activeFilterCount}</span
-    >
+    ><span class="sr-only">{` ${activeLabel}`}</span>
   {/if}
 </button>
 

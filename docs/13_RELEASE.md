@@ -111,11 +111,16 @@ Quality bar
       Playwright suite now enforces axe — serious/critical findings in
       light and dark — console- and CSP-clean pages and no sideways
       overflow on every PR; Lighthouse and the size budget are still not
-      wired.)*
+      wired. v1.4: moderate findings fail too, axe also runs on the open
+      gate, filter sheet and display menu, and reflow at 320 px and forced
+      colours are tested — `e2e/a11y.spec.ts`.)*
 - [x] *(v1.1)* **End-to-end suite enforced in CI** — Playwright + axe on the
       built site, desktop + Pixel 7, in `ci.yml`'s `build` job on every PR
       and push to `main` (docs/11 §5); a red e2e run blocks the merge like
       any other required check.
+- [x] *(v1.4)* Keyboard-only + Narrator (Windows 11; Chrome, Brave,
+      Firefox) pass on the whole site — owner, 2026-11-09, no barriers
+      found; recorded in ACCESSIBILITY.md and `/legal/accessibility`
 - [ ] VoiceOver (macOS) + NVDA (Windows) pass on grid, filter sheet, gate
 - [ ] Vietnamese diacritics visually clean in all three fonts at all scale
       steps (docs/06 §3)

@@ -114,11 +114,12 @@ const priceTone = {
       />
       {security}
     </p>
+    {/* min-h-6: each category link is a 24px target (WCAG 2.5.8). */}
     <p class="flex flex-wrap gap-x-3 gap-y-1 text-badge">
       {d.categories.map((c) => (
         <a
           href={localePath(locale, `/categories/${c.id}`)}
-          class="text-sh-accent relative z-1 font-medium hover:underline"
+          class="text-sh-accent relative z-1 inline-flex min-h-6 items-center font-medium hover:underline"
         >
           {categoryLabels.get(c.id) ?? c.id}
         </a>

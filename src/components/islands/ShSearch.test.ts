@@ -18,7 +18,8 @@ vi.mock('../../lib/grid', () => ({ mountGrid: vi.fn() }));
 vi.mock('../../lib/searchIndex', () => ({ loadSearchIndex: vi.fn() }));
 
 const PROPS = {
-  placeholder: 'Search apps',
+  placeholder: 'Search apps ( / )',
+  placeholderPlain: 'Search apps',
   label: 'Search',
   loadingLabel: 'Loading…',
   errorLabel: 'Search is unavailable right now.',
@@ -161,6 +162,33 @@ describe('ShSearch', () => {
     document.body.dataset['shGate'] = 'open';
     key(document, '/');
     expect(document.activeElement).not.toBe(input);
+  });
+
+  it('stands down, and drops the "( / )" hint, while the shortcut is off', async () => {
+    const input = start();
+    expect(input.placeholder).toBe(PROPS.placeholder);
+
+    document.documentElement.dataset['keys'] = 'off';
+    await vi.advanceTimersByTimeAsync(0); // MutationObserver delivery
+    flushSync();
+    expect(input.placeholder).toBe(PROPS.placeholderPlain);
+    key(document, '/');
+    expect(document.activeElement).not.toBe(input);
+
+    delete document.documentElement.dataset['keys'];
+    await vi.advanceTimersByTimeAsync(0);
+    flushSync();
+    expect(input.placeholder).toBe(PROPS.placeholder);
+    key(document, '/');
+    expect(document.activeElement).toBe(input);
+  });
+
+  it('keeps its status live region in the page before anything goes wrong', () => {
+    const input = start();
+    const status = document.getElementById('sh-search-status');
+    expect(status?.getAttribute('role')).toBe('status');
+    expect(status?.textContent).toBe('');
+    expect(input.hasAttribute('aria-describedby')).toBe(false);
   });
 
   it('Escape on an empty box gives focus back to the page', () => {

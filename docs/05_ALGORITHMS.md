@@ -437,6 +437,7 @@ was `public/theme.js` at a fixed path with a revalidating cache.)
   const scrollbar = read('sh:scrollbar');               // 'thin'|'hidden'|null
   if (scrollbar === 'thin' || scrollbar === 'hidden') root.dataset.scrollbar = scrollbar;
   if (read('sh:motion') === 'reduce') root.dataset.motion = 'reduce';
+  if (read('sh:keys') === 'off') root.dataset.keys = 'off';  // v1.4
   // + marks View Transition promises handled on pageswap/pagereveal
 })();
 ```
@@ -451,13 +452,15 @@ Unknown or garbage values mean "the default". With scripting off there is no
 identical to the dark theme by test (docs/06 §2).
 
 **The display menu (`ShPrefs`, v1.1)** replaced `ShThemeToggle`: one icon
-button opens a popover (`popover="auto"`) with three radio groups.
+button opens a popover (`popover="auto"`) with four radio groups (the
+fourth since v1.4).
 
 | Choice | Values | Storage | Applied as |
 |---|---|---|---|
 | Theme | system · light · dark | `sh:theme` (key removed for system) | `html[data-theme]` |
 | Scrollbar | default · thin · hidden | `sh:scrollbar` (removed for default) | `html[data-scrollbar]` |
 | Motion | system · reduce | `sh:motion` (removed for system) | `html[data-motion]` |
+| Keyboard shortcut "/" | on · off | `sh:keys` (removed for on) | `html[data-keys="off"]` — `ShSearch` and `ShPrefs` ignore "/", the header hides its hint, the search placeholder drops "( / )" (WCAG 2.1.4) |
 
 - While the theme is `system` it follows the OS live (`change` on the
   media query); an explicit choice stops that.

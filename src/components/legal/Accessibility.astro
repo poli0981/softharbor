@@ -1,0 +1,269 @@
+---
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (C) 2026 poli0981 (SkullMute)
+// docs/14 §3g — Accessibility Statement (D33). The visitor-facing twin of
+// ACCESSIBILITY.md in the repository: keep the target, the test record, the
+// known limitations and the response times identical in both. Section ids are
+// link targets (#report from the footer of ACCESSIBILITY.md and the issue
+// form).
+import { CONTACTS } from '../../lib/contacts';
+import type { Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const MAIL = CONTACTS.accessibility;
+const FORM = 'https://github.com/poli0981/softharbor/issues/new?template=accessibility.yml';
+const GUIDE = 'https://github.com/poli0981/softharbor/blob/main/ACCESSIBILITY.md';
+const WCAG = 'https://www.w3.org/TR/WCAG22/';
+---
+
+{locale === 'en' ? (
+  <>
+    <p>
+      SoftHarbor should work for everyone who wants to find software — including people who use only
+      a keyboard, a screen reader, magnification, voice control or a high-contrast theme. This page
+      says what we aim for, what the site already does, what we know is not right yet, and how to
+      tell us about anything that gets in your way.
+    </p>
+
+    <h2 id="target">What we aim for</h2>
+    <p>
+      Our target is the <a href={WCAG}>Web Content Accessibility Guidelines (WCAG) 2.2</a> at level
+      AA. It is a goal that guides the work, not a claim that every page meets it: no independent
+      audit has been done.
+    </p>
+
+    <h2 id="features">What the site does</h2>
+    <ul>
+      <li>
+        Everything works with a keyboard alone. The first stop on every page is a “Skip to content”
+        link, and the item you are on is always outlined.
+      </li>
+      <li>
+        Pages are built from real headings, lists and landmarks, and say which language they are in,
+        so screen readers pronounce English and Vietnamese correctly.
+      </li>
+      <li>
+        Text and controls keep their contrast in both the light and the dark theme, checked by an
+        automated test: 7:1 for body text, 4.5:1 for other text, 3:1 for control edges.
+      </li>
+      <li>
+        Nothing relies on colour alone: a security status has its own icon shape, and the section
+        you are in is underlined.
+      </li>
+      <li>
+        The display settings (the sliders button at the top right) offer a light or dark theme,
+        reduced motion, a thinner or hidden scrollbar, and a switch that turns off the “/” search
+        shortcut. The site also follows your system’s reduced-motion setting and its high-contrast
+        colours.
+      </li>
+      <li>
+        Text can be zoomed to 200 %, and the layout reflows down to a narrow phone screen without
+        sideways scrolling.
+      </li>
+      <li>When you search or filter, the number of results is announced to screen readers.</li>
+      <li>There are no pictures of text. App logos are decoration; the app’s name is text.</li>
+    </ul>
+
+    <h2 id="tested">How we check it</h2>
+    <ul>
+      <li>
+        <strong>On every change:</strong> automated accessibility checks (axe, using its WCAG 2.0 to
+        2.2 A and AA rules) on the main pages in both themes, on a desktop and a phone-sized screen,
+        plus tests for keyboard use, reflow, high-contrast colours and contrast.
+      </li>
+      <li>
+        <strong>By hand, 9 November 2026:</strong> keyboard only, and the Narrator screen reader, on
+        Windows 11 with Chrome, Brave and Firefox.
+      </li>
+      <li>
+        <strong>Not tested yet:</strong> NVDA, JAWS, VoiceOver (macOS and iOS), TalkBack and Safari.
+        Reports from these are especially welcome.
+      </li>
+    </ul>
+
+    <h2 id="limitations">Known limitations</h2>
+    <ul>
+      <li>
+        After you accept the legal notice, a short bot check from Cloudflare (Turnstile) runs. It is
+        a third-party widget we cannot fully control. If it cannot finish, you are let in anyway —
+        after 10 seconds, or 2 minutes if it asked for a click.
+      </li>
+      <li>
+        Every listed app links to its developer’s own website and installer. How accessible those
+        are is outside our control; tell the developer, and tell us if a listing should say so.
+      </li>
+      <li>App cards shorten the summary to two lines. The full text is on each app’s page.</li>
+      <li>The Vietnamese legal pages are translations; the English text is the one that counts.</li>
+    </ul>
+
+    <h2 id="report">Report a barrier</h2>
+    <p>
+      Email <a href={`mailto:${MAIL}`}>{MAIL}</a>, or <a href={FORM}>open an accessibility issue</a>{' '}
+      on GitHub (that needs a GitHub account; email does not). If you can, say which page you were
+      on, what you were trying to do, what happened, and which device, browser and assistive
+      technology you use. Screenshots or recordings are welcome but never required, and you never
+      need to tell us about a disability. Write in English or Vietnamese.
+    </p>
+
+    <h2 id="response">What happens next</h2>
+    <p>
+      SoftHarbor is run by one person, so these are the promises that can be kept. We reply within 7
+      days and rate how much the barrier gets in your way:
+    </p>
+    <ul>
+      <li>
+        <strong>Critical</strong> — stops you finding, reading or opening an app’s links: fixed
+        within 30 days;
+      </li>
+      <li>
+        <strong>Serious</strong> — hard to get past, though there is a way around: within 60 days;
+      </li>
+      <li>
+        <strong>Moderate</strong> or <strong>minor</strong> — an annoyance or inconsistency: within
+        90 days.
+      </li>
+    </ul>
+    <p>
+      If a date slips, we say why, offer a workaround, and give a new date. We may ask you to
+      confirm the fix before the report is closed.
+    </p>
+
+    <h2 id="contributors">For contributors</h2>
+    <p>
+      How we keep changes accessible — the checks a pull request must pass and what to test by hand
+      — is in <a href={GUIDE}>ACCESSIBILITY.md</a> in the source repository.
+    </p>
+  </>
+) : (
+  <>
+    <p>
+      SoftHarbor muốn ai cần tìm phần mềm cũng dùng được — kể cả người chỉ dùng bàn phím, trình đọc
+      màn hình, phóng to màn hình, điều khiển bằng giọng nói hay giao diện tương phản cao. Trang này
+      nói rõ mục tiêu của chúng tôi, những gì trang đã làm được, những gì còn chưa ổn, và cách báo
+      cho chúng tôi khi bạn gặp trở ngại.
+    </p>
+
+    <h2 id="target">Mục tiêu</h2>
+    <p>
+      Mục tiêu của chúng tôi là{' '}
+      <a href={WCAG} lang="en">
+        Web Content Accessibility Guidelines (WCAG) 2.2
+      </a>{' '}
+      ở mức AA. Đây là đích hướng tới cho công việc, không phải lời khẳng định mọi trang đều đã đạt:
+      chưa có đánh giá độc lập nào.
+    </p>
+
+    <h2 id="features">Trang đã làm được gì</h2>
+    <ul>
+      <li>
+        Mọi thứ dùng được chỉ với bàn phím. Điểm dừng đầu tiên trên mỗi trang là liên kết “Tới nội
+        dung chính”, và mục đang chọn luôn có viền bao quanh.
+      </li>
+      <li>
+        Trang được dựng bằng tiêu đề, danh sách và vùng mốc thật, đồng thời khai báo ngôn ngữ, để
+        trình đọc màn hình phát âm đúng tiếng Anh và tiếng Việt.
+      </li>
+      <li>
+        Chữ và nút giữ độ tương phản ở cả giao diện sáng lẫn tối, được kiểm tra bằng bài test tự
+        động: 7:1 cho chữ nội dung, 4.5:1 cho chữ khác, 3:1 cho viền điều khiển.
+      </li>
+      <li>
+        Không có gì chỉ dựa vào màu sắc: trạng thái bảo mật có hình biểu tượng riêng, và mục bạn
+        đang xem được gạch chân.
+      </li>
+      <li>
+        Phần cài đặt hiển thị (nút thanh trượt ở góc trên bên phải) có giao diện sáng hoặc tối, giảm
+        chuyển động, thanh cuộn mảnh hoặc ẩn, và công tắc tắt phím tắt tìm kiếm “/”. Trang cũng làm
+        theo thiết lập giảm chuyển động và màu tương phản cao của hệ điều hành.
+      </li>
+      <li>
+        Chữ phóng to được đến 200 %, và bố cục tự sắp lại đến cỡ màn hình điện thoại hẹp mà không
+        phải cuộn ngang.
+      </li>
+      <li>Khi bạn tìm kiếm hay lọc, số kết quả được đọc cho trình đọc màn hình.</li>
+      <li>Không có hình ảnh chứa chữ. Logo ứng dụng chỉ để trang trí; tên ứng dụng luôn là chữ.</li>
+    </ul>
+
+    <h2 id="tested">Chúng tôi kiểm tra thế nào</h2>
+    <ul>
+      <li>
+        <strong>Mỗi lần thay đổi:</strong> kiểm tra trợ năng tự động (axe, theo các quy tắc WCAG 2.0
+        đến 2.2 mức A và AA) trên các trang chính ở cả hai giao diện, trên màn hình máy tính và cỡ
+        điện thoại, cùng các bài test dùng bàn phím, tự sắp lại bố cục, màu tương phản cao và độ
+        tương phản.
+      </li>
+      <li>
+        <strong>Kiểm tra tay, ngày 9/11/2026:</strong> chỉ dùng bàn phím, và trình đọc màn hình
+        Narrator, trên Windows 11 với Chrome, Brave và Firefox.
+      </li>
+      <li>
+        <strong>Chưa kiểm tra:</strong> NVDA, JAWS, VoiceOver (macOS và iOS), TalkBack và Safari.
+        Chúng tôi rất mong nhận phản hồi từ những công cụ này.
+      </li>
+    </ul>
+
+    <h2 id="limitations">Hạn chế đã biết</h2>
+    <ul>
+      <li>
+        Sau khi bạn chấp nhận thông báo pháp lý, một bước kiểm tra bot ngắn của Cloudflare
+        (Turnstile) sẽ chạy. Đây là tiện ích của bên thứ ba mà chúng tôi không kiểm soát được hoàn
+        toàn. Nếu nó không chạy xong, bạn vẫn được vào — sau 10 giây, hoặc 2 phút nếu nó yêu cầu
+        bấm.
+      </li>
+      <li>
+        Mỗi ứng dụng trong danh mục dẫn đến trang web và bộ cài của chính nhà phát triển. Mức độ trợ
+        năng ở đó nằm ngoài tầm kiểm soát của chúng tôi; hãy báo cho nhà phát triển, và báo cho
+        chúng tôi nếu mục giới thiệu nên ghi chú điều đó.
+      </li>
+      <li>
+        Thẻ ứng dụng rút gọn phần tóm tắt còn hai dòng. Toàn văn có ở trang riêng của từng ứng dụng.
+      </li>
+      <li>Các trang pháp lý tiếng Việt là bản dịch; bản tiếng Anh là bản có giá trị.</li>
+    </ul>
+
+    <h2 id="report">Báo một trở ngại</h2>
+    <p>
+      Gửi email đến <a href={`mailto:${MAIL}`}>{MAIL}</a>, hoặc{' '}
+      <a href={FORM}>mở một issue về trợ năng</a> trên GitHub (cần tài khoản GitHub; email thì không
+      cần). Nếu được, hãy cho biết bạn đang ở trang nào, định làm gì, chuyện gì đã xảy ra, và bạn
+      dùng thiết bị, trình duyệt, công nghệ hỗ trợ nào. Ảnh chụp hay video màn hình luôn được hoan
+      nghênh nhưng không bắt buộc, và bạn không bao giờ cần cho chúng tôi biết về tình trạng khuyết
+      tật. Bạn có thể viết bằng tiếng Việt hoặc tiếng Anh.
+    </p>
+
+    <h2 id="response">Sau khi bạn báo</h2>
+    <p>
+      SoftHarbor do một người vận hành, nên đây là những cam kết giữ được. Chúng tôi trả lời trong
+      vòng 7 ngày và đánh giá mức độ trở ngại:
+    </p>
+    <ul>
+      <li>
+        <strong>Nghiêm trọng</strong> — khiến bạn không tìm, đọc hay mở được liên kết của ứng dụng:
+        sửa trong 30 ngày;
+      </li>
+      <li>
+        <strong>Nặng</strong> — khó vượt qua, dù vẫn có cách khác: trong 60 ngày;
+      </li>
+      <li>
+        <strong>Vừa</strong> hoặc <strong>nhẹ</strong> — gây phiền hoặc thiếu nhất quán: trong 90
+        ngày.
+      </li>
+    </ul>
+    <p>
+      Nếu trễ hạn, chúng tôi sẽ nói rõ lý do, đưa ra cách tạm thời, và hẹn ngày mới. Chúng tôi có
+      thể nhờ bạn xác nhận bản sửa trước khi đóng báo cáo.
+    </p>
+
+    <h2 id="contributors">Dành cho người đóng góp</h2>
+    <p>
+      Cách chúng tôi giữ cho mọi thay đổi đều dễ tiếp cận — các bước kiểm tra một pull request phải
+      qua và những gì cần thử bằng tay — nằm trong{' '}
+      <a href={GUIDE} lang="en">
+        ACCESSIBILITY.md
+      </a>{' '}
+      ở kho mã nguồn.
+    </p>
+  </>
+)}

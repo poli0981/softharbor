@@ -20,6 +20,7 @@ const legal = [
   ['/legal/trademarks', 'footer.legal.trademarks'],
   ['/legal/third-party', 'footer.legal.thirdParty'],
   ['/legal/ai-disclosure', 'footer.legal.aiDisclosure'],
+  ['/legal/accessibility', 'footer.legal.accessibility'],
 ] as const;
 
 // Build date, not request date — this is a static site, so it is the honest
@@ -99,6 +100,7 @@ const built = new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-GB', {
         client:visible
         label={t(locale, 'bug.report')}
         countLabel={t(locale, 'bug.errorCount')}
+        newTabLabel={t(locale, 'link.newTab')}
       />
     </nav>
   </div>

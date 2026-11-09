@@ -20,12 +20,19 @@
  * Disclosure); 2026-10-21 (v1.1: the Privacy Policy now covers Cloudflare
  * Web Analytics and the Turnstile check, and Terms gained the operator and a
  * copyright-complaint procedure); 2026-10-26 (v1.3: the Privacy Policy
- * covers the site-wide rate limit, D32).
+ * covers the site-wide rate limit, D32); 2026-11-09 (v1.4: the Privacy
+ * Policy lists `sh:keys`, the display menu's "/" shortcut switch, D33).
  */
-export const LEGAL_VERSION = '2026-10-26';
+export const LEGAL_VERSION = '2026-11-09';
 
 export type LegalDoc =
-  'aiDisclosure' | 'disclaimer' | 'privacy' | 'terms' | 'thirdParty' | 'trademarks';
+  | 'accessibility'
+  | 'aiDisclosure'
+  | 'disclaimer'
+  | 'privacy'
+  | 'terms'
+  | 'thirdParty'
+  | 'trademarks';
 
 /** The documents the gate asks you to accept. */
 export const ACCEPTED_DOCS = [
@@ -36,12 +43,15 @@ export const ACCEPTED_DOCS = [
 
 /**
  * When each document last changed in substance — its "Last updated" line.
- * One date for all six used to stamp documents that had not changed.
+ * One date for all of them used to stamp documents that had not changed.
+ * The Accessibility Statement (D33, v1.4) is not part of the accepted set, so
+ * a change to it never re-opens the gate.
  */
 export const LEGAL_UPDATED: Readonly<Record<LegalDoc, string>> = {
+  accessibility: '2026-11-09',
   aiDisclosure: '2026-10-26',
   disclaimer: '2026-10-21',
-  privacy: '2026-10-26',
+  privacy: '2026-11-09',
   terms: '2026-10-21',
   thirdParty: '2026-10-21',
   trademarks: '2026-10-21',

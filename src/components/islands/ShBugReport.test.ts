@@ -18,7 +18,10 @@ beforeEach(() => {
   history.replaceState(null, '', '/vi/apps?q=gimp');
   const target = document.createElement('div');
   document.body.appendChild(target);
-  app = mount(ShBugReport, { target, props: { label: 'Báo lỗi', countLabel: '{n} lỗi' } });
+  app = mount(ShBugReport, {
+    target,
+    props: { label: 'Báo lỗi', countLabel: '{n} lỗi', newTabLabel: '(mở trong thẻ mới)' },
+  });
   flushSync();
   link = document.querySelector<HTMLAnchorElement>('[data-testid="sh-bug-report"]')!;
 });
@@ -30,10 +33,15 @@ afterEach(async () => {
 });
 
 describe('ShBugReport', () => {
-  it('is an inert link until the visitor reaches for it', () => {
-    expect(link.getAttribute('href')).toBe('#');
+  it('points at the bare bug form until the visitor reaches for it', () => {
+    // Works before (and without) hydration; the prefilled URL comes later.
+    expect(link.getAttribute('href')).toBe(
+      'https://github.com/poli0981/softharbor/issues/new?template=bug_report.yml&labels=bug',
+    );
     expect(link.getAttribute('rel')).toBe('noopener');
-    expect(link.textContent?.trim()).toBe('Báo lỗi');
+    expect(link.getAttribute('target')).toBe('_blank');
+    // The new tab is announced, not sprung on screen-reader users.
+    expect(link.textContent?.trim()).toBe('Báo lỗi (mở trong thẻ mới)');
   });
 
   it('prefills the issue form with the page as it is on focus', () => {
