@@ -49,7 +49,7 @@ export const ACCEPTED_DOCS = [
  */
 export const LEGAL_UPDATED: Readonly<Record<LegalDoc, string>> = {
   accessibility: '2026-11-09',
-  aiDisclosure: '2026-10-26',
+  aiDisclosure: '2026-11-09',
   disclaimer: '2026-10-21',
   privacy: '2026-11-09',
   terms: '2026-10-21',
