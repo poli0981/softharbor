@@ -1,0 +1,25 @@
+{
+  "name": "eSpeak NG",
+  "developer": "eSpeak NG contributors",
+  "logo": "monogram",
+  "summary": {
+    "en": "Compact speech synthesizer for more than a hundred languages, run from the command line or used as a screen reader voice.",
+    "vi": "Bộ tổng hợp giọng nói gọn nhẹ cho hơn một trăm ngôn ngữ, chạy từ dòng lệnh hoặc làm giọng đọc cho trình đọc màn hình."
+  },
+  "categories": ["accessibility", "utilities"],
+  "tags": ["text-to-speech", "cli", "speech-synthesis", "multilingual"],
+  "platforms": ["windows", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-or-later",
+  "links": {
+    "homepage": "https://github.com/espeak-ng/espeak-ng",
+    "repo": "https://github.com/espeak-ng/espeak-ng",
+    "download": "https://github.com/espeak-ng/espeak-ng/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}

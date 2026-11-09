@@ -1,0 +1,25 @@
+{
+  "name": "Orkas",
+  "developer": "Orkas",
+  "logo": "monogram",
+  "summary": {
+    "en": "Desktop AI workspace where a coordinator agent splits a goal among specialist agents, using your own model keys or a local endpoint.",
+    "vi": "Không gian làm việc AI trên máy tính, một tác tử điều phối chia mục tiêu cho các tác tử chuyên trách, dùng khoá API riêng hoặc mô hình cục bộ."
+  },
+  "categories": ["productivity", "ai-local"],
+  "tags": ["ai-agents", "llm", "local-first", "byok"],
+  "platforms": ["windows", "macos"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://orkas.ai",
+    "repo": "https://github.com/Orkas-AI/Orkas",
+    "download": "https://orkas.ai/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}

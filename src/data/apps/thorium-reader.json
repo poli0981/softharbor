@@ -1,0 +1,25 @@
+{
+  "name": "Thorium Reader",
+  "developer": "EDRLab",
+  "logo": "monogram",
+  "summary": {
+    "en": "E-book reader for EPUB, PDF, audiobooks and DAISY titles, built to work with screen readers and to read text aloud.",
+    "vi": "Trình đọc sách điện tử cho EPUB, PDF, sách nói và DAISY, được làm để chạy tốt với trình đọc màn hình và đọc to văn bản."
+  },
+  "categories": ["accessibility", "productivity"],
+  "tags": ["ebook", "epub", "daisy", "read-aloud"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "BSD-3-Clause",
+  "links": {
+    "homepage": "https://www.edrlab.org/software/thorium-reader/",
+    "repo": "https://github.com/edrlab/thorium-reader",
+    "download": "https://github.com/edrlab/thorium-reader/releases"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}

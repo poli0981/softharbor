@@ -1,0 +1,25 @@
+{
+  "name": "NVDA",
+  "developer": "NV Access",
+  "logo": "monogram",
+  "summary": {
+    "en": "Screen reader for Windows that speaks what is on screen or sends it to a braille display, extended through add-ons.",
+    "vi": "Trình đọc màn hình cho Windows, đọc to nội dung trên màn hình hoặc xuất ra màn hình chữ nổi, mở rộng bằng add-on."
+  },
+  "categories": ["accessibility"],
+  "tags": ["screen-reader", "braille", "text-to-speech", "add-ons"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://www.nvaccess.org",
+    "repo": "https://github.com/nvaccess/nvda",
+    "download": "https://www.nvaccess.org/download/"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": null,
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}
