@@ -71,13 +71,29 @@ const packages = productionLicenses();
     : 'SoftHarbor được xây dựng trên phần mềm mã nguồn mở. Các thành phần và giấy phép tương ứng:'}
 </p>
 
-<div class="-mx-4 overflow-x-auto px-4">
+{/* A labelled, focusable region: on a narrow screen the table scrolls
+    sideways, and keyboard users need a way to reach that scroll. */}
+<div
+  class="-mx-4 overflow-x-auto px-4"
+  role="region"
+  aria-labelledby="components-caption"
+  tabindex="0"
+>
   <table class="w-full border-collapse text-small">
+    <caption id="components-caption" class="sr-only">
+      {en ? 'Components and their licenses' : 'Các thành phần và giấy phép'}
+    </caption>
     <thead>
       <tr class="border-sh-border border-b-2 text-left">
-        <th class="py-2 pr-4">{en ? 'Component' : 'Thành phần'}</th>
-        <th class="py-2 pr-4">{en ? 'License' : 'Giấy phép'}</th>
-        <th class="py-2">{en ? 'Note' : 'Ghi chú'}</th>
+        <th scope="col" class="py-2 pr-4">
+          {en ? 'Component' : 'Thành phần'}
+        </th>
+        <th scope="col" class="py-2 pr-4">
+          {en ? 'License' : 'Giấy phép'}
+        </th>
+        <th scope="col" class="py-2">
+          {en ? 'Note' : 'Ghi chú'}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -114,13 +130,27 @@ const packages = productionLicenses();
     ? 'Generated when the site is built, from package.json and the installed packages, so it always matches the code you are looking at.'
     : 'Được tạo tự động mỗi lần dựng trang, từ package.json và các gói đã cài, nên luôn khớp với mã nguồn bạn đang xem.'}
 </p>
-<div class="-mx-4 overflow-x-auto px-4">
+<div
+  class="-mx-4 overflow-x-auto px-4"
+  role="region"
+  aria-labelledby="packages-caption"
+  tabindex="0"
+>
   <table class="w-full border-collapse text-small">
+    <caption id="packages-caption" class="sr-only">
+      {en ? 'Packages in this build and their licenses' : 'Các gói trong bản dựng và giấy phép'}
+    </caption>
     <thead>
       <tr class="border-sh-border border-b-2 text-left">
-        <th class="py-2 pr-4">{en ? 'Package' : 'Gói'}</th>
-        <th class="py-2 pr-4">{en ? 'Version' : 'Phiên bản'}</th>
-        <th class="py-2">{en ? 'License' : 'Giấy phép'}</th>
+        <th scope="col" class="py-2 pr-4">
+          {en ? 'Package' : 'Gói'}
+        </th>
+        <th scope="col" class="py-2 pr-4">
+          {en ? 'Version' : 'Phiên bản'}
+        </th>
+        <th scope="col" class="py-2">
+          {en ? 'License' : 'Giấy phép'}
+        </th>
       </tr>
     </thead>
     <tbody>

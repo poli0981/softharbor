@@ -1,6 +1,7 @@
 <!-- SPDX-License-Identifier: GPL-3.0-only
      Copyright (C) 2026 poli0981 (SkullMute)
-     Display preferences (v1.1) — theme, scrollbar and motion in one menu.
+     Display preferences (v1.1) — theme, scrollbar, motion and (v1.4) the "/"
+     shortcut in one menu.
      Replaces ShThemeToggle, so the island budget stays at six (docs/02 §5). -->
 <script lang="ts">
   import { onMount } from 'svelte';
@@ -14,12 +15,17 @@
     type ThemeChoice,
   } from '../../lib/theme';
   import {
+    applyKeys,
     applyMotion,
     applyScrollbar,
+    readKeys,
     readMotion,
     readScrollbar,
+    shortcutsEnabled,
+    writeKeys,
     writeMotion,
     writeScrollbar,
+    type KeysChoice,
     type MotionChoice,
     type ScrollbarChoice,
   } from '../../lib/prefs';
@@ -33,6 +39,9 @@
     scrollbars: Record<ScrollbarChoice, string>;
     motionLabel: string;
     motions: Record<MotionChoice, string>;
+    /** The "/" shortcut on/off group (WCAG 2.1.4). */
+    keysLabel: string;
+    keys: Record<KeysChoice, string>;
     /** Localized /apps#search — where `/` goes from pages without a search box. */
     searchHref: string;
   }
@@ -44,6 +53,8 @@
     scrollbars,
     motionLabel,
     motions,
+    keysLabel,
+    keys: keysText,
     searchHref,
   }: Props = $props();
 
@@ -54,6 +65,7 @@
   let theme = $state<ThemeChoice>('system');
   let scrollbar = $state<ScrollbarChoice>('auto');
   let motion = $state<MotionChoice>('system');
+  let keys = $state<KeysChoice>('on');
 
   const root = (): HTMLElement => document.documentElement;
 
@@ -75,13 +87,22 @@
     applyMotion(next, root());
   }
 
+  function setKeys(next: KeysChoice): void {
+    keys = next;
+    writeKeys(next);
+    applyKeys(next, root());
+  }
+
   /**
    * `/` jumps to search from any page (docs/06 §9). On /apps ShSearch owns the
    * key and focuses its box; everywhere else the header hint used to promise a
-   * shortcut that did nothing.
+   * shortcut that did nothing. A single printable key must be possible to
+   * turn off (WCAG 2.1.4) — speech-input users can trigger it by accident —
+   * hence the "Keyboard shortcut: Off" choice in this menu.
    */
   function onGlobalKeydown(e: KeyboardEvent): void {
     if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey || e.defaultPrevented) return;
+    if (!shortcutsEnabled()) return;
     if (document.getElementById('sh-search')) return;
     const t = e.target as HTMLElement | null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
@@ -94,6 +115,7 @@
     theme = readChoice();
     scrollbar = readScrollbar();
     motion = readMotion();
+    keys = readKeys();
 
     // While in system mode the OS can flip underneath us — follow it live
     // (docs/05 §A8). Once the visitor picks explicitly, stop following it.
@@ -106,11 +128,27 @@
       if (e.key === 'sh:theme') setTheme(readChoice());
       else if (e.key === 'sh:scrollbar') setScrollbar(readScrollbar());
       else if (e.key === 'sh:motion') setMotion(readMotion());
+      else if (e.key === 'sh:keys') setKeys(readKeys());
     };
     mq.addEventListener('change', onSystemChange);
     window.addEventListener('storage', onStorage);
     document.addEventListener('keydown', onGlobalKeydown);
+
+    // The sticky header's real height, for global.css's scroll-padding-top
+    // (WCAG 2.4.11): it wraps to two rows on narrow screens and grows with
+    // zoom and text spacing. CSSOM writes are not style attributes, so the
+    // CSP (no 'unsafe-inline') allows them. This island lives in the header
+    // on every page, which is why it, not a seventh island, does this.
+    const header = document.querySelector<HTMLElement>('[data-sh-header]');
+    const publish = () => {
+      if (header) root().style.setProperty('--sh-header-h', `${header.offsetHeight}px`);
+    };
+    const headerWatch = typeof ResizeObserver === 'function' ? new ResizeObserver(publish) : null;
+    if (header) headerWatch?.observe(header);
+    publish();
+
     return () => {
+      headerWatch?.disconnect();
       mq.removeEventListener('change', onSystemChange);
       window.removeEventListener('storage', onStorage);
       document.removeEventListener('keydown', onGlobalKeydown);
@@ -120,6 +158,7 @@
   const themeChoices: ThemeChoice[] = ['system', 'light', 'dark'];
   const scrollbarChoices: ScrollbarChoice[] = ['auto', 'thin', 'hidden'];
   const motionChoices: MotionChoice[] = ['system', 'reduce'];
+  const keysChoices: KeysChoice[] = ['on', 'off'];
 
   /** For the button's tooltip: what "system" currently resolves to. */
   const resolvedTheme = $derived(
@@ -201,6 +240,24 @@
             onchange={() => setMotion(value)}
           />
           <span>{motions[value]}</span>
+        </label>
+      {/each}
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>{keysLabel}</legend>
+    <div class="sh-seg">
+      {#each keysChoices as value (value)}
+        <label>
+          <input
+            type="radio"
+            name="sh-keys"
+            {value}
+            checked={keys === value}
+            onchange={() => setKeys(value)}
+          />
+          <span>{keysText[value]}</span>
         </label>
       {/each}
     </div>
@@ -290,6 +347,25 @@
   .sh-seg input:focus-visible + span {
     outline: 2px solid var(--sh-accent);
     outline-offset: -4px;
+  }
+  /* Arrow keys move focus AND the choice together, so the focused radio is
+     almost always the checked one — whose fill is the accent. An accent ring
+     on an accent fill was invisible (WCAG 2.4.7); draw it in the fill's ink. */
+  .sh-seg input:checked:focus-visible + span {
+    outline-color: var(--sh-accent-ink);
+  }
+
+  /* Forced colours (Windows contrast themes) repaint backgrounds as Canvas,
+     which erased the checked fill — the choice must stay visible. */
+  @media (forced-colors: active) {
+    .sh-seg input:checked + span {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
+    .sh-seg input:checked:focus-visible + span {
+      outline-color: HighlightText;
+    }
   }
 
   @media (width < 40rem) {

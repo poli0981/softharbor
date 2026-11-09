@@ -107,7 +107,7 @@ pnpm deploy             # build + wrangler deploy (Workers Builds does this on m
   `ShLegalGate.svelte`, `ShFilterSheet.svelte`, `ShLangSwitch.svelte`,
   `ShPrefs.svelte` (display menu; replaced `ShThemeToggle`)
 - CSS custom properties: `--sh-*` · localStorage keys: `sh:legal`, `sh:human`,
-  `sh:lang`, `sh:theme`, `sh:scrollbar`, `sh:motion`
+  `sh:lang`, `sh:theme`, `sh:scrollbar`, `sh:motion`, `sh:keys`
 - Worker name: `softharbor` (code in `worker/`, endpoint `/api/verify`) ·
   Data: `src/data/apps/` · Quarantine: `data/quarantine/`
 - Contacts: one `@poli0981.dev` address per purpose — `src/lib/contacts.ts`

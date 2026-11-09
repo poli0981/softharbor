@@ -11,12 +11,17 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
+  applyKeys,
   applyMotion,
   applyScrollbar,
+  readKeys,
   readMotion,
   readScrollbar,
+  shortcutsEnabled,
+  writeKeys,
   writeMotion,
   writeScrollbar,
+  type KeysChoice,
   type MotionChoice,
   type ScrollbarChoice,
 } from './prefs';
@@ -43,7 +48,9 @@ function stubStorage(seed: Record<string, string> = {}, mode: 'ok' | 'throws' = 
 const root = () => document.documentElement;
 
 beforeEach(() => {
-  for (const a of ['data-theme', 'data-scrollbar', 'data-motion']) root().removeAttribute(a);
+  for (const a of ['data-theme', 'data-scrollbar', 'data-motion', 'data-keys']) {
+    root().removeAttribute(a);
+  }
 });
 afterEach(() => {
   Reflect.deleteProperty(globalThis, 'localStorage');
@@ -90,22 +97,51 @@ describe('motion preference', () => {
   });
 });
 
+describe('"/" shortcut preference (WCAG 2.1.4)', () => {
+  it('defaults to on and stores on as no key', () => {
+    const store = stubStorage();
+    expect(readKeys()).toBe('on');
+    writeKeys('off');
+    expect(store.get('sh:keys')).toBe('off');
+    expect(readKeys()).toBe('off');
+    writeKeys('on');
+    expect(store.has('sh:keys')).toBe(false);
+  });
+
+  it('treats garbage as on', () => {
+    stubStorage({ 'sh:keys': 'nope' });
+    expect(readKeys()).toBe('on');
+  });
+
+  it('applies only the off choice, which is what the islands read', () => {
+    expect(shortcutsEnabled()).toBe(true);
+    applyKeys('off', root());
+    expect(root().dataset['keys']).toBe('off');
+    expect(shortcutsEnabled()).toBe(false);
+    applyKeys('on', root());
+    expect(root().dataset['keys']).toBeUndefined();
+    expect(shortcutsEnabled(root())).toBe(true);
+  });
+});
+
 describe('hostile storage', () => {
   it('never throws, and falls back to defaults', () => {
     stubStorage({}, 'throws');
     expect(readScrollbar()).toBe('auto');
     expect(readMotion()).toBe('system');
+    expect(readKeys()).toBe('on');
     expect(() => writeScrollbar('hidden')).not.toThrow();
     expect(() => writeMotion('reduce')).not.toThrow();
+    expect(() => writeKeys('off')).not.toThrow();
   });
 });
 
 describe('pre-paint script parity (src/scripts/theme.js)', () => {
   const cases: Array<Record<string, string>> = [
     {},
-    { 'sh:theme': 'dark', 'sh:scrollbar': 'hidden', 'sh:motion': 'reduce' },
-    { 'sh:theme': 'light', 'sh:scrollbar': 'thin' },
-    { 'sh:theme': 'purple', 'sh:scrollbar': 'invisible', 'sh:motion': 'yes' },
+    { 'sh:theme': 'dark', 'sh:scrollbar': 'hidden', 'sh:motion': 'reduce', 'sh:keys': 'off' },
+    { 'sh:theme': 'light', 'sh:scrollbar': 'thin', 'sh:keys': 'on' },
+    { 'sh:theme': 'purple', 'sh:scrollbar': 'invisible', 'sh:motion': 'yes', 'sh:keys': 'OFF' },
   ];
 
   it.each(cases)('agrees with the typed helpers for %o', (seed) => {
@@ -119,6 +155,8 @@ describe('pre-paint script parity (src/scripts/theme.js)', () => {
       expectedScrollbar === 'auto' ? undefined : expectedScrollbar,
     );
     expect(root().dataset['motion']).toBe(expectedMotion === 'reduce' ? 'reduce' : undefined);
+    const expectedKeys: KeysChoice = readKeys();
+    expect(root().dataset['keys']).toBe(expectedKeys === 'off' ? 'off' : undefined);
   });
 
   it('survives storage that throws, applying a theme anyway', () => {

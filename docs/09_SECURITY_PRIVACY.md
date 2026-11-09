@@ -446,6 +446,7 @@ table true:
 | `sh:theme` | `light` \| `dark` (absent = system) | until cleared |
 | `sh:scrollbar` | `thin` \| `hidden` (absent = default) | until cleared |
 | `sh:motion` | `reduce` (absent = follow the OS) | until cleared |
+| `sh:keys` | `off` (absent = the "/" shortcut is on; v1.4, WCAG 2.1.4) | until cleared |
 | SW cache | offline page, its CSS, the three head scripts, the latin + Vietnamese body/display fonts, favicon | managed by Workbox |
 | Ring buffer | `window.__shErrors`, in memory only (docs/05 §A5) | page lifetime |
 | Session fallbacks | `globalThis` flags holding the gate's acceptance / check result when storage throws | page lifetime |

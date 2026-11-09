@@ -110,6 +110,7 @@ consistent over time.
 | D28 | Toolchain | **Node 26 + TypeScript 6/7 side by side** (amends D7 and D21) — `.nvmrc` 26; `typescript` = the `@typescript/typescript6` API wrapper, `@typescript/native` = TS 7, whose `tsc --noEmit` now type-checks every `.ts` file in `pnpm check` | 2026-10-23 | Node 24 entered maintenance 2026-10-20; TS 7 ships no API yet, which astro check, typescript-eslint and svelte2tsx need (docs/01 §2) |
 | D32 | Rate limiting | **Site-wide rate limit in the Worker** (amends hard rule 1 and D25): `run_worker_first` is `/*` minus the files a page loads (`/_astro/*`, icons, service worker); every request it routes spends one unit of `SITE_LIMITER` — 60 per 10 s per IPv4 or IPv6 /64, per location — and over it gets the branded `/errors/429` page (JSON under `/api/`), `Retry-After: 10`; fails **open** | 2026-10-26 | A flood or a runaway scraper gets refused cheaply with our own page instead of the Free zone's default; configured and tested in the repo (wrangler.jsonc, e2e/worker.spec.ts), not in a dashboard (docs/08 Part F) |
 | D29 | Code analysis | **SonarQube Cloud CI-based analysis with coverage** (`ci.yml` `sonar` job, not a required check) replaces Automatic Analysis | 2026-10-23 | Automatic Analysis cannot import coverage; a CI scan measures the same lcov the ratchet gates (docs/12 §2, docs/11 §1) |
+| D33 | Accessibility | **WCAG 2.2 AA as a target, never a conformance claim**; `ACCESSIBILITY.md` + its twin `/legal/accessibility`; contact `accessibility@`; the "/" shortcut can be turned off (`sh:keys`, WCAG 2.1.4) | 2026-11-09 | GitHub's community profile asked for it, and an audit found barriers the manual pass did not (focus on the checked display choice, the header at 320 px, forced colours); axe now fails on moderate findings and covers the open dialogs (docs/15 D33) |
 
 ## 6. Identifiers (locked)
 
@@ -121,7 +122,7 @@ consistent over time.
 | Contact email | One address per purpose at `@poli0981.dev` — `src/lib/contacts.ts`, page `/contact` (D27; `contact@softharbor.net` retired) |
 | Component prefix | `Sh*` (islands: `ShLegalGate`, `ShSearch`, `ShFilterSheet`, `ShLangSwitch`, `ShPrefs`, `ShBugReport`) |
 | CSS custom property prefix | `--sh-*` |
-| localStorage keys | `sh:legal`, `sh:human`, `sh:lang`, `sh:theme`, `sh:scrollbar`, `sh:motion` |
+| localStorage keys | `sh:legal`, `sh:human`, `sh:lang`, `sh:theme`, `sh:scrollbar`, `sh:motion`, `sh:keys` |
 | App data path | `src/data/apps/<slug>.json` (filename = slug) |
 | Quarantine path | `data/quarantine/<slug>.json` |
 | Public data endpoints | `/api/apps.json`, `/rss.xml`, `/sitemap-index.xml` |

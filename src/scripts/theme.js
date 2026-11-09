@@ -9,11 +9,12 @@
    that is cached immutably. `no-inline` matters — plain `?url` inlines any
    file under 4 KiB as a data: URL, which `script-src 'self'` refuses.
 
-   Applies all three preferences the ShPrefs menu sets, as attributes on
-   <html> that the CSS keys off:
+   Applies all four preferences the ShPrefs menu sets, as attributes on
+   <html> that the CSS and the islands key off:
      data-theme      light | dark            (sh:theme, else the OS setting)
      data-scrollbar  thin | hidden | absent  (sh:scrollbar)
      data-motion     reduce | absent         (sh:motion)
+     data-keys       off | absent            (sh:keys — the "/" shortcut)
 
    Storage access is guarded. With site data blocked, localStorage THROWS, and
    an unguarded read used to abort here, leaving dark-OS visitors on the light
@@ -38,6 +39,8 @@
   if (scrollbar === 'thin' || scrollbar === 'hidden') root.dataset.scrollbar = scrollbar;
 
   if (read('sh:motion') === 'reduce') root.dataset.motion = 'reduce';
+
+  if (read('sh:keys') === 'off') root.dataset.keys = 'off';
 
   // Cross-document View Transitions (the inline opt-in from
   // src/lib/inlineCss.ts). When the browser aborts one — a page that is slow

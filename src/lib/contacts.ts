@@ -11,6 +11,8 @@ export const CONTACTS = {
   /** Vulnerabilities, and hijacked or malicious listing links (security.txt). */
   security: 'security@poli0981.dev',
   privacy: 'privacy@poli0981.dev',
+  /** A barrier on the site — the Accessibility Statement and ACCESSIBILITY.md (D33). */
+  accessibility: 'accessibility@poli0981.dev',
   /** Terms, disclaimer, anything else legal. */
   legal: 'legal@poli0981.dev',
   /** Copyright (DMCA-style) notices about content on the site. */

@@ -5,17 +5,19 @@
      The sixth and final island (docs/02 §5). A seventh needs a decision-log
      entry. -->
 <script lang="ts">
-  import { buildBugUrl } from '../../lib/issueUrl';
+  import { BUG_FORM_URL, buildBugUrl } from '../../lib/issueUrl';
   import { bufferSize, getBuffer } from '../../lib/ringbuffer';
 
   interface Props {
     label: string;
     /** Shown next to the button when the buffer has caught something. */
     countLabel: string;
+    /** Screen-reader warning that the link opens a new tab (WCAG 3.2.5 advice). */
+    newTabLabel: string;
   }
-  const { label, countLabel }: Props = $props();
+  const { label, countLabel, newTabLabel }: Props = $props();
 
-  let href = $state('#');
+  let href = $state(BUG_FORM_URL);
   let count = $state(0);
 
   /**
@@ -48,5 +50,5 @@
 >
   {label}{#if count > 0}<span class="text-badge ml-1 font-mono"
       >({countLabel.replaceAll('{n}', String(count))})</span
-    >{/if}
+    >{/if}<span class="sr-only">{` ${newTabLabel}`}</span>
 </a>

@@ -9,6 +9,12 @@
 const REPO = 'https://github.com/poli0981/softharbor';
 
 /**
+ * The bare bug form — the link's target until the island has built the
+ * prefilled URL, so the footer link works before hydration (and without JS).
+ */
+export const BUG_FORM_URL = `${REPO}/issues/new?template=bug_report.yml&labels=bug`;
+
+/**
  * Total-URL budget in characters.
  *
  * Measured against github.com in spike S3 (2026-07-27), two probes per length:

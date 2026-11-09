@@ -177,8 +177,16 @@
 @layer base {
   html {
     /* The header is sticky: without this, jumping to #main or tabbing to a
-       control near the top puts it underneath the header (WCAG 2.4.11). */
-    scroll-padding-top: 5.5rem;
+       control near the top puts it underneath the header (WCAG 2.4.11). Its
+       height is not fixed — it wraps to two rows on narrow screens and grows
+       with the text — so ShPrefs measures it into --sh-header-h; the
+       fallback is the one-row height before that island hydrates. */
+    scroll-padding-top: calc(var(--sh-header-h, 4.5rem) + 1rem);
+  }
+  /* The same at the bottom while the fixed language-suggestion banner
+     (ShLangSwitch) is on screen. */
+  html:has(.sh-lang-suggest) {
+    scroll-padding-bottom: 10rem;
   }
 
   /* Preflight's default placeholder is the text colour at 50 %; the muted

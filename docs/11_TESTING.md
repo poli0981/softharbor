@@ -214,7 +214,8 @@ construction. Exemptions moved from a path regex to a page-declared
 `gateExempt`. The browser-only gaps listed above are now covered by
 Playwright (`e2e/gate.spec.ts`, §5): real top layer, Esc pressed twice
 against Chromium's close-watcher, `closedby="none"`, persistence across a
-reload, exempt pages. Screen-reader and visual checks stay manual.
+reload, exempt pages. Screen-reader and visual checks stay manual (first
+recorded pass: keyboard + Narrator, owner, 2026-11-09 — docs/13 §2).
 
 ### S5 — PWA offline on the real origin
 - **Goal:** offline fallback works where users are: `softharbor.net`.
@@ -312,11 +313,15 @@ something else; `stubTurnstile()` serves a fake `api.js` **from its real
 URL** (so the page CSP is still exercised) and answers `/api/verify` — which
 `astro preview` does not run — with 200, 503, or blocks the script;
 `waitForIsland()` waits for hydration; `settled()` waits for entrance
-animations before axe measures contrast.
+animations before axe measures contrast; `axeViolations()` runs axe with the
+WCAG 2.0/2.1 A+AA and 2.2 AA tags (optionally on one component) and returns
+the critical, serious **and moderate** findings — one line per rule (v1.4,
+D33; it was serious/critical only).
 
 | Spec | Covers |
 |---|---|
-| `smoke.spec.ts` | 15 pages in both locales (home, grid, detail, categories, legal, offline, contact): status < 400, an `h1`, a resolved `data-theme`, **no horizontal overflow**; an unknown URL → real 404 without the gate; **axe** (WCAG 2.0/2.1 A+AA, 2.2 AA tags) on five pages in **light and dark**, serious/critical findings fail |
+| `smoke.spec.ts` | 18 pages in both locales (home, grid, detail, categories, legal incl. third-party and accessibility, offline, contact): status < 400, an `h1`, a resolved `data-theme`, **no horizontal overflow**; an unknown URL → real 404 without the gate; **axe** (`axeViolations()`) on 13 pages — every page type in both locales, the tables of third-party notices, contact rows, offline — in **light and dark**, plus the 404 page |
+| `a11y.spec.ts` | ACCESSIBILITY.md's automated half: axe on the **open** legal gate, filter sheet and display menu; the first Tab reaches the skip link, which skips the header; Esc returns focus to the filter and display buttons; the focused display choice has a ring that differs from its fill (2.4.7); the "/" switch turns the shortcut, its hint and the placeholder's "( / )" off and stays off on the next document (2.1.4); **reflow at 320 × 640** on 13 pages (desktop project; 1.4.10); **forced colours** keep the current section underlined and the chosen segment/language filled |
 | `gate.spec.ts` | blocks a first visit until accepted *and* checked; Esc twice cannot dismiss; **no Cloudflare request before acceptance**; check remembered ~48 h across a reload; blocked script or 503 → visitor let through with the "skipped" note and a 1 h retry; a lapsed check re-runs step 2 only; linked documents and error/offline pages are exempt |
 | `worker.spec.ts` (project `worker`) | pages pass through the Worker with `_headers`, the 404 page and the trailing-slash redirect intact; a flood gets **exactly** the configured budget of 200s, then 429s — the branded page with `Retry-After` and `no-store`; while refused, `/api/apps.json` and `/api/verify` answer JSON (the dataset CORS-readable) and a page's CSS, the service worker and the favicon still load; the 429 page renders styled in Chrome with no CSP violation and no gate; everyone is back in when the window passes. Serial, and each test first waits for a fresh window (Miniflare counts in fixed windows aligned to the clock, refusals not counted) |
 | `prefs-search.spec.ts` | display choices apply at once and are restored pre-paint on the next document; `/` from any page lands focused in `/apps#search`; Vietnamese search ignores diacritics, writes `?q=` and switches to "Best match"; a shared URL restores the view and "Clear all" really clears it |

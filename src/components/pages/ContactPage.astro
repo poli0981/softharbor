@@ -20,7 +20,18 @@ const ISSUES = 'https://github.com/poli0981/softharbor/issues/new/choose';
 const rows = [
   { key: 'security', icon: 'shield-alert' },
   { key: 'privacy', icon: 'eye-off' },
-  { key: 'dmca', icon: 'copyright', more: '/legal/terms#copyright' },
+  {
+    key: 'accessibility',
+    icon: 'accessibility',
+    more: '/legal/accessibility',
+    moreTitle: 'legal.title.accessibility',
+  },
+  {
+    key: 'dmca',
+    icon: 'copyright',
+    more: '/legal/terms#copyright',
+    moreTitle: 'legal.title.terms',
+  },
   { key: 'takedown', icon: 'flag' },
   { key: 'legal', icon: 'scale' },
   { key: 'copyright', icon: 'scroll-text' },
@@ -61,7 +72,7 @@ const rows = [
                 href={localePath(locale, row.more)}
                 class="sh-anim text-sh-muted mt-1 flex items-center gap-1 text-small hover:underline"
               >
-                {t(locale, 'legal.title.terms')}
+                {t(locale, row.moreTitle)}
                 <ShIcon name="arrow-right" class="size-3.5" motion="nudge-x" />
               </a>
             )}

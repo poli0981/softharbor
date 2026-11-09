@@ -74,12 +74,19 @@ const rows = [
 
 <h2>{en ? 'Where it was used' : 'Đã dùng ở đâu'}</h2>
 
-<div class="-mx-4 overflow-x-auto px-4">
+<div class="-mx-4 overflow-x-auto px-4" role="region" aria-labelledby="ai-use-caption" tabindex="0">
   <table class="w-full border-collapse text-small">
+    <caption id="ai-use-caption" class="sr-only">
+      {en ? 'Where AI was used, and how' : 'AI đã được dùng ở đâu và như thế nào'}
+    </caption>
     <thead>
       <tr class="border-sh-border border-b-2 text-left">
-        <th class="w-1/4 py-2 pr-4">{en ? 'Area' : 'Hạng mục'}</th>
-        <th class="py-2">{en ? 'How' : 'Cách làm'}</th>
+        <th scope="col" class="w-1/4 py-2 pr-4">
+          {en ? 'Area' : 'Hạng mục'}
+        </th>
+        <th scope="col" class="py-2">
+          {en ? 'How' : 'Cách làm'}
+        </th>
       </tr>
     </thead>
     <tbody>

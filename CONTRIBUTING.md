@@ -9,6 +9,8 @@ under **GPL-3.0-only**, dataset entries under **CC BY-SA 4.0**.
 
 - Code of Conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 - Security vulnerabilities: [SECURITY.md](SECURITY.md) — **never** a public issue
+- Accessibility: [ACCESSIBILITY.md](ACCESSIBILITY.md) — the guardrails every
+  user-facing change keeps, and how barriers are reported
 - Contact: Code of Conduct reports **code@poli0981.dev**, licensing questions
   **copyright@poli0981.dev**; anything else, open an issue
 
@@ -42,7 +44,9 @@ software we link to; take that to its own developer.
 3. Conventional Commits, lowercase, imperative — `feat:`, `fix:`, `data:`,
    `docs:`, `chore:`, `ci:`, `refactor:`, `test:`. The squash title becomes the
    changelog entry, so it has to stand alone.
-4. Run every gate before pushing. CI runs the same ones and they are not
+4. Fill in the pull request template — its accessibility checklist applies to
+   any change a visitor can see or operate.
+5. Run every gate before pushing. CI runs the same ones and they are not
    advisory:
 
 ```bash
