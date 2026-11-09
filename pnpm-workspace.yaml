@@ -72,6 +72,20 @@ auditConfig:
   ignoreGhsas:
     - GHSA-gcqx-w48m-w2h4
 
+# @astrojs/astro2tsx 0.1.3 (astro check's .astro -> TSX step, a wasm module)
+# pins @emnapi/core 1.11.3 but leaves @emnapi/runtime to the peer range of
+# @napi-rs/wasm-runtime (`^1.7.1 || ^2.0.0-alpha.4`). Since rolldown 1.3.0
+# (astro 7.4.7) brought @emnapi/runtime 2.0.0-beta.2 into the graph, pnpm
+# resolves that peer to the beta; core 1.x with runtime 2.x throws "this.bridge
+# .setLastError is not a function" on import, and `astro check` reports the
+# failed import as "@astrojs/check is not installed" (Dependabot #67,
+# 2026-11-09). Give astro2tsx the runtime that matches its core. Drop this once
+# an astro2tsx release declares @emnapi/runtime itself.
+packageExtensions:
+  '@astrojs/astro2tsx@0.1.3':
+    dependencies:
+      '@emnapi/runtime': '1.11.3'
+
 # @vite-pwa/astro stays on 1.2.0, whose peer range stops at Astro 5. It works
 # on Astro 7 — `pnpm build` and `check:sw` exercise the generated service
 # worker on every CI run — so the mismatch is accepted explicitly here instead
