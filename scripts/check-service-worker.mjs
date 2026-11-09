@@ -37,6 +37,17 @@ import { join } from 'node:path';
 const SW = join(process.cwd(), 'dist/sw.js');
 const problems = [];
 
+/**
+ * Whether any line of `code` is an ES `import`/`export` statement, which a
+ * classic script cannot evaluate. A dynamic `import(` and `importScripts(` are
+ * fine. Line by line, so the pattern never backtracks across newlines.
+ */
+function hasModuleSyntax(code) {
+  return code
+    .split('\n')
+    .some((line) => /^(?:import|export)(?:\s+[^\s(]|[{*"'`])/.test(line.trimStart()));
+}
+
 if (!existsSync(SW)) {
   problems.push('dist/sw.js does not exist — the PWA integration produced no service worker');
 } else {
@@ -46,7 +57,7 @@ if (!existsSync(SW)) {
   // evaluate ES `import` statements, and every script it pulls in with
   // importScripts() must exist. These checks, and the name checks below, read
   // the unminified output — `minify: false` in astro.config.ts keeps it so.
-  if (/^\s*import\s/m.test(sw)) {
+  if (hasModuleSyntax(sw)) {
     problems.push(
       'dist/sw.js still contains ES `import` statements — a classic service worker cannot\n' +
         '      evaluate them (bare @vite-pwa/workbox-swkit specifiers: that package must be a\n' +
@@ -148,7 +159,7 @@ if (!existsSync(home)) {
   const register = join(process.cwd(), 'dist/registerSW.js');
   if (!existsSync(register)) {
     problems.push('dist/registerSW.js does not exist — nothing would register the SW');
-  } else if (/^\s*(import|export)\s/m.test(readFileSync(register, 'utf8'))) {
+  } else if (hasModuleSyntax(readFileSync(register, 'utf8'))) {
     problems.push(
       'dist/registerSW.js contains ES import/export — the page loads it as a classic script,\n' +
         '      so it throws and the SW never registers (@vite-pwa/workbox-window must be a\n' +
