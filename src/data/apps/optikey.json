@@ -1,0 +1,25 @@
+{
+  "name": "Optikey",
+  "developer": "Julius Sweetland",
+  "logo": "monogram",
+  "summary": {
+    "en": "On-screen keyboard driven by an eye tracker, switches, head movement or a mouse, for full computer control and speech.",
+    "vi": "Bàn phím ảo điều khiển bằng thiết bị theo dõi mắt, công tắc, chuyển động đầu hoặc chuột, để dùng cả máy tính và nói thành lời."
+  },
+  "categories": ["accessibility"],
+  "tags": ["eye-tracking", "on-screen-keyboard", "aac", "switch-access"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://www.optikey.org",
+    "repo": "https://github.com/OptiKey/OptiKey",
+    "download": "https://github.com/OptiKey/OptiKey/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/54bd376bc17509fca8f66064863afe7193a0b1d7d64f4c3654025c621483a5c4",
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Balabolka",
+  "developer": "Ilya Morozov",
+  "logo": "monogram",
+  "summary": {
+    "en": "Text-to-speech reader that reads documents and the clipboard aloud with your installed voices and saves speech as audio.",
+    "vi": "Phần mềm chuyển văn bản thành giọng nói, đọc to tài liệu và clipboard bằng các giọng đã cài, lưu được thành tệp âm thanh."
+  },
+  "categories": ["accessibility", "productivity"],
+  "tags": ["text-to-speech", "audiobook", "portable", "clipboard"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": null,
+  "links": {
+    "homepage": "https://www.cross-plus-a.com/balabolka.htm",
+    "repo": null,
+    "download": "https://www.cross-plus-a.com/balabolka.htm"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/2ccab1b1bfe13790e911b395cf2f877a5e4f2e5e7b355e3515315905e1378a78",
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Colour Contrast Analyser",
+  "developer": "Vispero (TPGi)",
+  "logo": "monogram",
+  "summary": {
+    "en": "Picks text and background colours from anywhere on screen and reports their contrast against the WCAG thresholds.",
+    "vi": "Lấy màu chữ và màu nền ở bất kỳ đâu trên màn hình, rồi báo độ tương phản giữa chúng theo các ngưỡng của WCAG."
+  },
+  "categories": ["accessibility", "developer-tools"],
+  "tags": ["wcag", "contrast", "color-picker", "design-review"],
+  "platforms": ["windows", "macos", "linux"],
+  "pricing": "free",
+  "license": "GPL-3.0-only",
+  "links": {
+    "homepage": "https://vispero.com/color-contrast-checker/",
+    "repo": "https://github.com/ThePacielloGroup/CCAe",
+    "download": "https://github.com/ThePacielloGroup/CCAe/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/8a07e9837dc4628c0f358075852c44508fbcca928310bcb61672e070d7493581",
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}

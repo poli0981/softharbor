@@ -1,0 +1,25 @@
+{
+  "name": "Bookworm",
+  "developer": "Blind Pandas",
+  "logo": "monogram",
+  "summary": {
+    "en": "Document reader made for screen-reader users that opens EPUB, PDF, Word and more, with read-aloud and bookmarks.",
+    "vi": "Trình đọc tài liệu dành cho người dùng trình đọc màn hình, mở EPUB, PDF, Word và nhiều định dạng khác, có đọc to và đánh dấu."
+  },
+  "categories": ["accessibility", "productivity"],
+  "tags": ["ebook", "screen-reader", "read-aloud", "portable"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "GPL-2.0-or-later",
+  "links": {
+    "homepage": "https://github.com/blindpandas/bookworm",
+    "repo": "https://github.com/blindpandas/bookworm",
+    "download": "https://github.com/blindpandas/bookworm/releases"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/b171e4359ffb01eef1edbaae0e226094da3ae35c813476cef0374e2aa12ebd63",
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}

@@ -120,7 +120,7 @@ search is the island on `/apps`), and two buttons: Browse all apps
 (primary) · All categories. Beside it, the **"Manifest" ledger**: figures
 counted from the data at build time — apps listed, completely free, buy
 once, no known warnings, and per-platform counts — in ruled mono rows.
-Then the **12-category grid** (icon tile, label, localized count, stretched
+Then the **category grid** — 15 as of v1.4 (icon tile, label, localized count, stretched
 link) and **"How this list works"** — three numbered principles (01 official
 links only · 02 free or own it once · 03 dated, honest status). The v1.0
 "Latest additions" row was dropped in the refresh (every entry still shares

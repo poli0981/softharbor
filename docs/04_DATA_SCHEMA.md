@@ -111,7 +111,7 @@ duplicates, link provenance, invisible characters, quarantine) are L2,
 
 | Value | Meaning | Examples |
 |---|---|---|
-| `free` | Fully usable forever at $0. Includes freemium products **whose free tier alone is self-sufficient** even if the paid upgrade is a subscription (criterion C3). | VLC, 7-Zip, Bitwarden (free tier) — 330 entries |
+| `free` | Fully usable forever at $0. Includes freemium products **whose free tier alone is self-sufficient** even if the paid upgrade is a subscription (criterion C3). | VLC, 7-Zip, Bitwarden (free tier) — 339 entries |
 | `free-onetime` | Free tier + optional **single lifetime payment** unlock. | FreeFileSync, eM Client, HWiNFO, Shottr, AltTab — 16 entries |
 | `onetime` | Paid once, perpetual license, optional paid major upgrades allowed. | Sublime Text, REAPER, Total Commander, Fork — 18 entries |
 | *(excluded)* | Subscription required for core desktop use; time-limited trials; crippled demos. | Adobe CC, MS 365 |
@@ -138,12 +138,16 @@ Ambiguous cases → decision log (docs/15 §4) before merge.
 | `system` | System Tools | Công cụ hệ thống | `cpu` |
 | `ai-local` | Local AI | AI cục bộ | `brain-circuit` |
 | `cad-3d` | CAD & 3D | CAD & 3D | `drafting-compass` |
+| `accessibility` | Accessibility | Trợ năng | `accessibility` |
 
 Adding a category = PR editing this file + decision-log line (keeps the
 taxonomy from sprawling). `ai-local` and `cad-3d` came with catalogue
 batch 2 (D31): models that run on your own machine, and CAD/EDA/3D-printing
-tools. The categories page counts them itself (`categories.intro` and
-`meta.categories` take `{n}`), so a new row needs no copy change.
+tools. `accessibility` came with catalogue batch 3 (D34, v1.4): assistive
+technology — screen readers, text-to-speech, eye-tracking input, accessible
+readers — and the tools for checking accessibility. The categories page
+counts them itself (`categories.intro` and `meta.categories` take `{n}`), so
+a new row needs no copy change.
 
 ## 5. Example files
 
@@ -243,8 +247,8 @@ and the renderer draws the initials (D23). VSCodium itself now resolves to
 }
 ```
 
-As of v1.2 no entry uses `local:` (`src/assets/logos/` does not exist yet):
-127 entries use `simple-icons:`, 237 `monogram` (364 in all).
+As of v1.4 no entry uses `local:` (`src/assets/logos/` does not exist yet):
+127 entries use `simple-icons:`, 246 `monogram` (373 in all).
 
 ## 6. Quarantine files
 

@@ -13,13 +13,14 @@
   "license": "GPL-3.0-or-later",
   "links": {
     "homepage": "https://www.linphone.org",
-    "repo": "https://gitlab.linphone.org/BC/public/linphone-desktop",
+    "repo": "https://github.com/BelledonneCommunications/linphone-desktop",
     "download": "https://www.linphone.org/en/download/"
   },
   "security": {
     "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/a7271e3eda0d0513ac80ade5a0f84390647c980f7a64e052e2b5f2985cc98355",
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-09"
   },
-  "addedAt": "2026-07-28"
+  "addedAt": "2026-07-28",
+  "updatedAt": "2026-11-09"
 }

@@ -82,5 +82,11 @@
     "label": { "en": "CAD & 3D", "vi": "CAD & 3D" },
     "icon": "drafting-compass",
     "order": 14
+  },
+  {
+    "id": "accessibility",
+    "label": { "en": "Accessibility", "vi": "Trợ năng" },
+    "icon": "accessibility",
+    "order": 15
   }
 ]

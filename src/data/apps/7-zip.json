@@ -17,9 +17,9 @@
     "download": "https://www.7-zip.org/download.html"
   },
   "security": {
-    "status": "unverified",
+    "status": "clean",
     "evidence": "https://www.virustotal.com/gui/url/273d0beedb411e020dd6ce34a46330b626a4ed56df427f806c4c552ea5c287e7",
-    "checkedAt": "2026-10-23"
+    "checkedAt": "2026-11-09"
   },
   "addedAt": "2026-07-28"
 }

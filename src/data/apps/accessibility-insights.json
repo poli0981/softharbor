@@ -1,0 +1,25 @@
+{
+  "name": "Accessibility Insights for Windows",
+  "developer": "Microsoft",
+  "logo": "monogram",
+  "summary": {
+    "en": "Finds accessibility problems in Windows desktop apps with automated checks and a live view of the UI Automation tree.",
+    "vi": "Tìm lỗi trợ năng trong ứng dụng Windows bằng các bài kiểm tra tự động và chế độ xem trực tiếp cây UI Automation."
+  },
+  "categories": ["accessibility", "developer-tools"],
+  "tags": ["ui-automation", "testing", "wcag", "inspector"],
+  "platforms": ["windows"],
+  "pricing": "free",
+  "license": "MIT",
+  "links": {
+    "homepage": "https://accessibilityinsights.io/docs/windows/overview/",
+    "repo": "https://github.com/microsoft/accessibility-insights-windows",
+    "download": "https://accessibilityinsights.io/downloads/"
+  },
+  "security": {
+    "status": "clean",
+    "evidence": "https://www.virustotal.com/gui/url/4b7c03af5915f46aa687b06793ce53faac39679bcfecefbac3c89dab4c68cfd7",
+    "checkedAt": "2026-11-09"
+  },
+  "addedAt": "2026-11-09"
+}
