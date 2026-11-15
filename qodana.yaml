@@ -8,8 +8,7 @@ version: '1.0'
 # Ultimate Plus) licence. Native mode, no container: the analysis then sees the
 # runner's Node 26 and the node_modules that pnpm installed in the step before
 # it, instead of whatever Node the image ships. On its own it reads
-# .ts/.js/.mjs, JSON, YAML, Markdown and CSS; the plugins below add .astro
-# and .svelte.
+# .ts/.js/.mjs, JSON, YAML, Markdown and CSS; the plugin below adds .astro.
 linter: qodana-js
 withinDocker: 'false'
 
@@ -49,12 +48,16 @@ exclude:
     paths:
       - src/styles/global.css
 
-# JetBrains' own Astro and Svelte plugins (installed from the Marketplace on
-# each run), so the 58 components are inspected too — qodana-js alone skips
-# them. Their one false-positive class is scoped out above.
+# JetBrains' own Astro plugin (installed from the Marketplace on each run), so
+# the 52 .astro files are inspected too — qodana-js alone skips them. Its one
+# false-positive class is scoped out above. The Svelte plugin
+# (dev.blachut.svelte.lang) was tried and dropped: on unchanged code it
+# reported Intl.PluralRules#select and Intl.NumberFormat#format in
+# ShFilterSheet.svelte as unresolved in one run of three. A gate that flips
+# on its own teaches everyone to ignore it; the six islands stay covered by
+# eslint-plugin-svelte, their Vitest suites and the e2e run.
 plugins:
   - id: org.jetbrains.plugins.astro
-  - id: dev.blachut.svelte.lang
 
 # Any finding fails the job: red on the PR, but not a required check (D35) —
 # like Sonar's gate, a Qodana Cloud outage must never block a merge.
