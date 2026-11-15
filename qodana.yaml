@@ -1,0 +1,40 @@
+# Qodana (JetBrains) — the third analyser beside CodeQL and SonarQube Cloud
+# (D35, docs/12 §2). Read by .github/workflows/qodana.yml; results go to Qodana
+# Cloud (the QODANA_TOKEN project token carries the Ultimate licence) and to
+# GitHub code scanning under the category `qodana`.
+version: '1.0'
+
+# Qodana for JS is WebStorm's engine and runs only under an Ultimate (or
+# Ultimate Plus) licence. Native mode, no container: the analysis then sees the
+# runner's Node 26 and the node_modules that pnpm installed in the step before
+# it, instead of whatever Node the image ships. It reads .ts/.js/.mjs, JSON,
+# YAML, Markdown and CSS — not .astro or .svelte, which `astro check`,
+# ESLint and the e2e suite cover.
+linter: qodana-js
+withinDocker: 'false'
+
+profile:
+  name: qodana.recommended
+
+# The same scope as sonar-project.properties: the dataset is CC BY-SA content
+# validated by Zod and validate:data, not code; everything else here is
+# generated output or local tool state (git-ignored, so absent in CI anyway).
+exclude:
+  - name: All
+    paths:
+      - src/data
+      - data
+      - dist
+      - coverage
+      - playwright-report
+      - test-results
+      - blob-report
+      - .astro
+      - .wrangler
+      - .claude
+
+# Any finding fails the job: red on the PR, but not a required check (D35) —
+# like Sonar's gate, a Qodana Cloud outage must never block a merge.
+failureConditions:
+  severityThresholds:
+    any: 0
