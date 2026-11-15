@@ -7,9 +7,9 @@ version: '1.0'
 # Qodana for JS is WebStorm's engine and runs only under an Ultimate (or
 # Ultimate Plus) licence. Native mode, no container: the analysis then sees the
 # runner's Node 26 and the node_modules that pnpm installed in the step before
-# it, instead of whatever Node the image ships. It reads .ts/.js/.mjs, JSON,
-# YAML, Markdown and CSS — not .astro or .svelte, which `astro check`,
-# ESLint and the e2e suite cover.
+# it, instead of whatever Node the image ships. On its own it reads
+# .ts/.js/.mjs, JSON, YAML, Markdown and CSS; the plugins below add .astro
+# and .svelte.
 linter: qodana-js
 withinDocker: 'false'
 

@@ -223,9 +223,15 @@ carries it. Scope and gate live in `qodana.yaml`:
   Node would not satisfy `engines`.
 - Profile **`qodana.recommended`**, the same scope as
   `sonar-project.properties` (the dataset, build/test output and local tool
-  state excluded). `qodana-js` reads `.ts`/`.js`/`.mjs`, JSON, YAML,
-  Markdown and CSS — **not `.astro` or `.svelte`**, which are outside its
-  language list; `astro check`, ESLint and the e2e suite cover those.
+  state excluded). `qodana-js` on its own reads `.ts`/`.js`/`.mjs`, JSON,
+  YAML, Markdown and CSS — `.astro` and `.svelte` are outside its language
+  list — so `qodana.yaml` installs JetBrains' **Astro and Svelte plugins**
+  from the Marketplace on every run, and the 58 components are inspected
+  too. Their one false-positive class is scoped out: under the Astro plugin
+  every component an `.astro` file imports and its template uses reads as
+  an unused import (75 of 75 findings on the first run with the plugins),
+  so `ES6UnusedImports` is ignored for `*.astro` — ESLint's
+  `no-unused-vars` checks those imports with template use understood.
 - **Gate:** `failureConditions.severityThresholds.any: 0` — any finding
   turns the job red. Findings are fixed in the code; a false positive with a
   known cause is switched off **in `qodana.yaml`, with its reason** — never
@@ -241,7 +247,9 @@ carries it. Scope and gate live in `qodana.yaml`:
   have no token. Caches are saved from `main` only
   (`cache-default-branch-only`) to spare the 10 GB cache budget.
 - Not required, for the reason `sonar` is not: a Qodana Cloud outage or a
-  lapsed licence must never block a merge. Ultimate does **not** include
+  lapsed licence must never block a merge. **The licence runs until
+  2026-12-31** (the scan log prints it): renew it, or every run turns red
+  from 2027-01-01. Ultimate does **not** include
   Qodana's vulnerability checker or licence audit (Ultimate Plus);
   `osv-scanner`, `pnpm audit` and Dependabot own the dependencies.
 
