@@ -1,7 +1,7 @@
 # Qodana (JetBrains) — the third analyser beside CodeQL and SonarQube Cloud
 # (D35, docs/12 §2). Read by .github/workflows/qodana.yml; results go to Qodana
 # Cloud (the QODANA_TOKEN project token carries the Ultimate licence) and to
-# GitHub code scanning under the category `qodana`.
+# GitHub code scanning (tool QDJS, category softharbor/qodana).
 version: '1.0'
 
 # Qodana for JS is WebStorm's engine and runs only under an Ultimate (or

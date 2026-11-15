@@ -92,8 +92,10 @@ jobs:
         if: ${{ !cancelled() && steps.sarif.outputs.found == 'true' }}
         uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         with:
+          # No `category:` — Qodana's SARIF carries its own automation id
+          # (`<project>/qodana/<date>`), which outranks it: code scanning
+          # files these results as tool QDJS, category softharbor/qodana.
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
-          category: qodana
           # The commit that was analysed: on a PR its head (checked out
           # above), not the merge ref that code scanning would assume.
           ref: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.ref }}

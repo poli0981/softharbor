@@ -240,9 +240,12 @@ carries it. Scope and gate live in `qodana.yaml`:
   is analysed whole, because a change can break a file it does not touch.
   The action annotates the PR and posts a summary comment (`checks: write`,
   `pull-requests: write`) and uploads the report as the `qodana-report`
-  artifact; the SARIF goes to **GitHub code scanning** as category `qodana`
-  (`security-events: write`) — also when the gate failed, with the PR's head
-  commit as `ref`/`sha`, since that is what was checked out.
+  artifact; the SARIF goes to **GitHub code scanning** (`security-events:
+  write`) — also when the gate failed, with the PR's head commit as
+  `ref`/`sha`, since that is what was checked out. Code scanning lists it as
+  tool **`QDJS`**, category `softharbor/qodana`: Qodana writes its own
+  automation id into the SARIF, which outranks the upload's `category`
+  (filter alerts with `tool_name=QDJS`).
 - The same `if:` guard as `sonar` — Dependabot, fork PRs and the bot data PRs
   have no token. Caches are saved from `main` only
   (`cache-default-branch-only`) to spare the 10 GB cache budget.
