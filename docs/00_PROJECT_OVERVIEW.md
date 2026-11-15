@@ -1,7 +1,7 @@
 # 00 — Project Overview
 
 > **Project:** SoftHarbor
-> **Doc suite version:** 3.1 (2026-11-09, site v1.4)
+> **Doc suite version:** 3.2 (2026-11-15, site v1.4.1)
 > **Author:** poli0981 / SkullMute · **License:** code GPL-3.0-only · data CC BY-SA 4.0
 > **Platform:** Web (static), Cloudflare Workers Static Assets, canonical `https://softharbor.net`
 > — plus one Worker: the site-wide rate limit (D32) and `POST /api/verify` (D25)
@@ -112,6 +112,7 @@ consistent over time.
 | D29 | Code analysis | **SonarQube Cloud CI-based analysis with coverage** (`ci.yml` `sonar` job, not a required check) replaces Automatic Analysis | 2026-10-23 | Automatic Analysis cannot import coverage; a CI scan measures the same lcov the ratchet gates (docs/12 §2, docs/11 §1) |
 | D33 | Accessibility | **WCAG 2.2 AA as a target, never a conformance claim**; `ACCESSIBILITY.md` + its twin `/legal/accessibility`; contact `accessibility@`; the "/" shortcut can be turned off (`sh:keys`, WCAG 2.1.4) | 2026-11-09 | GitHub's community profile asked for it, and an audit found barriers the manual pass did not (focus on the checked display choice, the header at 320 px, forced colours); axe now fails on moderate findings and covers the open dialogs (docs/15 D33) |
 | D35 | Code analysis | **Qodana as a third analyser** beside CodeQL and SonarQube Cloud: `qodana-js` (Ultimate licence) in native mode, profile `qodana.recommended`, any finding fails the job, SARIF to GitHub code scanning (tool `QDJS`) — **not a required check** (`qodana.yml`, `qodana.yaml`) | 2026-11-15 | WebStorm's inspections catch a different class of problem than CodeQL (security) and Sonar (maintainability); not required for D29's reason — an outside service must never block a merge |
+| D36 | Project status | **Maintenance mode** — maintained, not extended: catalogue work, bug, UI/UX and accessibility fixes, dependency upkeep (out of schedule for a High or Critical advisory or a serious Node.js security release), major language and platform updates, incidents; **new features are not accepted** and docs/15 §2's feature items are frozen | 2026-11-15 | The site does what it set out to do; review time belongs to the catalogue's accuracy, which is the product |
 
 ## 6. Identifiers (locked)
 

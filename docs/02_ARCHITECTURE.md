@@ -80,7 +80,7 @@ softharbor/
 │   ├── CODEOWNERS                 # * @poli0981 + .github/ scripts/ src/data/ worker/ (T6)
 │   ├── dependabot.yml             # npm + github-actions, weekly (docs/12 §6)
 │   ├── PULL_REQUEST_TEMPLATE.md   # checks + accessibility + data-PR checklists (docs/12 §7)
-│   ├── ISSUE_TEMPLATE/            # bug_report.yml · app_request.yml · accessibility.yml · config.yml
+│   ├── ISSUE_TEMPLATE/            # bug_report.yml · app_request.yml · listing_change.yml · accessibility.yml · config.yml
 │   └── workflows/                 # docs/12: ci.yml · codeql.yml · notify.yml
 │                                  #   quarantine.yml · link-check.yml · vt-recheck.yml
 │                                  #   qodana.yml (D35)

@@ -1,5 +1,5 @@
 name: Bug report
-description: Something on the site is broken
+description: Something on the site is broken or hard to use
 labels: [bug]
 body:
   # Field `id`s are load-bearing: they are the prefill query params used by

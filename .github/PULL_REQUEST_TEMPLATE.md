@@ -1,6 +1,7 @@
 <!-- Title: Conventional Commits, lowercase, imperative — it becomes the squash
      commit and the changelog line (CONTRIBUTING.md). One logical change per PR;
-     for data, one app per PR unless a decision-log entry says otherwise. -->
+     for data, one app per PR unless a decision-log entry says otherwise.
+     Maintenance mode (D36): fixes, data and upkeep only — feature PRs are closed. -->
 
 ## What and why
 
@@ -8,6 +9,8 @@
 
 ## Checks
 
+- [ ] A fix, a data change or upkeep — not a new feature
+      ([maintenance mode](../CONTRIBUTING.md#maintenance-mode))
 - [ ] `pnpm lint && pnpm check && pnpm coverage && pnpm build && pnpm knip && pnpm e2e` pass locally
 - [ ] Docs that describe the changed behaviour are updated (`docs/`, README, CHANGELOG for
       visitor-facing changes)

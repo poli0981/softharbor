@@ -6,6 +6,12 @@ The **latest deploy** of `https://softharbor.net` is the only supported
 target. This is a continuously deployed static site; there are no released
 versions to patch (docs/13 §1).
 
+The project is in **maintenance mode** since 2026-11-15
+([CONTRIBUTING.md](CONTRIBUTING.md#maintenance-mode)): no new features, but
+security fixes are part of maintenance, not an exception to it. A dependency
+with a High or Critical advisory, a serious Node.js security release or an
+attack on the site is handled out of schedule.
+
 ## Reporting a vulnerability
 
 Please use **GitHub's private vulnerability reporting** on this repository
@@ -32,10 +38,10 @@ Acknowledgement within **72 hours**. Machine-readable contact details are in
 - Vulnerabilities in the **listed third-party applications themselves**.
   Report those to their vendors — but please tell us too, so we can flag the
   entry while it is unresolved.
-- Server-side issues beyond one endpoint: the site is static except for
-  `POST /api/verify`, the legal gate's Turnstile check (`worker/`, D25),
-  which **is** in scope. There is no database, no accounts and no cookies
-  (docs/09 §3).
+- Server-side issues beyond the one small Worker: the site is static except
+  for `worker/`, which rate-limits requests (D32) and answers
+  `POST /api/verify`, the legal gate's Turnstile check (D25) — both **are**
+  in scope. There is no database, no accounts and no cookies (docs/09 §3).
 
 ## What we do not claim
 

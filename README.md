@@ -1,5 +1,14 @@
 # SoftHarbor
 
+[![Status: maintenance mode](https://img.shields.io/badge/status-maintenance%20mode-blue)](#project-status)
+[![ci](https://github.com/poli0981/softharbor/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/poli0981/softharbor/actions/workflows/ci.yml)
+[![codeql](https://github.com/poli0981/softharbor/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/poli0981/softharbor/actions/workflows/codeql.yml)
+[![qodana](https://github.com/poli0981/softharbor/actions/workflows/qodana.yml/badge.svg?branch=main)](https://github.com/poli0981/softharbor/actions/workflows/qodana.yml)
+[![Quality gate](https://sonarcloud.io/api/project_badges/measure?project=poli0981_softharbor&metric=alert_status)](https://sonarcloud.io/summary/overall?id=poli0981_softharbor)
+[![Release](https://img.shields.io/github/v/release/poli0981/softharbor)](https://github.com/poli0981/softharbor/releases/latest)
+[![Code: GPL-3.0-only](https://img.shields.io/badge/code-GPL--3.0--only-blue)](LICENSE)
+[![Data: CC BY-SA 4.0](https://img.shields.io/badge/data-CC%20BY--SA%204.0-lightgrey)](LICENSE-DATA.md)
+
 **[softharbor.net](https://softharbor.net)** — a bilingual (EN/VI) directory of
 desktop software that is **free**, or **buy-once**. Never subscription-only.
 
@@ -8,6 +17,23 @@ hoping the top result is not a typosquatted download page, you open one page,
 filter by category and platform, and go straight to every **official** source.
 
 The site hosts **no binaries**. It is a map, not a mirror.
+
+## Project status
+
+**Maintenance mode since 2026-11-15 (v1.4.1).** SoftHarbor does what it set
+out to do, so from here on it is maintained, not extended
+([announcement](https://github.com/poli0981/softharbor/discussions/75), decision D36 in
+[docs/15](docs/15_ROADMAP.md)).
+
+- **Still happening:** apps added, corrected and removed; every download page
+  re-scanned at least every 90 days; bug, UI/UX and accessibility fixes;
+  dependency updates on a schedule — and out of schedule for a High or
+  Critical CVE, a serious Node.js security release, a major TypeScript, Astro
+  or Cloudflare Workers update, or anything that puts the site at risk.
+- **Not accepted:** new features. Issues and pull requests that propose one
+  are closed as _not planned_.
+
+What to send where: [CONTRIBUTING.md → Maintenance mode](CONTRIBUTING.md#maintenance-mode).
 
 ## What is in it
 
@@ -22,9 +48,10 @@ entry carries:
 - a **dated** security status with the scan permalink behind it
 
 On security the site says _"no known warnings as of &lt;date&gt;"_ and never
-more than that. 320 entries are `clean`; 6 are held at `unverified` because at
-least one scanner flagged something, and holding them is more honest than
-explaining it away. The scan is linked either way — judge it yourself.
+more than that. 364 entries are `clean`; 9 are held at `unverified` — a
+scanner flagged something, or an advisory or an unsigned build is still open —
+and holding them is more honest than explaining it away. The scan is linked
+either way — judge it yourself.
 
 ## How it is built
 
@@ -66,9 +93,11 @@ pnpm knip          # dead code and unused deps
 
 ## Contributing
 
-Suggest an app or report a bug with the
-[issue forms](https://github.com/poli0981/softharbor/issues/new/choose).
-Read **[CONTRIBUTING.md](CONTRIBUTING.md)** before opening a pull request — it
+Suggest an app, ask for a listing to be removed, corrected or re-checked, or
+report a bug with the
+[issue forms](https://github.com/poli0981/softharbor/issues/new/choose) —
+feature requests are not taken in maintenance mode. Read
+**[CONTRIBUTING.md](CONTRIBUTING.md)** before opening a pull request — it
 lists the inclusion criteria and what gets closed on sight. Everyone taking
 part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
