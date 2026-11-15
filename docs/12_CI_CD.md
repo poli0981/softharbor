@@ -223,20 +223,19 @@ carries it. Scope and gate live in `qodana.yaml`:
   Node would not satisfy `engines`.
 - Profile **`qodana.recommended`**, the same scope as
   `sonar-project.properties` (the dataset, build/test output and local tool
-  state excluded). `qodana-js` on its own reads `.ts`/`.js`/`.mjs`, JSON,
-  YAML, Markdown and CSS — `.astro` and `.svelte` are outside its language
-  list — so `qodana.yaml` installs JetBrains' **Astro plugin** from the
-  Marketplace on every run, and the 52 `.astro` files are inspected too.
-  Its one false-positive class is scoped out: under the plugin every
-  component an `.astro` file imports and its template uses reads as an
-  unused import (75 of 75 findings on the first run with it), so
-  `ES6UnusedImports` is ignored for `*.astro` — ESLint's `no-unused-vars`
-  checks those imports with template use understood. **The Svelte plugin
-  was tried and dropped:** on unchanged code it reported
-  `Intl.PluralRules#select` and `Intl.NumberFormat#format` in
-  `ShFilterSheet.svelte` as unresolved in one run of three. A gate that
-  flips on its own teaches everyone to ignore it; the six islands stay
-  covered by eslint-plugin-svelte, their Vitest suites and e2e.
+  state excluded). `qodana-js` reads `.ts`/`.js`/`.mjs`, JSON, YAML,
+  Markdown and CSS; `.astro` and `.svelte` are outside its language list.
+  **JetBrains' Astro and Svelte plugins were tried and dropped**
+  (2026-11-15): under Qodana their type checks were not deterministic. On
+  unchanged code the Svelte plugin reported `Intl.PluralRules#select` and
+  `Intl.NumberFormat#format` in `ShFilterSheet.svelte` as unresolved (one
+  run in three), and the Astro plugin read `Base.astro`'s `locale = 'en'`
+  default as `string` instead of `Locale` — 15 errors in one run, none in
+  the run before it on the same commit (it also called every component an
+  `.astro` template uses an unused import). A gate that flips on its own
+  teaches everyone to ignore it. `astro check` — the TypeScript compiler
+  itself — type-checks the `.astro` files; ESLint (eslint-plugin-astro,
+  eslint-plugin-svelte), the Vitest island suites and e2e cover the rest.
 - **Gate:** `failureConditions.severityThresholds.any: 0` — any finding
   turns the job red. Findings are fixed in the code; a false positive with a
   known cause is switched off **in `qodana.yaml`, with its reason** — never

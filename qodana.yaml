@@ -8,20 +8,13 @@ version: '1.0'
 # Ultimate Plus) licence. Native mode, no container: the analysis then sees the
 # runner's Node 26 and the node_modules that pnpm installed in the step before
 # it, instead of whatever Node the image ships. On its own it reads
-# .ts/.js/.mjs, JSON, YAML, Markdown and CSS; the plugin below adds .astro.
+# .ts/.js/.mjs, JSON, YAML, Markdown and CSS — .astro and .svelte are outside
+# its language list (why no plugin adds them: the end of this file).
 linter: qodana-js
 withinDocker: 'false'
 
 profile:
   name: qodana.recommended
-  inspections:
-    # Under the Astro plugin every component an .astro frontmatter imports and
-    # its template uses reads as unused (75 of 75 findings on the first run
-    # with the plugin). ESLint's @typescript-eslint/no-unused-vars, through
-    # eslint-plugin-astro's parser, sees template use and checks those imports.
-    - inspection: ES6UnusedImports
-      ignore:
-        - 'scope#file:*.astro'
 
 # The same scope as sonar-project.properties: the dataset is CC BY-SA content
 # validated by Zod and validate:data, not code; everything else here is
@@ -48,16 +41,16 @@ exclude:
     paths:
       - src/styles/global.css
 
-# JetBrains' own Astro plugin (installed from the Marketplace on each run), so
-# the 52 .astro files are inspected too — qodana-js alone skips them. Its one
-# false-positive class is scoped out above. The Svelte plugin
-# (dev.blachut.svelte.lang) was tried and dropped: on unchanged code it
-# reported Intl.PluralRules#select and Intl.NumberFormat#format in
-# ShFilterSheet.svelte as unresolved in one run of three. A gate that flips
-# on its own teaches everyone to ignore it; the six islands stay covered by
-# eslint-plugin-svelte, their Vitest suites and the e2e run.
-plugins:
-  - id: org.jetbrains.plugins.astro
+# No `plugins:`. JetBrains' Astro (org.jetbrains.plugins.astro) and Svelte
+# (dev.blachut.svelte.lang) plugins were tried on 2026-11-15 and dropped:
+# under Qodana their type checks were not deterministic. On unchanged code
+# the Svelte plugin reported Intl.PluralRules#select and
+# Intl.NumberFormat#format in ShFilterSheet.svelte as unresolved (one run in
+# three), and the Astro plugin read Base.astro's `locale = 'en'` default as
+# `string` instead of `Locale` — 15 errors in one run, 0 in the run before it
+# on the same commit. A gate that flips on its own teaches everyone to
+# ignore it. `astro check` (the TypeScript compiler itself) type-checks the
+# .astro files; ESLint, the Vitest island suites and e2e cover the islands.
 
 # Any finding fails the job: red on the PR, but not a required check (D35) —
 # like Sonar's gate, a Qodana Cloud outage must never block a merge.
