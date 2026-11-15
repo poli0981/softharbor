@@ -36,11 +36,12 @@ const intersects = (values: readonly string[], selected: ReadonlySet<string>): b
  * makes clearing a facet restore results instead of emptying the grid.
  */
 export function matches(card: CardFacets, state: FilterState): boolean {
-  if (state.searchHits !== null && !state.searchHits.has(card.slug)) return false;
-  if (state.categories.size > 0 && !intersects(card.categories, state.categories)) return false;
-  if (state.platforms.size > 0 && !intersects(card.platforms, state.platforms)) return false;
-  if (state.pricing.size > 0 && !state.pricing.has(card.pricing)) return false;
-  return true;
+  return (
+    (state.searchHits === null || state.searchHits.has(card.slug)) &&
+    (state.categories.size === 0 || intersects(card.categories, state.categories)) &&
+    (state.platforms.size === 0 || intersects(card.platforms, state.platforms)) &&
+    (state.pricing.size === 0 || state.pricing.has(card.pricing))
+  );
 }
 
 export function filterCards(cards: readonly CardFacets[], state: FilterState): CardFacets[] {

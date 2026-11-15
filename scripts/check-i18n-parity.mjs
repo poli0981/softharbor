@@ -17,7 +17,7 @@ const root = join(process.cwd(), 'src/i18n');
 const BASE = 'en';
 /** Locale dictionaries only — `xx.json` or `xx-YY.json`, never helper files. */
 const LOCALE_FILE = /^([a-z]{2}(?:-[A-Z]{2})?)\.json$/;
-const PLACEHOLDER = /\{(\w+)\}/g;
+const PLACEHOLDER = /\{(\w+)}/g;
 
 /** Plain UTF-16 order — identical to the default sort, but explicit (S2871). */
 const byCodeUnit = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
