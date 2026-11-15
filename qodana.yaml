@@ -32,6 +32,20 @@ exclude:
       - .astro
       - .wrangler
       - .claude
+  # The dark palette has to exist twice — once for the system choice
+  # (`@media (prefers-color-scheme: dark)`), once for the explicit one
+  # (`[data-theme='dark']`): CSS cannot share one block between a media query
+  # and a selector. `light-dark()` could, but needs Chrome 123 / Safari 17.5,
+  # newer than Tailwind 4's own floor (Chrome 111, Safari 16.4).
+  - name: DuplicatedCode
+    paths:
+      - src/styles/global.css
+
+# Trial: JetBrains' own Astro and Svelte plugins, so the components are
+# inspected too. Kept only if they load and stay free of false positives.
+plugins:
+  - id: org.jetbrains.plugins.astro
+  - id: dev.blachut.svelte.lang
 
 # Any finding fails the job: red on the PR, but not a required check (D35) —
 # like Sonar's gate, a Qodana Cloud outage must never block a merge.
