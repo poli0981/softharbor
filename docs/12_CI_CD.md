@@ -631,13 +631,22 @@ recording are optional. It names the email route,
 `accessibility@poli0981.dev`, for anyone without a GitHub account, and
 never asks about disability.
 
+`.github/ISSUE_TEMPLATE/listing_change.yml` (v1.4.1, D36) — label
+`listing-change`: which app (its page or its name), what should change
+(remove: subscription-only now, or abandoned or unsafe; correct a link;
+correct a detail; re-check the security status), the evidence (required)
+and anything else. It sends a suspected malicious or hijacked download to
+private reporting (SECURITY.md) and a developer to takedown@poli0981.dev.
+
 `.github/ISSUE_TEMPLATE/config.yml`: `blank_issues_enabled: false`; contact
-links → GitHub Discussions for questions, the **Accessibility statement**
+links → GitHub Discussions for questions, the **maintenance-mode
+announcement** (what is accepted, D36), the **Accessibility statement**
 (`/legal/accessibility`), and **Report a security issue** → the
 repository's private vulnerability reporting (`/security/advisories/new`)
 — never a public issue.
 
-`.github/PULL_REQUEST_TEMPLATE.md` (v1.4): what and why with the linked
+`.github/PULL_REQUEST_TEMPLATE.md` (v1.4; v1.4.1 adds the D36 box — a fix,
+data or upkeep, not a feature): what and why with the linked
 issue, the CI gates, docs and i18n parity, the **accessibility checklist**
 (keyboard, names and states, screen-reader spot check, colour/contrast/
 forced colours, 320 px and 200 %, motion) and a data-PR block (docs/00 §3,

@@ -2,7 +2,7 @@
 
 > Root instruction file for AI-assisted development (Claude Code).
 > Read this first. Detailed specs live in `docs/00–16`.
-> Suite version: 3.1 (2026-11-09, site v1.4) · Author: poli0981 / SkullMute
+> Suite version: 3.2 (2026-11-15, site v1.4.1) · Author: poli0981 / SkullMute
 
 ## What this project is
 
@@ -23,6 +23,26 @@ googling every tool one by one.
 - Stack: Node 26 · pnpm 11 · Astro 7 (static output) · Svelte 5 islands ·
   Tailwind CSS 4.3 · TypeScript strict (TS 7 `tsc` beside the TS 6 API that
   `astro check` needs — D28) · Wrangler 4 — full table in `docs/01`
+
+## Maintenance mode (D36 — since 2026-11-15)
+
+The project is **feature-frozen**: maintained, not extended. Work that is in
+scope — and nothing else:
+
+1. **Catalogue** — add, correct or remove listings (one app per PR; the owner
+   reviews the Vietnamese), VirusTotal re-checks, quarantine.
+2. **Fixes** — bugs, UI/UX defects and accessibility barriers.
+3. **Dependencies** — Dependabot's weekly PRs; out of schedule for any
+   advisory rated **High or Critical**, or a serious Node.js security release.
+4. **Major language / platform moves** — TypeScript (6 → 7), Astro, Svelte,
+   Tailwind, Node, Cloudflare Workers / Wrangler majors.
+5. **Incidents** — the site down, degraded or under attack.
+
+**Out of scope:** new features, including the frozen feature items of
+`docs/15 §2`. Close an issue or PR that proposes one as *not planned* with the
+`wontfix` label, and never start one unless the owner lifts D36 first.
+Releases: a patch tag when a fix is worth announcing, a minor one for a
+platform major; data changes never tag (`docs/13 §1`).
 
 ## Hard rules (never violate)
 
@@ -82,6 +102,9 @@ criteria (`docs/15`) are met.
 | **P4 — Islands** | Search/filter/sort (MiniSearch + nanostores), language switcher, theme toggle, legal gate | 05, 06, 07, 14 |
 | **P5 — Resilience & outputs** | 404/offline/PWA, dormant error templates, `/api/apps.json`, `/rss.xml`, bug-report button | 03, 05, 08 |
 | **P6 — Ship** | `_headers`, CI/CD wiring, deploy, seed the app catalogue (326 as of 2026-07-30; 364 after batch 2, 2026-10-23; 373 after batch 3, 2026-11-09), launch checklist | 09, 10, 12, 13 |
+
+All six phases are done — v1.0.0 shipped on 2026-07-30 — and no new phase
+opens: the project is in maintenance mode (above).
 
 ## Commands
 

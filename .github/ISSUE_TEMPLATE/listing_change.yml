@@ -1,0 +1,42 @@
+name: Listing change
+description: Remove or correct a listed app, or ask for its security check to be re-run
+labels: [listing-change]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A suspected **malicious or hijacked download** is a security report, not an issue —
+        please report it privately ([SECURITY.md](https://github.com/poli0981/softharbor/blob/main/SECURITY.md)).
+        Is it **your own app**? You can also write to takedown@poli0981.dev.
+  - type: input
+    id: app
+    attributes:
+      label: Which app?
+      description: Its page on the site, or its name.
+      placeholder: https://softharbor.net/apps/7-zip
+    validations:
+      required: true
+  - type: dropdown
+    id: change
+    attributes:
+      label: What should change?
+      options:
+        - Remove — it is now subscription-only, or no longer free / buy-once
+        - Remove — abandoned, discontinued or unsafe to recommend
+        - Correct a link — homepage, repository or download page moved
+        - Correct a detail — pricing, licence, platforms, developer or summary
+        - Re-check its security status (VirusTotal)
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Links to the developer's own pages, an announcement, a changelog or a scan — the decision follows the evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Anything else
+      description: Optional.

@@ -14,6 +14,30 @@ under **GPL-3.0-only**, dataset entries under **CC BY-SA 4.0**.
 - Contact: Code of Conduct reports **code@poli0981.dev**, licensing questions
   **copyright@poli0981.dev**; anything else, open an issue
 
+## Maintenance mode
+
+Since 2026-11-15 SoftHarbor is **maintained, not extended** — decision D36 in
+[docs/15 §4](docs/15_ROADMAP.md), announced in
+[Discussions](https://github.com/poli0981/softharbor/discussions/75).
+
+**Accepted** — issues and pull requests that:
+
+- **add** an app (after its App request is accepted), or **remove** or
+  **correct** a listed one
+- ask for or record a **security re-check** of a listing (VirusTotal)
+- fix a **bug**, or a **UI/UX** or **accessibility** problem on the site
+
+The maintainer also keeps the platform current: dependency updates on
+Dependabot's weekly schedule — and out of schedule for a dependency with a
+**High or Critical** CVE or a serious Node.js security release — major
+language and platform updates (TypeScript, Astro, Cloudflare Workers /
+Wrangler), and incidents: the site down, degraded or under attack.
+
+**Not accepted** — **new features**, and issues or pull requests that propose
+one. They are closed as _not planned_ (label `wontfix`). That is not a verdict
+on the idea: the scope is frozen, and reviewing features would take the time
+the catalogue needs.
+
 ## Suggesting an app
 
 Open an **App request** issue. Do not open a pull request for a new app before
@@ -31,11 +55,25 @@ An app is listable only when all of these hold ([docs/00 §3](docs/00_PROJECT_OV
 - Maintained, or finished and stable. Not abandonware with open vulnerabilities
 - No bundled adware in the official installer; nothing piracy-adjacent
 
+## Removing or correcting a listing
+
+Open a **Listing change** issue when an app went subscription-only, was
+abandoned, moved its official pages or has a wrong detail — or when you want
+its security check re-run. Link the evidence; the decision follows it. A
+suspected **malicious or hijacked download** is a security report, not an
+issue ([SECURITY.md](SECURITY.md)). If it is **your own app**, you can also
+write to **takedown@poli0981.dev**.
+
+A removal is reviewed like an addition. An app that turns out harmful is
+quarantined rather than deleted (docs/03 §5), so the record of why stays.
+
 ## Reporting a bug
 
 Use the **Bug report** form, or the "Report a bug" button on any app page —
 it pre-fills the details. Bugs are about _this site_. We cannot help with the
-software we link to; take that to its own developer.
+software we link to; take that to its own developer. Something that is hard to
+use counts too: UI/UX problems and accessibility barriers
+([ACCESSIBILITY.md](ACCESSIBILITY.md)) are bugs here.
 
 ## Changing code or data
 
@@ -71,8 +109,9 @@ download page and records the permalink, and only the maintainer moves an
 entry to `clean` (docs/09 §6). If you change an existing entry's
 `links.download`, the old scan no longer describes it — say so in the PR.
 
-If you are unsure whether something is wanted, open a discussion first. A
-short question costs everyone less than a large rejected PR.
+If you are unsure whether something is wanted, ask in a discussion first. A
+short question costs everyone less than a large rejected PR — and new features
+are not wanted while the project is in [maintenance mode](#maintenance-mode).
 
 ## Closed without discussion
 
@@ -111,6 +150,9 @@ blocked:
   output unread is not. This project discloses its own AI use at
   [/legal/ai-disclosure](https://softharbor.net/legal/ai-disclosure), and holds
   contributions to the same standard it holds itself.
+- **Feature work** of any size while the project is in
+  [maintenance mode](#maintenance-mode) — including a feature presented as a
+  fix.
 - **Drive-by or automated PRs** — whitespace, reformatting, badge additions,
   dependency bumps Dependabot already owns, or bulk submissions for contribution
   counts.

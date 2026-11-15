@@ -18,7 +18,13 @@ Total ≈ 17–20 focused days, **plus ~1 day for the `softharbor.net` domain
 package** (docs/16 §10) slotted between M5 and M6. Data entry (M6)
 parallelizes with earlier milestones once M2 lands.
 
-**Where it stands (2026-11-09).** v1.4.0, released 2026-11-09 — the
+**Where it stands (2026-11-15).** **Maintenance mode** since v1.4.1,
+released 2026-11-15 (D36): the catalogue, fixes and platform upkeep
+continue; new features do not, and §2's feature items are frozen. **373
+apps in 15 categories**, 364 `clean` and 9 `unverified`; Qodana joined
+CodeQL and SonarQube Cloud (D35).
+
+*Where it stood (2026-11-09), for the record:* v1.4.0, released 2026-11-09 — the
 accessibility release (D33, D34): **373 apps in 15 categories**, 364 `clean`
 and 9 `unverified`, an Accessibility Statement and `ACCESSIBILITY.md`, and
 WCAG 2.2 AA as the target. v1.3.0 (2026-10-26) added the site-wide rate
@@ -50,6 +56,16 @@ from 5 entries, all `unverified` — v1.0.0 deliberately untagged until the
 data was seeded and vetted.
 
 ## 2. Post-v1 backlog (ordered by current intent)
+
+**Frozen by D36 (2026-11-15) — maintenance mode.** The feature items —
+3–7, 12–15 and the feature half of 16 (OpenSearch, a versioned `/api/v1`)
+— are not started while D36 stands, and issues or PRs that propose them
+are closed as *not planned*. Maintenance stays open: 8 (Lighthouse CI and
+a size budget — gates, not features), 11 (data hygiene, fixed in the
+data), the TypeScript 7 half of 16, the rest of 17 (a recorded NVDA and
+VoiceOver pass, and fixing what it finds), and 1 and 9 on evidence only —
+an attack, or `/apps` past its budget. Lifting D36 is the owner's call and
+its own decision-log entry; the order below is kept for the record.
 
 **Next up after v1.1 (agreed 2026-10-21), in this order:** item 2 first —
 it has a deadline — then 10 → 11 → 12 (with 3) → 13 → 14 → 15 → 16. The
@@ -306,6 +322,8 @@ rule 8) · ads/affiliate links (conflicts with the trust proposition).
 | 2026-11-09 | **D34 — Catalogue batch 3: the `accessibility` category, 9 entries, a triage of every `unverified` entry** (§2 item 17; owner request). Exempt from docs/03 §1's one-app-per-PR rule like D24/D31. Category **`accessibility`** (Accessibility / Trợ năng, lucide `accessibility`, order 15): NVDA, Optikey, Balabolka, Thorium Reader, Colour Contrast Analyser (homepage on vispero.com — tpgi.com now redirects there), Accessibility Insights for Windows, Bookworm, eSpeak NG. **#65 Orkas** accepted as `free` under C3 (MIT; fully usable with the user's own model keys or a local OpenAI-compatible endpoint, no time limit; the packaged app needs an Orkas sign-in and its monthly plans only add hosted-model credits and sync) in `productivity` + `ai-local`. **#11 Codex Quota Overlay declined**: free itself, but its only function is tracking a paid Codex/ChatGPT plan's limits — the no-subscription rule in spirit — and a narrow one-platform companion tool (closed as not planned). **Not added:** Talon Voice (the official site states no price; beta via Patreon), Speech Note (Flathub-only distribution, no precedent), LiveCaptions (last release 2024-06), Orca (gitlab.gnome.org answers the link checker 406), Narrator (part of Windows). VirusTotal preview: all 9 new entries 0 detections → **all 9 `clean`** (owner). Re-scan of all 29 `unverified` entries: 17 at 0 detections, of which the 8 with `[vt]` issues go `clean` (#34, #37, #40, #41, #55, #57, #58, #61 closed); the 8 D31 holds and synfig-studio (unverified since the seed) stay. The 12 still flagged by one or two URL-reputation engines — Chong Lua Dao (7-Zip, DBeaver, itch, Process Lasso, REAPER, Session), Webroot (Proton VPN, Tor Browser, Windscribe), Xcitium Verdict Cloud (KeePassXC, Session), Gridinsoft (DevToys, suspicious), Criminal IP (PeaZip) — are ruled **false positives by the owner and go `clean`** with the reason on each issue (#33, #35, #36, #38, #39, #51–#54, #56, #59, #60 closed); the linked scan still shows the engine, and the next re-check (≥ 90 days) re-opens an issue if it persists. **#47:** Wire's homepage `wire.com/` answers lychee 404 → `/en/` and download `/en/app-download` (both 200; the free personal plan still exists); Linphone's repo → its official GitHub mirror. Result: **373 apps, 15 categories, 364 `clean`, 9 `unverified`** | ✅ (user, 2026-11-09) |
 | 2026-11-09 | **v1.4.0 tagged and released** — the accessibility release (D33, D34). **Suite v3.1** (site v1.4) — a MINOR bump by §6's rule: no hard rule changes | ✅ |
 | 2026-11-15 | **D35 — Qodana as a third analyser** beside CodeQL and SonarQube Cloud (owner request, 2026-11-15; Qodana Cloud project `softharbor`, **Ultimate** licence, active until 2026-12-31). `.github/workflows/qodana.yml` runs `qodana-js` 2026.2 (WebStorm's engine) in **native mode** on the runner's Node 26 and `pnpm install`, profile `qodana.recommended`, the scope of `sonar-project.properties`, over `.ts`/`.js`/`.mjs`, JSON, YAML, Markdown and CSS — **no plugins**: JetBrains' Astro and Svelte plugins were tried and dropped because their type checks were not deterministic under Qodana (on unchanged code, `Intl` methods in `ShFilterSheet.svelte` unresolved in one run of three; `Base.astro`'s `locale = 'en'` read as `string` — 15 errors in one run, none in the one before; plus 75 unused-import false positives for components used in `.astro` templates), and a gate that flips on its own is worse than none — `astro check` type-checks `.astro` with the real compiler; `failureConditions.severityThresholds.any: 0`; the report as an artifact and the SARIF in GitHub code scanning (tool `QDJS`). **Not a required check**, for D29's reason. **First run: 14 findings, all resolved** — 10 `throw`s caught by their own `try` (`worker/verify.ts` now refuses through one return path, `scripts/vt-recheck.mjs` records failures directly; responses, logs and reasons unchanged), 2 redundant `\}` regex escapes, 1 trivial `if` (`src/lib/filter.ts`), and the twin dark palette in `global.css` (DuplicatedCode — required by design, switched off for that file with the reason). Not in Ultimate: Qodana's vulnerability checker and licence audit (Ultimate Plus) — OSV, `pnpm audit` and Dependabot own the dependencies (docs/12 §2) | ✅ owner |
+| 2026-11-15 | **D36 — Maintenance mode** (owner decision, 2026-11-15). The project is maintained, not extended. **In scope:** catalogue work (add, correct, remove; VirusTotal re-checks; quarantine); bugs, UI/UX and accessibility fixes; dependency upkeep on Dependabot's weekly schedule, and out of schedule for a High or Critical advisory or a serious Node.js security release; major language and platform moves (TypeScript 6 → 7, Astro, Cloudflare Workers / Wrangler); incidents — the site down, degraded or attacked. **Out of scope:** new features — §2's feature items are frozen, and issues or PRs that propose one are closed as *not planned* (`wontfix`). Releases: a patch tag when a fix is worth announcing, a minor one for a platform major; data never tags (docs/13 §1). Announced in Discussions (https://github.com/poli0981/softharbor/discussions/75); recorded in CLAUDE.md, CONTRIBUTING.md, the README (status badge and section), SECURITY.md, the PR template and a new **Listing change** issue form (label `listing-change`) | ✅ owner |
+| 2026-11-15 | **v1.4.1 tagged and released** — maintenance mode (D36) and Qodana (D35). **Suite v3.2** (site v1.4.1) — a MINOR bump by §6's rule: no hard rule changes | ✅ |
 
 ## 5. Open questions for Kokone
 
@@ -382,8 +400,8 @@ Status as of 2026-10-21: v1.0.0 shipped on 2026-07-30 and v1.1.0 on
 
 ## 6. Suite maintenance
 
-This suite (**v3.1, 2026-11-09, describing site v1.4** — v3.0 was
-2026-10-26, site v1.3; v2.0 was 2026-10-21, site v1.1; v1.2 was
+This suite (**v3.2, 2026-11-15, describing site v1.4.1** — v3.1 was
+2026-11-09, site v1.4; v3.0 was 2026-10-26, site v1.3; v2.0 was 2026-10-21, site v1.1; v1.2 was
 2026-07-27; v1.1 was 2026-07-20 post-domain; v1.0 was 2026-07-15,
 pre-domain) is the contract. Mind the two numbering schemes: *suite* v1.1
 is the July domain revision, *site* v1.1 is the October release. Any
@@ -392,7 +410,8 @@ implementation that diverges updates the relevant doc **in the same PR**
 rule or locked decision changes — v2.0 was major because it amended hard
 rules 1 and 7, v3.0 because D32 amends hard rule 1 again; v3.1 is minor
 (D33/D34 add a statement, a category and an identifier, `sh:keys`, and
-change no hard rule).
+change no hard rule), and so is v3.2 (D35 adds an analyser, D36 freezes
+the feature backlog; no hard rule changes).
 
 **v2.0 caught the docs up with site v1.1** — the code had moved for three
 months while the suite stood still. D25–D27 and the 2026-10-21 rows of §4

@@ -11,11 +11,20 @@ TypeScript 7, CI-based SonarQube Cloud, catalogue batch 2 (2026-10-23),
 **`v1.3.0`** for the site-wide rate limit (D32, 2026-10-26),
 **`v1.4.0`** for accessibility — the statement, the "/" switch, the WCAG
 2.2 fixes and the Accessibility category (D33, D34, 2026-11-09),
+**`v1.4.1`** for the start of maintenance mode and Qodana (D36, D35,
+2026-11-15),
 minor tags when a feature phase ships. Publishing a GitHub Release fires `notify.yml` →
 Discord (docs/12 §2). Data changes never tag. `CHANGELOG.md`
 (Keep-a-Changelog, dates UTC) records feature work and anything a visitor
 should know — v1.1.0 leads with the privacy changes — not app additions:
 the RSS feed *is* the data changelog.
+
+**In maintenance mode (D36)** a tag follows a fix, not a feature: a
+**patch** (`v1.4.x`) when a fix is worth announcing — a security fix, a
+bug or accessibility fix a visitor would notice, an urgent dependency or
+runtime update — and a **minor** for a platform major (TypeScript 7
+alone, Astro, Wrangler). Routine Dependabot merges and data changes
+still never tag.
 
 ## 2. Launch checklist (gate for calling it v1.0.0)
 
@@ -235,6 +244,7 @@ shape or the 50-item window's order without meaning to announce.
 | Cadence | Task |
 |---|---|
 | per-PR | vetting checklist on new/changed entries |
+| per issue / PR | triage against D36 (maintenance mode): listings, re-checks, bugs, UI/UX and accessibility are in scope; a feature request is closed as *not planned* with `wontfix` |
 | **after every merge** | wait for the merge commit's "Workers Builds" check, then verify production (§3) |
 | daily (auto) | quarantine sweep (docs/12 §4) |
 | weekly (auto) | link-check triage — the one `link-rot` issue is refreshed or closed (docs/12 §5); fix, replace with official mirror, or flag |
@@ -242,6 +252,7 @@ shape or the 50-item window's order without meaning to announce.
 | daily (auto, 00:41 UTC) | VirusTotal re-check (docs/12 §4b): checks older than 90 days are re-scanned into the one `vt/recheck` PR — review and merge it; triage any `[vt] <slug>` issue (false positive → back to `clean` with a note; confirmed → `flagged` + `pnpm quarantine`). GitHub disables a public repo's schedules after 60 days without activity — re-enable the workflow if it ever goes quiet |
 | monthly (manual, ~10 min) | GSC review: Coverage, Core Web Vitals, hreflang errors; skim DMARC reports (docs/16 §6/§8) |
 | **annually (manual, ~2 min)** | **Roll `Expires` in `public/.well-known/security.txt` forward one year** (docs/09 §5). An expired `security.txt` is treated as invalid by scanners and researchers — and nothing else in this repo would notice. |
+| **by 2026-12-31** | **Renew the Qodana Ultimate licence** (Qodana Cloud; the scan log prints its end date) — without it every `qodana` run is red from 2027-01-01 (docs/12 §2, D35) |
 | once, post-launch | HSTS phase transitions P1 → P2 (+2 weeks) → optional P3/preload (H9) — docs/16 §5. Observed 2026-10-21: already at P3 (`preload` in the header) — docs/15 §5 |
 | quarterly | review category taxonomy & criteria rulings; prune tags |
 

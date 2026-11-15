@@ -2,7 +2,10 @@ blank_issues_enabled: false
 contact_links:
   - name: Questions & discussion
     url: https://github.com/poli0981/softharbor/discussions
-    about: General questions, suggestions and anything that is not a bug or an app request.
+    about: Questions, and anything that is not a bug, an app request or a listing change. New features are not taken (maintenance mode).
+  - name: Maintenance mode — what is accepted
+    url: https://github.com/poli0981/softharbor/discussions/75
+    about: Listings, security re-checks, bugs, UI/UX and accessibility fixes are; new features are not.
   - name: Accessibility statement
     url: https://softharbor.net/legal/accessibility
     about: What the site aims for, what is known, and how accessibility reports are handled (also by email — no account needed).
