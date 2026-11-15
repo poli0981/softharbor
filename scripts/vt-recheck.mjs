@@ -93,7 +93,7 @@ export function parseSlugs(value, log = () => {}) {
  * object holds no nested braces (docs/04 §2), so `[^}]*` cannot overrun it.
  */
 export function patchSecurity(text, security) {
-  return text.replace(/("security":\s*\{)([^}]*)(\})/, (_, open, body, close) => {
+  return text.replace(/("security":\s*\{)([^}]*)(})/, (_, open, body, close) => {
     const next = body
       .replace(/("status":\s*)"[^"]*"/, `$1"${security.status}"`)
       .replace(/("evidence":\s*)(?:null|"[^"]*")/, `$1${JSON.stringify(security.evidence)}`)
@@ -242,7 +242,8 @@ function client({ apiKey, fetch, sleep, now, intervalMs, budget }) {
   };
 }
 
-const why = (vt, e) => (vt.state.quotaHit ? 'daily quota' : e.message);
+/** A failed entry's reason — once the daily quota is gone, that is the reason. */
+const why = (vt, reason) => (vt.state.quotaHit ? 'daily quota' : reason);
 
 /** Pass 1: submit the queue, keeping half the budget for the reads. */
 async function submitAll(vt, queue, outcome) {
@@ -255,11 +256,11 @@ async function submitAll(vt, queue, outcome) {
     }
     try {
       const id = await vt.submit(entry.app.links.download);
-      if (typeof id !== 'string') throw new Error('no analysis id');
-      pending.push({ entry, id, polls: 0 });
+      if (typeof id === 'string') pending.push({ entry, id, polls: 0 });
+      else outcome(entry, { kind: 'error', reason: why(vt, 'no analysis id') });
     } catch (e) {
       if (e instanceof AuthError) throw e;
-      outcome(entry, { kind: 'error', reason: why(vt, e) });
+      outcome(entry, { kind: 'error', reason: why(vt, e.message) });
     }
   }
   return pending;
@@ -288,15 +289,19 @@ async function readAll(vt, pending, outcome) {
       // The URL's id rides along in `meta`; the analysis id ("u-<sha256>-<ts>")
       // carries it too, should `meta` ever be missing.
       const id = body?.meta?.url_info?.id ?? /^u-([0-9a-f]{64})-\d+$/.exec(item.id)?.[1];
-      if (typeof id !== 'string' || !/^[0-9a-f]{64}$/.test(id)) throw new Error('no URL id');
       const stats = attributes.stats ?? {};
       const verdicts = ['harmless', 'undetected', 'malicious', 'suspicious'];
-      // Every engine timing out is not "no detections" — it is no answer.
-      if (verdicts.every((k) => !stats[k])) throw new Error('no engine returned a verdict');
-      outcome(item.entry, { kind: 'scanned', id, stats });
+      if (typeof id !== 'string' || !/^[0-9a-f]{64}$/.test(id)) {
+        outcome(item.entry, { kind: 'error', reason: why(vt, 'no URL id') });
+      } else if (verdicts.every((k) => !stats[k])) {
+        // Every engine timing out is not "no detections" — it is no answer.
+        outcome(item.entry, { kind: 'error', reason: why(vt, 'no engine returned a verdict') });
+      } else {
+        outcome(item.entry, { kind: 'scanned', id, stats });
+      }
     } catch (e) {
       if (e instanceof AuthError) throw e;
-      outcome(item.entry, { kind: 'error', reason: why(vt, e) });
+      outcome(item.entry, { kind: 'error', reason: why(vt, e.message) });
     }
   }
 }

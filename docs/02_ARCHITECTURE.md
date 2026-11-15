@@ -74,6 +74,7 @@ softharbor/
 ├── knip.json / lefthook.yml       # docs/10 §4
 ├── .dev.vars.example              # Turnstile TEST secret for `wrangler dev`
 ├── sonar-project.properties      # SonarQube Cloud CI analysis (docs/12 §2)
+├── qodana.yaml                   # Qodana scope + gate, native mode (docs/12 §2, D35)
 ├── .gitattributes / .gitignore
 ├── .github/
 │   ├── CODEOWNERS                 # * @poli0981 + .github/ scripts/ src/data/ worker/ (T6)
@@ -82,6 +83,7 @@ softharbor/
 │   ├── ISSUE_TEMPLATE/            # bug_report.yml · app_request.yml · accessibility.yml · config.yml
 │   └── workflows/                 # docs/12: ci.yml · codeql.yml · notify.yml
 │                                  #   quarantine.yml · link-check.yml · vt-recheck.yml
+│                                  #   qodana.yml (D35)
 │                                  #   (NO deploy/preview — Cloudflare Workers
 │                                  #    Builds owns deployment, docs/12 §3)
 ├── data/

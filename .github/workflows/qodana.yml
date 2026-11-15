@@ -1,0 +1,102 @@
+# docs/12 §2 — Qodana (D35): JetBrains' WebStorm-based analysis, the third
+# analyser beside CodeQL (a required check) and SonarQube Cloud (ci.yml
+# `sonar`). Scope and the quality gate live in qodana.yaml.
+#
+# Deliberately NOT a required check: a Qodana Cloud outage, or a licence that
+# lapses, must never block a merge. A failing gate still turns this run red on
+# the PR, and the findings land in GitHub code scanning beside CodeQL's.
+#
+# Every `uses:` is pinned to a full commit SHA with the release tag in a
+# comment (SonarCloud githubactions:S7637); Dependabot's github-actions
+# ecosystem bumps both together. The action's release line also selects the
+# linter version (2026.2.x → qodana-js 2026.2).
+name: qodana
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  qodana:
+    # The same guard as ci.yml `sonar`, for the same reason: runs that would
+    # lack QODANA_TOKEN are skipped — Dependabot (its secrets are a separate
+    # store), pull requests from forks, and the bot data PRs. The `if:` may
+    # read only the `github` context; a `secrets` reference here would make the
+    # whole workflow invalid.
+    if: >-
+      github.actor != 'dependabot[bot]' &&
+      github.actor != 'github-actions[bot]' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      checks: write # the action's annotations
+      pull-requests: write # its summary comment on the PR
+      security-events: write # the SARIF upload to code scanning
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # A PR's own head commit rather than the merge commit, so each
+          # Qodana Cloud report points at a commit that exists on the branch.
+          # Empty on push and dispatch, where the default ref is right.
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      # Native mode (qodana.yaml) analyses on this runner: imports resolve
+      # against this install, on the Node from .nvmrc.
+      - run: pnpm install --frozen-lockfile
+
+      - name: Qodana scan
+        uses: JetBrains/qodana-action@3e8d76ff0e0241618abd808682f426afe84bab3f # v2026.2.2
+        with:
+          # The whole project on every run, PRs included — a change can break
+          # a file it does not touch.
+          pr-mode: false
+          # SARIF, HTML report and logs as the `qodana-report` artifact.
+          upload-result: true
+          # Each cache is keyed by commit; saving one per PR push would crowd
+          # the repository's 10 GB cache budget (and the Playwright cache).
+          cache-default-branch-only: true
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+          QODANA_ENDPOINT: https://qodana.cloud
+
+      # Also when the gate failed — that is when the alerts matter — but only
+      # if the scan got far enough to write its results.
+      - name: Find the SARIF
+        id: sarif
+        if: ${{ !cancelled() }}
+        run: |
+          if [ -f "$RUNNER_TEMP/qodana/results/qodana.sarif.json" ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Upload to GitHub code scanning
+        if: ${{ !cancelled() && steps.sarif.outputs.found == 'true' }}
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
+        with:
+          # No `category:` — Qodana's SARIF carries its own automation id
+          # (`<project>/qodana/<date>`), which outranks it: code scanning
+          # files these results as tool QDJS, category softharbor/qodana.
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+          # The commit that was analysed: on a PR its head (checked out
+          # above), not the merge ref that code scanning would assume.
+          ref: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.ref }}
+          sha: ${{ github.event.pull_request.head.sha || github.sha }}

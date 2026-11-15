@@ -113,25 +113,33 @@ export async function handleVerify(
 ): Promise<Response> {
   const started = deps.now();
   let outcome = 'ok';
+  // Every refusal leaves through here, so the `verify` log line names it.
+  const refuse = ({ status, code, headers }: HttpError): Response => {
+    outcome = code;
+    return json({ error: code }, status, headers);
+  };
   try {
-    if (request.method !== 'POST')
-      throw new HttpError(405, 'method_not_allowed', { Allow: 'POST' });
+    if (request.method !== 'POST') {
+      return refuse(new HttpError(405, 'method_not_allowed', { Allow: 'POST' }));
+    }
     const url = new URL(request.url);
     // Same-origin only. Compared with the URL this request arrived on, so
     // preview hosts and `wrangler dev` work without a hostname list.
-    if (request.headers.get('origin') !== url.origin) throw new HttpError(403, 'bad_origin');
+    if (request.headers.get('origin') !== url.origin) {
+      return refuse(new HttpError(403, 'bad_origin'));
+    }
     const secret = env.TURNSTILE_SECRET;
-    if (!secret) throw new HttpError(503, 'not_configured');
+    if (!secret) return refuse(new HttpError(503, 'not_configured'));
     if (
       env.VERIFY_LIMITER &&
       !(await env.VERIFY_LIMITER.limit({ key: rateKey(request) })).success
     ) {
-      throw new HttpError(429, 'rate_limited', { 'Retry-After': '60' });
+      return refuse(new HttpError(429, 'rate_limited', { 'Retry-After': '60' }));
     }
     const body = await readJson(request, MAX_BODY_BYTES);
     const token = isObject(body) ? body['token'] : undefined;
     if (typeof token !== 'string' || token === '' || token.length > MAX_TOKEN_LENGTH) {
-      throw new HttpError(400, 'invalid_token');
+      return refuse(new HttpError(400, 'invalid_token'));
     }
     const verdict = await siteverify(
       {
@@ -142,16 +150,14 @@ export async function handleVerify(
       },
       deps,
     );
-    if (verdict === 'unavailable') throw new HttpError(503, 'unavailable');
-    if (verdict === 'rejected') throw new HttpError(403, 'rejected');
+    if (verdict === 'unavailable') return refuse(new HttpError(503, 'unavailable'));
+    if (verdict === 'rejected') return refuse(new HttpError(403, 'rejected'));
     return json({ ok: true });
   } catch (e) {
-    const err = e instanceof HttpError ? e : new HttpError(500, 'internal_error');
-    outcome = err.code;
-    if (!(e instanceof HttpError)) {
-      deps.log({ event: 'verify.crash', level: 'error', error: String(e) });
-    }
-    return json({ error: err.code }, err.status, err.headers);
+    // readJson() refuses a body by throwing; anything else is a crash.
+    if (e instanceof HttpError) return refuse(e);
+    deps.log({ event: 'verify.crash', level: 'error', error: String(e) });
+    return refuse(new HttpError(500, 'internal_error'));
   } finally {
     deps.log({ event: 'verify', outcome, ms: deps.now() - started });
   }
