@@ -4,6 +4,31 @@ All notable changes to SoftHarbor. The site is continuously deployed; a
 version marks a release announced in the repository (docs/13). Dates are
 UTC.
 
+## [1.4.1] — 2026-11-15
+
+SoftHarbor is now in **maintenance mode**: it does what it set out to do, so
+from here on it is maintained, not extended.
+
+### Changed
+
+- **Maintenance mode** (decision D36). The catalogue keeps growing and being
+  corrected, every download page is still re-scanned at least every 90 days,
+  and bugs, UI/UX problems and accessibility barriers still get fixed;
+  dependencies are kept current, out of schedule when a security advisory
+  calls for it. New features are no longer taken on. What to send where is in
+  the [announcement](https://github.com/poli0981/softharbor/discussions/75) and in CONTRIBUTING.md.
+- A **Listing change** issue form, for asking that an app be removed,
+  corrected or have its security check re-run.
+- **Qodana** joins CodeQL and SonarQube Cloud: JetBrains' inspections run on
+  every change and report to GitHub code scanning.
+
+### Fixed
+
+- What Qodana's first run found: the human-check endpoint and the VirusTotal
+  re-check script no longer use exceptions for ordinary control flow, and two
+  regular expressions and one filter condition are simpler. Nothing a visitor
+  sees changes.
+
 ## [1.4.0] — 2026-11-09
 
 Accessibility: a public statement of what the site aims for and how to
@@ -226,6 +251,7 @@ First public release: 326 apps in 12 categories, English and Vietnamese,
 official links only, dated security statuses with their scans linked. See the
 [release notes](https://github.com/poli0981/softharbor/releases/tag/v1.0.0).
 
+[1.4.1]: https://github.com/poli0981/softharbor/releases/tag/v1.4.1
 [1.4.0]: https://github.com/poli0981/softharbor/releases/tag/v1.4.0
 [1.3.0]: https://github.com/poli0981/softharbor/releases/tag/v1.3.0
 [1.2.0]: https://github.com/poli0981/softharbor/releases/tag/v1.2.0
