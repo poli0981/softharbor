@@ -15,6 +15,14 @@ withinDocker: 'false'
 
 profile:
   name: qodana.recommended
+  inspections:
+    # Under the Astro plugin every component an .astro frontmatter imports and
+    # its template uses reads as unused (75 of 75 findings on the first run
+    # with the plugin). ESLint's @typescript-eslint/no-unused-vars, through
+    # eslint-plugin-astro's parser, sees template use and checks those imports.
+    - inspection: ES6UnusedImports
+      ignore:
+        - 'scope#file:*.astro'
 
 # The same scope as sonar-project.properties: the dataset is CC BY-SA content
 # validated by Zod and validate:data, not code; everything else here is
@@ -41,8 +49,9 @@ exclude:
     paths:
       - src/styles/global.css
 
-# Trial: JetBrains' own Astro and Svelte plugins, so the components are
-# inspected too. Kept only if they load and stay free of false positives.
+# JetBrains' own Astro and Svelte plugins (installed from the Marketplace on
+# each run), so the 58 components are inspected too — qodana-js alone skips
+# them. Their one false-positive class is scoped out above.
 plugins:
   - id: org.jetbrains.plugins.astro
   - id: dev.blachut.svelte.lang
