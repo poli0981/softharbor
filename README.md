@@ -41,7 +41,7 @@ details.
 Astro 7 (static) · Svelte 5 islands · Tailwind CSS 4 · TypeScript strict ·
 Node 26 · pnpm 11 · Cloudflare Workers Static Assets (+ one small Worker).
 Tested with Vitest (unit, islands, build scripts, the Worker) and Playwright +
-axe on the built site; analysed by CodeQL and SonarQube Cloud.
+axe on the built site; analysed by CodeQL, SonarQube Cloud and Qodana.
 
 ```bash
 pnpm install

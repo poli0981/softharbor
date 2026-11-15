@@ -3,11 +3,11 @@
 ## 1. Overview
 
 ```
-PR ──▶ ci (build + gates) + codeql ──▶ review ──▶ squash (signed) to main
-                                                       │
-                     ┌─────────────────────────────────┤
-                     ▼                                 ▼
-      Cloudflare Workers Builds            quarantine.yml (paths)
+PR ──▶ ci (build + gates) + codeql + qodana ──▶ review ──▶ squash (signed) to main
+                                                                │
+                     ┌──────────────────────────────────────────┤
+                     ▼                                          ▼
+      Cloudflare Workers Builds                     quarantine.yml (paths)
       (git integration — NOT a workflow)
       queued ─▶ build ─▶ deploy ─▶ verify production (docs/13 §3)
 cron ─▶ link-check (weekly) · quarantine (nightly) · codeql (weekly)
@@ -98,7 +98,9 @@ v7.1.0 (`node-version-file: .nvmrc`) · `actions/cache` v6.1.0 ·
 v8.1.1 · `SonarSource/sonarqube-scan-action` v8.4.1 (with
 `scannerVersion: 8.3.1.16491`, the newest CLI — Dependabot bumps the action,
 not that input; the deprecated `sonarcloud-github-action` must not come
-back).
+back). Added 2026-11-15 (D35): `JetBrains/qodana-action` v2026.2.2 — its
+release line selects the linter (`qodana-js` 2026.2) — and
+`github/codeql-action/upload-sarif` v4.39.3.
 
 ## 2. Callers to `poli0981/.github` reusable workflows
 
@@ -207,6 +209,41 @@ jobs:
 workflow never produces on a PR deadlocks the repository — no PR can merge
 (hit 2026-07-30). It is also the point of the tool: scanning only after the
 merge reports a vulnerability that is already on `main`.
+
+`.github/workflows/qodana.yml` — **self-contained, one job (`qodana`), not a
+required check** (D35, 2026-11-15). JetBrains Qodana is the third analyser,
+beside CodeQL and SonarQube Cloud: `qodana-js`, WebStorm's inspection engine,
+which runs only under a Qodana **Ultimate** (or Ultimate Plus) licence — the
+repository secret `QODANA_TOKEN` is the Qodana Cloud project token that
+carries it. Scope and gate live in `qodana.yaml`:
+
+- **Native mode** (`withinDocker: 'false'`): the linter runs on the runner,
+  after setup-node (`.nvmrc`) and `pnpm install --frozen-lockfile`, so it
+  resolves imports against the real install on Node 26; the image's own
+  Node would not satisfy `engines`.
+- Profile **`qodana.recommended`**, the same scope as
+  `sonar-project.properties` (the dataset, build/test output and local tool
+  state excluded). `qodana-js` reads `.ts`/`.js`/`.mjs`, JSON, YAML,
+  Markdown and CSS — **not `.astro` or `.svelte`**, which are outside its
+  language list; `astro check`, ESLint and the e2e suite cover those.
+- **Gate:** `failureConditions.severityThresholds.any: 0` — any finding
+  turns the job red. Findings are fixed in the code; a false positive with a
+  known cause is switched off **in `qodana.yaml`, with its reason** — never
+  with `noinspection` comments in the source (CONTRIBUTING: no silencing).
+- Runs on PRs, pushes to `main` and manual dispatch, `pr-mode: false` — a PR
+  is analysed whole, because a change can break a file it does not touch.
+  The action annotates the PR and posts a summary comment (`checks: write`,
+  `pull-requests: write`) and uploads the report as the `qodana-report`
+  artifact; the SARIF goes to **GitHub code scanning** as category `qodana`
+  (`security-events: write`) — also when the gate failed, with the PR's head
+  commit as `ref`/`sha`, since that is what was checked out.
+- The same `if:` guard as `sonar` — Dependabot, fork PRs and the bot data PRs
+  have no token. Caches are saved from `main` only
+  (`cache-default-branch-only`) to spare the 10 GB cache budget.
+- Not required, for the reason `sonar` is not: a Qodana Cloud outage or a
+  lapsed licence must never block a merge. Ultimate does **not** include
+  Qodana's vulnerability checker or licence audit (Ultimate Plus);
+  `osv-scanner`, `pnpm audit` and Dependabot own the dependencies.
 
 `.github/workflows/notify.yml` (published release → Discord announcement):
 
@@ -500,10 +537,12 @@ policy — a PR opened on release day failed before a single test ran (#14,
 Plus `osv-scanner` (`google/osv-scanner-action`, lockfile mode) and
 `pnpm audit --prod`, both steps of `ci.yml`'s **`gates` job** (§2), on every
 PR and push to `main`; a finding fails the job (policy docs/01 §5).
-CodeQL (§2) and SonarQube Cloud's CI-based analysis (`ci.yml` `sonar` job,
+CodeQL (§2), SonarQube Cloud's CI-based analysis (`ci.yml` `sonar` job,
 `sonar-project.properties` — sources rooted at the repo so `.github/`
 workflows are analysed too; the dataset, docs and build output excluded;
-coverage imported) complete the scanning.
+coverage imported) and Qodana (`qodana.yml` + `qodana.yaml`, D35 —
+WebStorm's inspections, its findings in GitHub code scanning beside
+CodeQL's) complete the scanning.
 
 ## 7. Issue forms
 
@@ -605,6 +644,9 @@ protection:
   the workflow: naming only the workflow leaves the `gates` job
   (validate:data, i18n parity, osv-scanner, audit, link check) unenforced.
   A required check must be produced on PRs, or nothing can merge (§2).
+- **Not required, deliberately:** `ci / sonar` and `qodana` — a third-party
+  outage or a lapsed licence must never block a merge (D29, D35); a failing
+  gate still shows red on the PR.
 - Auto-merge is disabled (⚠ verify in Settings if this matters).
 
 **Merge method: squash, and only squash.** GitHub refuses a rebase merge

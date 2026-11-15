@@ -80,7 +80,7 @@
 | Git hooks | `lefthook` | **2.x** |
 | Link checking (CI) | `lychee` via `lycheeverse/lychee-action` | v2 line (v2.9.0) |
 | Dep updates | **Dependabot** (`.github/dependabot.yml`) | npm + github-actions, weekly — docs/12 §6 (replaced the never-installed Renovate) |
-| CVE / code scanning | `osv-scanner` action + `pnpm audit --prod`; CodeQL (org reusable workflow); SonarQube Cloud **CI-based** analysis with coverage (`ci.yml` `sonar` job, `sonarqube-scan-action` 8.4, CLI 8.3 — docs/12 §2) | latest |
+| CVE / code scanning | `osv-scanner` action + `pnpm audit --prod`; CodeQL (org reusable workflow); SonarQube Cloud **CI-based** analysis with coverage (`ci.yml` `sonar` job, `sonarqube-scan-action` 8.4, CLI 8.3 — docs/12 §2); Qodana `qodana-js` 2026.2, Ultimate licence, native mode (`qodana.yml`, D35) | latest |
 
 ## 4. Rationale for the contested picks
 
