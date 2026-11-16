@@ -90,15 +90,16 @@ deliberately: first-party org workflows (`poli0981/.github`) are tracked at
 `@main` so org-wide fixes land everywhere at once, and how *they* pin their
 internal actions is the ops repo's call — do not file it as a defect here.
 
-Pinned as of 2026-11-04: `actions/checkout` v7.0.1 · `pnpm/action-setup`
+Pinned as of 2026-11-16: `actions/checkout` v7.0.1 · `pnpm/action-setup`
 v6.1.1 (no `version:` — it reads `packageManager`) · `actions/setup-node`
 v7.1.0 (`node-version-file: .nvmrc`) · `actions/cache` v6.1.0 ·
-`actions/upload-artifact` v7.0.2 · `google/osv-scanner-action` v2.7.0 ·
+`actions/upload-artifact` v7.0.2 · `google/osv-scanner-action` v2.7.1 ·
 `lycheeverse/lychee-action` v2.9.0 · `peter-evans/create-pull-request`
-v8.1.1 · `SonarSource/sonarqube-scan-action` v8.4.1 (with
-`scannerVersion: 8.3.1.16491`, the newest CLI — Dependabot bumps the action,
-not that input; the deprecated `sonarcloud-github-action` must not come
-back). Added 2026-11-15 (D35): `JetBrains/qodana-action` v2026.2.2 — its
+v8.1.3 · `SonarSource/sonarqube-scan-action` v8.5.0 (with
+`scannerVersion: 8.4.0.16527`, the newest CLI — Dependabot bumps the action,
+not that input, so re-check the pin on every action bump: v8.5.0's own
+default had already moved past the old 8.3.1 pin; the deprecated
+`sonarcloud-github-action` must not come back). Added 2026-11-15 (D35): `JetBrains/qodana-action` v2026.2.2 — its
 release line selects the linter (`qodana-js` 2026.2) — and
 `github/codeql-action/upload-sarif` v4.39.3.
 
@@ -175,7 +176,7 @@ cancels superseded runs except on `main`. Jobs:
 
 Two action references that do not work the obvious way: the OSV scanner lives
 in a **subdirectory** of its repo and publishes **no rolling major tag**, so it
-is `google/osv-scanner-action/osv-scanner-action@<sha> # v2.7.0` — `@v2` does
+is `google/osv-scanner-action/osv-scanner-action@<sha> # v2.7.1` — `@v2` does
 not resolve at all.
 
 `.github/workflows/codeql.yml` — `reusable-codeql.yml` **does** exist (verified
@@ -362,7 +363,7 @@ jobs:
         run: node scripts/quarantine.mjs   # moves flagged files, writes `moved`
       - id: cpr
         if: steps.sweep.outputs.moved != ''
-        uses: peter-evans/create-pull-request@<sha> # v8.1.1
+        uses: peter-evans/create-pull-request@<sha> # v8.1.3
         with:
           branch: quarantine/auto
           sign-commits: true               # the ruleset requires signed commits

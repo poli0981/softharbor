@@ -240,13 +240,16 @@ jobs:
         id: version
         run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
       # scannerVersion pins the newest SonarScanner CLI (the action's default
-      # trails it); the action verifies the download's signature.
+      # can trail it); the action verifies the download's signature.
+      # Dependabot bumps the action, never this input — re-check it on every
+      # action bump, or the pin ends up OLDER than the action's own default
+      # (as 8.3.1 did when v8.5.0 moved its default to 8.4.0).
       - name: SonarQube Cloud scan
         uses: SonarSource/sonarqube-scan-action@59202af334b4ba7b5db01b701b8e79f8b3bef0f4 # v8.5.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          scannerVersion: 8.3.1.16491
+          scannerVersion: 8.4.0.16527
           args: >-
             -Dsonar.projectVersion=${{ steps.version.outputs.version }}
             -Dsonar.qualitygate.wait=true
