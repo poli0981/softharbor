@@ -85,7 +85,7 @@ serves (`workers_dev: false`). Full domain checklist: docs/16 §10.
   downloaded per build) and `packageManager` (pnpm 11), or production can
   differ from what CI validated — re-check after any toolchain bump
   (docs/13 §2). Node 25+ ships no Corepack; should a build ever fail to find
-  pnpm, the Workers Builds variable `PNPM_VERSION=11.28.11` (the
+  pnpm, the Workers Builds variable `PNPM_VERSION=11.28.12` (the
   `packageManager` version) is the fix.
 - Rollback: dashboard → the Worker → **Deployments** → promote a previous
   version, or `wrangler rollback`.

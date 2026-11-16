@@ -6,7 +6,7 @@
   "description": "Bilingual (EN/VI) directory of free and buy-once desktop software",
   "license": "GPL-3.0-only",
   "author": "poli0981 / SkullMute",
-  "packageManager": "pnpm@11.28.11",
+  "packageManager": "pnpm@11.28.12",
   "engines": {
     "node": ">=26 <27"
   },

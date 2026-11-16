@@ -361,9 +361,14 @@ does not read issue labels.
   Both reach us only through dev tooling (the eslint toolchain,
   `@astrojs/check`'s language server); nothing ships to a visitor.
   `minimatch` (GHSA-g3hv-75wg-m249, ≥ 11.0.1, added 2026-11-04) crosses a
-  major — eslint and typescript-eslint ask for 10 — which is accepted only
-  because every caller uses API 11 kept and lint covers the same 157 files
-  with the same rules either side. Every minimatch 11 requires
+  major — typescript-eslint still asks for 10 — which is accepted only
+  because the caller uses API 11 kept and lint covers the same 157 files
+  with the same rules either side. Since 2026-11-16 the line is scoped to
+  that one caller (`@typescript-eslint/typescript-estree>minimatch`):
+  eslint 10.15 and `@eslint/config-array` ask for ^11.0.5 themselves, and a
+  global `^11.0.1` floor had held them on 11.0.4, below their own range — an
+  override must never be looser than what a caller already asks for. Every
+  minimatch 11 requires
   brace-expansion ≥ 5.0.12, so that floor was retired the same day, as was
   `miniflare>undici` once miniflare itself pinned the fixed 7.30.1.
   `glob` (GHSA-3g3m-2fjr-6pw4) and `serialize-javascript`
