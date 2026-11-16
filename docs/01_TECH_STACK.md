@@ -42,13 +42,21 @@
 > `@vite-pwa/workbox-window` as direct devDependencies under pnpm (docs/09 §7)
 > and drops workbox-build 7 with ~270 transitive packages. Node 26.13.0 is the
 > newest 26.x (LTS since 2026-10-28).
+>
+> **Upkeep 2026-11-16:** pnpm 11.28.12 (a security release) · Astro 7.4.12
+> (Rolldown 1.3.2) · `@astrojs/svelte` 9.1.6 · `@vite-pwa/astro` 2.0.2
+> (`@vite-pwa/workbox-*` 8.0.15) · Wrangler 4.162 · Playwright 1.65.1 ·
+> ESLint 10.15 · `typescript-eslint` 8.72.2 · Prettier 3.10 · knip 6.45 ·
+> `sonarqube-scan-action` 8.5.0 (CLI 8.4.0) · `osv-scanner-action` 2.7.1 ·
+> `create-pull-request` 8.1.3. Node 26.13.1 (a security release, 2026-11-10)
+> reaches CI and Workers Builds by itself through `.nvmrc` = `26`.
 
 ## 1. Runtime & toolchain
 
 | Layer | Package | Line (2026-07-15) | Notes |
 |---|---|---|---|
 | Runtime | Node.js | **26** (26.12 at v1.2; was 24 LTS "Krypton" until 2026-10-23) | LTS from 2026-10-28, maintenance from 2027-10, end of life 2029-04. Taken five days before the LTS label at the owner's request (D7 amended) — Node 24 had entered maintenance on 2026-10-20, and CI, the e2e suite and a Workers Builds preview all passed on 26 first. Pin via `.nvmrc` = `26` and `"engines": { "node": ">=26 <27" }`; CI and Workers Builds read `.nvmrc`, and `@types/node` majors are held to the same line (Dependabot ignore, §5). **Node 25+ ships no Corepack**: a laptop whose `pnpm` came from Corepack needs `npm install -g corepack` (or a standalone pnpm) after upgrading, or `pnpm` and the lefthook hooks stop working. |
-| Package manager | pnpm | **11.x** (`11.28.11` since 2026-11-09, `packageManager`; `11.28.9` from 2026-11-04, `11.15.1` before) | `packageManager` field pinned; CI's `pnpm/action-setup` reads it (no `version:`), so CI, Dependabot, Workers Builds and laptops run the same pnpm. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). pnpm 11's default **24 h `minimumReleaseAge`** refuses day-old releases — hence Dependabot's 2-day cooldown (§5). |
+| Package manager | pnpm | **11.x** (`11.28.12` since 2026-11-16, `packageManager`; `11.28.11` from 2026-11-09, `11.28.9` from 2026-11-04, `11.15.1` before) | `packageManager` field pinned; CI's `pnpm/action-setup` reads it (no `version:`), so CI, Dependabot, Workers Builds and laptops run the same pnpm. **Do not set `ignore-scripts`** — pnpm ≥ 10 already blocks dependency install scripts and wants an `allowBuilds` allowlist in `pnpm-workspace.yaml` instead (docs/09 §7). pnpm 11's default **24 h `minimumReleaseAge`** refuses day-old releases — hence Dependabot's 2-day cooldown (§5). |
 | Deploy CLI | Wrangler | **4.x** (4.151 at v1.1) | Workers Builds runs `npx wrangler deploy` (main) and `wrangler versions upload` (PRs); CI runs `wrangler deploy --dry-run` to bundle `worker/` and validate `wrangler.jsonc`. Since D25 there **is** a Worker script (`worker/index.ts`), tested under Vitest in Node — the local `workerd` runtime stays blocked in `allowBuilds` (docs/09 §7). Types for the Worker are written by hand (`worker/env.ts`), not `@cloudflare/workers-types`. |
 
 ## 2. Framework & UI
