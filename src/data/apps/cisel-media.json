@@ -1,0 +1,25 @@
+{
+  "name": "Cisel Media",
+  "developer": "CiselSoft",
+  "logo": "monogram",
+  "summary": {
+    "en": "Windows video editor that finds speech pauses to trim, records screen and camera, and makes subtitles offline; free exports carry a watermark.",
+    "vi": "Trình dựng video cho Windows: tìm và cắt khoảng lặng khi nói, quay màn hình và camera, tạo phụ đề ngay trên máy; bản miễn phí xuất có đóng dấu chìm."
+  },
+  "categories": ["media"],
+  "tags": ["video-editing", "subtitles", "screen-recording", "silence-removal"],
+  "platforms": ["windows"],
+  "pricing": "onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.ciselsoft.com/urunler/cisel-media/en-us",
+    "repo": null,
+    "download": "https://www.ciselsoft.com/urunler/cisel-media/en-us#download-options"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/8f07d4dd8105478f50e624ef6975f9d7d95496dd4794210259f44f9db1ebf212",
+    "checkedAt": "2026-11-20"
+  },
+  "addedAt": "2026-11-20"
+}
