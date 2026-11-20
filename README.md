@@ -110,6 +110,16 @@ Vietnamese).
 Found a security problem? [SECURITY.md](SECURITY.md) — please do not open a
 public issue.
 
+## Acknowledgements
+
+Thank you to everyone whose suggestion became a listing:
+
+- [@BlueSkyID666](https://github.com/BlueSkyID666) — Orkas
+  ([#65](https://github.com/poli0981/softharbor/issues/65))
+- [CiselSoft](https://www.ciselsoft.com/) — Cisel Media
+  ([#80](https://github.com/poli0981/softharbor/issues/80)) and CloneSift
+  ([#81](https://github.com/poli0981/softharbor/issues/81)), suggested by email
+
 ## Documentation
 
 The full specification lives in [`docs/`](docs/) (00–16): architecture, data
