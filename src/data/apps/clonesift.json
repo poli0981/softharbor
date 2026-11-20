@@ -1,0 +1,25 @@
+{
+  "name": "CloneSift",
+  "developer": "CiselSoft",
+  "logo": "monogram",
+  "summary": {
+    "en": "Finds byte-identical duplicate files across the folders and drives you pick, lets you choose the copy to keep and sends the rest to the Recycle Bin.",
+    "vi": "Tìm tệp trùng lặp giống hệt từng byte trong thư mục và ổ đĩa bạn chọn, cho chọn bản giữ lại và chuyển các bản còn lại vào Thùng rác."
+  },
+  "categories": ["file-management", "utilities"],
+  "tags": ["duplicates", "cleanup", "sha-256"],
+  "platforms": ["windows"],
+  "pricing": "free-onetime",
+  "license": null,
+  "links": {
+    "homepage": "https://www.ciselsoft.com/urunler/clonesift/en-us",
+    "repo": null,
+    "download": "https://www.ciselsoft.com/urunler/clonesift/en-us"
+  },
+  "security": {
+    "status": "unverified",
+    "evidence": "https://www.virustotal.com/gui/url/b22fa92931464f3a0ea1e4f6608b79d0a5df11e7d840b24ad90332c7b716f6ed",
+    "checkedAt": "2026-11-20"
+  },
+  "addedAt": "2026-11-20"
+}
