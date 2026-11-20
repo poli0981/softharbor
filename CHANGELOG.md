@@ -59,7 +59,10 @@ software.
   Optikey for typing and controlling the computer with your eyes, Balabolka
   and eSpeak NG for speech, Thorium Reader and Bookworm for reading, and
   Colour Contrast Analyser and Accessibility Insights for checking your own
-  work. Also new: Orkas, a desktop AI workspace. 15 categories in all.
+  work. Also new: Orkas, a desktop AI workspace, suggested by
+  [@BlueSkyID666](https://github.com/BlueSkyID666) in
+  [#65](https://github.com/poli0981/softharbor/issues/65). 15 categories in
+  all.
 
 ### Changed
 
