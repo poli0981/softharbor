@@ -55,6 +55,9 @@ An app is listable only when all of these hold ([docs/00 §3](docs/00_PROJECT_OV
 - Maintained, or finished and stable. Not abandonware with open vulnerabilities
 - No bundled adware in the official installer; nothing piracy-adjacent
 
+An accepted suggestion is credited in the README's Acknowledgements — tell us
+in the request if you would rather not be named.
+
 ## Removing or correcting a listing
 
 Open a **Listing change** issue when an app went subscription-only, was
